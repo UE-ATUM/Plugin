@@ -2,6 +2,8 @@
 
 #include "AtumGraphUtilities.h"
 
+#include "Engine/Blueprint.h"
+
 
 UClass* UAtumGraphUtilities::GetInputClass(const UEdGraphPin* const FromPin)
 {

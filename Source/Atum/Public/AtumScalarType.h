@@ -2,7 +2,9 @@
 
 #pragma once
 
-#include "LibTorch.h"
+#include "LibTorch/Include.h"
+
+#include "AtumScalarType.generated.h"
 
 
 // Represents every type of scalar that can be used within tensors

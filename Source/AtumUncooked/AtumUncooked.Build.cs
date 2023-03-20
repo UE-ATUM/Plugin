@@ -7,10 +7,12 @@ public class AtumUncooked : ModuleRules
 {
 	public AtumUncooked(ReadOnlyTargetRules Target) : base(Target)
 	{
-		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-		CppStandard = CppStandardVersion.Latest;
+		PCHUsage = PCHUsageMode.NoPCHs;
+		CppStandard = CppStandardVersion.Cpp20;
+
 		bUseRTTI = true;
-		bEnforceIWYU = true;
+		bUseUnity = false;
+		bUsePrecompiled = false;
 		bEnableExceptions = true;
 
 		PublicDependencyModuleNames.AddRange(new[]

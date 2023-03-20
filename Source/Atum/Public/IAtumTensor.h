@@ -3,6 +3,7 @@
 #pragma once
 
 #include "AtumScalarType.h"
+#include "UObject/Interface.h"
 
 #include "IAtumTensor.generated.h"
 

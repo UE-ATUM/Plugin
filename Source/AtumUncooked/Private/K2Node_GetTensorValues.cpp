@@ -6,27 +6,14 @@
 #include "AtumUtilities.h"
 #include "BlueprintActionDatabaseRegistrar.h"
 #include "BlueprintNodeSpawner.h"
-#include "IAtumTensor.h"
 #include "K2Node_CallFunction.h"
 #include "KismetCompiler.h"
 
 
 #define LOCTEXT_NAMESPACE "UK2Node_GetTensorValues"
 
-UK2Node_GetTensorValues::UK2Node_GetTensorValues() : FunctionName(NAME_None)
+UK2Node_GetTensorValues::UK2Node_GetTensorValues() : FunctionName(NAME_None), InputClass(nullptr)
 {
-}
-
-void UK2Node_GetTensorValues::FKCHandler_GetTensorValues::RegisterNets(
-	FKismetFunctionContext& Context,
-	UEdGraphNode* const Node
-)
-{
-	auto* const GetTensorValuesNode = Cast<const UK2Node_GetTensorValues>(Node);
-	if (GetTensorValuesNode == nullptr)
-		return;
-	
-	FCompilerResultsLog& MessageLog = Context.MessageLog;
 }
 
 void UK2Node_GetTensorValues::AllocateDefaultPins()
@@ -38,7 +25,7 @@ void UK2Node_GetTensorValues::AllocateDefaultPins()
 		EGPD_Input,
 		UEdGraphSchema_K2::PC_Interface,
 		UAtumTensor::StaticClass(),
-		UAtumGraphUtilities::TargetPinName
+		TargetPinName
 	);
 	check(TargetPin)
 
@@ -55,7 +42,7 @@ void UK2Node_GetTensorValues::AllocateDefaultPins()
 		EGPD_Output,
 		UEdGraphSchema_K2::PC_Byte,
 		nullptr,
-		UAtumGraphUtilities::ResultPinName,
+		ResultPinName,
 		ResultPinParams
 	);
 	check(ResultPin)
@@ -76,7 +63,7 @@ FText UK2Node_GetTensorValues::GetNodeTitle([[maybe_unused]] const ENodeTitleTyp
 
 void UK2Node_GetTensorValues::PinTypeChanged(UEdGraphPin* const Pin)
 {
-	if (Pin->PinName != UAtumGraphUtilities::ResultPinName)
+	if (Pin->PinName != ResultPinName)
 	{
 		Super::PinTypeChanged(Pin);
 		return;
@@ -88,7 +75,7 @@ void UK2Node_GetTensorValues::PinTypeChanged(UEdGraphPin* const Pin)
 
 bool UK2Node_GetTensorValues::IsNodePure() const
 {
-	return false;
+	return true;
 }
 
 void UK2Node_GetTensorValues::ExpandNode(FKismetCompilerContext& CompilerContext, UEdGraph* const SourceGraph)
@@ -96,14 +83,14 @@ void UK2Node_GetTensorValues::ExpandNode(FKismetCompilerContext& CompilerContext
 	Super::ExpandNode(CompilerContext, SourceGraph);
 
 	FCompilerResultsLog& MessageLog = CompilerContext.MessageLog;
-
+	InputClass = UAtumGraphUtilities::GetInputClass(FindPinChecked(TargetPinName, EGPD_Input));
+	
 	const UFunction* const BlueprintFunction = UAtumUtilities::StaticClass()->FindFunctionByName(FunctionName);
 	if (BlueprintFunction == nullptr)
 	{
-		const UClass* const ClassType = UAtumGraphUtilities::GetInputClass(FindPinChecked(TEXT("Target"), EGPD_Input));
 		MessageLog.Error(*FText::Format(
 			LOCTEXT("GetTensorValuesInvalidFunction", "Node @@. Type '{0}' is not supported."),
-			FText::FromString(ClassType->GetName())
+			FText::FromString(InputClass->GetName())
 		).ToString(), this);
 		
 		return;
@@ -117,11 +104,6 @@ void UK2Node_GetTensorValues::ExpandNode(FKismetCompilerContext& CompilerContext
 	MessageLog.NotifyIntermediateObjectCreation(CallFunction, this);
 
 	BreakAllNodeLinks();
-}
-
-FNodeHandlingFunctor* UK2Node_GetTensorValues::CreateNodeHandler(FKismetCompilerContext& CompilerContext) const
-{
-	return new FKCHandler_GetTensorValues(CompilerContext);
 }
 
 void UK2Node_GetTensorValues::GetMenuActions(FBlueprintActionDatabaseRegistrar& ActionRegistrar) const

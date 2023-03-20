@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "Engine/DeveloperSettings.h"
+
 #include "AtumSettings.generated.h"
 
 

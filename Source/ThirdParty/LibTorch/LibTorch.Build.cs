@@ -14,9 +14,18 @@ public class LibTorch : ModuleRules
 	public LibTorch(ReadOnlyTargetRules Target) : base(Target)
 	{
 		Type = ModuleType.External;
-		CppStandard = CppStandardVersion.Latest;
+		PCHUsage = PCHUsageMode.NoPCHs;
+		CppStandard = CppStandardVersion.Cpp20;
+		
 		bUseRTTI = true;
+		bUseUnity = false;
+		bUsePrecompiled = false;
 		bEnableExceptions = true;
+		
+		PrivateDependencyModuleNames.AddRange(new []
+		{
+			"Core"
+		});
 
 		if (Target.Platform != UnrealTargetPlatform.Win64)
 		{

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "IAtumTensor.h"
+#include "Kismet/BlueprintFunctionLibrary.h"
 
 #include "AtumUtilities.generated.h"
 

@@ -4,6 +4,8 @@
 
 #include "AtumNeuralNetwork.h"
 #include "SAtumNeuralNetworkWidget.h"
+#include "Modules/ModuleManager.h"
+#include "Widgets/Docking/SDockTab.h"
 
 
 #define LOCTEXT_NAMESPACE "AtumNeuralNetworkEditorToolkit"

@@ -2,8 +2,9 @@
 
 #include "Atum.h"
 
+#include "HAL/FileManager.h"
 #include "Interfaces/IPluginManager.h"
-#include "LibTorch.h"
+#include "LibTorch/Include.h"
 
 #if PLATFORM_WINDOWS
 #include "Windows/WindowsPlatformProcess.h"

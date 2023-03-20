@@ -7,18 +7,19 @@ public class AtumEditor : ModuleRules
 {
 	public AtumEditor(ReadOnlyTargetRules Target) : base(Target)
 	{
-		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-		CppStandard = CppStandardVersion.Latest;
+		PCHUsage = PCHUsageMode.NoPCHs;
+		CppStandard = CppStandardVersion.Cpp20;
+		
 		bUseRTTI = true;
-		bEnforceIWYU = true;
+		bUseUnity = false;
+		bUsePrecompiled = false;
 		bEnableExceptions = true;
 
 		PublicDependencyModuleNames.AddRange(new[]
 		{
 			"Atum",
 			"Core",
-			"CoreUObject",
-			"Engine"
+			"CoreUObject"
 		});
 		
 		PrivateDependencyModuleNames.AddRange(new[]

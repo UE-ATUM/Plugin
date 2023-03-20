@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "Factories/Factory.h"
+
 #include "AtumNeuralNetworkFactory.generated.h"
 
 

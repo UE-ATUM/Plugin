@@ -4,6 +4,8 @@
 
 #include "IAtum.h"
 
+#include <ranges>
+
 
 void UAtumUtilities::K2_SerializeArray(
 	[[maybe_unused]] const TArray<UProperty*>& Target,

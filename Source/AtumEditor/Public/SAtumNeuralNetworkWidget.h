@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "Widgets/SLeafWidget.h"
+
 
 class ATUMEDITOR_API SAtumNeuralNetworkWidget : public SLeafWidget
 {
