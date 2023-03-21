@@ -54,6 +54,11 @@ __pragma(warning(disable: 4624))
 __pragma(warning(disable: 4686))
 
 /*
+ * unreachable code
+ */
+__pragma(warning(disable: 4702))
+
+/*
  * 'operation' : unsafe mix of type 'type' and type 'type' in operation
  */
 __pragma(warning(disable: 4805))
