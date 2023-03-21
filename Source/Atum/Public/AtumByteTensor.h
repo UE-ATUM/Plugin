@@ -15,4 +15,9 @@ class ATUM_API UAtumByteTensor : public UObject, public IAtumTensor, public TAtu
 protected:
 	UE_NODISCARD
 	virtual EAtumScalarType GetScalarType_Implementation() const noexcept override final;
+	
+	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor", DisplayName = "Get Values (Byte)", meta = (
+		Keywords = "ATUM Byte uint8 Tensor Get Out Values"
+	))
+	FORCEINLINE void K2_GetValues(TArray<uint8>& OutValues) const noexcept { GetValues(OutValues); }
 };

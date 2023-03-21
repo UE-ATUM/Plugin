@@ -24,11 +24,6 @@
 			"Name": "AtumEditor",
 			"Type": "Editor",
 			"LoadingPhase": "PostEngineInit"
-		},
-		{
-			"Name": "AtumUncooked",
-			"Type": "UncookedOnly",
-			"LoadingPhase": "Default"
 		}
 	],
 	"SupportedTargetPlatforms": [

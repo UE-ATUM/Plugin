@@ -1,13 +1,13 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
-#include "AtumUtilities.h"
+#include "AtumTensorLibrary.h"
 
 #include "IAtum.h"
 
 #include <ranges>
 
 
-void UAtumUtilities::K2_SerializeArray(
+void UAtumTensorLibrary::K2_SerializeArray(
 	[[maybe_unused]] const TArray<UProperty*>& Target,
 	[[maybe_unused]] TArray<uint8>& OutBytes
 ) noexcept
@@ -15,7 +15,7 @@ void UAtumUtilities::K2_SerializeArray(
 	UE_LOG(LogAtum, Warning, TEXT("Called UAtumUtilities::K2_SerializeArray from native code!"))
 }
 
-void UAtumUtilities::K2_DeserializeArray(
+void UAtumTensorLibrary::K2_DeserializeArray(
 	[[maybe_unused]] const TArray<uint8>& Bytes,
 	[[maybe_unused]] const TArray<UProperty*>& TargetTypeProvider,
 	[[maybe_unused]] TArray<UProperty*>& OutTarget
@@ -24,7 +24,7 @@ void UAtumUtilities::K2_DeserializeArray(
 	UE_LOG(LogAtum, Warning, TEXT("Called UAtumUtilities::K2_DeserializeArray from native code!"))
 }
 
-void UAtumUtilities::GenericArray_Serialize(
+void UAtumTensorLibrary::GenericArray_Serialize(
 	const uint8* const TargetAddress,
 	const FArrayProperty* const TargetProperty,
 	TArray<uint8>& OutBytes
@@ -38,7 +38,7 @@ void UAtumUtilities::GenericArray_Serialize(
 	}
 }
 
-void UAtumUtilities::GenericArray_Deserialize(
+void UAtumTensorLibrary::GenericArray_Deserialize(
 	const TArray<uint8>& Bytes,
 	uint8* const OutTargetAddress,
 	const FArrayProperty* const OutTargetProperty
@@ -67,102 +67,7 @@ void UAtumUtilities::GenericArray_Deserialize(
 }
 
 // ReSharper disable CppUE4CodingStandardNamingViolationWarning
-void UAtumUtilities::execGetByteTensorValues(
-	[[maybe_unused]] UObject* const Context,
-	FFrame& Stack,
-	[[maybe_unused]] void* const Z_Param__Result
-) noexcept
-{
-	TScriptInterface<const IAtumTensor> TensorTemp;
-	const TScriptInterface<const IAtumTensor>& Tensor = Stack
-	.StepCompiledInRef<FInterfaceProperty, TScriptInterface<const IAtumTensor>>(&TensorTemp);
-
-	P_GET_TARRAY_REF(uint8, OutValues)
-		
-	P_FINISH
-		
-	P_NATIVE_BEGIN
-	GetByteTensorValues(Tensor, OutValues);
-	P_NATIVE_END
-}
-
-void UAtumUtilities::execGetDoubleTensorValues(
-	[[maybe_unused]] UObject* const Context,
-	FFrame& Stack,
-	[[maybe_unused]] void* const Z_Param__Result
-) noexcept
-{
-	TScriptInterface<const IAtumTensor> TensorTemp;
-	const TScriptInterface<const IAtumTensor>& Tensor = Stack
-	.StepCompiledInRef<FInterfaceProperty, TScriptInterface<const IAtumTensor>>(&TensorTemp);
-
-	P_GET_TARRAY_REF(double, OutValues)
-		
-	P_FINISH
-		
-	P_NATIVE_BEGIN
-	GetDoubleTensorValues(Tensor, OutValues);
-	P_NATIVE_END
-}
-
-void UAtumUtilities::execGetFloatTensorValues(
-	[[maybe_unused]] UObject* const Context,
-	FFrame& Stack,
-	[[maybe_unused]] void* const Z_Param__Result
-) noexcept
-{
-	TScriptInterface<const IAtumTensor> TensorTemp;
-	const TScriptInterface<const IAtumTensor>& Tensor = Stack
-	.StepCompiledInRef<FInterfaceProperty, TScriptInterface<const IAtumTensor>>(&TensorTemp);
-
-	P_GET_TARRAY_REF(float, OutValues)
-		
-	P_FINISH
-		
-	P_NATIVE_BEGIN
-	GetFloatTensorValues(Tensor, OutValues);
-	P_NATIVE_END
-}
-
-void UAtumUtilities::execGetIntTensorValues(
-	[[maybe_unused]] UObject* const Context,
-	FFrame& Stack,
-	[[maybe_unused]] void* const Z_Param__Result
-) noexcept
-{
-	TScriptInterface<const IAtumTensor> TensorTemp;
-	const TScriptInterface<const IAtumTensor>& Tensor = Stack
-	.StepCompiledInRef<FInterfaceProperty, TScriptInterface<const IAtumTensor>>(&TensorTemp);
-
-	P_GET_TARRAY_REF(int32, OutValues)
-		
-	P_FINISH
-		
-	P_NATIVE_BEGIN
-	GetIntTensorValues(Tensor, OutValues);
-	P_NATIVE_END
-}
-
-void UAtumUtilities::execGetLongTensorValues(
-	[[maybe_unused]] UObject* const Context,
-	FFrame& Stack,
-	[[maybe_unused]] void* const Z_Param__Result
-) noexcept
-{
-	TScriptInterface<const IAtumTensor> TensorTemp;
-	const TScriptInterface<const IAtumTensor>& Tensor = Stack
-	.StepCompiledInRef<FInterfaceProperty, TScriptInterface<const IAtumTensor>>(&TensorTemp);
-
-	P_GET_TARRAY_REF(int64, OutValues)
-		
-	P_FINISH
-		
-	P_NATIVE_BEGIN
-	GetLongTensorValues(Tensor, OutValues);
-	P_NATIVE_END
-}
-
-void UAtumUtilities::execK2_SerializeArray(
+void UAtumTensorLibrary::execK2_SerializeArray(
 	[[maybe_unused]] UObject* const Context,
 	FFrame& Stack,
 	[[maybe_unused]] void* const Z_Param__Result
@@ -188,7 +93,7 @@ void UAtumUtilities::execK2_SerializeArray(
 	P_NATIVE_END
 }
 
-void UAtumUtilities::execK2_DeserializeArray(
+void UAtumTensorLibrary::execK2_DeserializeArray(
 	[[maybe_unused]] UObject* const Context,
 	FFrame& Stack,
 	[[maybe_unused]] void* const Z_Param__Result
@@ -224,7 +129,7 @@ void UAtumUtilities::execK2_DeserializeArray(
 	P_NATIVE_END
 }
 
-void UAtumUtilities::execConv_TensorToString(
+void UAtumTensorLibrary::execConv_TensorToString(
 	[[maybe_unused]] UObject* const Context,
 	FFrame& Stack,
 	void* const Z_Param__Result

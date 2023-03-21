@@ -15,4 +15,9 @@ class ATUM_API UAtumFloatTensor : public UObject, public IAtumTensor, public TAt
 protected:
 	UE_NODISCARD
 	virtual EAtumScalarType GetScalarType_Implementation() const noexcept override final;
+
+	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor", DisplayName = "Get Values (Float)", meta = (
+		Keywords = "ATUM Float Tensor Get Out Values"
+	))
+	FORCEINLINE void K2_GetValues(TArray<float>& OutValues) const noexcept { GetValues(OutValues); }
 };

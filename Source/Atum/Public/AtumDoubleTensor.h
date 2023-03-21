@@ -15,4 +15,9 @@ class ATUM_API UAtumDoubleTensor : public UObject, public IAtumTensor, public TA
 protected:
 	UE_NODISCARD
 	virtual EAtumScalarType GetScalarType_Implementation() const noexcept override final;
+
+	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor", DisplayName = "Get Values (Double)", meta = (
+		Keywords = "ATUM Double Tensor Get Out Values"
+	))
+	FORCEINLINE void K2_GetValues(TArray<double>& OutValues) const noexcept { GetValues(OutValues); }
 };

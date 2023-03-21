@@ -5,48 +5,13 @@
 #include "IAtumTensor.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 
-#include "AtumUtilities.generated.h"
+#include "AtumTensorLibrary.generated.h"
 
 
 UCLASS(Abstract, Blueprintable, BlueprintType)
-class ATUM_API UAtumUtilities : public UBlueprintFunctionLibrary
+class ATUM_API UAtumTensorLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
-
-	UFUNCTION(BlueprintPure, BlueprintInternalUseOnly, Category = "ATUM|Internal", CustomThunk)
-	static FORCEINLINE void GetByteTensorValues(
-		const TScriptInterface<const IAtumTensor>& Target,
-		TArray<uint8>& OutValues
-	) noexcept
-	{ Target->GetValues(OutValues); }
-
-	UFUNCTION(BlueprintPure, BlueprintInternalUseOnly, Category = "ATUM|Internal", CustomThunk)
-	static FORCEINLINE void GetDoubleTensorValues(
-		const TScriptInterface<const IAtumTensor>& Target,
-		TArray<double>& OutValues
-	) noexcept
-	{ Target->GetValues(OutValues); }
-
-	UFUNCTION(BlueprintPure, BlueprintInternalUseOnly, Category = "ATUM|Internal", CustomThunk)
-	static FORCEINLINE void GetFloatTensorValues(
-		const TScriptInterface<const IAtumTensor>& Target,
-		TArray<float>& OutValues
-	) noexcept
-	{ Target->GetValues(OutValues); }
-	
-	UFUNCTION(BlueprintPure, BlueprintInternalUseOnly, Category = "ATUM|Internal", CustomThunk)
-	static FORCEINLINE void GetIntTensorValues(
-		const TScriptInterface<const IAtumTensor>& Target,
-		TArray<int32>& OutValues
-	) noexcept
-	{ Target->GetValues(OutValues); }
-
-	UFUNCTION(BlueprintPure, BlueprintInternalUseOnly, Category = "ATUM|Internal", CustomThunk)
-	static FORCEINLINE void GetLongTensorValues(
-		const TScriptInterface<const IAtumTensor>& Target,
-		TArray<int64>& OutValues
-	) noexcept
-	{ Target->GetValues(OutValues); }
 
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Cast", DisplayName = "Serialize Array", CustomThunk, meta = (
 		ArrayParm = "Target",
@@ -90,11 +55,6 @@ public:
 	) noexcept;
 
 private:
-	DECLARE_FUNCTION(execGetByteTensorValues) noexcept;
-	DECLARE_FUNCTION(execGetDoubleTensorValues) noexcept;
-	DECLARE_FUNCTION(execGetFloatTensorValues) noexcept;
-	DECLARE_FUNCTION(execGetIntTensorValues) noexcept;
-	DECLARE_FUNCTION(execGetLongTensorValues) noexcept;
 	DECLARE_FUNCTION(execK2_SerializeArray) noexcept;
 	DECLARE_FUNCTION(execK2_DeserializeArray) noexcept;
 	DECLARE_FUNCTION(execConv_TensorToString);

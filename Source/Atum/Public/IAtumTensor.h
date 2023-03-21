@@ -26,6 +26,9 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "ATUM|Tensor")
 	EAtumScalarType GetScalarType() const;
 
+	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "ATUM|Tensor")
+	void GetSerializedValues(TArray<uint8>& OutValues) const;
+
 	template <typename T>
 	void GetValues(TArray<T>& OutValues) const noexcept;
 
@@ -54,6 +57,8 @@ public:
 protected:
 	UE_NODISCARD
 	virtual EAtumScalarType GetScalarType_Implementation() const noexcept;
+
+	virtual void GetSerializedValues_Implementation(TArray<uint8>& OutValues) const noexcept;
 
 	// TODO
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
