@@ -38,10 +38,10 @@ enum class EAtumScalarType : uint8
 namespace AtumEnums
 {
 	UE_NODISCARD
-	static FORCEINLINE constexpr c10::ScalarType Cast(const EAtumScalarType ScalarType) noexcept
+	static FORCEINLINE CONSTEXPR c10::ScalarType Cast(const EAtumScalarType ScalarType) noexcept
 	{ return static_cast<c10::ScalarType>(ScalarType); }
 
 	UE_NODISCARD
-	static FORCEINLINE constexpr EAtumScalarType Cast(const c10::ScalarType ScalarType) noexcept
+	static FORCEINLINE CONSTEXPR EAtumScalarType Cast(const c10::ScalarType ScalarType) noexcept
 	{ return static_cast<EAtumScalarType>(ScalarType); }
 }
