@@ -15,14 +15,37 @@ EAtumScalarType IAtumTensor::GetScalarType_Implementation() const noexcept
 	return Data ? AtumEnums::Cast(Data->scalar_type()) : EAtumScalarType::Undefined;
 }
 
-void IAtumTensor::GetSerializedValues_Implementation(TArray<uint8>& OutValues) const noexcept
+void IAtumTensor::GetSerializedValues_Implementation(TArray<uint8>& OutValues, TArray<int64>& OutSizes) const noexcept
 {
 	const uint64 ByteCount = Data ? Data->numel() * Data->element_size() : 0u;
 	if (ByteCount == 0u)
+	{
+		OutSizes.AddZeroed();
 		return;
+	}
 
 	OutValues.AddUninitialized(ByteCount);
 	FMemory::Memcpy(OutValues.GetData(), Data->data_ptr(), ByteCount);
+
+	const c10::IntArrayRef DataSizes = Data->sizes();
+	OutSizes = TArray(DataSizes.data(), DataSizes.size());
+}
+
+void IAtumTensor::SetSerializedValues_Implementation(const TArray<uint8>& Values, const TArray<int64>& Sizes) noexcept
+{
+	SetData(torch::empty(c10::IntArrayRef(Sizes.GetData(), Sizes.Num())));
+	
+	uint64 MaxSize = Data->element_size();
+	for (const int64 Size : Sizes)
+	{
+		MaxSize *= Size;
+	}
+	
+	FMemory::Memcpy(
+		Data->data_ptr(),
+		Values.GetData(),
+		std::min(static_cast<uint64>(Values.Num()), MaxSize)
+	);
 }
 
 std::ostream& operator<<(std::ostream& OutStream, const IAtumTensor& AtumTensor) noexcept

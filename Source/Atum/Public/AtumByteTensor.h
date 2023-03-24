@@ -17,7 +17,14 @@ protected:
 	virtual EAtumScalarType GetScalarType_Implementation() const noexcept override final;
 	
 	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor", DisplayName = "Get Values (Byte)", meta = (
-		Keywords = "ATUM Byte uint8 Tensor Get Out Values"
+		Keywords = "ATUM Byte uint8 Tensor Get Out Values Sizes"
 	))
-	FORCEINLINE void K2_GetValues(TArray<uint8>& OutValues) const noexcept { GetValues(OutValues); }
+	FORCEINLINE void K2_GetValues(TArray<uint8>& OutValues, TArray<int64>& OutSizes) const noexcept
+	{ GetValues(OutValues, OutSizes); }
+
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor", DisplayName = "Set Values (Byte)", meta = (
+		Keywords = "ATUM Byte uint8 Tensor Set Values Sizes"
+	))
+	FORCEINLINE void K2_SetValues(const TArray<uint8>& Values, const TArray<int64>& Sizes) noexcept
+	{ SetValues_Internal(*this, Values, Sizes); }
 };
