@@ -4,6 +4,7 @@
 
 #include "IAtumTensor.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "Templates/SubclassOf.h" // ReSharper disable once CppUnusedIncludeDirective
 
 #include "AtumTensorLibrary.generated.h"
 
@@ -21,18 +22,26 @@ class ATUM_API UAtumTensorLibrary : public UBlueprintFunctionLibrary
 	static void K2_SerializeArray(const TArray<UProperty*>& Target, TArray<uint8>& OutBytes) noexcept;
 	
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Cast", DisplayName = "Deserialize Array", CustomThunk, meta = (
-		ArrayParm = "TargetTypeProvider",
+		ArrayParm = "InTarget",
 		ArrayTypeDependentParams = "OutTarget",
 		CompactNodeTitle = "Deserialize",
-		Keywords = "ATUM Cast Deserialise Deserialize Any Wildcard Bytes Out Target Type Provider"
+		Keywords = "ATUM Cast Deserialise Deserialize Any Wildcard Bytes In Out Target"
 	))
 	static void K2_DeserializeArray(
 		const TArray<uint8>& Bytes,
-		const TArray<UProperty*>& TargetTypeProvider,
+		UPARAM(ref, DisplayName = "Out Target") TArray<UProperty*>& InTarget,
 		TArray<UProperty*>& OutTarget
 	) noexcept;
 
 public:
+	UE_NODISCARD
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Constructor", DisplayName = "Make Eye Tensor", meta = (
+		DeterminesOutputType = "Class",
+		CompactNodeTitle = "Eye Tensor",
+		Keywords = "ATUM Constructor Make Eye Tensor Class Size"
+	))
+	static UObject* Eye(UPARAM(meta = (MustImplement = "AtumTensor")) TSubclassOf<UObject> Class, int64 Size) noexcept;
+	
 	UE_NODISCARD
 	UFUNCTION(BlueprintPure, Category = "ATUM|Cast", DisplayName = "To String", CustomThunk, meta = (
 		BlueprintAutocast,

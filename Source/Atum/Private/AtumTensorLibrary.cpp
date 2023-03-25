@@ -3,6 +3,7 @@
 #include "AtumTensorLibrary.h"
 
 #include "IAtum.h"
+#include "Kismet/KismetArrayLibrary.h"
 
 #include <ranges>
 
@@ -17,11 +18,20 @@ void UAtumTensorLibrary::K2_SerializeArray(
 
 void UAtumTensorLibrary::K2_DeserializeArray(
 	[[maybe_unused]] const TArray<uint8>& Bytes,
-	[[maybe_unused]] const TArray<UProperty*>& TargetTypeProvider,
+	[[maybe_unused]] TArray<UProperty*>& InTarget,
 	[[maybe_unused]] TArray<UProperty*>& OutTarget
 ) noexcept
 {
 	UE_LOG(LogAtum, Warning, TEXT("Called UAtumUtilities::K2_DeserializeArray from native code!"))
+}
+
+UObject* UAtumTensorLibrary::Eye(const TSubclassOf<UObject> Class, const int64 Size) noexcept
+{
+	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
+	
+	auto* const Tensor = NewObject<UObject>(GetTransientPackage(), Class);
+	CastChecked<IAtumTensor>(Tensor)->SetData(torch::eye(Size));
+	return Tensor;
 }
 
 void UAtumTensorLibrary::GenericArray_Serialize(
@@ -104,7 +114,14 @@ void UAtumTensorLibrary::execK2_DeserializeArray(
 
 	Stack.MostRecentProperty = nullptr;
 	Stack.StepCompiledIn<FArrayProperty>(nullptr);
-	
+
+	uint8* const InTargetAddress = Stack.MostRecentPropertyAddress;
+	const FArrayProperty* const InTargetProperty = CastField<FArrayProperty>(Stack.MostRecentProperty);
+	if (InTargetProperty == nullptr)
+	{
+		Stack.bArrayContextFailed = true;
+		return;
+	}
 	if (CastField<FArrayProperty>(Stack.MostRecentProperty) == nullptr)
 	{
 		Stack.bArrayContextFailed = true;
@@ -125,7 +142,13 @@ void UAtumTensorLibrary::execK2_DeserializeArray(
 	P_FINISH
 	
 	P_NATIVE_BEGIN
-	GenericArray_Deserialize(Bytes, OutTargetAddress, OutTargetProperty);
+	GenericArray_Deserialize(Bytes, InTargetAddress, InTargetProperty);
+	UKismetArrayLibrary::GenericArray_Append(
+		OutTargetAddress,
+		OutTargetProperty,
+		InTargetAddress,
+		InTargetProperty
+	);
 	P_NATIVE_END
 }
 

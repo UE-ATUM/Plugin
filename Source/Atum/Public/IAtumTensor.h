@@ -26,15 +26,15 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "ATUM|Tensor")
 	EAtumScalarType GetScalarType() const;
 
-	UE_NODISCARD
-	FORCEINLINE c10::ScalarType GetTorchScalarType() const noexcept
-	{ return AtumEnums::Cast(Execute_GetScalarType(_getUObject())); }
-
 	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "ATUM|Tensor")
 	void GetSerializedValues(TArray<uint8>& OutValues, TArray<int64>& OutSizes) const;
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Tensor")
 	void SetSerializedValues(const TArray<uint8>& Values, const TArray<int64>& Sizes);
+
+	UE_NODISCARD
+	FORCEINLINE c10::ScalarType GetTorchScalarType() const noexcept
+	{ return AtumEnums::Cast(Execute_GetScalarType(_getUObject())); }
 
 	template <typename T>
 	void GetValues(TArray<T>& OutValues, TArray<int64>& OutSizes) const noexcept;
