@@ -35,12 +35,45 @@ class ATUM_API UAtumTensorLibrary : public UBlueprintFunctionLibrary
 
 public:
 	UE_NODISCARD
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Constructor", DisplayName = "Make Empty Tensor", meta = (
+		DeterminesOutputType = "Class",
+		CompactNodeTitle = "Empty Tensor",
+		Keywords = "ATUM Constructor Make Empty Tensor Class Sizes"
+	))
+	static UObject* Empty(
+		UPARAM(meta = (MustImplement = "AtumTensor")) TSubclassOf<UObject> Class,
+		const TArray<int64>& Sizes
+	) noexcept;
+	
+	UE_NODISCARD
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Constructor", DisplayName = "Make Eye Tensor", meta = (
 		DeterminesOutputType = "Class",
 		CompactNodeTitle = "Eye Tensor",
 		Keywords = "ATUM Constructor Make Eye Tensor Class Size"
 	))
 	static UObject* Eye(UPARAM(meta = (MustImplement = "AtumTensor")) TSubclassOf<UObject> Class, int64 Size) noexcept;
+
+	UE_NODISCARD
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Constructor", DisplayName = "Make Random Tensor", meta = (
+		DeterminesOutputType = "Class",
+		CompactNodeTitle = "Random Tensor",
+		Keywords = "ATUM Constructor Make Random Tensor Class Sizes"
+	))
+	static UObject* Random(
+		UPARAM(meta = (MustImplement = "AtumTensor")) TSubclassOf<UObject> Class,
+		const TArray<int64>& Sizes
+	) noexcept;
+
+	UE_NODISCARD
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Constructor", DisplayName = "Make RandN Tensor", meta = (
+		DeterminesOutputType = "Class",
+		CompactNodeTitle = "RandN Tensor",
+		Keywords = "ATUM Constructor Make Normally Distributed Random Tensor Class Sizes"
+	))
+	static UObject* RandN(
+		UPARAM(meta = (MustImplement = "AtumTensor")) TSubclassOf<UObject> Class,
+		const TArray<int64>& Sizes
+	) noexcept;
 	
 	UE_NODISCARD
 	UFUNCTION(BlueprintPure, Category = "ATUM|Cast", DisplayName = "To String", CustomThunk, meta = (

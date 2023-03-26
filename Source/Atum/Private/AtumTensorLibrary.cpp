@@ -25,12 +25,45 @@ void UAtumTensorLibrary::K2_DeserializeArray(
 	UE_LOG(LogAtum, Warning, TEXT("Called UAtumUtilities::K2_DeserializeArray from native code!"))
 }
 
+UObject* UAtumTensorLibrary::Empty(const TSubclassOf<UObject> Class, const TArray<int64>& Sizes) noexcept
+{
+	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
+	
+	auto* const Tensor = NewObject<UObject>(GetTransientPackage(), Class);
+	CastChecked<IAtumTensor>(Tensor)->SetData(
+		torch::empty(c10::IntArrayRef(Sizes.GetData(), Sizes.Num()))
+	);
+	return Tensor;
+}
+
 UObject* UAtumTensorLibrary::Eye(const TSubclassOf<UObject> Class, const int64 Size) noexcept
 {
 	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
 	auto* const Tensor = NewObject<UObject>(GetTransientPackage(), Class);
 	CastChecked<IAtumTensor>(Tensor)->SetData(torch::eye(Size));
+	return Tensor;
+}
+
+UObject* UAtumTensorLibrary::Random(const TSubclassOf<UObject> Class, const TArray<int64>& Sizes) noexcept
+{
+	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
+	
+	auto* const Tensor = NewObject<UObject>(GetTransientPackage(), Class);
+	CastChecked<IAtumTensor>(Tensor)->SetData(
+		torch::rand(c10::IntArrayRef(Sizes.GetData(), Sizes.Num()))
+	);
+	return Tensor;
+}
+
+UObject* UAtumTensorLibrary::RandN(const TSubclassOf<UObject> Class, const TArray<int64>& Sizes) noexcept
+{
+	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
+	
+	auto* const Tensor = NewObject<UObject>(GetTransientPackage(), Class);
+	CastChecked<IAtumTensor>(Tensor)->SetData(
+		torch::randn(c10::IntArrayRef(Sizes.GetData(), Sizes.Num()))
+	);
 	return Tensor;
 }
 
