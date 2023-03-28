@@ -2,11 +2,13 @@
 
 #pragma once
 
+#include "IAtumLayer.h"
+
 #include "AtumNeuralNetwork.generated.h"
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Neural Network")
-class ATUM_API UAtumNeuralNetwork : public UObject
+class ATUM_API UAtumNeuralNetwork : public UObject, public IAtumLayer
 {
 	GENERATED_BODY()
 };
