@@ -22,14 +22,14 @@ class ATUM_API UAtumTensorLibrary : public UBlueprintFunctionLibrary
 	static void K2_SerializeArray(const TArray<UProperty*>& Target, TArray<uint8>& OutBytes) noexcept;
 	
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Cast", DisplayName = "Deserialize Array", CustomThunk, meta = (
-		ArrayParm = "InTarget",
+		ArrayParm = "TargetTypeProvider",
 		ArrayTypeDependentParams = "OutTarget",
 		CompactNodeTitle = "Deserialize",
-		Keywords = "ATUM Cast Deserialise Deserialize Any Wildcard Bytes In Out Target"
+		Keywords = "ATUM Cast Deserialise Deserialize Any Wildcard Bytes Target Type Provider Out"
 	))
 	static void K2_DeserializeArray(
 		const TArray<uint8>& Bytes,
-		UPARAM(ref, DisplayName = "Out Target") TArray<UProperty*>& InTarget,
+		const TArray<UProperty*>& TargetTypeProvider,
 		TArray<UProperty*>& OutTarget
 	) noexcept;
 

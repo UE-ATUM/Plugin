@@ -18,7 +18,7 @@ void UAtumTensorLibrary::K2_SerializeArray(
 
 void UAtumTensorLibrary::K2_DeserializeArray(
 	[[maybe_unused]] const TArray<uint8>& Bytes,
-	[[maybe_unused]] TArray<UProperty*>& InTarget,
+	[[maybe_unused]] const TArray<UProperty*>& TargetTypeProvider,
 	[[maybe_unused]] TArray<UProperty*>& OutTarget
 ) noexcept
 {
@@ -74,11 +74,11 @@ void UAtumTensorLibrary::GenericArray_Serialize(
 ) noexcept
 {
 	check(TargetProperty)
-	if (TargetAddress)
-	{
-		FScriptArrayHelper TargetArray(TargetProperty, TargetAddress);
-		OutBytes = TArray(TargetArray.GetRawPtr(), TargetArray.Num() * TargetProperty->Inner->GetSize());
-	}
+	if (TargetAddress == nullptr)
+		return;
+
+	FScriptArrayHelper TargetArray(TargetProperty, TargetAddress);
+	OutBytes = TArray(TargetArray.GetRawPtr(), TargetArray.Num() * TargetProperty->Inner->GetSize());
 }
 
 void UAtumTensorLibrary::GenericArray_Deserialize(
@@ -96,7 +96,7 @@ void UAtumTensorLibrary::GenericArray_Deserialize(
 	const int32 ElementCount = Bytes.Num() / ElementSize;
 
 	FScriptArrayHelper OutTargetArray(OutTargetProperty, OutTargetAddress);
-	OutTargetArray.AddValues(ElementCount);
+	OutTargetArray.AddUninitializedValues(ElementCount);
 
 	const uint8* Source = Bytes.GetData();
 	uint8* Destination = OutTargetArray.GetRawPtr();
@@ -147,14 +147,6 @@ void UAtumTensorLibrary::execK2_DeserializeArray(
 
 	Stack.MostRecentProperty = nullptr;
 	Stack.StepCompiledIn<FArrayProperty>(nullptr);
-
-	uint8* const InTargetAddress = Stack.MostRecentPropertyAddress;
-	const FArrayProperty* const InTargetProperty = CastField<FArrayProperty>(Stack.MostRecentProperty);
-	if (InTargetProperty == nullptr)
-	{
-		Stack.bArrayContextFailed = true;
-		return;
-	}
 	if (CastField<FArrayProperty>(Stack.MostRecentProperty) == nullptr)
 	{
 		Stack.bArrayContextFailed = true;
@@ -175,13 +167,7 @@ void UAtumTensorLibrary::execK2_DeserializeArray(
 	P_FINISH
 	
 	P_NATIVE_BEGIN
-	GenericArray_Deserialize(Bytes, InTargetAddress, InTargetProperty);
-	UKismetArrayLibrary::GenericArray_Append(
-		OutTargetAddress,
-		OutTargetProperty,
-		InTargetAddress,
-		InTargetProperty
-	);
+	GenericArray_Deserialize(Bytes, OutTargetAddress, OutTargetProperty);
 	P_NATIVE_END
 }
 
