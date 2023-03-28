@@ -26,6 +26,14 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "ATUM|Tensor")
 	EAtumScalarType GetScalarType() const;
 
+	UE_NODISCARD
+	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "ATUM|Tensor")
+	int64 GetElementCount() const;
+
+	UE_NODISCARD
+	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "ATUM|Tensor")
+	int64 GetElementSize() const;
+
 	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "ATUM|Tensor")
 	void GetSerializedValues(TArray<uint8>& OutValues, TArray<int64>& OutSizes) const;
 
@@ -68,6 +76,12 @@ public:
 protected:
 	UE_NODISCARD
 	virtual EAtumScalarType GetScalarType_Implementation() const noexcept;
+
+	UE_NODISCARD
+	virtual int64 GetElementCount_Implementation() const noexcept;
+
+	UE_NODISCARD
+	virtual int64 GetElementSize_Implementation() const noexcept;
 
 	virtual void GetSerializedValues_Implementation(TArray<uint8>& OutValues, TArray<int64>& OutSizes) const noexcept;
 	virtual void SetSerializedValues_Implementation(const TArray<uint8>& Values, const TArray<int64>& Sizes) noexcept;

@@ -15,6 +15,16 @@ EAtumScalarType IAtumTensor::GetScalarType_Implementation() const noexcept
 	return Data ? AtumEnums::Cast(Data->scalar_type()) : EAtumScalarType::Undefined;
 }
 
+int64 IAtumTensor::GetElementCount_Implementation() const noexcept
+{
+	return Data ? Data->numel() : 0;
+}
+
+int64 IAtumTensor::GetElementSize_Implementation() const noexcept
+{
+	return Data ? Data->element_size() : 0;
+}
+
 void IAtumTensor::GetSerializedValues_Implementation(TArray<uint8>& OutValues, TArray<int64>& OutSizes) const noexcept
 {
 	const uint64 ByteCount = Data ? Data->numel() * Data->element_size() : 0u;
