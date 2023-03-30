@@ -45,6 +45,17 @@ UObject* UAtumTensorLibrary::Eye(const TSubclassOf<UObject> Class, const int64 S
 	return Tensor;
 }
 
+UObject* UAtumTensorLibrary::Ones(const TSubclassOf<UObject> Class, const TArray<int64>& Sizes) noexcept
+{
+	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
+	
+	auto* const Tensor = NewObject<UObject>(GetTransientPackage(), Class);
+	CastChecked<IAtumTensor>(Tensor)->SetData(
+		torch::ones(c10::IntArrayRef(Sizes.GetData(), Sizes.Num()))
+	);
+	return Tensor;
+}
+
 UObject* UAtumTensorLibrary::Random(const TSubclassOf<UObject> Class, const TArray<int64>& Sizes) noexcept
 {
 	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))

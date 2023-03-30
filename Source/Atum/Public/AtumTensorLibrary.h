@@ -54,6 +54,17 @@ public:
 	static UObject* Eye(UPARAM(meta = (MustImplement = "AtumTensor")) TSubclassOf<UObject> Class, int64 Size) noexcept;
 
 	UE_NODISCARD
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Constructor", DisplayName = "Make Ones Tensor", meta = (
+		DeterminesOutputType = "Class",
+		CompactNodeTitle = "Ones Tensor",
+		Keywords = "ATUM Constructor Make Ones Tensor Class Sizes"
+	))
+	static UObject* Ones(
+		UPARAM(meta = (MustImplement = "AtumTensor")) TSubclassOf<UObject> Class,
+		const TArray<int64>& Sizes
+	) noexcept;
+
+	UE_NODISCARD
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Constructor", DisplayName = "Make Random Tensor", meta = (
 		DeterminesOutputType = "Class",
 		CompactNodeTitle = "Random Tensor",
