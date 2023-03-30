@@ -63,6 +63,8 @@ __pragma(warning(disable: 4702))
  */
 __pragma(warning(disable: 4805))
 
+#define NO_EXPORT
+
 THIRD_PARTY_INCLUDES_START
 #include <torch/torch.h>
 THIRD_PARTY_INCLUDES_END
