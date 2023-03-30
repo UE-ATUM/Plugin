@@ -11,7 +11,7 @@ public class LibTorch : ModuleRules
 		"c10.dll"
 	};
 	
-	public LibTorch(ReadOnlyTargetRules Target) : base(Target)
+	public LibTorch(ReadOnlyTargetRules target) : base(target)
 	{
 		Type = ModuleType.External;
 		PCHUsage = PCHUsageMode.NoPCHs;
@@ -68,22 +68,22 @@ public class LibTorch : ModuleRules
 		LinkLibraryFiles(Path.Combine(PlatformPath, "lib"));
 	}
 
-	private void AddIncludeFolders(string IncludePath)
+	private void AddIncludeFolders(string includePath)
 	{
-		PublicIncludePaths.Add(IncludePath);
+		PublicIncludePaths.Add(includePath);
 		
-		var FolderPaths = Directory.GetDirectories(IncludePath, "include", SearchOption.AllDirectories);
+		var FolderPaths = Directory.GetDirectories(includePath, "include", SearchOption.AllDirectories);
 		foreach (var FolderPath in FolderPaths)
 		{
 			PublicIncludePaths.Add(FolderPath);
 		}
 	}
 
-	private void LinkLibraryFiles(string LibraryPath)
+	private void LinkLibraryFiles(string libraryPath)
 	{
 		var PluginBinariesPath = Path.Combine(PluginDirectory, "Binaries", Target.Platform.ToString());
 
-		var FilePaths = Directory.GetFiles(LibraryPath, "*", SearchOption.AllDirectories);
+		var FilePaths = Directory.GetFiles(libraryPath, "*", SearchOption.AllDirectories);
 		foreach (var FilePath in FilePaths)
 		{
 			var FileName = Path.GetFileName(FilePath);
@@ -112,14 +112,14 @@ public class LibTorch : ModuleRules
 		}
 	}
 
-	private static void CopyExceptionFile(string SourcePath, string TargetPath)
+	private static void CopyExceptionFile(string sourcePath, string targetPath)
 	{
-		var FileName = Path.GetFileName(SourcePath);
+		var FileName = Path.GetFileName(sourcePath);
 		EpicGames.Core.Log.TraceInformation("Linking LibTorch without /DELAYLOAD:{0}", FileName);
 		
 		try
 		{
-			File.Copy(SourcePath, TargetPath, true);
+			File.Copy(sourcePath, targetPath, true);
 		}
 		catch (IOException CopyException)
 		{
@@ -127,7 +127,7 @@ public class LibTorch : ModuleRules
 		}
 		catch (System.UnauthorizedAccessException AccessException)
 		{
-			if (File.Exists(TargetPath))
+			if (File.Exists(targetPath))
 			{
 				EpicGames.Core.Log.TraceWarning(AccessException.Message);
 			}
@@ -136,7 +136,7 @@ public class LibTorch : ModuleRules
 				EpicGames.Core.Log.TraceError(
 					"Attempted to copy {0} to {1}, but the operation was unauthorized.",
 					FileName,
-					TargetPath
+					targetPath
 				);
 			}
 		}
