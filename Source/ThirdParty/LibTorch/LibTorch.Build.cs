@@ -7,11 +7,11 @@ using UnrealBuildTool;
 
 public class LibTorch : ModuleRules
 {
-	private readonly string[] _delayLoadDllExceptions = {
+	private readonly string[] WithoutDelayLoadDll = {
 		"c10.dll"
 	};
 	
-	public LibTorch(ReadOnlyTargetRules target) : base(target)
+	public LibTorch(ReadOnlyTargetRules Target) : base(Target)
 	{
 		Type = ModuleType.External;
 		PCHUsage = PCHUsageMode.NoPCHs;
@@ -43,17 +43,7 @@ public class LibTorch : ModuleRules
 		PublicDefinitions.Add("HAS_LIBTORCH=1");
 		var PlatformPath = Path.Combine(ModuleDirectory, Target.Platform.ToString());
 
-		if (Target.Configuration == UnrealTargetConfiguration.Shipping)
-		{
-			PublicDefinitions.AddRange(new []
-			{
-				"LIBTORCH_DEBUG=0",
-				"LIBTORCH_RELEASE=1"
-			});
-
-			PlatformPath = Path.Combine(PlatformPath, "Release");
-		}
-		else
+		if (Target.Configuration == UnrealTargetConfiguration.Debug)
 		{
 			PublicDefinitions.AddRange(new []
 			{
@@ -63,27 +53,38 @@ public class LibTorch : ModuleRules
 			
 			PlatformPath = Path.Combine(PlatformPath, "Debug");
 		}
+		else
+		{
+			PublicDefinitions.AddRange(new []
+			{
+				"LIBTORCH_DEBUG=0",
+				"LIBTORCH_RELEASE=1"
+			});
+
+			PlatformPath = Path.Combine(PlatformPath, "Release");
+		}
 
 		AddIncludeFolders(Path.Combine(PlatformPath, "include"));
 		LinkLibraryFiles(Path.Combine(PlatformPath, "lib"));
 	}
 
-	private void AddIncludeFolders(string includePath)
+	private void AddIncludeFolders(string IncludePath)
 	{
-		PublicIncludePaths.Add(includePath);
+		PublicIncludePaths.Add(IncludePath);
 		
-		var FolderPaths = Directory.GetDirectories(includePath, "include", SearchOption.AllDirectories);
+		var FolderPaths = Directory.GetDirectories(IncludePath, "include", SearchOption.AllDirectories);
 		foreach (var FolderPath in FolderPaths)
 		{
 			PublicIncludePaths.Add(FolderPath);
 		}
 	}
 
-	private void LinkLibraryFiles(string libraryPath)
+	private void LinkLibraryFiles(string LibraryPath)
 	{
 		var PluginBinariesPath = Path.Combine(PluginDirectory, "Binaries", Target.Platform.ToString());
+		Directory.CreateDirectory(PluginBinariesPath);
 
-		var FilePaths = Directory.GetFiles(libraryPath, "*", SearchOption.AllDirectories);
+		var FilePaths = Directory.GetFiles(LibraryPath, "*", SearchOption.AllDirectories);
 		foreach (var FilePath in FilePaths)
 		{
 			var FileName = Path.GetFileName(FilePath);
@@ -96,14 +97,19 @@ public class LibTorch : ModuleRules
 			{
 				RuntimeDependencies.Add(FilePath);
 				
-				if (_delayLoadDllExceptions.Contains(FileName))
+				if (WithoutDelayLoadDll.Contains(FileName))
 				{
-					CopyExceptionFile(FilePath, Path.Combine(PluginBinariesPath, FileName));
+					EpicGames.Core.Log.TraceInformation("Linking LibTorch without /DELAYLOAD:{0}", FileName);
+					CopyFile(FilePath, Path.Combine(PluginBinariesPath, FileName));
 				}
 				else
 				{
 					PublicDelayLoadDLLs.Add(FileName);
 				}
+			}
+			else if (FileName.EndsWith(".pdb"))
+			{
+				CopyFile(FilePath, Path.Combine(PluginBinariesPath, FileName));
 			}
 			else
 			{
@@ -112,14 +118,11 @@ public class LibTorch : ModuleRules
 		}
 	}
 
-	private static void CopyExceptionFile(string sourcePath, string targetPath)
+	private static void CopyFile(string SourcePath, string TargetPath)
 	{
-		var FileName = Path.GetFileName(sourcePath);
-		EpicGames.Core.Log.TraceInformation("Linking LibTorch without /DELAYLOAD:{0}", FileName);
-		
 		try
 		{
-			File.Copy(sourcePath, targetPath, true);
+			File.Copy(SourcePath, TargetPath, true);
 		}
 		catch (IOException CopyException)
 		{
@@ -127,7 +130,7 @@ public class LibTorch : ModuleRules
 		}
 		catch (System.UnauthorizedAccessException AccessException)
 		{
-			if (File.Exists(targetPath))
+			if (File.Exists(TargetPath))
 			{
 				EpicGames.Core.Log.TraceWarning(AccessException.Message);
 			}
@@ -135,8 +138,8 @@ public class LibTorch : ModuleRules
 			{
 				EpicGames.Core.Log.TraceError(
 					"Attempted to copy {0} to {1}, but the operation was unauthorized.",
-					FileName,
-					targetPath
+					Path.GetFileName(SourcePath),
+					TargetPath
 				);
 			}
 		}

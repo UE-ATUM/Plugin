@@ -41,7 +41,7 @@ public:
 		Keywords = "ATUM Constructor Make Empty Tensor Class Sizes"
 	))
 	static UObject* Empty(
-		UPARAM(meta = (MustImplement = "AtumTensor")) TSubclassOf<UObject> Class,
+		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) TSubclassOf<UObject> Class,
 		const TArray<int64>& Sizes
 	) noexcept;
 	
@@ -51,7 +51,10 @@ public:
 		CompactNodeTitle = "Eye Tensor",
 		Keywords = "ATUM Constructor Make Eye Tensor Class Size"
 	))
-	static UObject* Eye(UPARAM(meta = (MustImplement = "AtumTensor")) TSubclassOf<UObject> Class, int64 Size) noexcept;
+	static UObject* Eye(
+		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) TSubclassOf<UObject> Class,
+		int64 Size
+	) noexcept;
 
 	UE_NODISCARD
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Constructor", DisplayName = "Make Ones Tensor", meta = (
@@ -60,7 +63,7 @@ public:
 		Keywords = "ATUM Constructor Make Ones Tensor Class Sizes"
 	))
 	static UObject* Ones(
-		UPARAM(meta = (MustImplement = "AtumTensor")) TSubclassOf<UObject> Class,
+		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) TSubclassOf<UObject> Class,
 		const TArray<int64>& Sizes
 	) noexcept;
 
@@ -71,7 +74,7 @@ public:
 		Keywords = "ATUM Constructor Make Random Tensor Class Sizes"
 	))
 	static UObject* Random(
-		UPARAM(meta = (MustImplement = "AtumTensor")) TSubclassOf<UObject> Class,
+		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) TSubclassOf<UObject> Class,
 		const TArray<int64>& Sizes
 	) noexcept;
 
@@ -82,7 +85,7 @@ public:
 		Keywords = "ATUM Constructor Make Normally Distributed Random Tensor Class Sizes"
 	))
 	static UObject* RandN(
-		UPARAM(meta = (MustImplement = "AtumTensor")) TSubclassOf<UObject> Class,
+		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) TSubclassOf<UObject> Class,
 		const TArray<int64>& Sizes
 	) noexcept;
 	

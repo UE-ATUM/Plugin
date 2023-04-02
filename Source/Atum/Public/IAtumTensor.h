@@ -8,8 +8,8 @@
 #include "IAtumTensor.generated.h"
 
 
-UINTERFACE(Blueprintable, BlueprintType, DisplayName = "ATUM Tensor")
-class ATUM_API UAtumTensor : public UInterface
+UINTERFACE(MinimalAPI, Blueprintable, BlueprintType, DisplayName = "ATUM Tensor")
+class UAtumTensor : public UInterface
 {
 	GENERATED_BODY()
 };
@@ -42,7 +42,7 @@ public:
 
 	UE_NODISCARD
 	FORCEINLINE c10::ScalarType GetTorchScalarType() const noexcept
-	{ return AtumEnums::Cast(Execute_GetScalarType(_getUObject())); }
+	{ return Data ? Data->scalar_type() : AtumEnums::Cast(Execute_GetScalarType(_getUObject())); }
 
 	template <typename T>
 	void GetValues(TArray<T>& OutValues, TArray<int64>& OutSizes) const noexcept;
@@ -105,10 +105,7 @@ public:
 	UE_NODISCARD
 	FORCEINLINE const torch::Tensor& GetDataChecked() const { return *GetData(); }
 	
-	FORCEINLINE void SetData(torch::Tensor* const Value)
-	{ Data.Reset(Value); }
-	
-	FORCEINLINE void SetData(const torch::Tensor& Value)
+	FORCEINLINE void SetData(const torch::Tensor& Value) noexcept
 	{ Data.Reset(new torch::Tensor(Value.toType(GetTorchScalarType()))); }
 };
 

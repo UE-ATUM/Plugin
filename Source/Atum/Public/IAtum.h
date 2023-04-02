@@ -4,13 +4,15 @@
 
 #include "Modules/ModuleManager.h"
 
+#include <vector>
+
 
 DECLARE_LOG_CATEGORY_EXTERN(LogAtum, Log, All)
 
 class ATUM_API IAtumModule : public IModuleInterface
 {
 protected:
-	TArray<void*> DllHandles = TArray<void*>();
+	static inline std::vector<uint8*> DllHandles = std::vector<uint8*>();
 	
 public:
 	static inline const FName ModuleName = TEXT("Atum");
@@ -20,6 +22,7 @@ public:
 
 	UE_NODISCARD
 	static FORCEINLINE IAtumModule& GetModule() { return FModuleManager::LoadModuleChecked<IAtumModule>(ModuleName); }
-	
-	FORCEINLINE void GetDllHandles(TArray<const void*>& OutValue) const noexcept { OutValue.Append(DllHandles); }
+
+	UE_NODISCARD
+	static FORCEINLINE const std::vector<uint8*>& GetDllHandles() noexcept { return DllHandles; }
 };

@@ -5,7 +5,7 @@ using UnrealBuildTool;
 
 public class AtumEditor : ModuleRules
 {
-	public AtumEditor(ReadOnlyTargetRules target) : base(target)
+	public AtumEditor(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.NoPCHs;
 		CppStandard = CppStandardVersion.Cpp20;

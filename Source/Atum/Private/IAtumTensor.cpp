@@ -60,7 +60,7 @@ void IAtumTensor::SetSerializedValues_Implementation(const TArray<uint8>& Values
 
 std::ostream& operator<<(std::ostream& OutStream, const IAtumTensor& AtumTensor) noexcept
 {
-	if (const torch::Tensor* const Tensor = AtumTensor.Data.Get(); Tensor)
+	if (const torch::Tensor* const Tensor = AtumTensor.Data.Get())
 	{
 		OutStream << *Tensor;
 	}
@@ -69,7 +69,7 @@ std::ostream& operator<<(std::ostream& OutStream, const IAtumTensor& AtumTensor)
 
 std::ostream& operator<<(std::ostream& OutStream, const TScriptInterface<IAtumTensor>& AtumTensor) noexcept
 {
-	if (const IAtumTensor* const Interface = AtumTensor.GetInterface(); Interface)
+	if (const IAtumTensor* const Interface = AtumTensor.GetInterface())
 	{
 		OutStream << *Interface;
 	}
