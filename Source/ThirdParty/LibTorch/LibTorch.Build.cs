@@ -1,16 +1,11 @@
 // © 2023 Kaya Adrian.
 
 using System.IO;
-using System.Linq;
 using UnrealBuildTool;
 
 
 public class LibTorch : ModuleRules
 {
-	private readonly string[] WithoutDelayLoadDll = {
-		"c10.dll"
-	};
-	
 	public LibTorch(ReadOnlyTargetRules Target) : base(Target)
 	{
 		Type = ModuleType.External;
@@ -43,7 +38,7 @@ public class LibTorch : ModuleRules
 		PublicDefinitions.Add("HAS_LIBTORCH=1");
 		var PlatformPath = Path.Combine(ModuleDirectory, Target.Platform.ToString());
 
-		if (Target.Configuration == UnrealTargetConfiguration.Debug)
+		if (Target.Configuration == UnrealTargetConfiguration.DebugGame)
 		{
 			PublicDefinitions.AddRange(new []
 			{
@@ -81,9 +76,6 @@ public class LibTorch : ModuleRules
 
 	private void LinkLibraryFiles(string LibraryPath)
 	{
-		var PluginBinariesPath = Path.Combine(PluginDirectory, "Binaries", Target.Platform.ToString());
-		Directory.CreateDirectory(PluginBinariesPath);
-
 		var FilePaths = Directory.GetFiles(LibraryPath, "*", SearchOption.AllDirectories);
 		foreach (var FilePath in FilePaths)
 		{
@@ -96,51 +88,11 @@ public class LibTorch : ModuleRules
 			else if (FileName.EndsWith(".dll"))
 			{
 				RuntimeDependencies.Add(FilePath);
-				
-				if (WithoutDelayLoadDll.Contains(FileName))
-				{
-					EpicGames.Core.Log.TraceInformation("Linking LibTorch without /DELAYLOAD:{0}", FileName);
-					CopyFile(FilePath, Path.Combine(PluginBinariesPath, FileName));
-				}
-				else
-				{
-					PublicDelayLoadDLLs.Add(FileName);
-				}
-			}
-			else if (FileName.EndsWith(".pdb"))
-			{
-				CopyFile(FilePath, Path.Combine(PluginBinariesPath, FileName));
+				PublicDelayLoadDLLs.Add(FileName);
 			}
 			else
 			{
 				EpicGames.Core.Log.TraceInformation("Ignored file {0}", FilePath);
-			}
-		}
-	}
-
-	private static void CopyFile(string SourcePath, string TargetPath)
-	{
-		try
-		{
-			File.Copy(SourcePath, TargetPath, true);
-		}
-		catch (IOException CopyException)
-		{
-			EpicGames.Core.Log.TraceInformation(CopyException.Message);
-		}
-		catch (System.UnauthorizedAccessException AccessException)
-		{
-			if (File.Exists(TargetPath))
-			{
-				EpicGames.Core.Log.TraceWarning(AccessException.Message);
-			}
-			else
-			{
-				EpicGames.Core.Log.TraceError(
-					"Attempted to copy {0} to {1}, but the operation was unauthorized.",
-					Path.GetFileName(SourcePath),
-					TargetPath
-				);
 			}
 		}
 	}
