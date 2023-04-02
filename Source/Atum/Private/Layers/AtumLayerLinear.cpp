@@ -26,12 +26,8 @@ bool UAtumLayerLinear::Forward_Implementation(
 {
 	if (UNLIKELY(!Execute_IsInitialized(this)))
 	{
-		UE_LOG(
-			LogAtum,
-			Fatal,
-			TEXT("Method InitializeData was not called for object of type %s!"),
-			*GetClass()->GetName()
-		)
+		UE_LOG(LogAtum, Fatal, TEXT("InitializeData was not called for object of type %s!"), *GetClass()->GetName())
+		return false;
 	}
 	
 	const torch::Tensor* const Data = Input ? Input->GetData() : nullptr;
@@ -45,7 +41,7 @@ bool UAtumLayerLinear::Forward_Implementation(
 	}
 	catch (const std::exception& Exception)
 	{
-		UE_LOG(LogAtum, Error, TEXT("%hs"), torch::GetExceptionString(Exception).c_str())
+		UE_LOG(LogAtum, Error, TEXT("%hs"), c10::GetExceptionString(Exception).c_str())
 		return false;
 	}
 
