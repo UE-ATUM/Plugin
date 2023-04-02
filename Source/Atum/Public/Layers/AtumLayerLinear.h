@@ -36,6 +36,15 @@ protected:
 	) noexcept override;
 
 public:
-	//UE_NODISCARD
-	//FORCEINLINE const torch::nn::Linear& GetModule() const noexcept { return Module; }
+	UE_NODISCARD
+	FORCEINLINE const torch::nn::LinearImpl* GetModule() const noexcept { return Module.Get(); }
+	
+	UE_NODISCARD
+	FORCEINLINE torch::nn::LinearImpl* GetModule() noexcept { return Module.Get(); }
+
+	UE_NODISCARD
+	FORCEINLINE const torch::nn::LinearImpl& GetModuleChecked() const { return *GetModule(); }
+
+	UE_NODISCARD
+	FORCEINLINE torch::nn::LinearImpl& GetModuleChecked() { return *GetModule(); }
 };
