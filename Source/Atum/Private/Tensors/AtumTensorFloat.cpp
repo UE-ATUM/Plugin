@@ -1,9 +1,9 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
-#include "AtumFloatTensor.h"
+#include "Tensors/AtumTensorFloat.h"
 
 
-EAtumScalarType UAtumFloatTensor::GetScalarType_Implementation() const noexcept
+EAtumScalarType UAtumTensorFloat::GetScalarType_Implementation() const noexcept
 {
 	return EAtumScalarType::Float;
 }

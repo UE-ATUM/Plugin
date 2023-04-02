@@ -1,6 +1,6 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
-#include "IAtumTensor.h"
+#include "Tensors/IAtumTensor.h"
 
 
 IAtumTensor::operator FString() const noexcept

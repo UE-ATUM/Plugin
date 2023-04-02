@@ -2,15 +2,15 @@
 
 #pragma once
 
-#include "IAtumTensor.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "Templates/SubclassOf.h" // ReSharper disable once CppUnusedIncludeDirective
+#include "Tensors/IAtumTensor.h"
 
-#include "AtumTensorLibrary.generated.h"
+#include "AtumLibraryTensors.generated.h"
 
 
-UCLASS(Abstract, Blueprintable, BlueprintType)
-class ATUM_API UAtumTensorLibrary : public UBlueprintFunctionLibrary
+UCLASS(Abstract, Blueprintable, BlueprintType, DisplayName = "ATUM Tensor Library")
+class ATUM_API UAtumLibraryTensors : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 

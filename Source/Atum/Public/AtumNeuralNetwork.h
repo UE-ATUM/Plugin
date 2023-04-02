@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "IAtumLayer.h"
+#include "Layers/IAtumLayer.h"
 
 #include "AtumNeuralNetwork.generated.h"
 

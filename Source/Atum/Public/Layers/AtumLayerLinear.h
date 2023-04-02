@@ -4,11 +4,11 @@
 
 #include "IAtumLayer.h"
 
-#include "AtumLinear.generated.h"
+#include "AtumLayerLinear.generated.h"
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Linear Layer")
-class ATUM_API UAtumLinear : public UObject, public IAtumLayer
+class ATUM_API UAtumLayerLinear : public UObject, public IAtumLayer
 {
 	GENERATED_BODY()
 
@@ -25,7 +25,7 @@ class ATUM_API UAtumLinear : public UObject, public IAtumLayer
 
 public:
 	UE_NODISCARD_CTOR
-	UAtumLinear() noexcept;
+	UAtumLayerLinear() noexcept;
 	
 protected:
 	virtual bool InitializeData_Implementation() noexcept override;

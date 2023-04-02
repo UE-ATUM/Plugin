@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "IAtumTensor.h"
+#include "Tensors/IAtumTensor.h"
 #include "UObject/Interface.h"
 
 #include "IAtumLayer.generated.h"

@@ -1,15 +1,15 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
-#include "AtumLinear.h"
+#include "Layers/AtumLayerLinear.h"
 
 #include "IAtum.h"
 
 
-UAtumLinear::UAtumLinear() noexcept : Module(nullptr), InFeatures(1), OutFeatures(1), bLearnBias(true)
+UAtumLayerLinear::UAtumLayerLinear() noexcept : Module(nullptr), InFeatures(1), OutFeatures(1), bLearnBias(true)
 {
 }
 
-bool UAtumLinear::InitializeData_Implementation() noexcept
+bool UAtumLayerLinear::InitializeData_Implementation() noexcept
 {
 	if (UNLIKELY(!IAtumLayer::InitializeData_Implementation()))
 		return false;
@@ -19,7 +19,7 @@ bool UAtumLinear::InitializeData_Implementation() noexcept
 	return true;
 }
 
-bool UAtumLinear::Forward_Implementation(
+bool UAtumLayerLinear::Forward_Implementation(
 	const TScriptInterface<IAtumTensor>& Input,
 	TScriptInterface<IAtumTensor>& Output
 ) noexcept

@@ -1,6 +1,6 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
-#include "AtumTensorLibrary.h"
+#include "AtumLibraryTensors.h"
 
 #include "IAtum.h"
 #include "Kismet/KismetArrayLibrary.h"
@@ -8,7 +8,7 @@
 #include <ranges>
 
 
-void UAtumTensorLibrary::K2_SerializeArray(
+void UAtumLibraryTensors::K2_SerializeArray(
 	[[maybe_unused]] const TArray<UProperty*>& Target,
 	[[maybe_unused]] TArray<uint8>& OutBytes
 ) noexcept
@@ -16,7 +16,7 @@ void UAtumTensorLibrary::K2_SerializeArray(
 	UE_LOG(LogAtum, Warning, TEXT("Called UAtumUtilities::K2_SerializeArray from native code!"))
 }
 
-void UAtumTensorLibrary::K2_DeserializeArray(
+void UAtumLibraryTensors::K2_DeserializeArray(
 	[[maybe_unused]] const TArray<uint8>& Bytes,
 	[[maybe_unused]] const TArray<UProperty*>& TargetTypeProvider,
 	[[maybe_unused]] TArray<UProperty*>& OutTarget
@@ -25,7 +25,7 @@ void UAtumTensorLibrary::K2_DeserializeArray(
 	UE_LOG(LogAtum, Warning, TEXT("Called UAtumUtilities::K2_DeserializeArray from native code!"))
 }
 
-UObject* UAtumTensorLibrary::Empty(const TSubclassOf<UObject> Class, const TArray<int64>& Sizes) noexcept
+UObject* UAtumLibraryTensors::Empty(const TSubclassOf<UObject> Class, const TArray<int64>& Sizes) noexcept
 {
 	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
@@ -36,7 +36,7 @@ UObject* UAtumTensorLibrary::Empty(const TSubclassOf<UObject> Class, const TArra
 	return Tensor;
 }
 
-UObject* UAtumTensorLibrary::Eye(const TSubclassOf<UObject> Class, const int64 Size) noexcept
+UObject* UAtumLibraryTensors::Eye(const TSubclassOf<UObject> Class, const int64 Size) noexcept
 {
 	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
@@ -45,7 +45,7 @@ UObject* UAtumTensorLibrary::Eye(const TSubclassOf<UObject> Class, const int64 S
 	return Tensor;
 }
 
-UObject* UAtumTensorLibrary::Ones(const TSubclassOf<UObject> Class, const TArray<int64>& Sizes) noexcept
+UObject* UAtumLibraryTensors::Ones(const TSubclassOf<UObject> Class, const TArray<int64>& Sizes) noexcept
 {
 	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
@@ -56,7 +56,7 @@ UObject* UAtumTensorLibrary::Ones(const TSubclassOf<UObject> Class, const TArray
 	return Tensor;
 }
 
-UObject* UAtumTensorLibrary::Random(const TSubclassOf<UObject> Class, const TArray<int64>& Sizes) noexcept
+UObject* UAtumLibraryTensors::Random(const TSubclassOf<UObject> Class, const TArray<int64>& Sizes) noexcept
 {
 	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
@@ -67,7 +67,7 @@ UObject* UAtumTensorLibrary::Random(const TSubclassOf<UObject> Class, const TArr
 	return Tensor;
 }
 
-UObject* UAtumTensorLibrary::RandN(const TSubclassOf<UObject> Class, const TArray<int64>& Sizes) noexcept
+UObject* UAtumLibraryTensors::RandN(const TSubclassOf<UObject> Class, const TArray<int64>& Sizes) noexcept
 {
 	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
@@ -78,7 +78,7 @@ UObject* UAtumTensorLibrary::RandN(const TSubclassOf<UObject> Class, const TArra
 	return Tensor;
 }
 
-void UAtumTensorLibrary::GenericArray_Serialize(
+void UAtumLibraryTensors::GenericArray_Serialize(
 	const uint8* const TargetAddress,
 	const FArrayProperty* const TargetProperty,
 	TArray<uint8>& OutBytes
@@ -92,7 +92,7 @@ void UAtumTensorLibrary::GenericArray_Serialize(
 	OutBytes = TArray(TargetArray.GetRawPtr(), TargetArray.Num() * TargetProperty->Inner->GetSize());
 }
 
-void UAtumTensorLibrary::GenericArray_Deserialize(
+void UAtumLibraryTensors::GenericArray_Deserialize(
 	const TArray<uint8>& Bytes,
 	uint8* const OutTargetAddress,
 	const FArrayProperty* const OutTargetProperty
@@ -121,7 +121,7 @@ void UAtumTensorLibrary::GenericArray_Deserialize(
 }
 
 // ReSharper disable CppUE4CodingStandardNamingViolationWarning
-void UAtumTensorLibrary::execK2_SerializeArray(
+void UAtumLibraryTensors::execK2_SerializeArray(
 	[[maybe_unused]] UObject* const Context,
 	FFrame& Stack,
 	[[maybe_unused]] void* const Z_Param__Result
@@ -147,7 +147,7 @@ void UAtumTensorLibrary::execK2_SerializeArray(
 	P_NATIVE_END
 }
 
-void UAtumTensorLibrary::execK2_DeserializeArray(
+void UAtumLibraryTensors::execK2_DeserializeArray(
 	[[maybe_unused]] UObject* const Context,
 	FFrame& Stack,
 	[[maybe_unused]] void* const Z_Param__Result
@@ -182,7 +182,7 @@ void UAtumTensorLibrary::execK2_DeserializeArray(
 	P_NATIVE_END
 }
 
-void UAtumTensorLibrary::execConv_TensorToString(
+void UAtumLibraryTensors::execConv_TensorToString(
 	[[maybe_unused]] UObject* const Context,
 	FFrame& Stack,
 	void* const Z_Param__Result

@@ -1,9 +1,9 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
-#include "AtumByteTensor.h"
+#include "Tensors/AtumTensorByte.h"
 
 
-EAtumScalarType UAtumByteTensor::GetScalarType_Implementation() const noexcept
+EAtumScalarType UAtumTensorByte::GetScalarType_Implementation() const noexcept
 {
 	return EAtumScalarType::Byte;
 }
