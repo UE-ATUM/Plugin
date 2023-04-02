@@ -12,7 +12,7 @@ DECLARE_LOG_CATEGORY_EXTERN(LogAtum, Log, All)
 class ATUM_API IAtumModule : public IModuleInterface
 {
 protected:
-	static inline std::vector<uint8*> DllHandles = std::vector<uint8*>();
+	static inline std::vector<void*> DllHandles = std::vector<void*>();
 	
 public:
 	static inline const FName ModuleName = TEXT("Atum");
@@ -24,5 +24,5 @@ public:
 	static FORCEINLINE IAtumModule& GetModule() { return FModuleManager::LoadModuleChecked<IAtumModule>(ModuleName); }
 
 	UE_NODISCARD
-	static FORCEINLINE const std::vector<uint8*>& GetDllHandles() noexcept { return DllHandles; }
+	static FORCEINLINE const std::vector<void*>& GetDllHandles() noexcept { return DllHandles; }
 };

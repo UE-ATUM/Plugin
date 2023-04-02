@@ -58,7 +58,7 @@ void FAtumModule::StartupModule()
 		DllHandles.reserve(DllNames.Num());
 		for (const FString& DllName : DllNames)
 		{
-			DllHandles.push_back(static_cast<uint8*>(FPlatformProcess::GetDllHandle(*DllName)));
+			DllHandles.push_back(FPlatformProcess::GetDllHandle(*DllName));
 		}
 	}
 #endif
@@ -71,9 +71,12 @@ void FAtumModule::StartupModule()
 void FAtumModule::ShutdownModule()
 {
 #if PLATFORM_WINDOWS
-	for (uint8* const DllHandle : DllHandles)
+	for (void* const DllHandle : DllHandles)
 	{
-		FPlatformProcess::FreeDllHandle(DllHandle);
+		if (DllHandle)
+		{
+			FPlatformProcess::FreeDllHandle(DllHandle);
+		}
 	}
 #endif
 }
