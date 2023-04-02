@@ -1,10 +1,10 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿// © 2023 Kaya Adrian.
 
 #include "AtumNeuralNetworkEditorToolkit.h"
 
 #include "AtumNeuralNetwork.h"
-#include "SAtumNeuralNetworkWidget.h"
 #include "Modules/ModuleManager.h"
+#include "SAtumNeuralNetworkWidget.h"
 #include "Widgets/Docking/SDockTab.h"
 
 

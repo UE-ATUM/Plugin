@@ -1,4 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// © 2023 Kaya Adrian.
 
 using UnrealBuildTool;
 
