@@ -3,63 +3,46 @@
 #include "Atum.h"
 
 #include "HAL/FileManager.h"
-#include "Interfaces/IPluginManager.h"
+#include "Kismet/GameplayStatics.h"
 #include "LibTorch/Include.h"
 
 #if PLATFORM_WINDOWS
 #include "Windows/WindowsPlatformProcess.h"
 #endif
 
-namespace
-{
-	bool GetLibraryPath(FString& OutPath)
-	{
-		const IPlugin* const AtumPlugin = IPluginManager::Get().FindPlugin(TEXT("Atum")).Get();
-		if (AtumPlugin == nullptr)
-			return false;
-
-		OutPath = AtumPlugin->GetBaseDir() / TEXT("Source/ThirdParty/LibTorch");
-
-#if PLATFORM_WINDOWS
-		OutPath /= TEXT("Win64");
-#endif
-
-#if LIBTORCH_DEBUG
-		OutPath /= TEXT("Debug");
-#elif LIBTORCH_RELEASE
-		OutPath /= TEXT("Release");
-#endif
-
-		OutPath /= TEXT("lib");
-		return true;
-	}
-}
 
 #define LOCTEXT_NAMESPACE "FAtumModule"
 
 void FAtumModule::StartupModule()
 {
 #if HAS_LIBTORCH
-#if PLATFORM_WINDOWS
-	if (FString LibraryPath; GetLibraryPath(LibraryPath))
+	FString LibraryPath;
+	if (!GetLibraryPath(LibraryPath))
 	{
-		FPlatformProcess::AddDllDirectory(*LibraryPath);
+		UE_LOG(LogAtum, Fatal, TEXT("Cannot load LibTorch on platform: %s"), *UGameplayStatics::GetPlatformName())
+		return;
+	}
+
+	const TCHAR* const LibraryPathPointer = *LibraryPath;
+	UE_LOG(LogAtum, Display, TEXT("Loading LibTorch libraries from path: %s"), LibraryPathPointer)
+
+#if PLATFORM_WINDOWS
+	FPlatformProcess::AddDllDirectory(LibraryPathPointer);
 		
-		TArray<FString> DllNames;
-		IFileManager::Get().FindFilesRecursive(
-			DllNames,
-			*LibraryPath,
-			TEXT("*.dll"),
-			true,
-			false,
-			false
-		);
+	TArray<FString> DllNames;
+	IFileManager::Get().FindFilesRecursive(
+		DllNames,
+		LibraryPathPointer,
+		TEXT("*.dll"),
+		true,
+		false,
+		false
+	);
 		
-		DllHandles.reserve(DllNames.Num());
-		for (const FString& DllName : DllNames)
-		{
-			DllHandles.push_back(FPlatformProcess::GetDllHandle(*DllName));
-		}
+	DllHandles.reserve(DllNames.Num());
+	for (const FString& DllName : DllNames)
+	{
+		DllHandles.push_back(FPlatformProcess::GetDllHandle(*DllName));
 	}
 #endif
 
