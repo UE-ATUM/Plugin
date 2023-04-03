@@ -17,7 +17,7 @@ protected:
 public:
 	static inline const FName ModuleName = TEXT("Atum");
 
-	static bool GetLibraryPath(FString& OutPath);
+	static bool GetLibraryPath(FString& OutPath) noexcept;
 
 	UE_NODISCARD
 	static FORCEINLINE bool IsModuleLoaded() noexcept { return FModuleManager::Get().IsModuleLoaded(ModuleName); }
