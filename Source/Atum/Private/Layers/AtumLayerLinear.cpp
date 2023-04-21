@@ -39,9 +39,9 @@ bool UAtumLayerLinear::Forward_Implementation(
 	{
 		NewTensorData = Module->forward(Data->toType(Module->weight.scalar_type()));
 	}
-	catch (const std::exception& Exception)
+	catch (const c10::Error& Error)
 	{
-		UE_LOG(LogAtum, Error, TEXT("%hs"), c10::GetExceptionString(Exception).c_str())
+		UE_LOG(LogAtum, Error, TEXT("%hs"), Error.what_without_backtrace())
 		return false;
 	}
 
