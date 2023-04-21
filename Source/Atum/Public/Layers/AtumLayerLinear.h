@@ -8,7 +8,7 @@
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Linear Layer")
-class ATUM_API UAtumLayerLinear : public UObject, public IAtumLayer, public TAtumLayerInternal<torch::nn::LinearImpl>
+class ATUM_API UAtumLayerLinear : public UObject, public IAtumLayer, public TAtumLayer<torch::nn::LinearImpl>
 {
 	GENERATED_BODY()
 
@@ -26,9 +26,9 @@ public:
 	UAtumLayerLinear() noexcept;
 	
 protected:
-	virtual bool InitializeData_Implementation() noexcept override;
+	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;
 	
-	virtual bool Forward_Implementation(
+	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,
 		TScriptInterface<IAtumTensor>& Output
 	) noexcept override;

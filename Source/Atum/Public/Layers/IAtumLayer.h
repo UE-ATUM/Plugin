@@ -21,36 +21,46 @@ class ATUM_API IAtumLayer
 	bool bInitialized = false;
 
 public:
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
-	bool InitializeData();
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
+	bool InitializeData(bool bRetry = false);
 	
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
 	bool Forward(const TScriptInterface<IAtumTensor>& Input, TScriptInterface<IAtumTensor>& Output);
-
-	UFUNCTION(BlueprintNativeEvent, BlueprintPure)
-	bool IsInitialized() const;
 	
 	FORCEINLINE bool operator()(
 		const TScriptInterface<IAtumTensor>& Input,
 		TScriptInterface<IAtumTensor>& Output
 	) noexcept
-	{ return Execute_Forward(_getUObject(), Input, Output); }
+	{ return Forward(Input, Output); }
 
-protected:
-	virtual bool InitializeData_Implementation() noexcept;
+private:
+	bool InitializeData_Implementation(bool bRetry = false) noexcept;
 	
-	virtual bool Forward_Implementation(
+	bool Forward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,
 		TScriptInterface<IAtumTensor>& Output
 	) noexcept;
 
-	UE_NODISCARD
-	FORCEINLINE bool IsInitialized_Implementation() const noexcept { return bInitialized; }
+protected:
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
+	bool OnInitializeData(bool bRetry = false);
+	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept;
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
+	bool OnForward(const TScriptInterface<IAtumTensor>& Input, TScriptInterface<IAtumTensor>& Output);
+	virtual bool OnForward_Implementation(
+		const TScriptInterface<IAtumTensor>& Input,
+		TScriptInterface<IAtumTensor>& Output
+	) noexcept;
+	
+public:
+	FORCEINLINE bool IsInitialized() const { return bInitialized; }
 };
+
 
 template <typename T>
 requires std::is_base_of_v<torch::nn::Module, T>
-class TAtumLayerInternal
+class TAtumLayer
 {
 protected:
 	mutable TUniquePtr<T> Module = nullptr;
