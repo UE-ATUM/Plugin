@@ -3,7 +3,7 @@
 #include "Tensors/AtumTensorInt.h"
 
 
-EAtumScalarType UAtumTensorInt::GetScalarType_Implementation() const noexcept
+EAtumScalarType UAtumTensorInt::GetScalarType() const noexcept
 {
 	return EAtumScalarType::Int;
 }

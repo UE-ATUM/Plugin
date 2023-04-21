@@ -3,29 +3,22 @@
 #include "Tensors/IAtumTensor.h"
 
 
-IAtumTensor::operator FString() const noexcept
-{
-	std::ostringstream Stream;
-	Stream << *this;
-	return Stream.str().c_str();
-}
-
-EAtumScalarType IAtumTensor::GetScalarType_Implementation() const noexcept
+EAtumScalarType IAtumTensor::GetScalarType() const noexcept
 {
 	return Data ? AtumEnums::Cast(Data->scalar_type()) : EAtumScalarType::Undefined;
 }
 
-int64 IAtumTensor::GetElementCount_Implementation() const noexcept
+int64 IAtumTensor::GetElementCount() const noexcept
 {
 	return Data ? Data->numel() : 0;
 }
 
-int64 IAtumTensor::GetElementSize_Implementation() const noexcept
+int64 IAtumTensor::GetElementSize() const noexcept
 {
 	return Data ? Data->element_size() : 0;
 }
 
-void IAtumTensor::GetSerializedValues_Implementation(TArray<uint8>& OutValues, TArray<int64>& OutSizes) const noexcept
+void IAtumTensor::GetSerializedValues(TArray<uint8>& OutValues, TArray<int64>& OutSizes) const noexcept
 {
 	const uint64 ByteCount = Data ? Data->numel() * Data->element_size() : 0u;
 	if (ByteCount == 0u)
@@ -41,7 +34,7 @@ void IAtumTensor::GetSerializedValues_Implementation(TArray<uint8>& OutValues, T
 	OutSizes = TArray(DataSizes.data(), DataSizes.size());
 }
 
-void IAtumTensor::SetSerializedValues_Implementation(const TArray<uint8>& Values, const TArray<int64>& Sizes) noexcept
+void IAtumTensor::SetSerializedValues(const TArray<uint8>& Values, const TArray<int64>& Sizes) noexcept
 {
 	SetData(torch::empty(c10::IntArrayRef(Sizes.GetData(), Sizes.Num())));
 	
@@ -56,6 +49,21 @@ void IAtumTensor::SetSerializedValues_Implementation(const TArray<uint8>& Values
 		Values.GetData(),
 		std::min(static_cast<uint64>(Values.Num()), MaxSize)
 	);
+}
+
+void IAtumTensor::CloneData(TScriptInterface<IAtumTensor>& OutClone, UObject* const Outer) const noexcept
+{
+	if (OutClone = DuplicateObject(_getUObject(), Outer); OutClone && Data)
+	{
+		OutClone->SetData(*Data);
+	}
+}
+
+IAtumTensor::operator FString() const noexcept
+{
+	std::ostringstream Stream;
+	Stream << *this;
+	return Stream.str().c_str();
 }
 
 std::ostream& operator<<(std::ostream& OutStream, const IAtumTensor& AtumTensor) noexcept

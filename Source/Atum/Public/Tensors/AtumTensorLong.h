@@ -8,13 +8,13 @@
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Long Tensor")
-class ATUM_API UAtumTensorLong : public UObject, public IAtumTensor, public TAtumTensorInternal<int64>
+class ATUM_API UAtumTensorLong : public UObject, public IAtumTensor, public TAtumTensor<int64>
 {
 	GENERATED_BODY()
 
 protected:
 	UE_NODISCARD
-	virtual EAtumScalarType GetScalarType_Implementation() const noexcept override final;
+	virtual EAtumScalarType GetScalarType() const noexcept override final;
 
 	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor", DisplayName = "Get Values (Long)", meta = (
 		Keywords = "ATUM Tensor Long int64 Get Out Values Sizes"
@@ -26,5 +26,5 @@ protected:
 		Keywords = "ATUM Tensor Long int64 Set Values Sizes"
 	))
 	FORCEINLINE void K2_SetValues(const TArray<int64>& Values, const TArray<int64>& Sizes) noexcept
-	{ SetValues_Internal(*this, Values, Sizes); }
+	{ SetInternalValues(*this, Values, Sizes); }
 };

@@ -8,13 +8,13 @@
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Double Tensor")
-class ATUM_API UAtumTensorDouble : public UObject, public IAtumTensor, public TAtumTensorInternal<double>
+class ATUM_API UAtumTensorDouble : public UObject, public IAtumTensor, public TAtumTensor<double>
 {
 	GENERATED_BODY()
 
 protected:
 	UE_NODISCARD
-	virtual EAtumScalarType GetScalarType_Implementation() const noexcept override final;
+	virtual EAtumScalarType GetScalarType() const noexcept override final;
 
 	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor", DisplayName = "Get Values (Double)", meta = (
 		Keywords = "ATUM Tensor Double Get Out Values Sizes"
@@ -26,5 +26,5 @@ protected:
 		Keywords = "ATUM Tensor Double Set Values Sizes"
 	))
 	FORCEINLINE void K2_SetValues(const TArray<double>& Values, const TArray<int64>& Sizes) noexcept
-	{ SetValues_Internal(*this, Values, Sizes); }
+	{ SetInternalValues(*this, Values, Sizes); }
 };

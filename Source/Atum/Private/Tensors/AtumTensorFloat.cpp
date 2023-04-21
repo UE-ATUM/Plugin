@@ -3,7 +3,7 @@
 #include "Tensors/AtumTensorFloat.h"
 
 
-EAtumScalarType UAtumTensorFloat::GetScalarType_Implementation() const noexcept
+EAtumScalarType UAtumTensorFloat::GetScalarType() const noexcept
 {
 	return EAtumScalarType::Float;
 }

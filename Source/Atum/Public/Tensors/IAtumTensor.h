@@ -8,7 +8,7 @@
 #include "IAtumTensor.generated.h"
 
 
-UINTERFACE(MinimalAPI, Blueprintable, BlueprintType, DisplayName = "ATUM Tensor")
+UINTERFACE(MinimalAPI, NotBlueprintable, BlueprintType, DisplayName = "ATUM Tensor")
 class UAtumTensor : public UInterface
 {
 	GENERATED_BODY()
@@ -20,47 +20,39 @@ class ATUM_API IAtumTensor
 	
 protected:
 	TUniquePtr<torch::Tensor> Data = nullptr;
-
+	
 public:
 	UE_NODISCARD
-	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "ATUM|Tensor")
-	EAtumScalarType GetScalarType() const;
-
+	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
+	virtual EAtumScalarType GetScalarType() const noexcept;
+	
 	UE_NODISCARD
-	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "ATUM|Tensor")
-	int64 GetElementCount() const;
-
+	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
+	virtual int64 GetElementCount() const noexcept;
+	
 	UE_NODISCARD
-	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "ATUM|Tensor")
-	int64 GetElementSize() const;
+	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
+	virtual int64 GetElementSize() const noexcept;
+	
+	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
+	virtual void GetSerializedValues(TArray<uint8>& OutValues, TArray<int64>& OutSizes) const noexcept;
+	
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
+	virtual void SetSerializedValues(const TArray<uint8>& Values, const TArray<int64>& Sizes) noexcept;
 
-	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "ATUM|Tensor")
-	void GetSerializedValues(TArray<uint8>& OutValues, TArray<int64>& OutSizes) const;
-
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Tensor")
-	void SetSerializedValues(const TArray<uint8>& Values, const TArray<int64>& Sizes);
-
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
+	virtual void CloneData(TScriptInterface<IAtumTensor>& OutClone, UObject* Outer = nullptr) const noexcept;
+	
 	UE_NODISCARD
 	FORCEINLINE c10::ScalarType GetTorchScalarType() const noexcept
-	{ return Data ? Data->scalar_type() : AtumEnums::Cast(Execute_GetScalarType(_getUObject())); }
-
-	template <typename T>
-	void GetValues(TArray<T>& OutValues, TArray<int64>& OutSizes) const noexcept;
-
-	template <typename T>
-	FORCEINLINE void SetValues(T* const Values, const TArray<int64>& Sizes) noexcept
-	{ SetData(torch::from_blob(
-		Values,
-		c10::IntArrayRef(Sizes.GetData(), Sizes.Num()),
-		GetTorchScalarType()
-	)); }
-
+	{ return Data ? Data->scalar_type() : AtumEnums::Cast(GetScalarType()); }
+	
 	UE_NODISCARD
 	explicit operator FString() const noexcept;
 	
 	UE_NODISCARD
 	FORCEINLINE FString ToString() const noexcept { return static_cast<FString>(*this); }
-
+	
 	UE_NODISCARD
 	FORCEINLINE torch::Tensor operator[](const int64 Index) { return (*Data)[Index]; }
 	
@@ -72,19 +64,17 @@ public:
 	
 	UE_NODISCARD
 	FORCEINLINE torch::Tensor operator[](const IAtumTensor& Tensor) { return (*Data)[*Tensor.Data]; }
-
-protected:
-	UE_NODISCARD
-	virtual EAtumScalarType GetScalarType_Implementation() const noexcept;
-
-	UE_NODISCARD
-	virtual int64 GetElementCount_Implementation() const noexcept;
-
-	UE_NODISCARD
-	virtual int64 GetElementSize_Implementation() const noexcept;
-
-	virtual void GetSerializedValues_Implementation(TArray<uint8>& OutValues, TArray<int64>& OutSizes) const noexcept;
-	virtual void SetSerializedValues_Implementation(const TArray<uint8>& Values, const TArray<int64>& Sizes) noexcept;
+	
+	template <typename T>
+	void GetValues(TArray<T>& OutValues, TArray<int64>& OutSizes) const noexcept;
+	
+	template <typename T>
+	FORCEINLINE void SetValues(T* const Values, const TArray<int64>& Sizes) noexcept
+	{ SetData(torch::from_blob(
+		Values,
+		c10::IntArrayRef(Sizes.GetData(), Sizes.Num()),
+		GetTorchScalarType()
+	)); }
 
 private:
 	UE_NODISCARD
@@ -111,12 +101,12 @@ public:
 
 
 template <typename T>
-class TAtumTensorInternal
+class TAtumTensor
 {
 protected:
 	mutable TArray<T> InternalValues = TArray<T>();
 	
-	void SetValues_Internal(IAtumTensor& AtumTensor, const TArray<T>& Values, const TArray<int64>& Sizes) noexcept;
+	void SetInternalValues(IAtumTensor& AtumTensor, const TArray<T>& Values, const TArray<int64>& Sizes) noexcept;
 
 public:
 	UE_NODISCARD
@@ -132,14 +122,14 @@ void IAtumTensor::GetValues(TArray<T>& OutValues, TArray<int64>& OutSizes) const
 	if (Data == nullptr)
 		return;
 	
-	OutValues.Append(static_cast<T*>(GetUncastedValues(Execute_GetScalarType(_getUObject()))), Data->numel());
+	OutValues.Append(static_cast<T*>(GetUncastedValues(GetScalarType())), Data->numel());
 
 	const c10::IntArrayRef DataSizes = Data->sizes();
 	OutSizes = TArray(DataSizes.data(), DataSizes.size());
 }
 
 template <typename T>
-void TAtumTensorInternal<T>::SetValues_Internal(
+void TAtumTensor<T>::SetInternalValues(
 	IAtumTensor& AtumTensor,
 	const TArray<T>& Values,
 	const TArray<int64>& Sizes
