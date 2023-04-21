@@ -47,3 +47,24 @@ protected:
 	UE_NODISCARD
 	FORCEINLINE bool IsInitialized_Implementation() const noexcept { return bInitialized; }
 };
+
+template <typename T>
+requires std::is_base_of_v<torch::nn::Module, T>
+class TAtumLayerInternal
+{
+protected:
+	mutable TUniquePtr<T> Module = nullptr;
+
+public:
+	UE_NODISCARD
+	FORCEINLINE const T* GetModule() const noexcept { return Module.Get(); }
+	
+	UE_NODISCARD
+	FORCEINLINE T* GetModule() noexcept { return Module.Get(); }
+
+	UE_NODISCARD
+	FORCEINLINE const T& GetModuleChecked() const { return *GetModule(); }
+
+	UE_NODISCARD
+	FORCEINLINE T& GetModuleChecked() { return *GetModule(); }
+};

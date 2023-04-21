@@ -8,11 +8,9 @@
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Linear Layer")
-class ATUM_API UAtumLayerLinear : public UObject, public IAtumLayer
+class ATUM_API UAtumLayerLinear : public UObject, public IAtumLayer, public TAtumLayerInternal<torch::nn::LinearImpl>
 {
 	GENERATED_BODY()
-
-	TUniquePtr<torch::nn::LinearImpl> Module;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	int64 InFeatures;
@@ -34,17 +32,4 @@ protected:
 		const TScriptInterface<IAtumTensor>& Input,
 		TScriptInterface<IAtumTensor>& Output
 	) noexcept override;
-
-public:
-	UE_NODISCARD
-	FORCEINLINE const torch::nn::LinearImpl* GetModule() const noexcept { return Module.Get(); }
-	
-	UE_NODISCARD
-	FORCEINLINE torch::nn::LinearImpl* GetModule() noexcept { return Module.Get(); }
-
-	UE_NODISCARD
-	FORCEINLINE const torch::nn::LinearImpl& GetModuleChecked() const { return *GetModule(); }
-
-	UE_NODISCARD
-	FORCEINLINE torch::nn::LinearImpl& GetModuleChecked() { return *GetModule(); }
 };

@@ -5,7 +5,7 @@
 #include "IAtum.h"
 
 
-UAtumLayerLinear::UAtumLayerLinear() noexcept : Module(nullptr), InFeatures(1), OutFeatures(1), bLearnBias(true)
+UAtumLayerLinear::UAtumLayerLinear() noexcept : InFeatures(1), OutFeatures(1), bLearnBias(true)
 {
 }
 

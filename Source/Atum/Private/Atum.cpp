@@ -65,5 +65,5 @@ void FAtumModule::ShutdownModule()
 }
 
 #undef LOCTEXT_NAMESPACE
-	
+
 IMPLEMENT_MODULE(FAtumModule, Atum)
