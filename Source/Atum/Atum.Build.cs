@@ -7,6 +7,7 @@ public class Atum : ModuleRules
 {
 	public Atum(ReadOnlyTargetRules Target) : base(Target)
 	{
+		Type = ModuleType.CPlusPlus;
 		PCHUsage = PCHUsageMode.NoPCHs;
 		CppStandard = CppStandardVersion.Cpp20;
 		
