@@ -24,6 +24,10 @@ protected:
 public:
 	UE_NODISCARD
 	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
+	virtual void GetSizes(TArray<int64>& OutSizes) const noexcept;
+	
+	UE_NODISCARD
+	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
 	virtual EAtumScalarType GetScalarType() const noexcept;
 	
 	UE_NODISCARD
@@ -79,7 +83,7 @@ public:
 private:
 	UE_NODISCARD
 	FORCEINLINE void* GetUncastedValues(const c10::ScalarType Type) const noexcept
-	{ return Data ? Data->toType(Type).data_ptr() : nullptr; }
+	{ return Data ? Data->to(Type).data_ptr() : nullptr; }
 	
 	UE_NODISCARD
 	FORCEINLINE void* GetUncastedValues(const EAtumScalarType Type) const noexcept
@@ -96,7 +100,7 @@ public:
 	FORCEINLINE const torch::Tensor& GetDataChecked() const { return *GetData(); }
 	
 	FORCEINLINE void SetData(const torch::Tensor& Value) noexcept
-	{ Data.Reset(new torch::Tensor(Value.toType(GetTorchScalarType()))); }
+	{ Data.Reset(new torch::Tensor(Value.to(GetTorchScalarType()))); }
 };
 
 

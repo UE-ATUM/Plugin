@@ -3,6 +3,12 @@
 #include "Tensors/IAtumTensor.h"
 
 
+void IAtumTensor::GetSizes(TArray<int64>& OutSizes) const noexcept
+{
+	const c10::IntArrayRef DataSizes = Data->sizes();
+	OutSizes = TArray(DataSizes.data(), DataSizes.size());
+}
+
 EAtumScalarType IAtumTensor::GetScalarType() const noexcept
 {
 	return Data ? AtumEnums::Cast(Data->scalar_type()) : EAtumScalarType::Undefined;
@@ -29,9 +35,7 @@ void IAtumTensor::GetSerializedValues(TArray<uint8>& OutValues, TArray<int64>& O
 
 	OutValues.AddUninitialized(ByteCount);
 	FMemory::Memcpy(OutValues.GetData(), Data->data_ptr(), ByteCount);
-
-	const c10::IntArrayRef DataSizes = Data->sizes();
-	OutSizes = TArray(DataSizes.data(), DataSizes.size());
+	GetSizes(OutSizes);
 }
 
 void IAtumTensor::SetSerializedValues(const TArray<uint8>& Values, const TArray<int64>& Sizes) noexcept
