@@ -31,7 +31,6 @@ inline at::Tensor bitwise_not(const at::Tensor & self) {
 inline at::Tensor & bitwise_not_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::bitwise_not_out::call(self, out);
 }
-
 // aten::bitwise_not.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & bitwise_not_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::bitwise_not_out::call(self, out);

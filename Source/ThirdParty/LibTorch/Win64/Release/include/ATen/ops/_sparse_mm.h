@@ -27,4 +27,9 @@ inline at::Tensor _sparse_mm(const at::Tensor & sparse, const at::Tensor & dense
     return at::_ops::_sparse_mm::call(sparse, dense);
 }
 
+// aten::_sparse_mm.reduce(Tensor sparse, Tensor dense, str reduce) -> Tensor
+inline at::Tensor _sparse_mm(const at::Tensor & sparse, const at::Tensor & dense, c10::string_view reduce) {
+    return at::_ops::_sparse_mm_reduce::call(sparse, dense, reduce);
+}
+
 }

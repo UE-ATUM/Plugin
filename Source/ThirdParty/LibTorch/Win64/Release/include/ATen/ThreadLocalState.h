@@ -10,6 +10,7 @@
 #include <ATen/FuncTorchTLS.h>
 #include <ATen/PythonTorchFunctionTLS.h>
 #include <ATen/SavedTensorHooks.h>
+#include <ATen/ThreadLocalPythonObjects.h>
 #include <ATen/record_function.h>
 #include <c10/core/impl/PythonDispatcherTLS.h>
 #include <c10/core/impl/TorchDispatchModeTLS.h>
@@ -29,6 +30,12 @@ class TORCH_API ThreadLocalState {
   //  the current state object. This is used for example in the
   //  autograd engine.
   void set_grad_mode(bool enabled);
+
+  // set_multithreading_enabled - force the value of the multithreadinmaximum
+  // threads TLS in
+  //  the current state object. This is used for example in the
+  //  autograd engine.
+  void set_multithreading_enabled(bool enabled);
 
   // Sets thread local variables in the current thread,
   // according to the thread boundary specified
@@ -67,6 +74,11 @@ class TORCH_API ThreadLocalState {
 
   // TLS for saved tensors default hooks
   at::impl::SavedTensorDefaultHooksTLS saved_tensors_default_hooks_state_;
+
+  bool functionalization_reapply_views_state_;
+
+  // TLS for arbitrary python objects that is registered via hooks
+  at::impl::ThreadLocalPythonObjects saved_objects_;
 
   friend class ThreadLocalStateGuard;
 };

@@ -22,19 +22,18 @@
 namespace at {
 
 
-// aten::mkldnn_reorder_conv2d_weight(Tensor self, int[2] padding=0, int[2] stride=1, int[2] dilation=1, int groups=1) -> Tensor
-inline at::Tensor mkldnn_reorder_conv2d_weight(const at::Tensor & self, at::IntArrayRef padding=0, at::IntArrayRef stride=1, at::IntArrayRef dilation=1, int64_t groups=1) {
-    return at::_ops::mkldnn_reorder_conv2d_weight::call(self, padding, stride, dilation, groups);
+// aten::mkldnn_reorder_conv2d_weight(Tensor self, int[2] padding=0, int[2] stride=1, int[2] dilation=1, int groups=1, int[]? input_size=None) -> Tensor
+inline at::Tensor mkldnn_reorder_conv2d_weight(const at::Tensor & self, at::IntArrayRef padding=0, at::IntArrayRef stride=1, at::IntArrayRef dilation=1, int64_t groups=1, at::OptionalIntArrayRef input_size=c10::nullopt) {
+    return at::_ops::mkldnn_reorder_conv2d_weight::call(self, padding, stride, dilation, groups, input_size);
 }
 
-// aten::mkldnn_reorder_conv2d_weight.out(Tensor self, int[2] padding=0, int[2] stride=1, int[2] dilation=1, int groups=1, *, Tensor(a!) out) -> Tensor(a!)
-inline at::Tensor & mkldnn_reorder_conv2d_weight_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef padding=0, at::IntArrayRef stride=1, at::IntArrayRef dilation=1, int64_t groups=1) {
-    return at::_ops::mkldnn_reorder_conv2d_weight_out::call(self, padding, stride, dilation, groups, out);
+// aten::mkldnn_reorder_conv2d_weight.out(Tensor self, int[2] padding=0, int[2] stride=1, int[2] dilation=1, int groups=1, int[]? input_size=None, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & mkldnn_reorder_conv2d_weight_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef padding=0, at::IntArrayRef stride=1, at::IntArrayRef dilation=1, int64_t groups=1, at::OptionalIntArrayRef input_size=c10::nullopt) {
+    return at::_ops::mkldnn_reorder_conv2d_weight_out::call(self, padding, stride, dilation, groups, input_size, out);
 }
-
-// aten::mkldnn_reorder_conv2d_weight.out(Tensor self, int[2] padding=0, int[2] stride=1, int[2] dilation=1, int groups=1, *, Tensor(a!) out) -> Tensor(a!)
-inline at::Tensor & mkldnn_reorder_conv2d_weight_outf(const at::Tensor & self, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, at::Tensor & out) {
-    return at::_ops::mkldnn_reorder_conv2d_weight_out::call(self, padding, stride, dilation, groups, out);
+// aten::mkldnn_reorder_conv2d_weight.out(Tensor self, int[2] padding=0, int[2] stride=1, int[2] dilation=1, int groups=1, int[]? input_size=None, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & mkldnn_reorder_conv2d_weight_outf(const at::Tensor & self, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, at::OptionalIntArrayRef input_size, at::Tensor & out) {
+    return at::_ops::mkldnn_reorder_conv2d_weight_out::call(self, padding, stride, dilation, groups, input_size, out);
 }
 
 }

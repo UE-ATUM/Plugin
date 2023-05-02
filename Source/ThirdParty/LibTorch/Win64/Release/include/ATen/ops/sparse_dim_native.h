@@ -16,6 +16,7 @@
 
 namespace at {
 namespace native {
+TORCH_API int64_t sparse_dim_strided(const at::Tensor & self);
 TORCH_API int64_t sparse_dim_sparse(const at::Tensor & self);
 TORCH_API int64_t sparse_dim_sparse_csr(const at::Tensor & self);
 } // namespace native

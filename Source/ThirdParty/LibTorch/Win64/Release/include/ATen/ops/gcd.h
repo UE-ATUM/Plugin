@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & gcd_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other) {
     return at::_ops::gcd_out::call(self, other, out);
 }
-
 // aten::gcd.out(Tensor self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & gcd_outf(const at::Tensor & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::gcd_out::call(self, other, out);

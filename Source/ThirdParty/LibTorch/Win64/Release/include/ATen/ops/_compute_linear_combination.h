@@ -31,7 +31,6 @@ inline at::Tensor _compute_linear_combination(const at::Tensor & input, const at
 inline at::Tensor & _compute_linear_combination_out(at::Tensor & out, const at::Tensor & input, const at::Tensor & coefficients) {
     return at::_ops::_compute_linear_combination_out::call(input, coefficients, out);
 }
-
 // aten::_compute_linear_combination.out(Tensor input, Tensor coefficients, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _compute_linear_combination_outf(const at::Tensor & input, const at::Tensor & coefficients, at::Tensor & out) {
     return at::_ops::_compute_linear_combination_out::call(input, coefficients, out);

@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor zeros(at::IntArrayRef size, c10::optional<at::DimnameList> names, at::TensorOptions options={}) {
     return at::_ops::zeros_names::call(size, names, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
 }
-
 // aten::zeros.names(int[] size, *, Dimname[]? names, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
 inline at::Tensor zeros(at::IntArrayRef size, c10::optional<at::DimnameList> names, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
     return at::_ops::zeros_names::call(size, names, dtype, layout, device, pin_memory);
@@ -34,49 +33,96 @@ inline at::Tensor zeros(at::IntArrayRef size, c10::optional<at::DimnameList> nam
 
 // aten::zeros(SymInt[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
 inline at::Tensor zeros(at::IntArrayRef size, at::TensorOptions options={}) {
-    return at::_ops::zeros::call(c10::fromIntArrayRef(size), optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
+    return at::_ops::zeros::call(c10::fromIntArrayRefSlow(size), optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor zeros(at::IntArrayRef size, at::TensorOptions options={}) {
+    return at::_ops::zeros::call(c10::fromIntArrayRefSlow(size), optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
+  }
 }
 
 // aten::zeros(SymInt[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
 inline at::Tensor zeros(at::IntArrayRef size, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
-    return at::_ops::zeros::call(c10::fromIntArrayRef(size), dtype, layout, device, pin_memory);
+    return at::_ops::zeros::call(c10::fromIntArrayRefSlow(size), dtype, layout, device, pin_memory);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor zeros(at::IntArrayRef size, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
+    return at::_ops::zeros::call(c10::fromIntArrayRefSlow(size), dtype, layout, device, pin_memory);
+  }
 }
 
 // aten::zeros(SymInt[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
 inline at::Tensor zeros_symint(c10::SymIntArrayRef size, at::TensorOptions options={}) {
     return at::_ops::zeros::call(size, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
 }
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor zeros(c10::SymIntArrayRef size, at::TensorOptions options={}) {
+    return at::_ops::zeros::call(size, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
+  }
+}
 
 // aten::zeros(SymInt[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
 inline at::Tensor zeros_symint(c10::SymIntArrayRef size, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
     return at::_ops::zeros::call(size, dtype, layout, device, pin_memory);
 }
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor zeros(c10::SymIntArrayRef size, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
+    return at::_ops::zeros::call(size, dtype, layout, device, pin_memory);
+  }
+}
 
 // aten::zeros.out(SymInt[] size, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & zeros_out(at::Tensor & out, at::IntArrayRef size) {
-    return at::_ops::zeros_out::call(c10::fromIntArrayRef(size), out);
+    return at::_ops::zeros_out::call(c10::fromIntArrayRefSlow(size), out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & zeros_out(at::Tensor & out, at::IntArrayRef size) {
+    return at::_ops::zeros_out::call(c10::fromIntArrayRefSlow(size), out);
+  }
 }
 
 // aten::zeros.out(SymInt[] size, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & zeros_outf(at::IntArrayRef size, at::Tensor & out) {
-    return at::_ops::zeros_out::call(c10::fromIntArrayRef(size), out);
+    return at::_ops::zeros_out::call(c10::fromIntArrayRefSlow(size), out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & zeros_outf(at::IntArrayRef size, at::Tensor & out) {
+    return at::_ops::zeros_out::call(c10::fromIntArrayRefSlow(size), out);
+  }
 }
 
 // aten::zeros.out(SymInt[] size, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & zeros_symint_out(at::Tensor & out, c10::SymIntArrayRef size) {
     return at::_ops::zeros_out::call(size, out);
 }
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & zeros_out(at::Tensor & out, c10::SymIntArrayRef size) {
+    return at::_ops::zeros_out::call(size, out);
+  }
+}
 
 // aten::zeros.out(SymInt[] size, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & zeros_symint_outf(c10::SymIntArrayRef size, at::Tensor & out) {
     return at::_ops::zeros_out::call(size, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & zeros_outf(c10::SymIntArrayRef size, at::Tensor & out) {
+    return at::_ops::zeros_out::call(size, out);
+  }
 }
 
 // aten::zeros.names_out(int[] size, *, Dimname[]? names, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & zeros_out(at::Tensor & out, at::IntArrayRef size, c10::optional<at::DimnameList> names) {
     return at::_ops::zeros_names_out::call(size, names, out);
 }
-
 // aten::zeros.names_out(int[] size, *, Dimname[]? names, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & zeros_outf(at::IntArrayRef size, c10::optional<at::DimnameList> names, at::Tensor & out) {
     return at::_ops::zeros_names_out::call(size, names, out);

@@ -36,7 +36,6 @@ inline at::Tensor & i0_(at::Tensor & self) {
 inline at::Tensor & i0_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::i0_out::call(self, out);
 }
-
 // aten::i0.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & i0_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::i0_out::call(self, out);

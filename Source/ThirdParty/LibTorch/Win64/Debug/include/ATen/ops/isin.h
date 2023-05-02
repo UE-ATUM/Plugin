@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & isin_out(at::Tensor & out, const at::Tensor & elements, const at::Tensor & test_elements, bool assume_unique=false, bool invert=false) {
     return at::_ops::isin_Tensor_Tensor_out::call(elements, test_elements, assume_unique, invert, out);
 }
-
 // aten::isin.Tensor_Tensor_out(Tensor elements, Tensor test_elements, *, bool assume_unique=False, bool invert=False, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & isin_outf(const at::Tensor & elements, const at::Tensor & test_elements, bool assume_unique, bool invert, at::Tensor & out) {
     return at::_ops::isin_Tensor_Tensor_out::call(elements, test_elements, assume_unique, invert, out);
@@ -41,7 +40,6 @@ inline at::Tensor isin(const at::Tensor & elements, const at::Tensor & test_elem
 inline at::Tensor & isin_out(at::Tensor & out, const at::Tensor & elements, const at::Scalar & test_element, bool assume_unique=false, bool invert=false) {
     return at::_ops::isin_Tensor_Scalar_out::call(elements, test_element, assume_unique, invert, out);
 }
-
 // aten::isin.Tensor_Scalar_out(Tensor elements, Scalar test_element, *, bool assume_unique=False, bool invert=False, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & isin_outf(const at::Tensor & elements, const at::Scalar & test_element, bool assume_unique, bool invert, at::Tensor & out) {
     return at::_ops::isin_Tensor_Scalar_out::call(elements, test_element, assume_unique, invert, out);
@@ -56,7 +54,6 @@ inline at::Tensor isin(const at::Tensor & elements, const at::Scalar & test_elem
 inline at::Tensor & isin_out(at::Tensor & out, const at::Scalar & element, const at::Tensor & test_elements, bool assume_unique=false, bool invert=false) {
     return at::_ops::isin_Scalar_Tensor_out::call(element, test_elements, assume_unique, invert, out);
 }
-
 // aten::isin.Scalar_Tensor_out(Scalar element, Tensor test_elements, *, bool assume_unique=False, bool invert=False, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & isin_outf(const at::Scalar & element, const at::Tensor & test_elements, bool assume_unique, bool invert, at::Tensor & out) {
     return at::_ops::isin_Scalar_Tensor_out::call(element, test_elements, assume_unique, invert, out);

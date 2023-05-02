@@ -31,7 +31,6 @@ inline at::Tensor chain_matmul(at::TensorList matrices) {
 inline at::Tensor & chain_matmul_out(at::Tensor & out, at::TensorList matrices) {
     return at::_ops::chain_matmul_out::call(matrices, out);
 }
-
 // aten::chain_matmul.out(Tensor[] matrices, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & chain_matmul_outf(at::TensorList matrices, at::Tensor & out) {
     return at::_ops::chain_matmul_out::call(matrices, out);

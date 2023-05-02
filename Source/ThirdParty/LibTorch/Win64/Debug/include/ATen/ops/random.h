@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & random_out(at::Tensor & out, const at::Tensor & self, int64_t from, c10::optional<int64_t> to, c10::optional<at::Generator> generator=c10::nullopt) {
     return at::_ops::random_from_out::call(self, from, to, generator, out);
 }
-
 // aten::random.from_out(Tensor self, int from, int? to, *, Generator? generator=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & random_outf(const at::Tensor & self, int64_t from, c10::optional<int64_t> to, c10::optional<at::Generator> generator, at::Tensor & out) {
     return at::_ops::random_from_out::call(self, from, to, generator, out);
@@ -41,7 +40,6 @@ inline at::Tensor random(const at::Tensor & self, int64_t from, c10::optional<in
 inline at::Tensor & random_out(at::Tensor & out, const at::Tensor & self, int64_t to, c10::optional<at::Generator> generator=c10::nullopt) {
     return at::_ops::random_to_out::call(self, to, generator, out);
 }
-
 // aten::random.to_out(Tensor self, int to, *, Generator? generator=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & random_outf(const at::Tensor & self, int64_t to, c10::optional<at::Generator> generator, at::Tensor & out) {
     return at::_ops::random_to_out::call(self, to, generator, out);
@@ -56,7 +54,6 @@ inline at::Tensor random(const at::Tensor & self, int64_t to, c10::optional<at::
 inline at::Tensor & random_out(at::Tensor & out, const at::Tensor & self, c10::optional<at::Generator> generator=c10::nullopt) {
     return at::_ops::random_out::call(self, generator, out);
 }
-
 // aten::random.out(Tensor self, *, Generator? generator=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & random_outf(const at::Tensor & self, c10::optional<at::Generator> generator, at::Tensor & out) {
     return at::_ops::random_out::call(self, generator, out);

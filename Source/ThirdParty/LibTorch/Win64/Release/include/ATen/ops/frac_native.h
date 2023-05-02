@@ -19,5 +19,11 @@ namespace native {
 struct TORCH_API structured_frac_out : public at::meta::structured_frac {
 void impl(const at::Tensor & self, const at::Tensor & out);
 };
+TORCH_API at::Tensor frac_sparse(const at::Tensor & self);
+TORCH_API at::Tensor & frac_sparse_out(const at::Tensor & self, at::Tensor & out);
+TORCH_API at::Tensor & frac_sparse_(at::Tensor & self);
+TORCH_API at::Tensor frac_sparse_csr(const at::Tensor & self);
+TORCH_API at::Tensor & frac_sparse_csr_out(const at::Tensor & self, at::Tensor & out);
+TORCH_API at::Tensor & frac_sparse_csr_(at::Tensor & self);
 } // namespace native
 } // namespace at

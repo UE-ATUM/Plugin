@@ -31,7 +31,6 @@ inline at::Tensor cudnn_convolution_add_relu(const at::Tensor & self, const at::
 inline at::Tensor & cudnn_convolution_add_relu_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, const at::Tensor & z, const c10::optional<at::Scalar> & alpha, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, int64_t groups) {
     return at::_ops::cudnn_convolution_add_relu_out::call(self, weight, z, alpha, bias, stride, padding, dilation, groups, out);
 }
-
 // aten::cudnn_convolution_add_relu.out(Tensor self, Tensor weight, Tensor z, Scalar? alpha, Tensor? bias, int[] stride, int[] padding, int[] dilation, int groups, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & cudnn_convolution_add_relu_outf(const at::Tensor & self, const at::Tensor & weight, const at::Tensor & z, const c10::optional<at::Scalar> & alpha, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, int64_t groups, at::Tensor & out) {
     return at::_ops::cudnn_convolution_add_relu_out::call(self, weight, z, alpha, bias, stride, padding, dilation, groups, out);

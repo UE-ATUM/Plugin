@@ -18,7 +18,7 @@ namespace at {
 namespace compositeexplicitautogradnonfunctional {
 
 TORCH_API at::Tensor select_backward(const at::Tensor & grad_output, at::IntArrayRef input_sizes, int64_t dim, int64_t index);
-TORCH_API at::Tensor select_backward_symint(const at::Tensor & grad_output, c10::SymIntArrayRef input_sizes, int64_t dim, int64_t index);
+TORCH_API at::Tensor select_backward_symint(const at::Tensor & grad_output, c10::SymIntArrayRef input_sizes, int64_t dim, c10::SymInt index);
 
 } // namespace compositeexplicitautogradnonfunctional
 } // namespace at

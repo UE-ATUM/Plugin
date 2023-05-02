@@ -31,7 +31,6 @@ inline at::Tensor _test_optional_floatlist(const at::Tensor & values, c10::optio
 inline at::Tensor & _test_optional_floatlist_out(at::Tensor & out, const at::Tensor & values, c10::optional<at::ArrayRef<double>> addends) {
     return at::_ops::_test_optional_floatlist_out::call(values, addends, out);
 }
-
 // aten::_test_optional_floatlist.out(Tensor values, float[]? addends, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _test_optional_floatlist_outf(const at::Tensor & values, c10::optional<at::ArrayRef<double>> addends, at::Tensor & out) {
     return at::_ops::_test_optional_floatlist_out::call(values, addends, out);

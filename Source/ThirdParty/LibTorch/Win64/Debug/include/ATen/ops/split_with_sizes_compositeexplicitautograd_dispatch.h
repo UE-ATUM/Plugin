@@ -18,6 +18,7 @@ namespace at {
 namespace compositeexplicitautograd {
 
 TORCH_API ::std::vector<at::Tensor> split_with_sizes(const at::Tensor & self, at::IntArrayRef split_sizes, int64_t dim=0);
+TORCH_API ::std::vector<at::Tensor> split_with_sizes_symint(const at::Tensor & self, c10::SymIntArrayRef split_sizes, int64_t dim=0);
 
 } // namespace compositeexplicitautograd
 } // namespace at

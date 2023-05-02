@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & mvlgamma_out(at::Tensor & out, const at::Tensor & self, int64_t p) {
     return at::_ops::mvlgamma_out::call(self, p, out);
 }
-
 // aten::mvlgamma.out(Tensor self, int p, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & mvlgamma_outf(const at::Tensor & self, int64_t p, at::Tensor & out) {
     return at::_ops::mvlgamma_out::call(self, p, out);

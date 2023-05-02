@@ -31,7 +31,6 @@ inline ::std::tuple<at::Tensor,at::Tensor> _weight_norm_interface_backward(const
 inline ::std::tuple<at::Tensor &,at::Tensor &> _weight_norm_interface_backward_out(at::Tensor & out0, at::Tensor & out1, const at::Tensor & grad_w, const at::Tensor & saved_v, const at::Tensor & saved_g, const at::Tensor & saved_norms, int64_t dim) {
     return at::_ops::_weight_norm_interface_backward_out::call(grad_w, saved_v, saved_g, saved_norms, dim, out0, out1);
 }
-
 // aten::_weight_norm_interface_backward.out(Tensor grad_w, Tensor saved_v, Tensor saved_g, Tensor saved_norms, int dim, *, Tensor(a!) out0, Tensor(b!) out1) -> (Tensor(a!), Tensor(b!))
 inline ::std::tuple<at::Tensor &,at::Tensor &> _weight_norm_interface_backward_outf(const at::Tensor & grad_w, const at::Tensor & saved_v, const at::Tensor & saved_g, const at::Tensor & saved_norms, int64_t dim, at::Tensor & out0, at::Tensor & out1) {
     return at::_ops::_weight_norm_interface_backward_out::call(grad_w, saved_v, saved_g, saved_norms, dim, out0, out1);

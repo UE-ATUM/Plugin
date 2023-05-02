@@ -41,7 +41,6 @@ inline at::Tensor special_xlogy(const at::Tensor & self, const at::Scalar & othe
 inline at::Tensor & special_xlogy_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other) {
     return at::_ops::special_xlogy_out::call(self, other, out);
 }
-
 // aten::special_xlogy.out(Tensor self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & special_xlogy_outf(const at::Tensor & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::special_xlogy_out::call(self, other, out);
@@ -51,7 +50,6 @@ inline at::Tensor & special_xlogy_outf(const at::Tensor & self, const at::Tensor
 inline at::Tensor & special_xlogy_out(at::Tensor & out, const at::Scalar & self, const at::Tensor & other) {
     return at::_ops::special_xlogy_self_scalar_out::call(self, other, out);
 }
-
 // aten::special_xlogy.self_scalar_out(Scalar self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & special_xlogy_outf(const at::Scalar & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::special_xlogy_self_scalar_out::call(self, other, out);
@@ -61,7 +59,6 @@ inline at::Tensor & special_xlogy_outf(const at::Scalar & self, const at::Tensor
 inline at::Tensor & special_xlogy_out(at::Tensor & out, const at::Tensor & self, const at::Scalar & other) {
     return at::_ops::special_xlogy_other_scalar_out::call(self, other, out);
 }
-
 // aten::special_xlogy.other_scalar_out(Tensor self, Scalar other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & special_xlogy_outf(const at::Tensor & self, const at::Scalar & other, at::Tensor & out) {
     return at::_ops::special_xlogy_other_scalar_out::call(self, other, out);

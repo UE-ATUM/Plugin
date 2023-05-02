@@ -31,7 +31,6 @@ inline at::Tensor special_logsumexp(const at::Tensor & self, at::IntArrayRef dim
 inline at::Tensor & special_logsumexp_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef dim, bool keepdim=false) {
     return at::_ops::special_logsumexp_out::call(self, dim, keepdim, out);
 }
-
 // aten::special_logsumexp.out(Tensor self, int[1] dim, bool keepdim=False, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & special_logsumexp_outf(const at::Tensor & self, at::IntArrayRef dim, bool keepdim, at::Tensor & out) {
     return at::_ops::special_logsumexp_out::call(self, dim, keepdim, out);

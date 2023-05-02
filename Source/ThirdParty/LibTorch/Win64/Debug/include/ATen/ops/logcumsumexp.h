@@ -31,7 +31,6 @@ inline at::Tensor logcumsumexp(const at::Tensor & self, int64_t dim) {
 inline at::Tensor & logcumsumexp_out(at::Tensor & out, const at::Tensor & self, int64_t dim) {
     return at::_ops::logcumsumexp_out::call(self, dim, out);
 }
-
 // aten::logcumsumexp.out(Tensor self, int dim, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & logcumsumexp_outf(const at::Tensor & self, int64_t dim, at::Tensor & out) {
     return at::_ops::logcumsumexp_out::call(self, dim, out);
@@ -46,7 +45,6 @@ inline at::Tensor logcumsumexp(const at::Tensor & self, at::Dimname dim) {
 inline at::Tensor & logcumsumexp_out(at::Tensor & out, const at::Tensor & self, at::Dimname dim) {
     return at::_ops::logcumsumexp_dimname_out::call(self, dim, out);
 }
-
 // aten::logcumsumexp.dimname_out(Tensor self, Dimname dim, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & logcumsumexp_outf(const at::Tensor & self, at::Dimname dim, at::Tensor & out) {
     return at::_ops::logcumsumexp_dimname_out::call(self, dim, out);

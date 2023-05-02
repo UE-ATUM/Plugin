@@ -18,9 +18,11 @@ namespace at {
 namespace native {
 TORCH_API at::Tensor & to_sparse_sparse_dim_out(const at::Tensor & self, int64_t sparse_dim, at::Tensor & out);
 TORCH_API at::Tensor dense_to_sparse(const at::Tensor & self, int64_t sparse_dim);
+TORCH_API at::Tensor sparse_coo_to_sparse(const at::Tensor & self, int64_t sparse_dim);
 TORCH_API at::Tensor sparse_compressed_to_sparse(const at::Tensor & self, int64_t sparse_dim);
-TORCH_API at::Tensor & to_sparse_out(const at::Tensor & self, at::Tensor & out);
-TORCH_API at::Tensor dense_to_sparse(const at::Tensor & self);
-TORCH_API at::Tensor sparse_compressed_to_sparse(const at::Tensor & self);
+TORCH_API at::Tensor & to_sparse_out(const at::Tensor & self, c10::optional<at::Layout> layout, at::OptionalIntArrayRef blocksize, c10::optional<int64_t> dense_dim, at::Tensor & out);
+TORCH_API at::Tensor dense_to_sparse(const at::Tensor & self, c10::optional<at::Layout> layout=c10::nullopt, at::OptionalIntArrayRef blocksize=c10::nullopt, c10::optional<int64_t> dense_dim=c10::nullopt);
+TORCH_API at::Tensor sparse_coo_to_sparse(const at::Tensor & self, c10::optional<at::Layout> layout=c10::nullopt, at::OptionalIntArrayRef blocksize=c10::nullopt, c10::optional<int64_t> dense_dim=c10::nullopt);
+TORCH_API at::Tensor sparse_compressed_to_sparse(const at::Tensor & self, c10::optional<at::Layout> layout=c10::nullopt, at::OptionalIntArrayRef blocksize=c10::nullopt, c10::optional<int64_t> dense_dim=c10::nullopt);
 } // namespace native
 } // namespace at

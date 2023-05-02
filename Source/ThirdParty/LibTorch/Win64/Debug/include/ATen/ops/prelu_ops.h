@@ -25,15 +25,4 @@ struct TORCH_API prelu {
   static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight);
 };
 
-struct TORCH_API prelu_out {
-  using schema = at::Tensor & (const at::Tensor &, const at::Tensor &, at::Tensor &);
-  using ptr_schema = schema*;
-  // See Note [static constexpr char* members for windows NVCC]
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::prelu")
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "out")
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "prelu.out(Tensor self, Tensor weight, *, Tensor(a!) out) -> Tensor(a!)")
-  static at::Tensor & call(const at::Tensor & self, const at::Tensor & weight, at::Tensor & out);
-  static at::Tensor & redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, const at::Tensor & weight, at::Tensor & out);
-};
-
 }} // namespace at::_ops

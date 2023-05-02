@@ -16,6 +16,6 @@
 
 namespace at {
 namespace native {
-TORCH_API at::Tensor embedding_backward_symint(const at::Tensor & grad, const at::Tensor & indices, c10::SymInt num_weights, int64_t padding_idx, bool scale_grad_by_freq, bool sparse);
+TORCH_API at::Tensor embedding_backward_symint(const at::Tensor & grad, const at::Tensor & indices, c10::SymInt num_weights, c10::SymInt padding_idx, bool scale_grad_by_freq, bool sparse);
 } // namespace native
 } // namespace at

@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & remainder_out(at::Tensor & out, const at::Tensor & self, const at::Scalar & other) {
     return at::_ops::remainder_Scalar_out::call(self, other, out);
 }
-
 // aten::remainder.Scalar_out(Tensor self, Scalar other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & remainder_outf(const at::Tensor & self, const at::Scalar & other, at::Tensor & out) {
     return at::_ops::remainder_Scalar_out::call(self, other, out);
@@ -41,7 +40,6 @@ inline at::Tensor remainder(const at::Tensor & self, const at::Scalar & other) {
 inline at::Tensor & remainder_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other) {
     return at::_ops::remainder_Tensor_out::call(self, other, out);
 }
-
 // aten::remainder.Tensor_out(Tensor self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & remainder_outf(const at::Tensor & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::remainder_Tensor_out::call(self, other, out);
@@ -61,7 +59,6 @@ inline at::Tensor remainder(const at::Scalar & self, const at::Tensor & other) {
 inline at::Tensor & remainder_out(at::Tensor & out, const at::Scalar & self, const at::Tensor & other) {
     return at::_ops::remainder_Scalar_Tensor_out::call(self, other, out);
 }
-
 // aten::remainder.Scalar_Tensor_out(Scalar self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & remainder_outf(const at::Scalar & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::remainder_Scalar_Tensor_out::call(self, other, out);

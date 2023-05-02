@@ -17,7 +17,6 @@
 namespace at {
 namespace native {
 TORCH_API at::Tensor _upsample_bilinear2d_aa(const at::Tensor & input, at::OptionalIntArrayRef output_size, bool align_corners, c10::optional<at::ArrayRef<double>> scale_factors);
-TORCH_API at::Tensor & _upsample_bilinear2d_aa_vec_out_symint(const at::Tensor & input, at::OptionalSymIntArrayRef output_size, bool align_corners, c10::optional<at::ArrayRef<double>> scale_factors, at::Tensor & out);
 struct TORCH_API structured__upsample_bilinear2d_aa_out_cpu : public at::meta::structured__upsample_bilinear2d_aa {
 void impl(const at::Tensor & self, at::ArrayRef<int64_t> output_size, bool align_corners, c10::optional<double> scales_h, c10::optional<double> scales_w, const at::Tensor & out);
 };

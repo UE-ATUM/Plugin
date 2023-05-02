@@ -31,7 +31,6 @@ inline at::Tensor argmin(const at::Tensor & self, c10::optional<int64_t> dim=c10
 inline at::Tensor & argmin_out(at::Tensor & out, const at::Tensor & self, c10::optional<int64_t> dim=c10::nullopt, bool keepdim=false) {
     return at::_ops::argmin_out::call(self, dim, keepdim, out);
 }
-
 // aten::argmin.out(Tensor self, int? dim=None, bool keepdim=False, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & argmin_outf(const at::Tensor & self, c10::optional<int64_t> dim, bool keepdim, at::Tensor & out) {
     return at::_ops::argmin_out::call(self, dim, keepdim, out);

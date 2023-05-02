@@ -36,7 +36,6 @@ inline at::Tensor _test_autograd_multiple_dispatch(const at::Tensor & self, bool
 inline at::Tensor & _test_autograd_multiple_dispatch_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::_test_autograd_multiple_dispatch_fullcoverage_out::call(self, out);
 }
-
 // aten::_test_autograd_multiple_dispatch.fullcoverage_out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _test_autograd_multiple_dispatch_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::_test_autograd_multiple_dispatch_fullcoverage_out::call(self, out);

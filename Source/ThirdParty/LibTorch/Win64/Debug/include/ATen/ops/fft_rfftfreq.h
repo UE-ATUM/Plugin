@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor fft_rfftfreq(int64_t n, double d=1.0, at::TensorOptions options={}) {
     return at::_ops::fft_rfftfreq::call(n, d, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
 }
-
 // aten::fft_rfftfreq(int n, float d=1.0, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
 inline at::Tensor fft_rfftfreq(int64_t n, double d, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
     return at::_ops::fft_rfftfreq::call(n, d, dtype, layout, device, pin_memory);
@@ -36,7 +35,6 @@ inline at::Tensor fft_rfftfreq(int64_t n, double d, c10::optional<at::ScalarType
 inline at::Tensor & fft_rfftfreq_out(at::Tensor & out, int64_t n, double d=1.0) {
     return at::_ops::fft_rfftfreq_out::call(n, d, out);
 }
-
 // aten::fft_rfftfreq.out(int n, float d=1.0, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & fft_rfftfreq_outf(int64_t n, double d, at::Tensor & out) {
     return at::_ops::fft_rfftfreq_out::call(n, d, out);

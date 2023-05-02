@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & exponential_out(at::Tensor & out, const at::Tensor & self, double lambd=1, c10::optional<at::Generator> generator=c10::nullopt) {
     return at::_ops::exponential_out::call(self, lambd, generator, out);
 }
-
 // aten::exponential.out(Tensor self, float lambd=1, *, Generator? generator=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & exponential_outf(const at::Tensor & self, double lambd, c10::optional<at::Generator> generator, at::Tensor & out) {
     return at::_ops::exponential_out::call(self, lambd, generator, out);

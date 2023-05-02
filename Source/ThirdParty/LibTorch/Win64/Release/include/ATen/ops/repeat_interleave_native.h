@@ -20,6 +20,6 @@ TORCH_API at::Tensor & repeat_interleave_Tensor_out(const at::Tensor & repeats, 
 TORCH_API at::Tensor repeat_interleave_cpu(const at::Tensor & repeats, c10::optional<int64_t> output_size=c10::nullopt);
 TORCH_API at::Tensor repeat_interleave_cuda(const at::Tensor & repeats, c10::optional<int64_t> output_size=c10::nullopt);
 TORCH_API at::Tensor repeat_interleave(const at::Tensor & self, const at::Tensor & repeats, c10::optional<int64_t> dim=c10::nullopt, c10::optional<int64_t> output_size=c10::nullopt);
-TORCH_API at::Tensor repeat_interleave(const at::Tensor & self, int64_t repeats, c10::optional<int64_t> dim=c10::nullopt, c10::optional<int64_t> output_size=c10::nullopt);
+TORCH_API at::Tensor repeat_interleave_symint(const at::Tensor & self, c10::SymInt repeats, c10::optional<int64_t> dim=c10::nullopt, c10::optional<int64_t> output_size=c10::nullopt);
 } // namespace native
 } // namespace at

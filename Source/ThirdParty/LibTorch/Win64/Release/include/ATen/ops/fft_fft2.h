@@ -31,7 +31,6 @@ inline at::Tensor fft_fft2(const at::Tensor & self, at::OptionalIntArrayRef s=c1
 inline at::Tensor & fft_fft2_out(at::Tensor & out, const at::Tensor & self, at::OptionalIntArrayRef s=c10::nullopt, at::IntArrayRef dim={-2,-1}, c10::optional<c10::string_view> norm=c10::nullopt) {
     return at::_ops::fft_fft2_out::call(self, s, dim, norm, out);
 }
-
 // aten::fft_fft2.out(Tensor self, int[1]? s=None, int[1] dim=[-2,-1], str? norm=None, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & fft_fft2_outf(const at::Tensor & self, at::OptionalIntArrayRef s, at::IntArrayRef dim, c10::optional<c10::string_view> norm, at::Tensor & out) {
     return at::_ops::fft_fft2_out::call(self, s, dim, norm, out);

@@ -36,7 +36,6 @@ inline at::Tensor & fix_(at::Tensor & self) {
 inline at::Tensor & fix_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::fix_out::call(self, out);
 }
-
 // aten::fix.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & fix_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::fix_out::call(self, out);

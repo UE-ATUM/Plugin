@@ -36,7 +36,6 @@ inline at::Tensor native_norm(const at::Tensor & self, const c10::optional<at::S
 inline at::Tensor & native_norm_out(at::Tensor & out, const at::Tensor & self, const at::Scalar & p=2) {
     return at::_ops::native_norm_out::call(self, p, out);
 }
-
 // aten::native_norm.out(Tensor self, Scalar p=2, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & native_norm_outf(const at::Tensor & self, const at::Scalar & p, at::Tensor & out) {
     return at::_ops::native_norm_out::call(self, p, out);
@@ -46,7 +45,6 @@ inline at::Tensor & native_norm_outf(const at::Tensor & self, const at::Scalar &
 inline at::Tensor & native_norm_out(at::Tensor & out, const at::Tensor & self, const c10::optional<at::Scalar> & p, at::IntArrayRef dim, bool keepdim, c10::optional<at::ScalarType> dtype) {
     return at::_ops::native_norm_ScalarOpt_dim_dtype_out::call(self, p, dim, keepdim, dtype, out);
 }
-
 // aten::native_norm.ScalarOpt_dim_dtype_out(Tensor self, Scalar? p, int[1] dim, bool keepdim, ScalarType? dtype, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & native_norm_outf(const at::Tensor & self, const c10::optional<at::Scalar> & p, at::IntArrayRef dim, bool keepdim, c10::optional<at::ScalarType> dtype, at::Tensor & out) {
     return at::_ops::native_norm_ScalarOpt_dim_dtype_out::call(self, p, dim, keepdim, dtype, out);

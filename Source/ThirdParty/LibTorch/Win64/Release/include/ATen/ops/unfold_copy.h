@@ -31,7 +31,6 @@ inline at::Tensor unfold_copy(const at::Tensor & self, int64_t dimension, int64_
 inline at::Tensor & unfold_copy_out(at::Tensor & out, const at::Tensor & self, int64_t dimension, int64_t size, int64_t step) {
     return at::_ops::unfold_copy_out::call(self, dimension, size, step, out);
 }
-
 // aten::unfold_copy.out(Tensor self, int dimension, int size, int step, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & unfold_copy_outf(const at::Tensor & self, int64_t dimension, int64_t size, int64_t step, at::Tensor & out) {
     return at::_ops::unfold_copy_out::call(self, dimension, size, step, out);

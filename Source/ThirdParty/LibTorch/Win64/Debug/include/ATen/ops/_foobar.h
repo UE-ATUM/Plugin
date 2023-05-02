@@ -31,7 +31,6 @@ inline at::Tensor _foobar(const at::Tensor & self, bool arg1=true, bool arg2=tru
 inline at::Tensor & _foobar_out(at::Tensor & out, const at::Tensor & self, bool arg1=true, bool arg2=true, bool arg3=true) {
     return at::_ops::_foobar_out::call(self, arg1, arg2, arg3, out);
 }
-
 // aten::_foobar.out(Tensor self, bool arg1=True, bool arg2=True, *, bool arg3=True, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _foobar_outf(const at::Tensor & self, bool arg1, bool arg2, bool arg3, at::Tensor & out) {
     return at::_ops::_foobar_out::call(self, arg1, arg2, arg3, out);

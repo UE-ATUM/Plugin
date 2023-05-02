@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & tril_out(at::Tensor & out, const at::Tensor & self, int64_t diagonal=0) {
     return at::_ops::tril_out::call(self, diagonal, out);
 }
-
 // aten::tril.out(Tensor self, int diagonal=0, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & tril_outf(const at::Tensor & self, int64_t diagonal, at::Tensor & out) {
     return at::_ops::tril_out::call(self, diagonal, out);

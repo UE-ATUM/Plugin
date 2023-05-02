@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & softplus_out(at::Tensor & out, const at::Tensor & self, const at::Scalar & beta=1, const at::Scalar & threshold=20) {
     return at::_ops::softplus_out::call(self, beta, threshold, out);
 }
-
 // aten::softplus.out(Tensor self, Scalar beta=1, Scalar threshold=20, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & softplus_outf(const at::Tensor & self, const at::Scalar & beta, const at::Scalar & threshold, at::Tensor & out) {
     return at::_ops::softplus_out::call(self, beta, threshold, out);

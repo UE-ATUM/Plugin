@@ -19,5 +19,6 @@ namespace native {
 TORCH_API at::Tensor & _efficientzerotensor_out(at::IntArrayRef size, at::Tensor & out);
 TORCH_API at::Tensor _efficientzerotensor(at::IntArrayRef size, c10::optional<at::ScalarType> dtype={}, c10::optional<at::Layout> layout={}, c10::optional<at::Device> device={}, c10::optional<bool> pin_memory={});
 TORCH_API at::Tensor _efficientzerotensor_cuda(at::IntArrayRef size, c10::optional<at::ScalarType> dtype={}, c10::optional<at::Layout> layout={}, c10::optional<at::Device> device={}, c10::optional<bool> pin_memory={});
+TORCH_API at::Tensor _efficientzerotensor_meta(at::IntArrayRef size, c10::optional<at::ScalarType> dtype={}, c10::optional<at::Layout> layout={}, c10::optional<at::Device> device={}, c10::optional<bool> pin_memory={});
 } // namespace native
 } // namespace at

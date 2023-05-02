@@ -24,32 +24,68 @@ namespace at {
 
 // aten::_reshape_alias_copy(Tensor self, SymInt[] size, SymInt[] stride) -> Tensor
 inline at::Tensor _reshape_alias_copy(const at::Tensor & self, at::IntArrayRef size, at::IntArrayRef stride) {
-    return at::_ops::_reshape_alias_copy::call(self, c10::fromIntArrayRef(size), c10::fromIntArrayRef(stride));
+    return at::_ops::_reshape_alias_copy::call(self, c10::fromIntArrayRefSlow(size), c10::fromIntArrayRefSlow(stride));
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor _reshape_alias_copy(const at::Tensor & self, at::IntArrayRef size, at::IntArrayRef stride) {
+    return at::_ops::_reshape_alias_copy::call(self, c10::fromIntArrayRefSlow(size), c10::fromIntArrayRefSlow(stride));
+  }
 }
 
 // aten::_reshape_alias_copy(Tensor self, SymInt[] size, SymInt[] stride) -> Tensor
 inline at::Tensor _reshape_alias_copy_symint(const at::Tensor & self, c10::SymIntArrayRef size, c10::SymIntArrayRef stride) {
     return at::_ops::_reshape_alias_copy::call(self, size, stride);
 }
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor _reshape_alias_copy(const at::Tensor & self, c10::SymIntArrayRef size, c10::SymIntArrayRef stride) {
+    return at::_ops::_reshape_alias_copy::call(self, size, stride);
+  }
+}
 
 // aten::_reshape_alias_copy.out(Tensor self, SymInt[] size, SymInt[] stride, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _reshape_alias_copy_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef size, at::IntArrayRef stride) {
-    return at::_ops::_reshape_alias_copy_out::call(self, c10::fromIntArrayRef(size), c10::fromIntArrayRef(stride), out);
+    return at::_ops::_reshape_alias_copy_out::call(self, c10::fromIntArrayRefSlow(size), c10::fromIntArrayRefSlow(stride), out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & _reshape_alias_copy_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef size, at::IntArrayRef stride) {
+    return at::_ops::_reshape_alias_copy_out::call(self, c10::fromIntArrayRefSlow(size), c10::fromIntArrayRefSlow(stride), out);
+  }
 }
 
 // aten::_reshape_alias_copy.out(Tensor self, SymInt[] size, SymInt[] stride, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _reshape_alias_copy_outf(const at::Tensor & self, at::IntArrayRef size, at::IntArrayRef stride, at::Tensor & out) {
-    return at::_ops::_reshape_alias_copy_out::call(self, c10::fromIntArrayRef(size), c10::fromIntArrayRef(stride), out);
+    return at::_ops::_reshape_alias_copy_out::call(self, c10::fromIntArrayRefSlow(size), c10::fromIntArrayRefSlow(stride), out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & _reshape_alias_copy_outf(const at::Tensor & self, at::IntArrayRef size, at::IntArrayRef stride, at::Tensor & out) {
+    return at::_ops::_reshape_alias_copy_out::call(self, c10::fromIntArrayRefSlow(size), c10::fromIntArrayRefSlow(stride), out);
+  }
 }
 
 // aten::_reshape_alias_copy.out(Tensor self, SymInt[] size, SymInt[] stride, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _reshape_alias_copy_symint_out(at::Tensor & out, const at::Tensor & self, c10::SymIntArrayRef size, c10::SymIntArrayRef stride) {
     return at::_ops::_reshape_alias_copy_out::call(self, size, stride, out);
 }
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & _reshape_alias_copy_out(at::Tensor & out, const at::Tensor & self, c10::SymIntArrayRef size, c10::SymIntArrayRef stride) {
+    return at::_ops::_reshape_alias_copy_out::call(self, size, stride, out);
+  }
+}
 
 // aten::_reshape_alias_copy.out(Tensor self, SymInt[] size, SymInt[] stride, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _reshape_alias_copy_symint_outf(const at::Tensor & self, c10::SymIntArrayRef size, c10::SymIntArrayRef stride, at::Tensor & out) {
     return at::_ops::_reshape_alias_copy_out::call(self, size, stride, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & _reshape_alias_copy_outf(const at::Tensor & self, c10::SymIntArrayRef size, c10::SymIntArrayRef stride, at::Tensor & out) {
+    return at::_ops::_reshape_alias_copy_out::call(self, size, stride, out);
+  }
 }
 
 }

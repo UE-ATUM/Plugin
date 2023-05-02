@@ -31,7 +31,6 @@ inline at::Tensor nanmean(const at::Tensor & self, at::OptionalIntArrayRef dim=c
 inline at::Tensor & nanmean_out(at::Tensor & out, const at::Tensor & self, at::OptionalIntArrayRef dim=c10::nullopt, bool keepdim=false, c10::optional<at::ScalarType> dtype=c10::nullopt) {
     return at::_ops::nanmean_out::call(self, dim, keepdim, dtype, out);
 }
-
 // aten::nanmean.out(Tensor self, int[1]? dim=None, bool keepdim=False, *, ScalarType? dtype=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & nanmean_outf(const at::Tensor & self, at::OptionalIntArrayRef dim, bool keepdim, c10::optional<at::ScalarType> dtype, at::Tensor & out) {
     return at::_ops::nanmean_out::call(self, dim, keepdim, dtype, out);

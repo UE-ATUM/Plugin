@@ -18,7 +18,7 @@ namespace at {
 namespace cpu {
 
 TORCH_API at::Tensor embedding_dense_backward(const at::Tensor & grad_output, const at::Tensor & indices, int64_t num_weights, int64_t padding_idx, bool scale_grad_by_freq);
-TORCH_API at::Tensor embedding_dense_backward_symint(const at::Tensor & grad_output, const at::Tensor & indices, c10::SymInt num_weights, int64_t padding_idx, bool scale_grad_by_freq);
+TORCH_API at::Tensor embedding_dense_backward_symint(const at::Tensor & grad_output, const at::Tensor & indices, c10::SymInt num_weights, c10::SymInt padding_idx, bool scale_grad_by_freq);
 
 } // namespace cpu
 } // namespace at

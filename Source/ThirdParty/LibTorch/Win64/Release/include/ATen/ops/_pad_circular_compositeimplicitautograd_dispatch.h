@@ -18,6 +18,7 @@ namespace at {
 namespace compositeimplicitautograd {
 
 TORCH_API at::Tensor _pad_circular(const at::Tensor & self, at::IntArrayRef pad);
+TORCH_API at::Tensor _pad_circular_symint(const at::Tensor & self, c10::SymIntArrayRef pad);
 
 } // namespace compositeimplicitautograd
 } // namespace at

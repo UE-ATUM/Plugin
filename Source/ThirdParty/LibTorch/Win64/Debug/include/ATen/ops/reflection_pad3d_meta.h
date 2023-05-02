@@ -20,7 +20,7 @@ namespace meta {
 struct TORCH_API structured_reflection_pad3d : public at::impl::MetaBase {
     
     
-    void meta(const at::Tensor & self, at::IntArrayRef padding);
+    void meta(const at::Tensor & self, at::ArrayRef<int64_t> padding);
 };
 
 } // namespace native

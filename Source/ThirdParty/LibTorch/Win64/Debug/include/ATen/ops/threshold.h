@@ -36,7 +36,6 @@ inline at::Tensor & threshold_(at::Tensor & self, const at::Scalar & threshold, 
 inline at::Tensor & threshold_out(at::Tensor & out, const at::Tensor & self, const at::Scalar & threshold, const at::Scalar & value) {
     return at::_ops::threshold_out::call(self, threshold, value, out);
 }
-
 // aten::threshold.out(Tensor self, Scalar threshold, Scalar value, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & threshold_outf(const at::Tensor & self, const at::Scalar & threshold, const at::Scalar & value, at::Tensor & out) {
     return at::_ops::threshold_out::call(self, threshold, value, out);

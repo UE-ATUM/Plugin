@@ -36,7 +36,6 @@ inline at::Tensor & _mkldnn_transpose_(at::Tensor & self, int64_t dim0, int64_t 
 inline at::Tensor & _mkldnn_transpose_out(at::Tensor & out, const at::Tensor & self, int64_t dim0, int64_t dim1) {
     return at::_ops::_mkldnn_transpose_out::call(self, dim0, dim1, out);
 }
-
 // aten::_mkldnn_transpose.out(Tensor self, int dim0, int dim1, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _mkldnn_transpose_outf(const at::Tensor & self, int64_t dim0, int64_t dim1, at::Tensor & out) {
     return at::_ops::_mkldnn_transpose_out::call(self, dim0, dim1, out);

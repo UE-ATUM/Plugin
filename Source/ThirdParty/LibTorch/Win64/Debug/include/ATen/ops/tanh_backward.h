@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & tanh_backward_out(at::Tensor & grad_input, const at::Tensor & grad_output, const at::Tensor & output) {
     return at::_ops::tanh_backward_grad_input::call(grad_output, output, grad_input);
 }
-
 // aten::tanh_backward.grad_input(Tensor grad_output, Tensor output, *, Tensor(a!) grad_input) -> Tensor(a!)
 inline at::Tensor & tanh_backward_outf(const at::Tensor & grad_output, const at::Tensor & output, at::Tensor & grad_input) {
     return at::_ops::tanh_backward_grad_input::call(grad_output, output, grad_input);

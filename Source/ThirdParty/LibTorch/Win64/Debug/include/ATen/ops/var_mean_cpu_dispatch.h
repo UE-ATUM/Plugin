@@ -17,7 +17,7 @@ namespace at {
 
 namespace cpu {
 
-TORCH_API ::std::tuple<at::Tensor,at::Tensor> var_mean(const at::Tensor & self, at::OptionalIntArrayRef dim, c10::optional<int64_t> correction, bool keepdim=false);
+TORCH_API ::std::tuple<at::Tensor,at::Tensor> var_mean(const at::Tensor & self, at::OptionalIntArrayRef dim=c10::nullopt, c10::optional<int64_t> correction=c10::nullopt, bool keepdim=false);
 
 } // namespace cpu
 } // namespace at

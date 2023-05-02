@@ -31,7 +31,6 @@ inline at::Tensor _cdist_backward(const at::Tensor & grad, const at::Tensor & x1
 inline at::Tensor & _cdist_backward_out(at::Tensor & out, const at::Tensor & grad, const at::Tensor & x1, const at::Tensor & x2, double p, const at::Tensor & cdist) {
     return at::_ops::_cdist_backward_out::call(grad, x1, x2, p, cdist, out);
 }
-
 // aten::_cdist_backward.out(Tensor grad, Tensor x1, Tensor x2, float p, Tensor cdist, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _cdist_backward_outf(const at::Tensor & grad, const at::Tensor & x1, const at::Tensor & x2, double p, const at::Tensor & cdist, at::Tensor & out) {
     return at::_ops::_cdist_backward_out::call(grad, x1, x2, p, cdist, out);

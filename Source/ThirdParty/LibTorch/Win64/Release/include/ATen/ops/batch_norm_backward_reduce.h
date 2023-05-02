@@ -31,7 +31,6 @@ inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor,at::Tensor> batch_norm_back
 inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &,at::Tensor &> batch_norm_backward_reduce_out(at::Tensor & out0, at::Tensor & out1, at::Tensor & out2, at::Tensor & out3, const at::Tensor & grad_out, const at::Tensor & input, const at::Tensor & mean, const at::Tensor & invstd, const c10::optional<at::Tensor> & weight, bool input_g, bool weight_g, bool bias_g) {
     return at::_ops::batch_norm_backward_reduce_out::call(grad_out, input, mean, invstd, weight, input_g, weight_g, bias_g, out0, out1, out2, out3);
 }
-
 // aten::batch_norm_backward_reduce.out(Tensor grad_out, Tensor input, Tensor mean, Tensor invstd, Tensor? weight, bool input_g, bool weight_g, bool bias_g, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2, Tensor(d!) out3) -> (Tensor(a!), Tensor(b!), Tensor(c!), Tensor(d!))
 inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &,at::Tensor &> batch_norm_backward_reduce_outf(const at::Tensor & grad_out, const at::Tensor & input, const at::Tensor & mean, const at::Tensor & invstd, const c10::optional<at::Tensor> & weight, bool input_g, bool weight_g, bool bias_g, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2, at::Tensor & out3) {
     return at::_ops::batch_norm_backward_reduce_out::call(grad_out, input, mean, invstd, weight, input_g, weight_g, bias_g, out0, out1, out2, out3);

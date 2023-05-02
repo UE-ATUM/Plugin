@@ -64,7 +64,7 @@ set_target_properties(torch_cpu PROPERTIES
   INTERFACE_COMPILE_DEFINITIONS "USE_DISTRIBUTED;USE_C10D_GLOO"
   INTERFACE_COMPILE_OPTIONS "\$<\$<COMPILE_LANGUAGE:CXX>:;\$<\$<OR:\$<CONFIG:Debug>,\$<CONFIG:RelWithDebInfo>>:/Z7>;/EHsc;/DNOMINMAX;/wd4267;/wd4251;/wd4522;/wd4522;/wd4838;/wd4305;/wd4244;/wd4190;/wd4101;/wd4996;/wd4275;/bigobj>"
   INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"
-  INTERFACE_LINK_LIBRARIES "protobuf::libprotobuf;c10;caffe2::Threads;caffe2::mkl"
+  INTERFACE_LINK_LIBRARIES "protobuf::libprotobuf;c10;caffe2::mkl"
 )
 
 # Create imported target torch_cpu_library

@@ -162,7 +162,7 @@ class TORCH_API RecordRef PROTOBUF_FINAL :
     return reinterpret_cast<const RecordRef*>(
                &_RecordRef_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     0;
 
   friend void swap(RecordRef& a, RecordRef& b) {
@@ -318,7 +318,7 @@ class TORCH_API TensorDef PROTOBUF_FINAL :
     return reinterpret_cast<const TensorDef*>(
                &_TensorDef_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     1;
 
   friend void swap(TensorDef& a, TensorDef& b) {
@@ -632,7 +632,7 @@ class TORCH_API AttributeDef PROTOBUF_FINAL :
     return reinterpret_cast<const AttributeDef*>(
                &_AttributeDef_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     2;
 
   friend void swap(AttributeDef& a, AttributeDef& b) {
@@ -828,7 +828,7 @@ class TORCH_API ParameterDef PROTOBUF_FINAL :
     return reinterpret_cast<const ParameterDef*>(
                &_ParameterDef_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     3;
 
   friend void swap(ParameterDef& a, ParameterDef& b) {
@@ -1014,7 +1014,7 @@ class TORCH_API ModuleDef PROTOBUF_FINAL :
     return reinterpret_cast<const ModuleDef*>(
                &_ModuleDef_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     4;
 
   friend void swap(ModuleDef& a, ModuleDef& b) {
@@ -1360,7 +1360,7 @@ class TORCH_API LibDef PROTOBUF_FINAL :
     return reinterpret_cast<const LibDef*>(
                &_LibDef_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     5;
 
   friend void swap(LibDef& a, LibDef& b) {
@@ -1514,7 +1514,7 @@ class TORCH_API ModelDef PROTOBUF_FINAL :
     return reinterpret_cast<const ModelDef*>(
                &_ModelDef_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     6;
 
   friend void swap(ModelDef& a, ModelDef& b) {

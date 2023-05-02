@@ -41,7 +41,6 @@ inline ::std::vector<at::Tensor> quantize_per_tensor(at::TensorList tensors, con
 inline at::Tensor & quantize_per_tensor_out(at::Tensor & out, const at::Tensor & self, double scale, int64_t zero_point, at::ScalarType dtype) {
     return at::_ops::quantize_per_tensor_out::call(self, scale, zero_point, dtype, out);
 }
-
 // aten::quantize_per_tensor.out(Tensor self, float scale, int zero_point, ScalarType dtype, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & quantize_per_tensor_outf(const at::Tensor & self, double scale, int64_t zero_point, at::ScalarType dtype, at::Tensor & out) {
     return at::_ops::quantize_per_tensor_out::call(self, scale, zero_point, dtype, out);
@@ -51,7 +50,6 @@ inline at::Tensor & quantize_per_tensor_outf(const at::Tensor & self, double sca
 inline at::Tensor & quantize_per_tensor_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & scale, const at::Tensor & zero_point, at::ScalarType dtype) {
     return at::_ops::quantize_per_tensor_tensor_qparams_out::call(self, scale, zero_point, dtype, out);
 }
-
 // aten::quantize_per_tensor.tensor_qparams_out(Tensor self, Tensor scale, Tensor zero_point, ScalarType dtype, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & quantize_per_tensor_outf(const at::Tensor & self, const at::Tensor & scale, const at::Tensor & zero_point, at::ScalarType dtype, at::Tensor & out) {
     return at::_ops::quantize_per_tensor_tensor_qparams_out::call(self, scale, zero_point, dtype, out);
@@ -61,7 +59,6 @@ inline at::Tensor & quantize_per_tensor_outf(const at::Tensor & self, const at::
 inline void quantize_per_tensor_out(at::TensorList out, at::TensorList tensors, const at::Tensor & scales, const at::Tensor & zero_points, at::ScalarType dtype) {
     return at::_ops::quantize_per_tensor_tensors_out::call(tensors, scales, zero_points, dtype, out);
 }
-
 // aten::quantize_per_tensor.tensors_out(Tensor[] tensors, Tensor scales, Tensor zero_points, ScalarType dtype, *, Tensor(a!)[] out) -> ()
 inline void quantize_per_tensor_outf(at::TensorList tensors, const at::Tensor & scales, const at::Tensor & zero_points, at::ScalarType dtype, at::TensorList out) {
     return at::_ops::quantize_per_tensor_tensors_out::call(tensors, scales, zero_points, dtype, out);

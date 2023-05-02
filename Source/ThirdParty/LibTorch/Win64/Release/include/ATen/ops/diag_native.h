@@ -17,7 +17,6 @@
 namespace at {
 namespace native {
 TORCH_API at::Tensor diag(const at::Tensor & self, int64_t diagonal=0);
-TORCH_API at::Tensor & diag_cpu_out(const at::Tensor & self, int64_t diagonal, at::Tensor & out);
-TORCH_API at::Tensor & diag_cuda_out(const at::Tensor & self, int64_t diagonal, at::Tensor & out);
+TORCH_API at::Tensor & diag_out(const at::Tensor & self, int64_t diagonal, at::Tensor & out);
 } // namespace native
 } // namespace at

@@ -4,7 +4,7 @@
 
 #include "HAL/FileManager.h"
 #include "Kismet/GameplayStatics.h"
-#include "LibTorch/Include.h"
+#include "LibTorch/LibTorchInclude.h"
 
 #if PLATFORM_WINDOWS
 #include "Windows/WindowsPlatformProcess.h"

@@ -8349,6 +8349,64 @@ class SqueezeCopyDim : public TsNode {
 
 };
 
+class SqueezeCopyDims : public TsNode {
+ public:
+  static torch::lazy::OpKind ClassOpKind() {
+    return torch::lazy::OpKind(at::aten::squeeze_copy);
+  }
+
+  SqueezeCopyDims(const torch::lazy::Value& self, const ::std::vector<int64_t>& dim, std::vector<torch::lazy::Shape>&& shapes)
+      : TsNode(
+              SqueezeCopyDims::ClassOpKind(),
+              OpList{self},
+              std::move(shapes),
+              /* num_outputs */ 1,
+              torch::lazy::MHash(dim)),
+        dim(dim)
+  {
+    
+  }
+
+  std::string ToString() const override {
+    std::stringstream ss;
+    ss << TsNode::ToString();
+    ss << ", dim=" << dim;
+    return ss.str();
+  }
+
+  
+
+  bool CanBeReused(const torch::lazy::Value& self, const ::std::vector<int64_t>& dim) const {
+    size_t i = 0;
+    return (operand(i++) == self &&
+        this->dim == dim);
+  }
+
+  
+  torch::lazy::TSOpVector Lower(
+      std::shared_ptr<torch::jit::GraphFunction> function,
+      torch::lazy::TSLoweringContext* loctx) const override {
+        std::vector<torch::jit::NamedValue> arguments;
+    std::vector<torch::jit::NamedValue> kwarguments;
+    arguments.reserve(2);
+    kwarguments.reserve(0);
+    size_t i = 0;
+    arguments.emplace_back(loctx->GetOutputOp(operand(i++)));
+    arguments.emplace_back("dim", dim);
+    
+    torch::lazy::TSOpVector squeeze_copy_out = torch::lazy::LowerTSBuiltin(function, op().op, arguments, kwarguments);
+    TORCH_CHECK_EQ(squeeze_copy_out.size(), 1);
+
+    return squeeze_copy_out;
+
+  }
+            
+
+  ::std::vector<int64_t> dim;
+  
+
+};
+
 class Stack : public TsNode {
  public:
   static torch::lazy::OpKind ClassOpKind() {

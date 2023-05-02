@@ -19,8 +19,8 @@ namespace native {
 TORCH_API ::std::tuple<at::Tensor,at::Tensor> var_mean(const at::Tensor & self, bool unbiased=true);
 TORCH_API ::std::tuple<at::Tensor,at::Tensor> var_mean(const at::Tensor & self, at::OptionalIntArrayRef dim, bool unbiased=true, bool keepdim=false);
 TORCH_API ::std::tuple<at::Tensor &,at::Tensor &> var_mean_correction_out(const at::Tensor & self, at::OptionalIntArrayRef dim, c10::optional<int64_t> correction, bool keepdim, at::Tensor & out0, at::Tensor & out1);
-TORCH_API ::std::tuple<at::Tensor,at::Tensor> var_mean(const at::Tensor & self, at::OptionalIntArrayRef dim, c10::optional<int64_t> correction, bool keepdim=false);
+TORCH_API ::std::tuple<at::Tensor,at::Tensor> var_mean(const at::Tensor & self, at::OptionalIntArrayRef dim=c10::nullopt, c10::optional<int64_t> correction=c10::nullopt, bool keepdim=false);
 TORCH_API ::std::tuple<at::Tensor,at::Tensor> var_mean(const at::Tensor & self, at::DimnameList dim, bool unbiased=true, bool keepdim=false);
-TORCH_API ::std::tuple<at::Tensor,at::Tensor> var_mean(const at::Tensor & self, at::DimnameList dim, c10::optional<int64_t> correction, bool keepdim=false);
+TORCH_API ::std::tuple<at::Tensor,at::Tensor> var_mean(const at::Tensor & self, at::DimnameList dim, c10::optional<int64_t> correction=c10::nullopt, bool keepdim=false);
 } // namespace native
 } // namespace at

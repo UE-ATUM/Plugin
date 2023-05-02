@@ -18,8 +18,11 @@ namespace at {
 namespace meta {
 
 TORCH_API at::Tensor replication_pad1d(const at::Tensor & self, at::IntArrayRef padding);
+TORCH_API at::Tensor replication_pad1d_symint(const at::Tensor & self, c10::SymIntArrayRef padding);
 TORCH_API at::Tensor & replication_pad1d_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef padding);
 TORCH_API at::Tensor & replication_pad1d_outf(const at::Tensor & self, at::IntArrayRef padding, at::Tensor & out);
+TORCH_API at::Tensor & replication_pad1d_symint_out(at::Tensor & out, const at::Tensor & self, c10::SymIntArrayRef padding);
+TORCH_API at::Tensor & replication_pad1d_symint_outf(const at::Tensor & self, c10::SymIntArrayRef padding, at::Tensor & out);
 
 } // namespace meta
 } // namespace at

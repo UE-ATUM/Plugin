@@ -31,7 +31,6 @@ inline at::Tensor isneginf(const at::Tensor & self) {
 inline at::Tensor & isneginf_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::isneginf_out::call(self, out);
 }
-
 // aten::isneginf.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & isneginf_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::isneginf_out::call(self, out);

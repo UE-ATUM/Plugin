@@ -31,7 +31,6 @@ inline at::Tensor pixel_unshuffle(const at::Tensor & self, int64_t downscale_fac
 inline at::Tensor & pixel_unshuffle_out(at::Tensor & out, const at::Tensor & self, int64_t downscale_factor) {
     return at::_ops::pixel_unshuffle_out::call(self, downscale_factor, out);
 }
-
 // aten::pixel_unshuffle.out(Tensor self, int downscale_factor, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & pixel_unshuffle_outf(const at::Tensor & self, int64_t downscale_factor, at::Tensor & out) {
     return at::_ops::pixel_unshuffle_out::call(self, downscale_factor, out);

@@ -31,7 +31,6 @@ inline at::Tensor matmul(const at::Tensor & self, const at::Tensor & other) {
 inline at::Tensor & matmul_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other) {
     return at::_ops::matmul_out::call(self, other, out);
 }
-
 // aten::matmul.out(Tensor self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & matmul_outf(const at::Tensor & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::matmul_out::call(self, other, out);

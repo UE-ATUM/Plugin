@@ -26,7 +26,6 @@ namespace at {
 inline ::std::tuple<at::Tensor &,at::Tensor &> fractional_max_pool3d_out(at::Tensor & output, at::Tensor & indices, const at::Tensor & self, at::IntArrayRef kernel_size, at::IntArrayRef output_size, const at::Tensor & random_samples) {
     return at::_ops::fractional_max_pool3d_output::call(self, kernel_size, output_size, random_samples, output, indices);
 }
-
 // aten::fractional_max_pool3d.output(Tensor self, int[3] kernel_size, int[3] output_size, Tensor random_samples, *, Tensor(a!) output, Tensor(b!) indices) -> (Tensor(a!), Tensor(b!))
 inline ::std::tuple<at::Tensor &,at::Tensor &> fractional_max_pool3d_outf(const at::Tensor & self, at::IntArrayRef kernel_size, at::IntArrayRef output_size, const at::Tensor & random_samples, at::Tensor & output, at::Tensor & indices) {
     return at::_ops::fractional_max_pool3d_output::call(self, kernel_size, output_size, random_samples, output, indices);

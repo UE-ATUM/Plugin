@@ -22,6 +22,16 @@
 namespace at {
 
 
+// aten::_foreach_minimum.Scalar(Tensor[] self, Scalar scalar) -> Tensor[]
+inline ::std::vector<at::Tensor> _foreach_minimum(at::TensorList self, const at::Scalar & scalar) {
+    return at::_ops::_foreach_minimum_Scalar::call(self, scalar);
+}
+
+// aten::_foreach_minimum_.Scalar(Tensor(a!)[] self, Scalar scalar) -> ()
+inline void _foreach_minimum_(at::TensorList self, const at::Scalar & scalar) {
+    return at::_ops::_foreach_minimum__Scalar::call(self, scalar);
+}
+
 // aten::_foreach_minimum.List(Tensor[] self, Tensor[] other) -> Tensor[]
 inline ::std::vector<at::Tensor> _foreach_minimum(at::TensorList self, at::TensorList other) {
     return at::_ops::_foreach_minimum_List::call(self, other);
@@ -32,14 +42,41 @@ inline void _foreach_minimum_(at::TensorList self, at::TensorList other) {
     return at::_ops::_foreach_minimum__List::call(self, other);
 }
 
+// aten::_foreach_minimum.ScalarList(Tensor[] self, Scalar[] scalars) -> Tensor[]
+inline ::std::vector<at::Tensor> _foreach_minimum(at::TensorList self, at::ArrayRef<at::Scalar> scalars) {
+    return at::_ops::_foreach_minimum_ScalarList::call(self, scalars);
+}
+
+// aten::_foreach_minimum_.ScalarList(Tensor(a!)[] self, Scalar[] scalars) -> ()
+inline void _foreach_minimum_(at::TensorList self, at::ArrayRef<at::Scalar> scalars) {
+    return at::_ops::_foreach_minimum__ScalarList::call(self, scalars);
+}
+
+// aten::_foreach_minimum.Scalar_out(Tensor[] self, Scalar scalar, *, Tensor(a!)[] out) -> ()
+inline void _foreach_minimum_out(at::TensorList out, at::TensorList self, const at::Scalar & scalar) {
+    return at::_ops::_foreach_minimum_Scalar_out::call(self, scalar, out);
+}
+// aten::_foreach_minimum.Scalar_out(Tensor[] self, Scalar scalar, *, Tensor(a!)[] out) -> ()
+inline void _foreach_minimum_outf(at::TensorList self, const at::Scalar & scalar, at::TensorList out) {
+    return at::_ops::_foreach_minimum_Scalar_out::call(self, scalar, out);
+}
+
 // aten::_foreach_minimum.List_out(Tensor[] self, Tensor[] other, *, Tensor(a!)[] out) -> ()
 inline void _foreach_minimum_out(at::TensorList out, at::TensorList self, at::TensorList other) {
     return at::_ops::_foreach_minimum_List_out::call(self, other, out);
 }
-
 // aten::_foreach_minimum.List_out(Tensor[] self, Tensor[] other, *, Tensor(a!)[] out) -> ()
 inline void _foreach_minimum_outf(at::TensorList self, at::TensorList other, at::TensorList out) {
     return at::_ops::_foreach_minimum_List_out::call(self, other, out);
+}
+
+// aten::_foreach_minimum.ScalarList_out(Tensor[] self, Scalar[] scalars, *, Tensor(a!)[] out) -> ()
+inline void _foreach_minimum_out(at::TensorList out, at::TensorList self, at::ArrayRef<at::Scalar> scalars) {
+    return at::_ops::_foreach_minimum_ScalarList_out::call(self, scalars, out);
+}
+// aten::_foreach_minimum.ScalarList_out(Tensor[] self, Scalar[] scalars, *, Tensor(a!)[] out) -> ()
+inline void _foreach_minimum_outf(at::TensorList self, at::ArrayRef<at::Scalar> scalars, at::TensorList out) {
+    return at::_ops::_foreach_minimum_ScalarList_out::call(self, scalars, out);
 }
 
 }

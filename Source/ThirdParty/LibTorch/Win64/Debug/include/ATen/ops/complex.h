@@ -31,7 +31,6 @@ inline at::Tensor complex(const at::Tensor & real, const at::Tensor & imag) {
 inline at::Tensor & complex_out(at::Tensor & out, const at::Tensor & real, const at::Tensor & imag) {
     return at::_ops::complex_out::call(real, imag, out);
 }
-
 // aten::complex.out(Tensor real, Tensor imag, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & complex_outf(const at::Tensor & real, const at::Tensor & imag, at::Tensor & out) {
     return at::_ops::complex_out::call(real, imag, out);

@@ -21,6 +21,8 @@ TORCH_API at::Tensor & squeeze_copy_out(at::Tensor & out, const at::Tensor & sel
 TORCH_API at::Tensor & squeeze_copy_outf(const at::Tensor & self, at::Tensor & out);
 TORCH_API at::Tensor & squeeze_copy_out(at::Tensor & out, const at::Tensor & self, int64_t dim);
 TORCH_API at::Tensor & squeeze_copy_outf(const at::Tensor & self, int64_t dim, at::Tensor & out);
+TORCH_API at::Tensor & squeeze_copy_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef dim);
+TORCH_API at::Tensor & squeeze_copy_outf(const at::Tensor & self, at::IntArrayRef dim, at::Tensor & out);
 
 } // namespace compositeexplicitautograd
 } // namespace at

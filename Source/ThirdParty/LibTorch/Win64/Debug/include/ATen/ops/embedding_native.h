@@ -16,8 +16,8 @@
 
 namespace at {
 namespace native {
-TORCH_API at::Tensor embedding(const at::Tensor & weight, const at::Tensor & indices, int64_t padding_idx=-1, bool scale_grad_by_freq=false, bool sparse=false);
-TORCH_API at::Tensor & embedding_out(const at::Tensor & weight, const at::Tensor & indices, int64_t padding_idx, bool scale_grad_by_freq, bool sparse, at::Tensor & out);
+TORCH_API at::Tensor embedding_symint(const at::Tensor & weight, const at::Tensor & indices, c10::SymInt padding_idx=-1, bool scale_grad_by_freq=false, bool sparse=false);
+TORCH_API at::Tensor & embedding_out_symint(const at::Tensor & weight, const at::Tensor & indices, c10::SymInt padding_idx, bool scale_grad_by_freq, bool sparse, at::Tensor & out);
 TORCH_API at::Tensor NestedTensor_embedding(const at::Tensor & weight, const at::Tensor & indices, int64_t padding_idx=-1, bool scale_grad_by_freq=false, bool sparse=false);
 } // namespace native
 } // namespace at

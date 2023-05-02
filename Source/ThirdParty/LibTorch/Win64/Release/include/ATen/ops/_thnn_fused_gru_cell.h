@@ -31,7 +31,6 @@ inline ::std::tuple<at::Tensor,at::Tensor> _thnn_fused_gru_cell(const at::Tensor
 inline ::std::tuple<at::Tensor &,at::Tensor &> _thnn_fused_gru_cell_out(at::Tensor & out0, at::Tensor & out1, const at::Tensor & input_gates, const at::Tensor & hidden_gates, const at::Tensor & hx, const c10::optional<at::Tensor> & input_bias={}, const c10::optional<at::Tensor> & hidden_bias={}) {
     return at::_ops::_thnn_fused_gru_cell_out::call(input_gates, hidden_gates, hx, input_bias, hidden_bias, out0, out1);
 }
-
 // aten::_thnn_fused_gru_cell.out(Tensor input_gates, Tensor hidden_gates, Tensor hx, Tensor? input_bias=None, Tensor? hidden_bias=None, *, Tensor(a!) out0, Tensor(b!) out1) -> (Tensor(a!), Tensor(b!))
 inline ::std::tuple<at::Tensor &,at::Tensor &> _thnn_fused_gru_cell_outf(const at::Tensor & input_gates, const at::Tensor & hidden_gates, const at::Tensor & hx, const c10::optional<at::Tensor> & input_bias, const c10::optional<at::Tensor> & hidden_bias, at::Tensor & out0, at::Tensor & out1) {
     return at::_ops::_thnn_fused_gru_cell_out::call(input_gates, hidden_gates, hx, input_bias, hidden_bias, out0, out1);

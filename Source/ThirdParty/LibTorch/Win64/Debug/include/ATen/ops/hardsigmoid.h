@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & hardsigmoid_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::hardsigmoid_out::call(self, out);
 }
-
 // aten::hardsigmoid.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & hardsigmoid_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::hardsigmoid_out::call(self, out);

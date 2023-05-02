@@ -36,7 +36,6 @@ inline at::Tensor & arctanh_(at::Tensor & self) {
 inline at::Tensor & arctanh_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::arctanh_out::call(self, out);
 }
-
 // aten::arctanh.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & arctanh_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::arctanh_out::call(self, out);

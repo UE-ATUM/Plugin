@@ -31,7 +31,6 @@ inline at::Tensor _test_warn_in_autograd(const at::Tensor & self) {
 inline at::Tensor & _test_warn_in_autograd_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::_test_warn_in_autograd_out::call(self, out);
 }
-
 // aten::_test_warn_in_autograd.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _test_warn_in_autograd_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::_test_warn_in_autograd_out::call(self, out);

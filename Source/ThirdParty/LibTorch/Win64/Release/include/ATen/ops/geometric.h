@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & geometric_out(at::Tensor & out, const at::Tensor & self, double p, c10::optional<at::Generator> generator=c10::nullopt) {
     return at::_ops::geometric_out::call(self, p, generator, out);
 }
-
 // aten::geometric.out(Tensor self, float p, *, Generator? generator=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & geometric_outf(const at::Tensor & self, double p, c10::optional<at::Generator> generator, at::Tensor & out) {
     return at::_ops::geometric_out::call(self, p, generator, out);

@@ -46,7 +46,6 @@ inline at::Tensor & fill_(at::Tensor & self, const at::Tensor & value) {
 inline at::Tensor & fill_out(at::Tensor & out, const at::Tensor & self, const at::Scalar & value) {
     return at::_ops::fill_Scalar_out::call(self, value, out);
 }
-
 // aten::fill.Scalar_out(Tensor self, Scalar value, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & fill_outf(const at::Tensor & self, const at::Scalar & value, at::Tensor & out) {
     return at::_ops::fill_Scalar_out::call(self, value, out);
@@ -56,7 +55,6 @@ inline at::Tensor & fill_outf(const at::Tensor & self, const at::Scalar & value,
 inline at::Tensor & fill_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & value) {
     return at::_ops::fill_Tensor_out::call(self, value, out);
 }
-
 // aten::fill.Tensor_out(Tensor self, Tensor value, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & fill_outf(const at::Tensor & self, const at::Tensor & value, at::Tensor & out) {
     return at::_ops::fill_Tensor_out::call(self, value, out);

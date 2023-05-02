@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & logit_backward_out(at::Tensor & grad_input, const at::Tensor & grad_output, const at::Tensor & self, c10::optional<double> eps=c10::nullopt) {
     return at::_ops::logit_backward_grad_input::call(grad_output, self, eps, grad_input);
 }
-
 // aten::logit_backward.grad_input(Tensor grad_output, Tensor self, float? eps=None, *, Tensor(a!) grad_input) -> Tensor(a!)
 inline at::Tensor & logit_backward_outf(const at::Tensor & grad_output, const at::Tensor & self, c10::optional<double> eps, at::Tensor & grad_input) {
     return at::_ops::logit_backward_grad_input::call(grad_output, self, eps, grad_input);

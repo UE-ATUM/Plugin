@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & _nested_tensor_size_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::_nested_tensor_size_out::call(self, out);
 }
-
 // aten::_nested_tensor_size.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _nested_tensor_size_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::_nested_tensor_size_out::call(self, out);

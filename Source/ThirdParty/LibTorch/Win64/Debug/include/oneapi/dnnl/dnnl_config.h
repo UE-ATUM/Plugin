@@ -106,6 +106,9 @@
 // When defined, SYCL CUDA backend is used.
 /* #undef DNNL_SYCL_CUDA */
 
+// When defined, SYCL HIP backend is used.
+/* #undef DNNL_SYCL_HIP */
+
 // When defined, stack checker is enabled.
 /* #undef DNNL_ENABLE_STACK_CHECKER */
 

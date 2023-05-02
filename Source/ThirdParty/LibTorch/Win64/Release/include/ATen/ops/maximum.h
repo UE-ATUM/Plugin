@@ -31,7 +31,6 @@ inline at::Tensor maximum(const at::Tensor & self, const at::Tensor & other) {
 inline at::Tensor & maximum_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other) {
     return at::_ops::maximum_out::call(self, other, out);
 }
-
 // aten::maximum.out(Tensor self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & maximum_outf(const at::Tensor & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::maximum_out::call(self, other, out);

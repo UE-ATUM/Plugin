@@ -31,7 +31,6 @@ inline ::std::tuple<at::Tensor,at::Tensor> batch_norm_update_stats(const at::Ten
 inline ::std::tuple<at::Tensor &,at::Tensor &> batch_norm_update_stats_out(at::Tensor & out0, at::Tensor & out1, const at::Tensor & input, const c10::optional<at::Tensor> & running_mean, const c10::optional<at::Tensor> & running_var, double momentum) {
     return at::_ops::batch_norm_update_stats_out::call(input, running_mean, running_var, momentum, out0, out1);
 }
-
 // aten::batch_norm_update_stats.out(Tensor input, Tensor? running_mean, Tensor? running_var, float momentum, *, Tensor(a!) out0, Tensor(b!) out1) -> (Tensor(a!), Tensor(b!))
 inline ::std::tuple<at::Tensor &,at::Tensor &> batch_norm_update_stats_outf(const at::Tensor & input, const c10::optional<at::Tensor> & running_mean, const c10::optional<at::Tensor> & running_var, double momentum, at::Tensor & out0, at::Tensor & out1) {
     return at::_ops::batch_norm_update_stats_out::call(input, running_mean, running_var, momentum, out0, out1);

@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & uniform_out(at::Tensor & out, const at::Tensor & self, double from=0, double to=1, c10::optional<at::Generator> generator=c10::nullopt) {
     return at::_ops::uniform_out::call(self, from, to, generator, out);
 }
-
 // aten::uniform.out(Tensor self, float from=0, float to=1, *, Generator? generator=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & uniform_outf(const at::Tensor & self, double from, double to, c10::optional<at::Generator> generator, at::Tensor & out) {
     return at::_ops::uniform_out::call(self, from, to, generator, out);

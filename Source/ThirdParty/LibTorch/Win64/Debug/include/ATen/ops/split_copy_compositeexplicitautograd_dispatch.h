@@ -19,6 +19,8 @@ namespace compositeexplicitautograd {
 
 TORCH_API void split_copy_out(at::TensorList out, const at::Tensor & self, int64_t split_size, int64_t dim=0);
 TORCH_API void split_copy_outf(const at::Tensor & self, int64_t split_size, int64_t dim, at::TensorList out);
+TORCH_API void split_copy_symint_out(at::TensorList out, const at::Tensor & self, c10::SymInt split_size, int64_t dim=0);
+TORCH_API void split_copy_symint_outf(const at::Tensor & self, c10::SymInt split_size, int64_t dim, at::TensorList out);
 
 } // namespace compositeexplicitautograd
 } // namespace at

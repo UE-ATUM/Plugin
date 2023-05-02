@@ -36,7 +36,6 @@ inline void _foreach_neg_(at::TensorList self) {
 inline void _foreach_neg_out(at::TensorList out, at::TensorList self) {
     return at::_ops::_foreach_neg_out::call(self, out);
 }
-
 // aten::_foreach_neg.out(Tensor[] self, *, Tensor(a!)[] out) -> ()
 inline void _foreach_neg_outf(at::TensorList self, at::TensorList out) {
     return at::_ops::_foreach_neg_out::call(self, out);

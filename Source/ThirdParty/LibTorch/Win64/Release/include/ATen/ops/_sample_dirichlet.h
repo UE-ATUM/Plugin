@@ -31,7 +31,6 @@ inline at::Tensor _sample_dirichlet(const at::Tensor & self, c10::optional<at::G
 inline at::Tensor & _sample_dirichlet_out(at::Tensor & out, const at::Tensor & self, c10::optional<at::Generator> generator=c10::nullopt) {
     return at::_ops::_sample_dirichlet_out::call(self, generator, out);
 }
-
 // aten::_sample_dirichlet.out(Tensor self, Generator? generator=None, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _sample_dirichlet_outf(const at::Tensor & self, c10::optional<at::Generator> generator, at::Tensor & out) {
     return at::_ops::_sample_dirichlet_out::call(self, generator, out);

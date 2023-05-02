@@ -18,6 +18,7 @@ namespace at {
 namespace cuda {
 
 TORCH_API at::Tensor _adaptive_avg_pool3d(const at::Tensor & self, at::IntArrayRef output_size);
+TORCH_API at::Tensor _adaptive_avg_pool3d_symint(const at::Tensor & self, c10::SymIntArrayRef output_size);
 
 } // namespace cuda
 } // namespace at

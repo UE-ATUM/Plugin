@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & _addmm_activation_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & mat1, const at::Tensor & mat2, const at::Scalar & beta=1, const at::Scalar & alpha=1, bool use_gelu=false) {
     return at::_ops::_addmm_activation_out::call(self, mat1, mat2, beta, alpha, use_gelu, out);
 }
-
 // aten::_addmm_activation.out(Tensor self, Tensor mat1, Tensor mat2, *, Scalar beta=1, Scalar alpha=1, bool use_gelu=False, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _addmm_activation_outf(const at::Tensor & self, const at::Tensor & mat1, const at::Tensor & mat2, const at::Scalar & beta, const at::Scalar & alpha, bool use_gelu, at::Tensor & out) {
     return at::_ops::_addmm_activation_out::call(self, mat1, mat2, beta, alpha, use_gelu, out);

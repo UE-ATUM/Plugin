@@ -74,6 +74,12 @@ typedef enum {
     dnnl_s8 = 5,
     /// 8-bit unsigned integer.
     dnnl_u8 = 6,
+    /// 64-bit/double-precision floating point.
+    dnnl_f64 = 7,
+
+    /// Parameter to allow internal only data_types without undefined behavior.
+    /// This parameter is chosen to be valid for so long as sizeof(int) >= 2.
+    dnnl_data_type_max = 0x7fff,
 } dnnl_data_type_t;
 
 /// Memory format kind
@@ -713,6 +719,10 @@ typedef enum {
     dnnl_adbc,
     dnnl_ABcde16a16b2a,
     dnnl_aBCdef16b16c2b,
+    dnnl_Acedb16a,
+    dnnl_aBdfec16b,
+    dnnl_abdEC64e2c,
+    dnnl_abdEC64e4c,
 
     /// Just a sentinel, not real memory format tag. Must be changed after new
     /// format tag is added.
@@ -847,6 +857,8 @@ typedef enum {
     dnnl_ldgOi32o = dnnl_abdEc32e,
     dnnl_ldgOI32o2i = dnnl_abdEC32e2c,
     dnnl_ldgOI32o4i = dnnl_abdEC32e4c,
+    dnnl_ldgOI64o2i = dnnl_abdEC64e2c,
+    dnnl_ldgOI64o4i = dnnl_abdEC64e4c,
     dnnl_ldgIo32i = dnnl_abdCe32c,
     dnnl_ldgIO32i2o = dnnl_abdCE32c2e,
 
@@ -982,6 +994,7 @@ typedef enum {
     dnnl_OdhwI16o4i = dnnl_AcdeB16a4b,
     dnnl_Odhwi4o = dnnl_Acdeb4a,
     dnnl_Odhwi8o = dnnl_Acdeb8a,
+    dnnl_Odwhi16o = dnnl_Acedb16a,
     dnnl_OIdhw16i16o = dnnl_ABcde16b16a,
     dnnl_OIdhw16i32o = dnnl_ABcde16b32a,
     dnnl_OIdhw16i64o = dnnl_ABcde16b64a,
@@ -1102,6 +1115,7 @@ typedef enum {
     dnnl_gOdhwI16o4i = dnnl_aBdefC16b4c,
     dnnl_gOdhwi4o = dnnl_aBdefc4b,
     dnnl_gOdhwi8o = dnnl_aBdefc8b,
+    dnnl_gOdwhi16o = dnnl_aBdfec16b,
     dnnl_gOIdhw16i16o = dnnl_aBCdef16c16b,
     dnnl_gOIdhw4i16o4i = dnnl_aBCdef4c16b4c,
     dnnl_gOIdhw16i16o4i = dnnl_aBCdef16c16b4c,
@@ -1402,6 +1416,9 @@ typedef enum {
     /// A softmax version 2 primitive (softmax with destination memory
     /// descriptor and algorithm kind).
     dnnl_softmax_v2,
+    /// A layer normalization version 2 primitive (layer normalization with
+    /// destination memory descriptor).
+    dnnl_layer_normalization_v2,
 
     /// Parameter to allow internal only primitives without undefined behavior.
     /// This parameter is chosen to be valid for so long as sizeof(int) >= 2.
@@ -1439,6 +1456,10 @@ typedef enum {
     dnnl_eltwise_bounded_relu = 0x8f,
     /// Eltwise: soft_relu
     dnnl_eltwise_soft_relu = 0x9f,
+    /// Eltwise: soft_relu version 2
+    dnnl_eltwise_soft_relu_v2 = 0xa0,
+    /// Eltwise: hardsigmoid
+    dnnl_eltwise_hardsigmoid = 0xa1,
     /// Eltwise: logistic
     dnnl_eltwise_logistic = 0xaf,
     /// Eltwise: exponent
@@ -1633,6 +1654,21 @@ typedef enum {
     ///  - on backward propagation (for prop_kind == #dnnl_backward) compute
     ///    diff wrt shift (hence one extra output used)
     dnnl_use_shift = 0x10U,
+
+    /// Fuse with Add and then fuse with ReLU
+    ///
+    /// If specified:
+    ///
+    ///  - on forward propagation apply element-wise binary Add operation to
+    ///    to the normalization results with an additional input tensor and then
+    ///    apply ReLU with negative slope being 0.
+    ///  - on training primitive requires workspace (required to be able to
+    ///    perform backward pass).
+    ///  - on backward propagation save the result of backward ReLU operation
+    ///    with input tensor and workspace from forward pass to extra output
+    ///    tensor and then perform backward normalization.
+    dnnl_fuse_norm_add_relu = 0x20U,
+
 } dnnl_normalization_flags_t;
 
 /// @} dnnl_api_primitives_common
@@ -1964,11 +2000,11 @@ typedef struct {
     /// #dnnl_eltwise_tanh, #dnnl_eltwise_elu, #dnnl_eltwise_square,
     /// #dnnl_eltwise_abs, #dnnl_eltwise_sqrt, #dnnl_eltwise_linear,
     /// #dnnl_eltwise_bounded_relu, #dnnl_eltwise_soft_relu,
-    /// #dnnl_eltwise_logistic, #dnnl_eltwise_exp, #dnnl_eltwise_gelu_tanh,
-    /// #dnnl_eltwise_swish, #dnnl_eltwise_log, #dnnl_eltwise_clip,
-    /// #dnnl_eltwise_clip_v2, #dnnl_eltwise_pow, #dnnl_eltwise_gelu_erf,
-    /// #dnnl_eltwise_round, #dnnl_eltwise_logsigmoid, #dnnl_eltwise_mish,
-    /// #dnnl_eltwise_hardswish.
+    /// #dnnl_eltwise_soft_relu_v2, #dnnl_eltwise_logistic, #dnnl_eltwise_exp,
+    /// #dnnl_eltwise_gelu_tanh, #dnnl_eltwise_swish, #dnnl_eltwise_log,
+    /// #dnnl_eltwise_clip, #dnnl_eltwise_clip_v2, #dnnl_eltwise_pow,
+    /// #dnnl_eltwise_gelu_erf, #dnnl_eltwise_round, #dnnl_eltwise_logsigmoid,
+    /// #dnnl_eltwise_mish, #dnnl_eltwise_hardswish, #dnnl_eltwise_hardsigmoid.
     /// Possible values for passing destination memory on backward:
     /// #dnnl_eltwise_relu_use_dst_for_bwd, #dnnl_eltwise_tanh_use_dst_for_bwd,
     /// #dnnl_eltwise_elu_use_dst_for_bwd, #dnnl_eltwise_sqrt_use_dst_for_bwd,
@@ -1991,6 +2027,7 @@ typedef struct {
     ///  - #dnnl_eltwise_linear: @p alpha -- scale, @p beta -- shift
     ///  - #dnnl_eltwise_bounded_relu: @p alpha -- upper bound, @p beta ignored
     ///  - #dnnl_eltwise_soft_relu: @p alpha and @p beta ignored
+    ///  - #dnnl_eltwise_soft_relu_v2: @p alpha -- soft_relu_v2 arg scaling, @p beta ignored
     ///  - #dnnl_eltwise_logistic: @p alpha and @p beta ignored
     ///  - #dnnl_eltwise_exp: @p alpha and @p beta ignored
     ///  - #dnnl_eltwise_gelu_tanh: @p alpha and @p beta ignored
@@ -2001,9 +2038,10 @@ typedef struct {
     ///  - #dnnl_eltwise_pow: @p alpha -- scale, @p beta -- exponent
     ///  - #dnnl_eltwise_gelu_erf: @p alpha and @p beta ignored
     ///  - #dnnl_eltwise_round: @p alpha and @p beta ignored
-    ///  - #dnnl_eltwise_logsigmoid @p alpha and @p beta ignored
-    ///  - #dnnl_eltwise_mish @p alpha and @p beta ignored
-    ///  - #dnnl_eltwise_hardswish @p alpha and @p beta ignored
+    ///  - #dnnl_eltwise_logsigmoid: @p alpha and @p beta ignored
+    ///  - #dnnl_eltwise_mish: @p alpha and @p beta ignored
+    ///  - #dnnl_eltwise_hardswish: @p alpha and @p beta ignored
+    ///  - #dnnl_eltwise_hardsigmoid: @p alpha -- scale, @p beta -- shift
     float alpha, beta;
 } dnnl_eltwise_desc_t;
 
@@ -2267,6 +2305,47 @@ typedef struct {
 } dnnl_layer_normalization_desc_t;
 
 /// @} dnnl_api_layer_normalization
+
+/// @addtogroup dnnl_api_layer_normalization_v2
+/// @{
+
+/// A descriptor of a Layer Normalization operation.
+typedef struct {
+    /// The kind of primitive. Used for self-identifying the primitive
+    /// descriptor. Must be #dnnl_layer_normalization_v2.
+    dnnl_primitive_kind_t primitive_kind;
+    /// The kind of propagation. Possible values: #dnnl_forward_training,
+    /// #dnnl_forward_inference, #dnnl_backward, and #dnnl_backward_data.
+    dnnl_prop_kind_t prop_kind;
+    /// Source memory descriptor.
+    dnnl_memory_desc_t src_desc;
+    /// Source gradient memory descriptor.
+    dnnl_memory_desc_t diff_src_desc;
+    /// Scale and shift data and gradient memory descriptors.
+    ///
+    /// Scaleshift memory descriptor uses 2D #dnnl_ab
+    /// format[2, normalized_dim] where 1-st dimension contains gamma parameter,
+    /// 2-nd dimension contains beta parameter. Normalized_dim is equal to the
+    /// last logical dimension of the data tensor across which normalization is
+    /// performed.
+    dnnl_memory_desc_t data_scaleshift_desc;
+    dnnl_memory_desc_t diff_data_scaleshift_desc;
+    /// Mean and variance data memory descriptors.
+    ///
+    /// Statistics (mean and variance) memory descriptor is the k-dimensional tensor
+    /// where k is equal to data_tensor_ndims - 1 and may have any plain
+    /// (stride[last_dim] == 1) user-provided format.
+    dnnl_memory_desc_t stat_desc;
+    /// Layer normalization epsilon parameter.
+    float layer_norm_epsilon;
+    unsigned flags;
+    /// Destination memory descriptor.
+    dnnl_memory_desc_t dst_desc;
+    /// Destination gradient memory descriptor.
+    dnnl_memory_desc_t diff_dst_desc;
+} dnnl_layer_normalization_v2_desc_t;
+
+/// @} dnnl_api_layer_normalization_v2
 
 /// @addtogroup dnnl_api_inner_product
 /// @{
@@ -2585,6 +2664,8 @@ typedef enum {
     dnnl_fpmath_mode_f16,
     /// Implicit f32->f16 or f32->bf16 conversions allowed
     dnnl_fpmath_mode_any,
+    /// Implicit f32->tf32 conversions allowed
+    dnnl_fpmath_mode_tf32,
 } dnnl_fpmath_mode_t;
 
 /// Scratchpad mode
@@ -2901,8 +2982,7 @@ typedef struct {
 ///
 /// Query kind                      | Type of query result
 /// --------------------------------|-----------------------------
-/// #dnnl_query_engine              | #dnnl_engine_t *
-/// #dnnl_query_scratchpad_engine   | #dnnl_engine_t *
+/// dnnl_query_*_engine             | #dnnl_engine_t *
 /// #dnnl_query_primitive_kind      | #dnnl_primitive_kind_t *
 /// dnnl_query_*_s32                | int *
 /// dnnl_query_*_s64                | #dnnl_dim_t * (same as int64_t *)
@@ -2975,6 +3055,7 @@ typedef enum {
     dnnl_query_reduction_d, ///< reduction descriptor
     dnnl_query_prelu_d, ///< prelu descriptor
     dnnl_query_softmax_v2_d, ///< softmax version 2 descriptor
+    dnnl_query_layer_normalization_v2_d, ///< layer normalization version 2 descriptor
 
     // memory descriptor section
     dnnl_query_some_md = 128, ///< stub
@@ -3113,7 +3194,12 @@ typedef enum {
     /// and Intel Core processor family.
     dnnl_cpu_isa_avx512_core_bf16 = 0xe7,
 
-    /// Intel AVX-512, Intel DL Boost and bfloat16 support and
+    /// Intel AVX-512 with float16, Intel DL Boost and bfloat16 support
+    /// for Intel Xeon Scalable processor family
+    /// and Intel Core processor family.
+    dnnl_cpu_isa_avx512_core_fp16 = 0x1e7,
+
+    /// Intel AVX-512 with float16, Intel DL Boost and bfloat16 support and
     /// Intel AMX with 8-bit integer and bfloat16 support
     dnnl_cpu_isa_avx512_core_amx = 0x3e7,
 

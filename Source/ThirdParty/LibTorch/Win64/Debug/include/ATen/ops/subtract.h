@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & subtract_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other, const at::Scalar & alpha=1) {
     return at::_ops::subtract_out::call(self, other, alpha, out);
 }
-
 // aten::subtract.out(Tensor self, Tensor other, *, Scalar alpha=1, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & subtract_outf(const at::Tensor & self, const at::Tensor & other, const at::Scalar & alpha, at::Tensor & out) {
     return at::_ops::subtract_out::call(self, other, alpha, out);

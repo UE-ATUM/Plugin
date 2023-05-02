@@ -36,7 +36,6 @@ inline ::std::tuple<at::Tensor,at::Tensor> _aminmax(const at::Tensor & self, int
 inline ::std::tuple<at::Tensor &,at::Tensor &> _aminmax_out(at::Tensor & out0, at::Tensor & out1, const at::Tensor & self) {
     return at::_ops::_aminmax_out::call(self, out0, out1);
 }
-
 // aten::_aminmax.out(Tensor self, *, Tensor(a!) out0, Tensor(b!) out1) -> (Tensor(a!), Tensor(b!))
 inline ::std::tuple<at::Tensor &,at::Tensor &> _aminmax_outf(const at::Tensor & self, at::Tensor & out0, at::Tensor & out1) {
     return at::_ops::_aminmax_out::call(self, out0, out1);
@@ -46,7 +45,6 @@ inline ::std::tuple<at::Tensor &,at::Tensor &> _aminmax_outf(const at::Tensor & 
 inline ::std::tuple<at::Tensor &,at::Tensor &> _aminmax_out(at::Tensor & out0, at::Tensor & out1, const at::Tensor & self, int64_t dim, bool keepdim=false) {
     return at::_ops::_aminmax_dim_out::call(self, dim, keepdim, out0, out1);
 }
-
 // aten::_aminmax.dim_out(Tensor self, int dim, bool keepdim=False, *, Tensor(a!) out0, Tensor(b!) out1) -> (Tensor(a!), Tensor(b!))
 inline ::std::tuple<at::Tensor &,at::Tensor &> _aminmax_outf(const at::Tensor & self, int64_t dim, bool keepdim, at::Tensor & out0, at::Tensor & out1) {
     return at::_ops::_aminmax_dim_out::call(self, dim, keepdim, out0, out1);

@@ -31,7 +31,6 @@ inline at::Tensor _test_autograd_multiple_dispatch_view_copy(const at::Tensor & 
 inline at::Tensor & _test_autograd_multiple_dispatch_view_copy_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::_test_autograd_multiple_dispatch_view_copy_out::call(self, out);
 }
-
 // aten::_test_autograd_multiple_dispatch_view_copy.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _test_autograd_multiple_dispatch_view_copy_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::_test_autograd_multiple_dispatch_view_copy_out::call(self, out);

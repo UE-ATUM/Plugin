@@ -31,7 +31,6 @@ inline at::Tensor flip(const at::Tensor & self, at::IntArrayRef dims) {
 inline at::Tensor & flip_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef dims) {
     return at::_ops::flip_out::call(self, dims, out);
 }
-
 // aten::flip.out(Tensor self, int[] dims, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & flip_outf(const at::Tensor & self, at::IntArrayRef dims, at::Tensor & out) {
     return at::_ops::flip_out::call(self, dims, out);

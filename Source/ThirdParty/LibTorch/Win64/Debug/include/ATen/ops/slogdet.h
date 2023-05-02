@@ -31,7 +31,6 @@ inline ::std::tuple<at::Tensor,at::Tensor> slogdet(const at::Tensor & self) {
 inline ::std::tuple<at::Tensor &,at::Tensor &> slogdet_out(at::Tensor & sign, at::Tensor & logabsdet, const at::Tensor & self) {
     return at::_ops::slogdet_out::call(self, sign, logabsdet);
 }
-
 // aten::slogdet.out(Tensor self, *, Tensor(a!) sign, Tensor(b!) logabsdet) -> (Tensor(a!) sign, Tensor(b!) logabsdet)
 inline ::std::tuple<at::Tensor &,at::Tensor &> slogdet_outf(const at::Tensor & self, at::Tensor & sign, at::Tensor & logabsdet) {
     return at::_ops::slogdet_out::call(self, sign, logabsdet);

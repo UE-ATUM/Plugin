@@ -31,7 +31,6 @@ inline ::std::tuple<at::Tensor,at::Tensor> _fused_dropout(const at::Tensor & sel
 inline ::std::tuple<at::Tensor &,at::Tensor &> _fused_dropout_out(at::Tensor & out0, at::Tensor & out1, const at::Tensor & self, double p, c10::optional<at::Generator> generator=c10::nullopt) {
     return at::_ops::_fused_dropout_out::call(self, p, generator, out0, out1);
 }
-
 // aten::_fused_dropout.out(Tensor self, float p, Generator? generator=None, *, Tensor(a!) out0, Tensor(b!) out1) -> (Tensor(a!), Tensor(b!))
 inline ::std::tuple<at::Tensor &,at::Tensor &> _fused_dropout_outf(const at::Tensor & self, double p, c10::optional<at::Generator> generator, at::Tensor & out0, at::Tensor & out1) {
     return at::_ops::_fused_dropout_out::call(self, p, generator, out0, out1);

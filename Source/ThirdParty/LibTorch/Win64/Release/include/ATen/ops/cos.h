@@ -36,7 +36,6 @@ inline at::Tensor & cos_(at::Tensor & self) {
 inline at::Tensor & cos_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::cos_out::call(self, out);
 }
-
 // aten::cos.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & cos_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::cos_out::call(self, out);

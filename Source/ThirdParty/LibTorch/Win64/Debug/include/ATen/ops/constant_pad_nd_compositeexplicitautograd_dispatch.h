@@ -18,8 +18,11 @@ namespace at {
 namespace compositeexplicitautograd {
 
 TORCH_API at::Tensor constant_pad_nd(const at::Tensor & self, at::IntArrayRef pad, const at::Scalar & value=0);
+TORCH_API at::Tensor constant_pad_nd_symint(const at::Tensor & self, c10::SymIntArrayRef pad, const at::Scalar & value=0);
 TORCH_API at::Tensor & constant_pad_nd_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef pad, const at::Scalar & value=0);
 TORCH_API at::Tensor & constant_pad_nd_outf(const at::Tensor & self, at::IntArrayRef pad, const at::Scalar & value, at::Tensor & out);
+TORCH_API at::Tensor & constant_pad_nd_symint_out(at::Tensor & out, const at::Tensor & self, c10::SymIntArrayRef pad, const at::Scalar & value=0);
+TORCH_API at::Tensor & constant_pad_nd_symint_outf(const at::Tensor & self, c10::SymIntArrayRef pad, const at::Scalar & value, at::Tensor & out);
 
 } // namespace compositeexplicitautograd
 } // namespace at

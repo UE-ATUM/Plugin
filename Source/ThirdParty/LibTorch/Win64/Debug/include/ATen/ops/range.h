@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor range(const at::Scalar & start, const at::Scalar & end, const at::Scalar & step=1, at::TensorOptions options={}) {
     return at::_ops::range_step::call(start, end, step, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
 }
-
 // aten::range.step(Scalar start, Scalar end, Scalar step=1, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
 inline at::Tensor range(const at::Scalar & start, const at::Scalar & end, const at::Scalar & step, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
     return at::_ops::range_step::call(start, end, step, dtype, layout, device, pin_memory);
@@ -36,7 +35,6 @@ inline at::Tensor range(const at::Scalar & start, const at::Scalar & end, const 
 inline at::Tensor range(const at::Scalar & start, const at::Scalar & end, at::TensorOptions options={}) {
     return at::_ops::range::call(start, end, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
 }
-
 // aten::range(Scalar start, Scalar end, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
 inline at::Tensor range(const at::Scalar & start, const at::Scalar & end, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
     return at::_ops::range::call(start, end, dtype, layout, device, pin_memory);
@@ -46,7 +44,6 @@ inline at::Tensor range(const at::Scalar & start, const at::Scalar & end, c10::o
 inline at::Tensor & range_out(at::Tensor & out, const at::Scalar & start, const at::Scalar & end) {
     return at::_ops::range_out_::call(start, end, out);
 }
-
 // aten::range.out_(Scalar start, Scalar end, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & range_outf(const at::Scalar & start, const at::Scalar & end, at::Tensor & out) {
     return at::_ops::range_out_::call(start, end, out);
@@ -56,7 +53,6 @@ inline at::Tensor & range_outf(const at::Scalar & start, const at::Scalar & end,
 inline at::Tensor & range_out(at::Tensor & out, const at::Scalar & start, const at::Scalar & end, const at::Scalar & step) {
     return at::_ops::range_out::call(start, end, step, out);
 }
-
 // aten::range.out(Scalar start, Scalar end, Scalar step=1, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & range_outf(const at::Scalar & start, const at::Scalar & end, const at::Scalar & step, at::Tensor & out) {
     return at::_ops::range_out::call(start, end, step, out);

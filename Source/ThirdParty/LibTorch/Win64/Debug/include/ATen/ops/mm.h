@@ -31,7 +31,6 @@ inline at::Tensor mm(const at::Tensor & self, const at::Tensor & mat2) {
 inline at::Tensor & mm_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & mat2) {
     return at::_ops::mm_out::call(self, mat2, out);
 }
-
 // aten::mm.out(Tensor self, Tensor mat2, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & mm_outf(const at::Tensor & self, const at::Tensor & mat2, at::Tensor & out) {
     return at::_ops::mm_out::call(self, mat2, out);

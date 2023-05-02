@@ -58,6 +58,7 @@ _(aten, _cdist_backward) \
 _(aten, _cdist_forward) \
 _(aten, _cholesky_solve_helper) \
 _(aten, _choose_qparams_per_tensor) \
+_(aten, _chunk_grad_outputs_efficient_attention) \
 _(aten, _coalesce) \
 _(aten, _coalesced) \
 _(aten, _coalesced_) \
@@ -91,6 +92,8 @@ _(aten, _dimI) \
 _(aten, _dimV) \
 _(aten, _dim_arange) \
 _(aten, _dirichlet_grad) \
+_(aten, _efficient_attention_backward) \
+_(aten, _efficient_attention_forward) \
 _(aten, _efficientzerotensor) \
 _(aten, _embedding_bag) \
 _(aten, _embedding_bag_backward) \
@@ -109,7 +112,8 @@ _(aten, _fake_quantize_per_tensor_affine_cachemask_tensor_qparams) \
 _(aten, _fft_c2c) \
 _(aten, _fft_c2r) \
 _(aten, _fft_r2c) \
-_(aten, _flash_scaled_dot_product_attention) \
+_(aten, _flash_attention_backward) \
+_(aten, _flash_attention_forward) \
 _(aten, _foobar) \
 _(aten, _foreach_abs) \
 _(aten, _foreach_abs_) \
@@ -127,6 +131,10 @@ _(aten, _foreach_atan) \
 _(aten, _foreach_atan_) \
 _(aten, _foreach_ceil) \
 _(aten, _foreach_ceil_) \
+_(aten, _foreach_clamp_max) \
+_(aten, _foreach_clamp_max_) \
+_(aten, _foreach_clamp_min) \
+_(aten, _foreach_clamp_min_) \
 _(aten, _foreach_cos) \
 _(aten, _foreach_cos_) \
 _(aten, _foreach_cosh) \
@@ -145,6 +153,8 @@ _(aten, _foreach_floor) \
 _(aten, _foreach_floor_) \
 _(aten, _foreach_frac) \
 _(aten, _foreach_frac_) \
+_(aten, _foreach_lerp) \
+_(aten, _foreach_lerp_) \
 _(aten, _foreach_lgamma) \
 _(aten, _foreach_lgamma_) \
 _(aten, _foreach_log) \
@@ -188,9 +198,12 @@ _(aten, _foreach_zero) \
 _(aten, _foreach_zero_) \
 _(aten, _fused_adam) \
 _(aten, _fused_adam_) \
+_(aten, _fused_adamw) \
+_(aten, _fused_adamw_) \
 _(aten, _fused_dropout) \
 _(aten, _fused_moving_avg_obs_fq_helper) \
 _(aten, _fused_moving_avg_obs_fq_helper_functional) \
+_(aten, _fused_sdp_choice) \
 _(aten, _fw_primal) \
 _(aten, _fw_primal_copy) \
 _(aten, _gather_sparse_backward) \
@@ -205,6 +218,8 @@ _(aten, _index_put_impl) \
 _(aten, _index_put_impl_) \
 _(aten, _indices) \
 _(aten, _indices_copy) \
+_(aten, _is_all_true) \
+_(aten, _is_any_true) \
 _(aten, _is_zerotensor) \
 _(aten, _linalg_check_errors) \
 _(aten, _linalg_det) \
@@ -230,7 +245,8 @@ _(aten, _mkldnn_transpose) \
 _(aten, _mkldnn_transpose_) \
 _(aten, _mps_convolution) \
 _(aten, _mps_convolution_transpose) \
-_(aten, _mps_max_pool2d) \
+_(aten, _native_batch_norm_legit) \
+_(aten, _native_batch_norm_legit_functional) \
 _(aten, _native_decoder_only_multi_head_attention) \
 _(aten, _native_multi_head_attention) \
 _(aten, _neg_view) \
@@ -242,7 +258,6 @@ _(aten, _nested_sum_backward) \
 _(aten, _nested_tensor_from_mask) \
 _(aten, _nested_tensor_from_mask_left_aligned) \
 _(aten, _nested_tensor_from_tensor_list) \
-_(aten, _nested_tensor_layer_norm) \
 _(aten, _nested_tensor_offsets) \
 _(aten, _nested_tensor_size) \
 _(aten, _nested_tensor_softmax_with_shape) \
@@ -261,9 +276,12 @@ _(aten, _pad_packed_sequence) \
 _(aten, _pdist_backward) \
 _(aten, _pdist_forward) \
 _(aten, _pin_memory) \
+_(aten, _prelu_kernel) \
+_(aten, _prelu_kernel_backward) \
 _(aten, _remove_batch_dim) \
 _(aten, _reshape_alias) \
 _(aten, _reshape_alias_copy) \
+_(aten, _reshape_copy) \
 _(aten, _reshape_from_tensor) \
 _(aten, _resize_output) \
 _(aten, _resize_output_) \
@@ -271,8 +289,11 @@ _(aten, _rowwise_prune) \
 _(aten, _sample_dirichlet) \
 _(aten, _saturate_weight_to_fp16) \
 _(aten, _scaled_dot_product_attention) \
-_(aten, _scaled_dot_product_attention_forward) \
 _(aten, _scaled_dot_product_attention_math) \
+_(aten, _scaled_dot_product_efficient_attention) \
+_(aten, _scaled_dot_product_efficient_attention_backward) \
+_(aten, _scaled_dot_product_flash_attention) \
+_(aten, _scaled_dot_product_flash_attention_backward) \
 _(aten, _segment_reduce_backward) \
 _(aten, _shape_as_tensor) \
 _(aten, _slow_conv2d_backward) \
@@ -301,8 +322,9 @@ _(aten, _sparse_csr_sum) \
 _(aten, _sparse_csr_tensor_unsafe) \
 _(aten, _sparse_log_softmax) \
 _(aten, _sparse_log_softmax_backward_data) \
-_(aten, _sparse_mask_helper) \
 _(aten, _sparse_mm) \
+_(aten, _sparse_mm_reduce_impl) \
+_(aten, _sparse_mm_reduce_impl_backward) \
 _(aten, _sparse_softmax) \
 _(aten, _sparse_softmax_backward_data) \
 _(aten, _sparse_sparse_matmul) \
@@ -312,11 +334,11 @@ _(aten, _spdiags) \
 _(aten, _stack) \
 _(aten, _standard_gamma) \
 _(aten, _standard_gamma_grad) \
-_(aten, _symeig_helper) \
 _(aten, _test_ambiguous_defaults) \
 _(aten, _test_autograd_multiple_dispatch) \
 _(aten, _test_autograd_multiple_dispatch_view) \
 _(aten, _test_autograd_multiple_dispatch_view_copy) \
+_(aten, _test_check_tensor) \
 _(aten, _test_optional_filled_intlist) \
 _(aten, _test_optional_floatlist) \
 _(aten, _test_optional_intlist) \
@@ -333,7 +355,6 @@ _(aten, _thnn_fused_lstm_cell_backward_impl) \
 _(aten, _to_copy) \
 _(aten, _to_cpu) \
 _(aten, _to_dense) \
-_(aten, _torch_cuda_cu_linker_symbol_op) \
 _(aten, _transform_bias_rescale_qkv) \
 _(aten, _transformer_decoder_only_layer_fwd) \
 _(aten, _transformer_encoder_layer_fwd) \
@@ -602,7 +623,6 @@ _(aten, detach) \
 _(aten, detach_) \
 _(aten, detach_copy) \
 _(aten, diag) \
-_(aten, diag_backward) \
 _(aten, diag_embed) \
 _(aten, diagflat) \
 _(aten, diagonal) \
@@ -968,6 +988,7 @@ _(aten, max) \
 _(aten, max_pool1d) \
 _(aten, max_pool1d_with_indices) \
 _(aten, max_pool2d) \
+_(aten, max_pool2d_backward) \
 _(aten, max_pool2d_with_indices) \
 _(aten, max_pool2d_with_indices_backward) \
 _(aten, max_pool3d) \
@@ -1006,13 +1027,14 @@ _(aten, mkldnn_max_pool3d) \
 _(aten, mkldnn_max_pool3d_backward) \
 _(aten, mkldnn_reorder_conv2d_weight) \
 _(aten, mkldnn_reorder_conv3d_weight) \
+_(aten, mkldnn_rnn_layer) \
+_(aten, mkldnn_rnn_layer_backward) \
 _(aten, mm) \
 _(aten, mode) \
 _(aten, moveaxis) \
 _(aten, movedim) \
 _(aten, mps_convolution_backward) \
 _(aten, mps_convolution_transpose_backward) \
-_(aten, mps_max_pool2d_backward) \
 _(aten, mse_loss) \
 _(aten, mse_loss_backward) \
 _(aten, msort) \
@@ -1105,7 +1127,6 @@ _(aten, positive) \
 _(aten, pow) \
 _(aten, pow_) \
 _(aten, prelu) \
-_(aten, prelu_backward) \
 _(aten, prod) \
 _(aten, promote_types) \
 _(aten, put) \
@@ -1206,6 +1227,7 @@ _(aten, rsqrt) \
 _(aten, rsqrt_) \
 _(aten, rsub) \
 _(aten, scalar_tensor) \
+_(aten, scaled_dot_product_attention) \
 _(aten, scatter) \
 _(aten, scatter_) \
 _(aten, scatter_add) \
@@ -1360,7 +1382,6 @@ _(aten, swapaxes) \
 _(aten, swapaxes_) \
 _(aten, swapdims) \
 _(aten, swapdims_) \
-_(aten, symeig) \
 _(aten, t) \
 _(aten, t_) \
 _(aten, t_copy) \
@@ -1507,6 +1528,7 @@ _(attr, approximate) \
 _(attr, arg1) \
 _(attr, arg2) \
 _(attr, arg3) \
+_(attr, arg_out) \
 _(attr, assume_unique) \
 _(attr, atol) \
 _(attr, attn_mask) \
@@ -1543,6 +1565,7 @@ _(attr, blank) \
 _(attr, blocksize) \
 _(attr, boundaries) \
 _(attr, buffer) \
+_(attr, causal) \
 _(attr, ccol_indices) \
 _(attr, cdim) \
 _(attr, cdist) \
@@ -1551,6 +1574,7 @@ _(attr, cell_state_fwd) \
 _(attr, center) \
 _(attr, ch_axis) \
 _(attr, check_errors) \
+_(attr, chunk_grad_outputs) \
 _(attr, chunks) \
 _(attr, coalesced) \
 _(attr, coefficients) \
@@ -1562,6 +1586,7 @@ _(attr, col_offsets_ih) \
 _(attr, compressed_idx) \
 _(attr, compressed_indices) \
 _(attr, compressed_indices_dtype) \
+_(attr, compute_log_sumexp) \
 _(attr, compute_mode) \
 _(attr, compute_uv) \
 _(attr, compute_v) \
@@ -1576,6 +1601,8 @@ _(attr, cpu_enabled) \
 _(attr, cpu_nested_shape_example) \
 _(attr, create_graph) \
 _(attr, crow_indices) \
+_(attr, cu_seqlens_k) \
+_(attr, cu_seqlens_q) \
 _(attr, cuda_dtype) \
 _(attr, cuda_enabled) \
 _(attr, cudnn_enable) \
@@ -1583,7 +1610,10 @@ _(attr, cudnn_enabled) \
 _(attr, cum_seq_k) \
 _(attr, cum_seq_q) \
 _(attr, cx) \
+_(attr, cx_) \
+_(attr, cx_tmp) \
 _(attr, cy) \
+_(attr, cy_) \
 _(attr, d) \
 _(attr, data) \
 _(attr, decimals) \
@@ -1612,6 +1642,7 @@ _(attr, divisor_override) \
 _(attr, downscale_factor) \
 _(attr, driver) \
 _(attr, dropout) \
+_(attr, dropout_mask) \
 _(attr, dropout_p) \
 _(attr, dropout_seed) \
 _(attr, dropout_state) \
@@ -1620,7 +1651,6 @@ _(attr, dtype) \
 _(attr, dual) \
 _(attr, dummy) \
 _(attr, dx) \
-_(attr, e) \
 _(attr, edge_order) \
 _(attr, eigenvalues) \
 _(attr, eigenvectors) \
@@ -1675,6 +1705,7 @@ _(attr, grad_hy) \
 _(attr, grad_in) \
 _(attr, grad_input) \
 _(attr, grad_out) \
+_(attr, grad_out_) \
 _(attr, grad_output) \
 _(attr, grad_scale) \
 _(attr, grad_w) \
@@ -1699,6 +1730,8 @@ _(attr, high) \
 _(attr, hist) \
 _(attr, hop_length) \
 _(attr, hx) \
+_(attr, hx_) \
+_(attr, hy_) \
 _(attr, i1) \
 _(attr, i2) \
 _(attr, i3) \
@@ -1749,6 +1782,7 @@ _(attr, label_smoothing) \
 _(attr, lambd) \
 _(attr, largest) \
 _(attr, last_dim_size) \
+_(attr, layersOutputs) \
 _(attr, layout) \
 _(attr, left) \
 _(attr, length) \
@@ -1761,6 +1795,7 @@ _(attr, log_input) \
 _(attr, log_probs) \
 _(attr, log_target) \
 _(attr, logabsdet) \
+_(attr, logsumexp) \
 _(attr, low) \
 _(attr, lower) \
 _(attr, lr) \
@@ -1770,7 +1805,6 @@ _(attr, mantissa) \
 _(attr, margin) \
 _(attr, mask) \
 _(attr, mask_check) \
-_(attr, mask_indices) \
 _(attr, mask_type) \
 _(attr, mat) \
 _(attr, mat1) \
@@ -1781,6 +1815,7 @@ _(attr, max_exp_avg_sqs) \
 _(attr, max_k) \
 _(attr, max_norm) \
 _(attr, max_q) \
+_(attr, max_seqlen_q) \
 _(attr, max_size) \
 _(attr, max_val) \
 _(attr, max_values) \
@@ -1849,6 +1884,8 @@ _(attr, out1) \
 _(attr, out2) \
 _(attr, out3) \
 _(attr, out4) \
+_(attr, out5) \
+_(attr, out6) \
 _(attr, out_dim) \
 _(attr, out_int32) \
 _(attr, outdim) \
@@ -1876,6 +1913,8 @@ _(attr, pdist) \
 _(attr, per_row_fake_quant) \
 _(attr, per_sample_weights) \
 _(attr, periodic) \
+_(attr, philox_offset) \
+_(attr, philox_seed) \
 _(attr, pin_memory) \
 _(attr, pivot) \
 _(attr, pivots) \
@@ -1921,7 +1960,9 @@ _(attr, result) \
 _(attr, retain_graph) \
 _(attr, return_complex) \
 _(attr, return_counts) \
+_(attr, return_debug_mask) \
 _(attr, return_inverse) \
+_(attr, reverse) \
 _(attr, right) \
 _(attr, rounding_mode) \
 _(attr, row) \
@@ -2008,6 +2049,7 @@ _(attr, tensor1) \
 _(attr, tensor2) \
 _(attr, tensor_indices_or_sections) \
 _(attr, tensors) \
+_(attr, tensors1) \
 _(attr, test_element) \
 _(attr, test_elements) \
 _(attr, the_template) \
@@ -2044,6 +2086,11 @@ _(attr, vec2) \
 _(attr, w_hh) \
 _(attr, w_ih) \
 _(attr, weight) \
+_(attr, weight0) \
+_(attr, weight1) \
+_(attr, weight2) \
+_(attr, weight3) \
+_(attr, weight4) \
 _(attr, weight_arr) \
 _(attr, weight_buf) \
 _(attr, weight_decay) \

@@ -31,7 +31,6 @@ inline at::Tensor amin(const at::Tensor & self, at::IntArrayRef dim={}, bool kee
 inline at::Tensor & amin_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef dim={}, bool keepdim=false) {
     return at::_ops::amin_out::call(self, dim, keepdim, out);
 }
-
 // aten::amin.out(Tensor self, int[1] dim=[], bool keepdim=False, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & amin_outf(const at::Tensor & self, at::IntArrayRef dim, bool keepdim, at::Tensor & out) {
     return at::_ops::amin_out::call(self, dim, keepdim, out);

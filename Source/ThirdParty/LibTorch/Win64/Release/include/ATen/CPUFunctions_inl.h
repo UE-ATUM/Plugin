@@ -59,6 +59,8 @@
 #include <ATen/ops/_foreach_asin_cpu_dispatch.h>
 #include <ATen/ops/_foreach_atan_cpu_dispatch.h>
 #include <ATen/ops/_foreach_ceil_cpu_dispatch.h>
+#include <ATen/ops/_foreach_clamp_max_cpu_dispatch.h>
+#include <ATen/ops/_foreach_clamp_min_cpu_dispatch.h>
 #include <ATen/ops/_foreach_cos_cpu_dispatch.h>
 #include <ATen/ops/_foreach_cosh_cpu_dispatch.h>
 #include <ATen/ops/_foreach_div_cpu_dispatch.h>
@@ -68,6 +70,7 @@
 #include <ATen/ops/_foreach_expm1_cpu_dispatch.h>
 #include <ATen/ops/_foreach_floor_cpu_dispatch.h>
 #include <ATen/ops/_foreach_frac_cpu_dispatch.h>
+#include <ATen/ops/_foreach_lerp_cpu_dispatch.h>
 #include <ATen/ops/_foreach_lgamma_cpu_dispatch.h>
 #include <ATen/ops/_foreach_log_cpu_dispatch.h>
 #include <ATen/ops/_foreach_log10_cpu_dispatch.h>
@@ -90,6 +93,7 @@
 #include <ATen/ops/_foreach_trunc_cpu_dispatch.h>
 #include <ATen/ops/_foreach_zero_cpu_dispatch.h>
 #include <ATen/ops/_fused_moving_avg_obs_fq_helper_cpu_dispatch.h>
+#include <ATen/ops/_fused_sdp_choice_cpu_dispatch.h>
 #include <ATen/ops/_histogramdd_bin_edges_cpu_dispatch.h>
 #include <ATen/ops/_histogramdd_from_bin_cts_cpu_dispatch.h>
 #include <ATen/ops/_histogramdd_from_bin_tensors_cpu_dispatch.h>
@@ -107,6 +111,7 @@
 #include <ATen/ops/_make_per_tensor_quantized_tensor_cpu_dispatch.h>
 #include <ATen/ops/_masked_softmax_cpu_dispatch.h>
 #include <ATen/ops/_masked_softmax_backward_cpu_dispatch.h>
+#include <ATen/ops/_native_batch_norm_legit_cpu_dispatch.h>
 #include <ATen/ops/_native_decoder_only_multi_head_attention_cpu_dispatch.h>
 #include <ATen/ops/_native_multi_head_attention_cpu_dispatch.h>
 #include <ATen/ops/_nested_from_padded_cpu_dispatch.h>
@@ -115,9 +120,10 @@
 #include <ATen/ops/_nested_view_from_buffer_cpu_dispatch.h>
 #include <ATen/ops/_pdist_backward_cpu_dispatch.h>
 #include <ATen/ops/_pdist_forward_cpu_dispatch.h>
+#include <ATen/ops/_prelu_kernel_cpu_dispatch.h>
+#include <ATen/ops/_prelu_kernel_backward_cpu_dispatch.h>
 #include <ATen/ops/_reshape_alias_cpu_dispatch.h>
 #include <ATen/ops/_sample_dirichlet_cpu_dispatch.h>
-#include <ATen/ops/_scaled_dot_product_attention_forward_cpu_dispatch.h>
 #include <ATen/ops/_segment_reduce_backward_cpu_dispatch.h>
 #include <ATen/ops/_slow_conv2d_backward_cpu_dispatch.h>
 #include <ATen/ops/_slow_conv2d_forward_cpu_dispatch.h>
@@ -127,7 +133,6 @@
 #include <ATen/ops/_stack_cpu_dispatch.h>
 #include <ATen/ops/_standard_gamma_cpu_dispatch.h>
 #include <ATen/ops/_standard_gamma_grad_cpu_dispatch.h>
-#include <ATen/ops/_symeig_helper_cpu_dispatch.h>
 #include <ATen/ops/_test_optional_filled_intlist_cpu_dispatch.h>
 #include <ATen/ops/_test_optional_floatlist_cpu_dispatch.h>
 #include <ATen/ops/_test_optional_intlist_cpu_dispatch.h>
@@ -219,8 +224,8 @@
 #include <ATen/ops/count_nonzero_cpu_dispatch.h>
 #include <ATen/ops/cumprod_cpu_dispatch.h>
 #include <ATen/ops/cumsum_cpu_dispatch.h>
+#include <ATen/ops/dense_dim_cpu_dispatch.h>
 #include <ATen/ops/dequantize_cpu_dispatch.h>
-#include <ATen/ops/diag_cpu_dispatch.h>
 #include <ATen/ops/digamma_cpu_dispatch.h>
 #include <ATen/ops/div_cpu_dispatch.h>
 #include <ATen/ops/dot_cpu_dispatch.h>
@@ -360,6 +365,8 @@
 #include <ATen/ops/minimum_cpu_dispatch.h>
 #include <ATen/ops/mish_cpu_dispatch.h>
 #include <ATen/ops/mish_backward_cpu_dispatch.h>
+#include <ATen/ops/mkldnn_rnn_layer_cpu_dispatch.h>
+#include <ATen/ops/mkldnn_rnn_layer_backward_cpu_dispatch.h>
 #include <ATen/ops/mm_cpu_dispatch.h>
 #include <ATen/ops/mode_cpu_dispatch.h>
 #include <ATen/ops/mse_loss_cpu_dispatch.h>
@@ -401,8 +408,6 @@
 #include <ATen/ops/polar_cpu_dispatch.h>
 #include <ATen/ops/polygamma_cpu_dispatch.h>
 #include <ATen/ops/pow_cpu_dispatch.h>
-#include <ATen/ops/prelu_cpu_dispatch.h>
-#include <ATen/ops/prelu_backward_cpu_dispatch.h>
 #include <ATen/ops/prod_cpu_dispatch.h>
 #include <ATen/ops/put_cpu_dispatch.h>
 #include <ATen/ops/quantize_per_channel_cpu_dispatch.h>
@@ -463,6 +468,7 @@
 #include <ATen/ops/softshrink_cpu_dispatch.h>
 #include <ATen/ops/softshrink_backward_cpu_dispatch.h>
 #include <ATen/ops/sort_cpu_dispatch.h>
+#include <ATen/ops/sparse_dim_cpu_dispatch.h>
 #include <ATen/ops/special_airy_ai_cpu_dispatch.h>
 #include <ATen/ops/special_bessel_j0_cpu_dispatch.h>
 #include <ATen/ops/special_bessel_j1_cpu_dispatch.h>

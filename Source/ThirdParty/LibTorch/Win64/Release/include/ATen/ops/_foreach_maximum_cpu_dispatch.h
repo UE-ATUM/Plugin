@@ -17,8 +17,12 @@ namespace at {
 
 namespace cpu {
 
+TORCH_API ::std::vector<at::Tensor> _foreach_maximum(at::TensorList self, const at::Scalar & scalar);
+TORCH_API void _foreach_maximum_(at::TensorList self, const at::Scalar & scalar);
 TORCH_API ::std::vector<at::Tensor> _foreach_maximum(at::TensorList self, at::TensorList other);
 TORCH_API void _foreach_maximum_(at::TensorList self, at::TensorList other);
+TORCH_API ::std::vector<at::Tensor> _foreach_maximum(at::TensorList self, at::ArrayRef<at::Scalar> scalars);
+TORCH_API void _foreach_maximum_(at::TensorList self, at::ArrayRef<at::Scalar> scalars);
 
 } // namespace cpu
 } // namespace at

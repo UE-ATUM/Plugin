@@ -31,7 +31,6 @@ inline at::Tensor nuclear_norm(const at::Tensor & self, bool keepdim=false) {
 inline at::Tensor & nuclear_norm_out(at::Tensor & out, const at::Tensor & self, bool keepdim=false) {
     return at::_ops::nuclear_norm_out::call(self, keepdim, out);
 }
-
 // aten::nuclear_norm.out(Tensor self, bool keepdim=False, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & nuclear_norm_outf(const at::Tensor & self, bool keepdim, at::Tensor & out) {
     return at::_ops::nuclear_norm_out::call(self, keepdim, out);
@@ -46,7 +45,6 @@ inline at::Tensor nuclear_norm(const at::Tensor & self, at::IntArrayRef dim, boo
 inline at::Tensor & nuclear_norm_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef dim, bool keepdim=false) {
     return at::_ops::nuclear_norm_dim_out::call(self, dim, keepdim, out);
 }
-
 // aten::nuclear_norm.dim_out(Tensor self, int[2] dim, bool keepdim=False, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & nuclear_norm_outf(const at::Tensor & self, at::IntArrayRef dim, bool keepdim, at::Tensor & out) {
     return at::_ops::nuclear_norm_dim_out::call(self, dim, keepdim, out);

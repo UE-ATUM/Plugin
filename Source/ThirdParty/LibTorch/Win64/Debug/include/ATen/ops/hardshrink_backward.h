@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & hardshrink_backward_out(at::Tensor & grad_input, const at::Tensor & grad_out, const at::Tensor & self, const at::Scalar & lambd) {
     return at::_ops::hardshrink_backward_grad_input::call(grad_out, self, lambd, grad_input);
 }
-
 // aten::hardshrink_backward.grad_input(Tensor grad_out, Tensor self, Scalar lambd, *, Tensor(a!) grad_input) -> Tensor(a!)
 inline at::Tensor & hardshrink_backward_outf(const at::Tensor & grad_out, const at::Tensor & self, const at::Scalar & lambd, at::Tensor & grad_input) {
     return at::_ops::hardshrink_backward_grad_input::call(grad_out, self, lambd, grad_input);

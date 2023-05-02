@@ -80,6 +80,7 @@
 #include <ATen/ops/avg_pool3d_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/avg_pool3d_backward_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/baddbmm_compositeexplicitautogradnonfunctional_dispatch.h>
+#include <ATen/ops/bernoulli_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/bitwise_and_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/bitwise_left_shift_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/bitwise_not_compositeexplicitautogradnonfunctional_dispatch.h>
@@ -88,11 +89,13 @@
 #include <ATen/ops/bitwise_xor_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/bmm_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/cat_compositeexplicitautogradnonfunctional_dispatch.h>
+#include <ATen/ops/ccol_indices_copy_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/ceil_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/clamp_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/clamp_max_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/clamp_min_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/col_indices_copy_compositeexplicitautogradnonfunctional_dispatch.h>
+#include <ATen/ops/copy_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/copysign_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/cos_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/cosh_compositeexplicitautogradnonfunctional_dispatch.h>
@@ -100,6 +103,7 @@
 #include <ATen/ops/cumprod_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/cumsum_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/detach_copy_compositeexplicitautogradnonfunctional_dispatch.h>
+#include <ATen/ops/diag_embed_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/diagonal_copy_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/digamma_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/div_compositeexplicitautogradnonfunctional_dispatch.h>
@@ -151,6 +155,7 @@
 #include <ATen/ops/leaky_relu_backward_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/lerp_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/lgamma_compositeexplicitautogradnonfunctional_dispatch.h>
+#include <ATen/ops/lift_fresh_copy_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/linalg_cholesky_ex_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/linalg_cross_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/linalg_inv_ex_compositeexplicitautogradnonfunctional_dispatch.h>
@@ -209,6 +214,7 @@
 #include <ATen/ops/replication_pad2d_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/replication_pad3d_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/round_compositeexplicitautogradnonfunctional_dispatch.h>
+#include <ATen/ops/row_indices_copy_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/rsqrt_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/scatter_compositeexplicitautogradnonfunctional_dispatch.h>
 #include <ATen/ops/scatter_add_compositeexplicitautogradnonfunctional_dispatch.h>

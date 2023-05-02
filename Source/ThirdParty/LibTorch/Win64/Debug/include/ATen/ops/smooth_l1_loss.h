@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & smooth_l1_loss_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & target, int64_t reduction=at::Reduction::Mean, double beta=1.0) {
     return at::_ops::smooth_l1_loss_out::call(self, target, reduction, beta, out);
 }
-
 // aten::smooth_l1_loss.out(Tensor self, Tensor target, int reduction=Mean, float beta=1.0, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & smooth_l1_loss_outf(const at::Tensor & self, const at::Tensor & target, int64_t reduction, double beta, at::Tensor & out) {
     return at::_ops::smooth_l1_loss_out::call(self, target, reduction, beta, out);

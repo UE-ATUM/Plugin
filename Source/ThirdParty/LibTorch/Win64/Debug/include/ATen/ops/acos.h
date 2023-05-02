@@ -36,7 +36,6 @@ inline at::Tensor & acos_(at::Tensor & self) {
 inline at::Tensor & acos_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::acos_out::call(self, out);
 }
-
 // aten::acos.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & acos_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::acos_out::call(self, out);

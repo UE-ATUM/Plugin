@@ -26,7 +26,6 @@ namespace at {
 inline ::std::tuple<at::Tensor &,at::Tensor &> multilabel_margin_loss_forward_out(at::Tensor & output, at::Tensor & is_target, const at::Tensor & self, const at::Tensor & target, int64_t reduction) {
     return at::_ops::multilabel_margin_loss_forward_output::call(self, target, reduction, output, is_target);
 }
-
 // aten::multilabel_margin_loss_forward.output(Tensor self, Tensor target, int reduction, *, Tensor(a!) output, Tensor(b!) is_target) -> (Tensor(a!), Tensor(b!))
 inline ::std::tuple<at::Tensor &,at::Tensor &> multilabel_margin_loss_forward_outf(const at::Tensor & self, const at::Tensor & target, int64_t reduction, at::Tensor & output, at::Tensor & is_target) {
     return at::_ops::multilabel_margin_loss_forward_output::call(self, target, reduction, output, is_target);

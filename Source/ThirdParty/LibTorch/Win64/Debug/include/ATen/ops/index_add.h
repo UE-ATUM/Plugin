@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & index_add_out(at::Tensor & out, const at::Tensor & self, int64_t dim, const at::Tensor & index, const at::Tensor & source, const at::Scalar & alpha=1) {
     return at::_ops::index_add_out::call(self, dim, index, source, alpha, out);
 }
-
 // aten::index_add.out(Tensor self, int dim, Tensor index, Tensor source, *, Scalar alpha=1, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & index_add_outf(const at::Tensor & self, int64_t dim, const at::Tensor & index, const at::Tensor & source, const at::Scalar & alpha, at::Tensor & out) {
     return at::_ops::index_add_out::call(self, dim, index, source, alpha, out);

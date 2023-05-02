@@ -31,7 +31,6 @@ inline at::Tensor linalg_multi_dot(at::TensorList tensors) {
 inline at::Tensor & linalg_multi_dot_out(at::Tensor & out, at::TensorList tensors) {
     return at::_ops::linalg_multi_dot_out::call(tensors, out);
 }
-
 // aten::linalg_multi_dot.out(Tensor[] tensors, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & linalg_multi_dot_outf(at::TensorList tensors, at::Tensor & out) {
     return at::_ops::linalg_multi_dot_out::call(tensors, out);

@@ -31,7 +31,6 @@ inline at::Tensor orgqr(const at::Tensor & self, const at::Tensor & input2) {
 inline at::Tensor & orgqr_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & input2) {
     return at::_ops::orgqr_out::call(self, input2, out);
 }
-
 // aten::orgqr.out(Tensor self, Tensor input2, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & orgqr_outf(const at::Tensor & self, const at::Tensor & input2, at::Tensor & out) {
     return at::_ops::orgqr_out::call(self, input2, out);

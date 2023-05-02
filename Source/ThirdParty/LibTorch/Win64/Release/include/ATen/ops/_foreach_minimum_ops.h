@@ -14,6 +14,28 @@ namespace at {
 namespace _ops {
 
 
+struct TORCH_API _foreach_minimum_Scalar {
+  using schema = ::std::vector<at::Tensor> (at::TensorList, const at::Scalar &);
+  using ptr_schema = schema*;
+  // See Note [static constexpr char* members for windows NVCC]
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::_foreach_minimum")
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "Scalar")
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "_foreach_minimum.Scalar(Tensor[] self, Scalar scalar) -> Tensor[]")
+  static ::std::vector<at::Tensor> call(at::TensorList self, const at::Scalar & scalar);
+  static ::std::vector<at::Tensor> redispatch(c10::DispatchKeySet dispatchKeySet, at::TensorList self, const at::Scalar & scalar);
+};
+
+struct TORCH_API _foreach_minimum__Scalar {
+  using schema = void (at::TensorList, const at::Scalar &);
+  using ptr_schema = schema*;
+  // See Note [static constexpr char* members for windows NVCC]
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::_foreach_minimum_")
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "Scalar")
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "_foreach_minimum_.Scalar(Tensor(a!)[] self, Scalar scalar) -> ()")
+  static void call(at::TensorList self, const at::Scalar & scalar);
+  static void redispatch(c10::DispatchKeySet dispatchKeySet, at::TensorList self, const at::Scalar & scalar);
+};
+
 struct TORCH_API _foreach_minimum_List {
   using schema = ::std::vector<at::Tensor> (at::TensorList, at::TensorList);
   using ptr_schema = schema*;
@@ -36,6 +58,39 @@ struct TORCH_API _foreach_minimum__List {
   static void redispatch(c10::DispatchKeySet dispatchKeySet, at::TensorList self, at::TensorList other);
 };
 
+struct TORCH_API _foreach_minimum_ScalarList {
+  using schema = ::std::vector<at::Tensor> (at::TensorList, at::ArrayRef<at::Scalar>);
+  using ptr_schema = schema*;
+  // See Note [static constexpr char* members for windows NVCC]
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::_foreach_minimum")
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "ScalarList")
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "_foreach_minimum.ScalarList(Tensor[] self, Scalar[] scalars) -> Tensor[]")
+  static ::std::vector<at::Tensor> call(at::TensorList self, at::ArrayRef<at::Scalar> scalars);
+  static ::std::vector<at::Tensor> redispatch(c10::DispatchKeySet dispatchKeySet, at::TensorList self, at::ArrayRef<at::Scalar> scalars);
+};
+
+struct TORCH_API _foreach_minimum__ScalarList {
+  using schema = void (at::TensorList, at::ArrayRef<at::Scalar>);
+  using ptr_schema = schema*;
+  // See Note [static constexpr char* members for windows NVCC]
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::_foreach_minimum_")
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "ScalarList")
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "_foreach_minimum_.ScalarList(Tensor(a!)[] self, Scalar[] scalars) -> ()")
+  static void call(at::TensorList self, at::ArrayRef<at::Scalar> scalars);
+  static void redispatch(c10::DispatchKeySet dispatchKeySet, at::TensorList self, at::ArrayRef<at::Scalar> scalars);
+};
+
+struct TORCH_API _foreach_minimum_Scalar_out {
+  using schema = void (at::TensorList, const at::Scalar &, at::TensorList);
+  using ptr_schema = schema*;
+  // See Note [static constexpr char* members for windows NVCC]
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::_foreach_minimum")
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "Scalar_out")
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "_foreach_minimum.Scalar_out(Tensor[] self, Scalar scalar, *, Tensor(a!)[] out) -> ()")
+  static void call(at::TensorList self, const at::Scalar & scalar, at::TensorList out);
+  static void redispatch(c10::DispatchKeySet dispatchKeySet, at::TensorList self, const at::Scalar & scalar, at::TensorList out);
+};
+
 struct TORCH_API _foreach_minimum_List_out {
   using schema = void (at::TensorList, at::TensorList, at::TensorList);
   using ptr_schema = schema*;
@@ -45,6 +100,17 @@ struct TORCH_API _foreach_minimum_List_out {
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "_foreach_minimum.List_out(Tensor[] self, Tensor[] other, *, Tensor(a!)[] out) -> ()")
   static void call(at::TensorList self, at::TensorList other, at::TensorList out);
   static void redispatch(c10::DispatchKeySet dispatchKeySet, at::TensorList self, at::TensorList other, at::TensorList out);
+};
+
+struct TORCH_API _foreach_minimum_ScalarList_out {
+  using schema = void (at::TensorList, at::ArrayRef<at::Scalar>, at::TensorList);
+  using ptr_schema = schema*;
+  // See Note [static constexpr char* members for windows NVCC]
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::_foreach_minimum")
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "ScalarList_out")
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "_foreach_minimum.ScalarList_out(Tensor[] self, Scalar[] scalars, *, Tensor(a!)[] out) -> ()")
+  static void call(at::TensorList self, at::ArrayRef<at::Scalar> scalars, at::TensorList out);
+  static void redispatch(c10::DispatchKeySet dispatchKeySet, at::TensorList self, at::ArrayRef<at::Scalar> scalars, at::TensorList out);
 };
 
 }} // namespace at::_ops

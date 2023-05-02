@@ -36,7 +36,6 @@ inline ::std::tuple<at::Tensor,at::Tensor> nanmedian(const at::Tensor & self, in
 inline ::std::tuple<at::Tensor &,at::Tensor &> nanmedian_out(at::Tensor & values, at::Tensor & indices, const at::Tensor & self, int64_t dim, bool keepdim=false) {
     return at::_ops::nanmedian_dim_values::call(self, dim, keepdim, values, indices);
 }
-
 // aten::nanmedian.dim_values(Tensor self, int dim, bool keepdim=False, *, Tensor(a!) values, Tensor(b!) indices) -> (Tensor(a!) values, Tensor(b!) indices)
 inline ::std::tuple<at::Tensor &,at::Tensor &> nanmedian_outf(const at::Tensor & self, int64_t dim, bool keepdim, at::Tensor & values, at::Tensor & indices) {
     return at::_ops::nanmedian_dim_values::call(self, dim, keepdim, values, indices);
@@ -51,7 +50,6 @@ inline ::std::tuple<at::Tensor,at::Tensor> nanmedian(const at::Tensor & self, at
 inline ::std::tuple<at::Tensor &,at::Tensor &> nanmedian_out(at::Tensor & values, at::Tensor & indices, const at::Tensor & self, at::Dimname dim, bool keepdim=false) {
     return at::_ops::nanmedian_names_dim_values::call(self, dim, keepdim, values, indices);
 }
-
 // aten::nanmedian.names_dim_values(Tensor self, Dimname dim, bool keepdim=False, *, Tensor(a!) values, Tensor(b!) indices) -> (Tensor(a!) values, Tensor(b!) indices)
 inline ::std::tuple<at::Tensor &,at::Tensor &> nanmedian_outf(const at::Tensor & self, at::Dimname dim, bool keepdim, at::Tensor & values, at::Tensor & indices) {
     return at::_ops::nanmedian_names_dim_values::call(self, dim, keepdim, values, indices);
@@ -61,7 +59,6 @@ inline ::std::tuple<at::Tensor &,at::Tensor &> nanmedian_outf(const at::Tensor &
 inline at::Tensor & nanmedian_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::nanmedian_out::call(self, out);
 }
-
 // aten::nanmedian.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & nanmedian_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::nanmedian_out::call(self, out);

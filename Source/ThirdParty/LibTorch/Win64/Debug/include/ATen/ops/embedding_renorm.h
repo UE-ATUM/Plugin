@@ -31,7 +31,6 @@ inline at::Tensor & embedding_renorm_(at::Tensor & self, const at::Tensor & indi
 inline at::Tensor & embedding_renorm_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & indices, double max_norm, double norm_type) {
     return at::_ops::embedding_renorm_out::call(self, indices, max_norm, norm_type, out);
 }
-
 // aten::embedding_renorm.out(Tensor self, Tensor indices, float max_norm, float norm_type, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & embedding_renorm_outf(const at::Tensor & self, const at::Tensor & indices, double max_norm, double norm_type, at::Tensor & out) {
     return at::_ops::embedding_renorm_out::call(self, indices, max_norm, norm_type, out);

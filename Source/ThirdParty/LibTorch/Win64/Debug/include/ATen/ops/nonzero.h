@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & nonzero_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::nonzero_out::call(self, out);
 }
-
 // aten::nonzero.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & nonzero_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::nonzero_out::call(self, out);

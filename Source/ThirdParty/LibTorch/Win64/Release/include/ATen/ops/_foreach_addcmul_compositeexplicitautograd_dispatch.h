@@ -21,6 +21,8 @@ TORCH_API void _foreach_addcmul_out(at::TensorList out, at::TensorList self, at:
 TORCH_API void _foreach_addcmul_outf(at::TensorList self, at::TensorList tensor1, at::TensorList tensor2, const at::Scalar & value, at::TensorList out);
 TORCH_API void _foreach_addcmul_out(at::TensorList out, at::TensorList self, at::TensorList tensor1, at::TensorList tensor2, at::ArrayRef<at::Scalar> scalars);
 TORCH_API void _foreach_addcmul_outf(at::TensorList self, at::TensorList tensor1, at::TensorList tensor2, at::ArrayRef<at::Scalar> scalars, at::TensorList out);
+TORCH_API void _foreach_addcmul_out(at::TensorList out, at::TensorList self, at::TensorList tensor1, at::TensorList tensor2, const at::Tensor & scalars);
+TORCH_API void _foreach_addcmul_outf(at::TensorList self, at::TensorList tensor1, at::TensorList tensor2, const at::Tensor & scalars, at::TensorList out);
 
 } // namespace compositeexplicitautograd
 } // namespace at

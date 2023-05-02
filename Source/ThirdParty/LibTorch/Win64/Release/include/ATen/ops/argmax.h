@@ -31,7 +31,6 @@ inline at::Tensor argmax(const at::Tensor & self, c10::optional<int64_t> dim=c10
 inline at::Tensor & argmax_out(at::Tensor & out, const at::Tensor & self, c10::optional<int64_t> dim=c10::nullopt, bool keepdim=false) {
     return at::_ops::argmax_out::call(self, dim, keepdim, out);
 }
-
 // aten::argmax.out(Tensor self, int? dim=None, bool keepdim=False, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & argmax_outf(const at::Tensor & self, c10::optional<int64_t> dim, bool keepdim, at::Tensor & out) {
     return at::_ops::argmax_out::call(self, dim, keepdim, out);

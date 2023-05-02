@@ -15,25 +15,25 @@ namespace _ops {
 
 
 struct TORCH_API to_padded_tensor {
-  using schema = at::Tensor (const at::Tensor &, double, at::OptionalIntArrayRef);
+  using schema = at::Tensor (const at::Tensor &, double, at::OptionalSymIntArrayRef);
   using ptr_schema = schema*;
   // See Note [static constexpr char* members for windows NVCC]
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::to_padded_tensor")
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "")
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "to_padded_tensor(Tensor self, float padding, int[]? output_size=None) -> Tensor")
-  static at::Tensor call(const at::Tensor & self, double padding, at::OptionalIntArrayRef output_size);
-  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, double padding, at::OptionalIntArrayRef output_size);
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "to_padded_tensor(Tensor self, float padding, SymInt[]? output_size=None) -> Tensor")
+  static at::Tensor call(const at::Tensor & self, double padding, at::OptionalSymIntArrayRef output_size);
+  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, double padding, at::OptionalSymIntArrayRef output_size);
 };
 
 struct TORCH_API to_padded_tensor_out {
-  using schema = at::Tensor & (const at::Tensor &, double, at::OptionalIntArrayRef, at::Tensor &);
+  using schema = at::Tensor & (const at::Tensor &, double, at::OptionalSymIntArrayRef, at::Tensor &);
   using ptr_schema = schema*;
   // See Note [static constexpr char* members for windows NVCC]
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::to_padded_tensor")
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "out")
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "to_padded_tensor.out(Tensor self, float padding, int[]? output_size=None, *, Tensor(a!) out) -> Tensor(a!)")
-  static at::Tensor & call(const at::Tensor & self, double padding, at::OptionalIntArrayRef output_size, at::Tensor & out);
-  static at::Tensor & redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, double padding, at::OptionalIntArrayRef output_size, at::Tensor & out);
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "to_padded_tensor.out(Tensor self, float padding, SymInt[]? output_size=None, *, Tensor(a!) out) -> Tensor(a!)")
+  static at::Tensor & call(const at::Tensor & self, double padding, at::OptionalSymIntArrayRef output_size, at::Tensor & out);
+  static at::Tensor & redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, double padding, at::OptionalSymIntArrayRef output_size, at::Tensor & out);
 };
 
 }} // namespace at::_ops

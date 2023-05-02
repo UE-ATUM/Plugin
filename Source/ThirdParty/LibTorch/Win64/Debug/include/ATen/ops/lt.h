@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & lt_out(at::Tensor & out, const at::Tensor & self, const at::Scalar & other) {
     return at::_ops::lt_Scalar_out::call(self, other, out);
 }
-
 // aten::lt.Scalar_out(Tensor self, Scalar other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & lt_outf(const at::Tensor & self, const at::Scalar & other, at::Tensor & out) {
     return at::_ops::lt_Scalar_out::call(self, other, out);
@@ -41,7 +40,6 @@ inline at::Tensor lt(const at::Tensor & self, const at::Scalar & other) {
 inline at::Tensor & lt_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other) {
     return at::_ops::lt_Tensor_out::call(self, other, out);
 }
-
 // aten::lt.Tensor_out(Tensor self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & lt_outf(const at::Tensor & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::lt_Tensor_out::call(self, other, out);

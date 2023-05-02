@@ -31,7 +31,6 @@ inline at::Tensor roll(const at::Tensor & self, at::IntArrayRef shifts, at::IntA
 inline at::Tensor & roll_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef shifts, at::IntArrayRef dims={}) {
     return at::_ops::roll_out::call(self, shifts, dims, out);
 }
-
 // aten::roll.out(Tensor self, int[1] shifts, int[1] dims=[], *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & roll_outf(const at::Tensor & self, at::IntArrayRef shifts, at::IntArrayRef dims, at::Tensor & out) {
     return at::_ops::roll_out::call(self, shifts, dims, out);

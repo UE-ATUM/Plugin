@@ -31,7 +31,6 @@ inline at::Tensor linalg_cholesky(const at::Tensor & self, bool upper=false) {
 inline at::Tensor & linalg_cholesky_out(at::Tensor & out, const at::Tensor & self, bool upper=false) {
     return at::_ops::linalg_cholesky_out::call(self, upper, out);
 }
-
 // aten::linalg_cholesky.out(Tensor self, *, bool upper=False, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & linalg_cholesky_outf(const at::Tensor & self, bool upper, at::Tensor & out) {
     return at::_ops::linalg_cholesky_out::call(self, upper, out);

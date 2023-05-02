@@ -36,7 +36,6 @@ inline ::std::tuple<at::Tensor,at::Tensor> median(const at::Tensor & self, int64
 inline ::std::tuple<at::Tensor &,at::Tensor &> median_out(at::Tensor & values, at::Tensor & indices, const at::Tensor & self, int64_t dim, bool keepdim=false) {
     return at::_ops::median_dim_values::call(self, dim, keepdim, values, indices);
 }
-
 // aten::median.dim_values(Tensor self, int dim, bool keepdim=False, *, Tensor(a!) values, Tensor(b!) indices) -> (Tensor(a!) values, Tensor(b!) indices)
 inline ::std::tuple<at::Tensor &,at::Tensor &> median_outf(const at::Tensor & self, int64_t dim, bool keepdim, at::Tensor & values, at::Tensor & indices) {
     return at::_ops::median_dim_values::call(self, dim, keepdim, values, indices);
@@ -51,7 +50,6 @@ inline ::std::tuple<at::Tensor,at::Tensor> median(const at::Tensor & self, at::D
 inline ::std::tuple<at::Tensor &,at::Tensor &> median_out(at::Tensor & values, at::Tensor & indices, const at::Tensor & self, at::Dimname dim, bool keepdim=false) {
     return at::_ops::median_names_dim_values::call(self, dim, keepdim, values, indices);
 }
-
 // aten::median.names_dim_values(Tensor self, Dimname dim, bool keepdim=False, *, Tensor(a!) values, Tensor(b!) indices) -> (Tensor(a!) values, Tensor(b!) indices)
 inline ::std::tuple<at::Tensor &,at::Tensor &> median_outf(const at::Tensor & self, at::Dimname dim, bool keepdim, at::Tensor & values, at::Tensor & indices) {
     return at::_ops::median_names_dim_values::call(self, dim, keepdim, values, indices);
@@ -61,7 +59,6 @@ inline ::std::tuple<at::Tensor &,at::Tensor &> median_outf(const at::Tensor & se
 inline at::Tensor & median_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::median_out::call(self, out);
 }
-
 // aten::median.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & median_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::median_out::call(self, out);

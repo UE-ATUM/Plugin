@@ -41,7 +41,6 @@ inline at::Tensor special_xlog1py(const at::Tensor & self, const at::Scalar & ot
 inline at::Tensor & special_xlog1py_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other) {
     return at::_ops::special_xlog1py_out::call(self, other, out);
 }
-
 // aten::special_xlog1py.out(Tensor self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & special_xlog1py_outf(const at::Tensor & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::special_xlog1py_out::call(self, other, out);
@@ -51,7 +50,6 @@ inline at::Tensor & special_xlog1py_outf(const at::Tensor & self, const at::Tens
 inline at::Tensor & special_xlog1py_out(at::Tensor & out, const at::Scalar & self, const at::Tensor & other) {
     return at::_ops::special_xlog1py_self_scalar_out::call(self, other, out);
 }
-
 // aten::special_xlog1py.self_scalar_out(Scalar self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & special_xlog1py_outf(const at::Scalar & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::special_xlog1py_self_scalar_out::call(self, other, out);
@@ -61,7 +59,6 @@ inline at::Tensor & special_xlog1py_outf(const at::Scalar & self, const at::Tens
 inline at::Tensor & special_xlog1py_out(at::Tensor & out, const at::Tensor & self, const at::Scalar & other) {
     return at::_ops::special_xlog1py_other_scalar_out::call(self, other, out);
 }
-
 // aten::special_xlog1py.other_scalar_out(Tensor self, Scalar other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & special_xlog1py_outf(const at::Tensor & self, const at::Scalar & other, at::Tensor & out) {
     return at::_ops::special_xlog1py_other_scalar_out::call(self, other, out);

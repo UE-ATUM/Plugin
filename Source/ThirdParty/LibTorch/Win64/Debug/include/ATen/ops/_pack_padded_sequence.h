@@ -31,7 +31,6 @@ inline ::std::tuple<at::Tensor,at::Tensor> _pack_padded_sequence(const at::Tenso
 inline ::std::tuple<at::Tensor &,at::Tensor &> _pack_padded_sequence_out(at::Tensor & out0, at::Tensor & out1, const at::Tensor & input, const at::Tensor & lengths, bool batch_first) {
     return at::_ops::_pack_padded_sequence_out::call(input, lengths, batch_first, out0, out1);
 }
-
 // aten::_pack_padded_sequence.out(Tensor input, Tensor lengths, bool batch_first, *, Tensor(a!) out0, Tensor(b!) out1) -> (Tensor(a!), Tensor(b!))
 inline ::std::tuple<at::Tensor &,at::Tensor &> _pack_padded_sequence_outf(const at::Tensor & input, const at::Tensor & lengths, bool batch_first, at::Tensor & out0, at::Tensor & out1) {
     return at::_ops::_pack_padded_sequence_out::call(input, lengths, batch_first, out0, out1);

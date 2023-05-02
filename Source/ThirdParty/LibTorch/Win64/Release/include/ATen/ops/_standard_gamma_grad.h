@@ -31,7 +31,6 @@ inline at::Tensor _standard_gamma_grad(const at::Tensor & self, const at::Tensor
 inline at::Tensor & _standard_gamma_grad_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & output) {
     return at::_ops::_standard_gamma_grad_out::call(self, output, out);
 }
-
 // aten::_standard_gamma_grad.out(Tensor self, Tensor output, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _standard_gamma_grad_outf(const at::Tensor & self, const at::Tensor & output, at::Tensor & out) {
     return at::_ops::_standard_gamma_grad_out::call(self, output, out);

@@ -1,4 +1,10 @@
-// (c) Meta Platforms, Inc. and affiliates. Confidential and proprietary.
+/*
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
 
 #pragma once
 
@@ -86,6 +92,14 @@ class ActivityProfilerInterface {
   // to enable custom framework events.
   virtual void addChildActivityProfiler(
       std::unique_ptr<IActivityProfiler> profiler) {}
+
+  // Log Invariant Violation to factories enabled. This helps record
+  // instances when the profiler behaves unexpectedly.
+  virtual void logInvariantViolation(
+      const std::string&,
+      const std::string&,
+      const std::string&,
+      const std::string& = "") {}
 };
 
 } // namespace libkineto

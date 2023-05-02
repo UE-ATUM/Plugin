@@ -36,7 +36,6 @@ inline at::Tensor & ldexp_(at::Tensor & self, const at::Tensor & other) {
 inline at::Tensor & ldexp_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other) {
     return at::_ops::ldexp_out::call(self, other, out);
 }
-
 // aten::ldexp.out(Tensor self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & ldexp_outf(const at::Tensor & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::ldexp_out::call(self, other, out);

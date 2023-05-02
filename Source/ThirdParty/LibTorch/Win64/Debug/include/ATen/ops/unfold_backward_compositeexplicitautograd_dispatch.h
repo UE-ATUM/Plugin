@@ -19,6 +19,8 @@ namespace compositeexplicitautograd {
 
 TORCH_API at::Tensor & unfold_backward_out(at::Tensor & out, const at::Tensor & grad_in, at::IntArrayRef input_sizes, int64_t dim, int64_t size, int64_t step);
 TORCH_API at::Tensor & unfold_backward_outf(const at::Tensor & grad_in, at::IntArrayRef input_sizes, int64_t dim, int64_t size, int64_t step, at::Tensor & out);
+TORCH_API at::Tensor & unfold_backward_symint_out(at::Tensor & out, const at::Tensor & grad_in, c10::SymIntArrayRef input_sizes, int64_t dim, int64_t size, int64_t step);
+TORCH_API at::Tensor & unfold_backward_symint_outf(const at::Tensor & grad_in, c10::SymIntArrayRef input_sizes, int64_t dim, int64_t size, int64_t step, at::Tensor & out);
 
 } // namespace compositeexplicitautograd
 } // namespace at

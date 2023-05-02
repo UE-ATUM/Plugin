@@ -16,6 +16,6 @@
 
 namespace at {
 namespace native {
-TORCH_API at::Tensor _nested_select_backward(const at::Tensor & grad_output, const at::Tensor & self, int64_t dim, int64_t index);
+TORCH_API at::Tensor _nested_select_backward_symint(const at::Tensor & grad_output, const at::Tensor & self, int64_t dim, c10::SymInt index);
 } // namespace native
 } // namespace at

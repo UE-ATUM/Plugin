@@ -31,7 +31,6 @@ inline at::Tensor linalg_solve(const at::Tensor & A, const at::Tensor & B, bool 
 inline at::Tensor & linalg_solve_out(at::Tensor & out, const at::Tensor & A, const at::Tensor & B, bool left=true) {
     return at::_ops::linalg_solve_out::call(A, B, left, out);
 }
-
 // aten::linalg_solve.out(Tensor A, Tensor B, *, bool left=True, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & linalg_solve_outf(const at::Tensor & A, const at::Tensor & B, bool left, at::Tensor & out) {
     return at::_ops::linalg_solve_out::call(A, B, left, out);

@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor _to_copy(const at::Tensor & self, at::TensorOptions options={}, bool non_blocking=false, c10::optional<at::MemoryFormat> memory_format=c10::nullopt) {
     return at::_ops::_to_copy::call(self, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt(), non_blocking, c10::impl::check_tensor_options_and_extract_memory_format(options, memory_format));
 }
-
 // aten::_to_copy(Tensor self, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, bool non_blocking=False, MemoryFormat? memory_format=None) -> Tensor
 inline at::Tensor _to_copy(const at::Tensor & self, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory, bool non_blocking, c10::optional<at::MemoryFormat> memory_format) {
     return at::_ops::_to_copy::call(self, dtype, layout, device, pin_memory, non_blocking, memory_format);
@@ -36,7 +35,6 @@ inline at::Tensor _to_copy(const at::Tensor & self, c10::optional<at::ScalarType
 inline at::Tensor & _to_copy_out(at::Tensor & out, const at::Tensor & self, bool non_blocking=false, c10::optional<at::MemoryFormat> memory_format=c10::nullopt) {
     return at::_ops::_to_copy_out::call(self, non_blocking, memory_format, out);
 }
-
 // aten::_to_copy.out(Tensor self, *, bool non_blocking=False, MemoryFormat? memory_format=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _to_copy_outf(const at::Tensor & self, bool non_blocking, c10::optional<at::MemoryFormat> memory_format, at::Tensor & out) {
     return at::_ops::_to_copy_out::call(self, non_blocking, memory_format, out);

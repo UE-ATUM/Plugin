@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & _coalesced_out(at::Tensor & out, const at::Tensor & self, bool coalesced) {
     return at::_ops::_coalesced_out::call(self, coalesced, out);
 }
-
 // aten::_coalesced.out(Tensor self, bool coalesced, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _coalesced_outf(const at::Tensor & self, bool coalesced, at::Tensor & out) {
     return at::_ops::_coalesced_out::call(self, coalesced, out);

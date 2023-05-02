@@ -18,7 +18,9 @@ namespace at {
 namespace compositeimplicitautograd {
 
 TORCH_API at::Tensor narrow(const at::Tensor & self, int64_t dim, int64_t start, int64_t length);
+TORCH_API at::Tensor narrow_symint(const at::Tensor & self, int64_t dim, c10::SymInt start, c10::SymInt length);
 TORCH_API at::Tensor narrow(const at::Tensor & self, int64_t dim, const at::Tensor & start, int64_t length);
+TORCH_API at::Tensor narrow_symint(const at::Tensor & self, int64_t dim, const at::Tensor & start, c10::SymInt length);
 
 } // namespace compositeimplicitautograd
 } // namespace at

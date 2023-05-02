@@ -31,7 +31,6 @@ inline at::Tensor copy(const at::Tensor & self, const at::Tensor & src, bool non
 inline at::Tensor & copy_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & src, bool non_blocking=false) {
     return at::_ops::copy_out::call(self, src, non_blocking, out);
 }
-
 // aten::copy.out(Tensor self, Tensor src, bool non_blocking=False, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & copy_outf(const at::Tensor & self, const at::Tensor & src, bool non_blocking, at::Tensor & out) {
     return at::_ops::copy_out::call(self, src, non_blocking, out);

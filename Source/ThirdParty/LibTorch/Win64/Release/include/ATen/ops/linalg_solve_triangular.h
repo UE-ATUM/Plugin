@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & linalg_solve_triangular_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & B, bool upper, bool left=true, bool unitriangular=false) {
     return at::_ops::linalg_solve_triangular_out::call(self, B, upper, left, unitriangular, out);
 }
-
 // aten::linalg_solve_triangular.out(Tensor self, Tensor B, *, bool upper, bool left=True, bool unitriangular=False, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & linalg_solve_triangular_outf(const at::Tensor & self, const at::Tensor & B, bool upper, bool left, bool unitriangular, at::Tensor & out) {
     return at::_ops::linalg_solve_triangular_out::call(self, B, upper, left, unitriangular, out);

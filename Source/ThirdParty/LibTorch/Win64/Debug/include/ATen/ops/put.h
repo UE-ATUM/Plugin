@@ -31,7 +31,6 @@ inline at::Tensor put(const at::Tensor & self, const at::Tensor & index, const a
 inline at::Tensor & put_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & index, const at::Tensor & source, bool accumulate=false) {
     return at::_ops::put_out::call(self, index, source, accumulate, out);
 }
-
 // aten::put.out(Tensor self, Tensor index, Tensor source, bool accumulate=False, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & put_outf(const at::Tensor & self, const at::Tensor & index, const at::Tensor & source, bool accumulate, at::Tensor & out) {
     return at::_ops::put_out::call(self, index, source, accumulate, out);

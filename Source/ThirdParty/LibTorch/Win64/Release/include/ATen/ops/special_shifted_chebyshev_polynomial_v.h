@@ -41,7 +41,6 @@ inline at::Tensor special_shifted_chebyshev_polynomial_v(const at::Tensor & x, c
 inline at::Tensor & special_shifted_chebyshev_polynomial_v_out(at::Tensor & out, const at::Tensor & x, const at::Tensor & n) {
     return at::_ops::special_shifted_chebyshev_polynomial_v_out::call(x, n, out);
 }
-
 // aten::special_shifted_chebyshev_polynomial_v.out(Tensor x, Tensor n, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & special_shifted_chebyshev_polynomial_v_outf(const at::Tensor & x, const at::Tensor & n, at::Tensor & out) {
     return at::_ops::special_shifted_chebyshev_polynomial_v_out::call(x, n, out);
@@ -51,7 +50,6 @@ inline at::Tensor & special_shifted_chebyshev_polynomial_v_outf(const at::Tensor
 inline at::Tensor & special_shifted_chebyshev_polynomial_v_out(at::Tensor & out, const at::Scalar & x, const at::Tensor & n) {
     return at::_ops::special_shifted_chebyshev_polynomial_v_x_scalar_out::call(x, n, out);
 }
-
 // aten::special_shifted_chebyshev_polynomial_v.x_scalar_out(Scalar x, Tensor n, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & special_shifted_chebyshev_polynomial_v_outf(const at::Scalar & x, const at::Tensor & n, at::Tensor & out) {
     return at::_ops::special_shifted_chebyshev_polynomial_v_x_scalar_out::call(x, n, out);
@@ -61,7 +59,6 @@ inline at::Tensor & special_shifted_chebyshev_polynomial_v_outf(const at::Scalar
 inline at::Tensor & special_shifted_chebyshev_polynomial_v_out(at::Tensor & out, const at::Tensor & x, const at::Scalar & n) {
     return at::_ops::special_shifted_chebyshev_polynomial_v_n_scalar_out::call(x, n, out);
 }
-
 // aten::special_shifted_chebyshev_polynomial_v.n_scalar_out(Tensor x, Scalar n, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & special_shifted_chebyshev_polynomial_v_outf(const at::Tensor & x, const at::Scalar & n, at::Tensor & out) {
     return at::_ops::special_shifted_chebyshev_polynomial_v_n_scalar_out::call(x, n, out);

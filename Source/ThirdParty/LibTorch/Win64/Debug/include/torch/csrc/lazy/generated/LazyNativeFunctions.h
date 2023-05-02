@@ -75,6 +75,7 @@ static at::Tensor convolution(const at::Tensor & input, const at::Tensor & weigh
 static at::Tensor cos(const at::Tensor & self);
 static at::Tensor cumsum(const at::Tensor & self, int64_t dim, c10::optional<at::ScalarType> dtype);
 static at::Tensor detach_copy(const at::Tensor & self);
+static at::Tensor diag_embed(const at::Tensor & self, int64_t offset, int64_t dim1, int64_t dim2);
 static at::Tensor diagonal_backward_symint(const at::Tensor & grad_output, c10::SymIntArrayRef input_sizes, int64_t offset, int64_t dim1, int64_t dim2);
 static at::Tensor diagonal_copy(const at::Tensor & self, int64_t offset, int64_t dim1, int64_t dim2);
 static at::Tensor diagonal_scatter(const at::Tensor & self, const at::Tensor & src, int64_t offset, int64_t dim1, int64_t dim2);
@@ -156,7 +157,7 @@ static at::Tensor remainder(const at::Tensor & self, const at::Tensor & other);
 static at::Tensor repeat(const at::Tensor & self, at::IntArrayRef repeats);
 static at::Tensor rsqrt(const at::Tensor & self);
 static at::Tensor scatter_add(const at::Tensor & self, int64_t dim, const at::Tensor & index, const at::Tensor & src);
-static at::Tensor select_backward_symint(const at::Tensor & grad_output, c10::SymIntArrayRef input_sizes, int64_t dim, int64_t index);
+static at::Tensor select_backward_symint(const at::Tensor & grad_output, c10::SymIntArrayRef input_sizes, int64_t dim, c10::SymInt index);
 static at::Tensor select_copy(const at::Tensor & self, int64_t dim, int64_t index);
 static at::Tensor select_scatter(const at::Tensor & self, const at::Tensor & src, int64_t dim, int64_t index);
 static at::Tensor sgn(const at::Tensor & self);
@@ -172,6 +173,7 @@ static at::Tensor softplus(const at::Tensor & self, const at::Scalar & beta, con
 static at::Tensor softplus_backward(const at::Tensor & grad_output, const at::Tensor & self, const at::Scalar & beta, const at::Scalar & threshold);
 static at::Tensor sqrt(const at::Tensor & self);
 static at::Tensor squeeze_copy(const at::Tensor & self);
+static at::Tensor squeeze_copy(const at::Tensor & self, at::IntArrayRef dim);
 static at::Tensor squeeze_copy(const at::Tensor & self, int64_t dim);
 static at::Tensor stack(at::TensorList tensors, int64_t dim);
 static at::Tensor std(const at::Tensor & self, at::OptionalIntArrayRef dim, bool unbiased, bool keepdim);

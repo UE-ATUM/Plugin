@@ -31,7 +31,6 @@ inline at::Tensor signbit(const at::Tensor & self) {
 inline at::Tensor & signbit_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::signbit_out::call(self, out);
 }
-
 // aten::signbit.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & signbit_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::signbit_out::call(self, out);

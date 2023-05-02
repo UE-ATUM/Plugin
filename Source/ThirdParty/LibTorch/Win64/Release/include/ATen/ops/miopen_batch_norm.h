@@ -31,7 +31,6 @@ inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor> miopen_batch_norm(const at
 inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> miopen_batch_norm_out(at::Tensor & out0, at::Tensor & out1, at::Tensor & out2, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, const c10::optional<at::Tensor> & running_mean, const c10::optional<at::Tensor> & running_var, bool training, double exponential_average_factor, double epsilon) {
     return at::_ops::miopen_batch_norm_out::call(input, weight, bias, running_mean, running_var, training, exponential_average_factor, epsilon, out0, out1, out2);
 }
-
 // aten::miopen_batch_norm.out(Tensor input, Tensor weight, Tensor? bias, Tensor? running_mean, Tensor? running_var, bool training, float exponential_average_factor, float epsilon, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
 inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> miopen_batch_norm_outf(const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, const c10::optional<at::Tensor> & running_mean, const c10::optional<at::Tensor> & running_var, bool training, double exponential_average_factor, double epsilon, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2) {
     return at::_ops::miopen_batch_norm_out::call(input, weight, bias, running_mean, running_var, training, exponential_average_factor, epsilon, out0, out1, out2);

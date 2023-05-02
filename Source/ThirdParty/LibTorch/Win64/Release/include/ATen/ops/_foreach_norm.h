@@ -31,7 +31,6 @@ inline ::std::vector<at::Tensor> _foreach_norm(at::TensorList self, const at::Sc
 inline void _foreach_norm_out(at::TensorList out, at::TensorList self, const at::Scalar & ord=2) {
     return at::_ops::_foreach_norm_Scalar_out::call(self, ord, out);
 }
-
 // aten::_foreach_norm.Scalar_out(Tensor[] self, Scalar ord=2, *, Tensor(a!)[] out) -> ()
 inline void _foreach_norm_outf(at::TensorList self, const at::Scalar & ord, at::TensorList out) {
     return at::_ops::_foreach_norm_Scalar_out::call(self, ord, out);

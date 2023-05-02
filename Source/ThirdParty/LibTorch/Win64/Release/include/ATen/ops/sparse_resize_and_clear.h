@@ -26,7 +26,6 @@ namespace at {
 inline const at::Tensor & sparse_resize_and_clear_out(const at::Tensor & out, const at::Tensor & self, at::IntArrayRef size, int64_t sparse_dim, int64_t dense_dim) {
     return at::_ops::sparse_resize_and_clear_out::call(self, size, sparse_dim, dense_dim, out);
 }
-
 // aten::sparse_resize_and_clear.out(Tensor self, int[] size, int sparse_dim, int dense_dim, *, Tensor(a!) out) -> Tensor(a!)
 inline const at::Tensor & sparse_resize_and_clear_outf(const at::Tensor & self, at::IntArrayRef size, int64_t sparse_dim, int64_t dense_dim, const at::Tensor & out) {
     return at::_ops::sparse_resize_and_clear_out::call(self, size, sparse_dim, dense_dim, out);

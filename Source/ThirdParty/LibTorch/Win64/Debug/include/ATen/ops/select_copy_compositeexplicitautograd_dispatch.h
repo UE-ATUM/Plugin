@@ -19,6 +19,8 @@ namespace compositeexplicitautograd {
 
 TORCH_API at::Tensor & select_copy_out(at::Tensor & out, const at::Tensor & self, int64_t dim, int64_t index);
 TORCH_API at::Tensor & select_copy_outf(const at::Tensor & self, int64_t dim, int64_t index, at::Tensor & out);
+TORCH_API at::Tensor & select_copy_symint_out(at::Tensor & out, const at::Tensor & self, int64_t dim, c10::SymInt index);
+TORCH_API at::Tensor & select_copy_symint_outf(const at::Tensor & self, int64_t dim, c10::SymInt index, at::Tensor & out);
 
 } // namespace compositeexplicitautograd
 } // namespace at

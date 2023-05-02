@@ -18,8 +18,11 @@ namespace at {
 namespace compositeexplicitautograd {
 
 TORCH_API at::Tensor select_scatter(const at::Tensor & self, const at::Tensor & src, int64_t dim, int64_t index);
+TORCH_API at::Tensor select_scatter_symint(const at::Tensor & self, const at::Tensor & src, int64_t dim, c10::SymInt index);
 TORCH_API at::Tensor & select_scatter_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & src, int64_t dim, int64_t index);
 TORCH_API at::Tensor & select_scatter_outf(const at::Tensor & self, const at::Tensor & src, int64_t dim, int64_t index, at::Tensor & out);
+TORCH_API at::Tensor & select_scatter_symint_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & src, int64_t dim, c10::SymInt index);
+TORCH_API at::Tensor & select_scatter_symint_outf(const at::Tensor & self, const at::Tensor & src, int64_t dim, c10::SymInt index, at::Tensor & out);
 
 } // namespace compositeexplicitautograd
 } // namespace at

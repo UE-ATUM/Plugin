@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & msort_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::msort_out::call(self, out);
 }
-
 // aten::msort.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & msort_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::msort_out::call(self, out);

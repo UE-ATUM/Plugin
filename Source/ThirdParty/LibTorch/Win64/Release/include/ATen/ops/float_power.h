@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & float_power_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & exponent) {
     return at::_ops::float_power_Tensor_Tensor_out::call(self, exponent, out);
 }
-
 // aten::float_power.Tensor_Tensor_out(Tensor self, Tensor exponent, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & float_power_outf(const at::Tensor & self, const at::Tensor & exponent, at::Tensor & out) {
     return at::_ops::float_power_Tensor_Tensor_out::call(self, exponent, out);
@@ -41,7 +40,6 @@ inline at::Tensor float_power(const at::Tensor & self, const at::Tensor & expone
 inline at::Tensor & float_power_out(at::Tensor & out, const at::Scalar & self, const at::Tensor & exponent) {
     return at::_ops::float_power_Scalar_out::call(self, exponent, out);
 }
-
 // aten::float_power.Scalar_out(Scalar self, Tensor exponent, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & float_power_outf(const at::Scalar & self, const at::Tensor & exponent, at::Tensor & out) {
     return at::_ops::float_power_Scalar_out::call(self, exponent, out);
@@ -56,7 +54,6 @@ inline at::Tensor float_power(const at::Scalar & self, const at::Tensor & expone
 inline at::Tensor & float_power_out(at::Tensor & out, const at::Tensor & self, const at::Scalar & exponent) {
     return at::_ops::float_power_Tensor_Scalar_out::call(self, exponent, out);
 }
-
 // aten::float_power.Tensor_Scalar_out(Tensor self, Scalar exponent, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & float_power_outf(const at::Tensor & self, const at::Scalar & exponent, at::Tensor & out) {
     return at::_ops::float_power_Tensor_Scalar_out::call(self, exponent, out);

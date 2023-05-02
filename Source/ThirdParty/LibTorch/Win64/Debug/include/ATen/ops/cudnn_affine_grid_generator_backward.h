@@ -31,7 +31,6 @@ inline at::Tensor cudnn_affine_grid_generator_backward(const at::Tensor & grad, 
 inline at::Tensor & cudnn_affine_grid_generator_backward_out(at::Tensor & out, const at::Tensor & grad, int64_t N, int64_t C, int64_t H, int64_t W) {
     return at::_ops::cudnn_affine_grid_generator_backward_out::call(grad, N, C, H, W, out);
 }
-
 // aten::cudnn_affine_grid_generator_backward.out(Tensor grad, int N, int C, int H, int W, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & cudnn_affine_grid_generator_backward_outf(const at::Tensor & grad, int64_t N, int64_t C, int64_t H, int64_t W, at::Tensor & out) {
     return at::_ops::cudnn_affine_grid_generator_backward_out::call(grad, N, C, H, W, out);

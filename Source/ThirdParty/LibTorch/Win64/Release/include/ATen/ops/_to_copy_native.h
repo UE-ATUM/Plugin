@@ -18,5 +18,6 @@ namespace at {
 namespace native {
 TORCH_API at::Tensor _to_copy(const at::Tensor & self, c10::optional<at::ScalarType> dtype={}, c10::optional<at::Layout> layout={}, c10::optional<at::Device> device={}, c10::optional<bool> pin_memory={}, bool non_blocking=false, c10::optional<at::MemoryFormat> memory_format=c10::nullopt);
 TORCH_API at::Tensor & _to_copy_out(const at::Tensor & self, bool non_blocking, c10::optional<at::MemoryFormat> memory_format, at::Tensor & out);
+TORCH_API at::Tensor _to_copy_nested(const at::Tensor & self, c10::optional<at::ScalarType> dtype={}, c10::optional<at::Layout> layout={}, c10::optional<at::Device> device={}, c10::optional<bool> pin_memory={}, bool non_blocking=false, c10::optional<at::MemoryFormat> memory_format=c10::nullopt);
 } // namespace native
 } // namespace at

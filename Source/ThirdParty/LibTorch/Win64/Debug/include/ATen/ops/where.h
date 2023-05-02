@@ -31,7 +31,6 @@ inline at::Tensor where(const at::Tensor & condition, const at::Tensor & self, c
 inline at::Tensor & where_out(at::Tensor & out, const at::Tensor & condition, const at::Tensor & self, const at::Tensor & other) {
     return at::_ops::where_self_out::call(condition, self, other, out);
 }
-
 // aten::where.self_out(Tensor condition, Tensor self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & where_outf(const at::Tensor & condition, const at::Tensor & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::where_self_out::call(condition, self, other, out);

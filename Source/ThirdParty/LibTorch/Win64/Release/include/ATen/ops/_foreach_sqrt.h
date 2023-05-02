@@ -36,7 +36,6 @@ inline void _foreach_sqrt_(at::TensorList self) {
 inline void _foreach_sqrt_out(at::TensorList out, at::TensorList self) {
     return at::_ops::_foreach_sqrt_out::call(self, out);
 }
-
 // aten::_foreach_sqrt.out(Tensor[] self, *, Tensor(a!)[] out) -> ()
 inline void _foreach_sqrt_outf(at::TensorList self, at::TensorList out) {
     return at::_ops::_foreach_sqrt_out::call(self, out);

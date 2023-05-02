@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & huber_loss_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & target, int64_t reduction=at::Reduction::Mean, double delta=1.0) {
     return at::_ops::huber_loss_out::call(self, target, reduction, delta, out);
 }
-
 // aten::huber_loss.out(Tensor self, Tensor target, int reduction=Mean, float delta=1.0, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & huber_loss_outf(const at::Tensor & self, const at::Tensor & target, int64_t reduction, double delta, at::Tensor & out) {
     return at::_ops::huber_loss_out::call(self, target, reduction, delta, out);

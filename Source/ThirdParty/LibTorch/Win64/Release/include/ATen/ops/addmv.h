@@ -36,7 +36,6 @@ inline at::Tensor & addmv_(at::Tensor & self, const at::Tensor & mat, const at::
 inline at::Tensor & addmv_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & mat, const at::Tensor & vec, const at::Scalar & beta=1, const at::Scalar & alpha=1) {
     return at::_ops::addmv_out::call(self, mat, vec, beta, alpha, out);
 }
-
 // aten::addmv.out(Tensor self, Tensor mat, Tensor vec, *, Scalar beta=1, Scalar alpha=1, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & addmv_outf(const at::Tensor & self, const at::Tensor & mat, const at::Tensor & vec, const at::Scalar & beta, const at::Scalar & alpha, at::Tensor & out) {
     return at::_ops::addmv_out::call(self, mat, vec, beta, alpha, out);

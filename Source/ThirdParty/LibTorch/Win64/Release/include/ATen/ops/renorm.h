@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & renorm_out(at::Tensor & out, const at::Tensor & self, const at::Scalar & p, int64_t dim, const at::Scalar & maxnorm) {
     return at::_ops::renorm_out::call(self, p, dim, maxnorm, out);
 }
-
 // aten::renorm.out(Tensor self, Scalar p, int dim, Scalar maxnorm, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & renorm_outf(const at::Tensor & self, const at::Scalar & p, int64_t dim, const at::Scalar & maxnorm, at::Tensor & out) {
     return at::_ops::renorm_out::call(self, p, dim, maxnorm, out);

@@ -18,6 +18,7 @@ namespace at {
 namespace compositeimplicitautograd {
 
 TORCH_API at::Tensor _sparse_mm(const at::Tensor & sparse, const at::Tensor & dense);
+TORCH_API at::Tensor _sparse_mm(const at::Tensor & sparse, const at::Tensor & dense, c10::string_view reduce);
 
 } // namespace compositeimplicitautograd
 } // namespace at

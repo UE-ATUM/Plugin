@@ -19,16 +19,28 @@ namespace compositeexplicitautograd {
 
 TORCH_API at::Tensor randn(at::IntArrayRef size, at::TensorOptions options={});
 TORCH_API at::Tensor randn(at::IntArrayRef size, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory);
+TORCH_API at::Tensor randn_symint(c10::SymIntArrayRef size, at::TensorOptions options={});
+TORCH_API at::Tensor randn_symint(c10::SymIntArrayRef size, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory);
 TORCH_API at::Tensor randn(at::IntArrayRef size, c10::optional<at::Generator> generator, at::TensorOptions options={});
 TORCH_API at::Tensor randn(at::IntArrayRef size, c10::optional<at::Generator> generator, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory);
+TORCH_API at::Tensor randn_symint(c10::SymIntArrayRef size, c10::optional<at::Generator> generator, at::TensorOptions options={});
+TORCH_API at::Tensor randn_symint(c10::SymIntArrayRef size, c10::optional<at::Generator> generator, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory);
 TORCH_API at::Tensor randn(at::IntArrayRef size, c10::optional<at::DimnameList> names, at::TensorOptions options={});
 TORCH_API at::Tensor randn(at::IntArrayRef size, c10::optional<at::DimnameList> names, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory);
+TORCH_API at::Tensor randn_symint(c10::SymIntArrayRef size, c10::optional<at::DimnameList> names, at::TensorOptions options={});
+TORCH_API at::Tensor randn_symint(c10::SymIntArrayRef size, c10::optional<at::DimnameList> names, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory);
 TORCH_API at::Tensor & randn_out(at::Tensor & out, at::IntArrayRef size, c10::optional<at::DimnameList> names);
 TORCH_API at::Tensor & randn_outf(at::IntArrayRef size, c10::optional<at::DimnameList> names, at::Tensor & out);
+TORCH_API at::Tensor & randn_symint_out(at::Tensor & out, c10::SymIntArrayRef size, c10::optional<at::DimnameList> names);
+TORCH_API at::Tensor & randn_symint_outf(c10::SymIntArrayRef size, c10::optional<at::DimnameList> names, at::Tensor & out);
 TORCH_API at::Tensor randn(at::IntArrayRef size, c10::optional<at::Generator> generator, c10::optional<at::DimnameList> names, at::TensorOptions options={});
 TORCH_API at::Tensor randn(at::IntArrayRef size, c10::optional<at::Generator> generator, c10::optional<at::DimnameList> names, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory);
+TORCH_API at::Tensor randn_symint(c10::SymIntArrayRef size, c10::optional<at::Generator> generator, c10::optional<at::DimnameList> names, at::TensorOptions options={});
+TORCH_API at::Tensor randn_symint(c10::SymIntArrayRef size, c10::optional<at::Generator> generator, c10::optional<at::DimnameList> names, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory);
 TORCH_API at::Tensor & randn_out(at::Tensor & out, at::IntArrayRef size, c10::optional<at::Generator> generator, c10::optional<at::DimnameList> names);
 TORCH_API at::Tensor & randn_outf(at::IntArrayRef size, c10::optional<at::Generator> generator, c10::optional<at::DimnameList> names, at::Tensor & out);
+TORCH_API at::Tensor & randn_symint_out(at::Tensor & out, c10::SymIntArrayRef size, c10::optional<at::Generator> generator, c10::optional<at::DimnameList> names);
+TORCH_API at::Tensor & randn_symint_outf(c10::SymIntArrayRef size, c10::optional<at::Generator> generator, c10::optional<at::DimnameList> names, at::Tensor & out);
 
 } // namespace compositeexplicitautograd
 } // namespace at

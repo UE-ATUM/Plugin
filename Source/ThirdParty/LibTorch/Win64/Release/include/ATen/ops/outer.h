@@ -31,7 +31,6 @@ inline at::Tensor outer(const at::Tensor & self, const at::Tensor & vec2) {
 inline at::Tensor & outer_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & vec2) {
     return at::_ops::outer_out::call(self, vec2, out);
 }
-
 // aten::outer.out(Tensor self, Tensor vec2, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & outer_outf(const at::Tensor & self, const at::Tensor & vec2, at::Tensor & out) {
     return at::_ops::outer_out::call(self, vec2, out);

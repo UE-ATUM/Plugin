@@ -18,6 +18,7 @@ namespace at {
 namespace compositeimplicitautograd {
 
 TORCH_API at::Tensor broadcast_to(const at::Tensor & self, at::IntArrayRef size);
+TORCH_API at::Tensor broadcast_to_symint(const at::Tensor & self, c10::SymIntArrayRef size);
 
 } // namespace compositeimplicitautograd
 } // namespace at

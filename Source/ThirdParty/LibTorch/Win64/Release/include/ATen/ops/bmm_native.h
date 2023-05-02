@@ -23,6 +23,7 @@ struct TORCH_API structured_bmm_out_cuda : public at::meta::structured_bmm {
 void impl(const at::Tensor & self, const at::Tensor & mat2, const at::Tensor & out);
 };
 TORCH_API at::Tensor bmm_nested(const at::Tensor & self, const at::Tensor & mat2);
+TORCH_API at::Tensor bmm_nested_cuda(const at::Tensor & self, const at::Tensor & mat2);
 TORCH_API at::Tensor bmm_sparse_cpu(const at::Tensor & self, const at::Tensor & mat2);
 TORCH_API at::Tensor & bmm_out_sparse_cpu(const at::Tensor & self, const at::Tensor & mat2, at::Tensor & out);
 TORCH_API at::Tensor bmm_sparse_cuda(const at::Tensor & self, const at::Tensor & mat2);

@@ -31,7 +31,6 @@ inline at::Tensor vstack(at::TensorList tensors) {
 inline at::Tensor & vstack_out(at::Tensor & out, at::TensorList tensors) {
     return at::_ops::vstack_out::call(tensors, out);
 }
-
 // aten::vstack.out(Tensor[] tensors, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & vstack_outf(at::TensorList tensors, at::Tensor & out) {
     return at::_ops::vstack_out::call(tensors, out);

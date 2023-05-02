@@ -36,7 +36,6 @@ inline at::Tensor & ceil_(at::Tensor & self) {
 inline at::Tensor & ceil_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::ceil_out::call(self, out);
 }
-
 // aten::ceil.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & ceil_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::ceil_out::call(self, out);

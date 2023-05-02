@@ -27,14 +27,4 @@ inline at::Tensor prelu(const at::Tensor & self, const at::Tensor & weight) {
     return at::_ops::prelu::call(self, weight);
 }
 
-// aten::prelu.out(Tensor self, Tensor weight, *, Tensor(a!) out) -> Tensor(a!)
-inline at::Tensor & prelu_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & weight) {
-    return at::_ops::prelu_out::call(self, weight, out);
-}
-
-// aten::prelu.out(Tensor self, Tensor weight, *, Tensor(a!) out) -> Tensor(a!)
-inline at::Tensor & prelu_outf(const at::Tensor & self, const at::Tensor & weight, at::Tensor & out) {
-    return at::_ops::prelu_out::call(self, weight, out);
-}
-
 }

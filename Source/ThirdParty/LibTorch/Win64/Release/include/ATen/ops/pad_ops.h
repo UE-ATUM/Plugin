@@ -15,14 +15,14 @@ namespace _ops {
 
 
 struct TORCH_API pad {
-  using schema = at::Tensor (const at::Tensor &, at::IntArrayRef, c10::string_view, c10::optional<double>);
+  using schema = at::Tensor (const at::Tensor &, c10::SymIntArrayRef, c10::string_view, c10::optional<double>);
   using ptr_schema = schema*;
   // See Note [static constexpr char* members for windows NVCC]
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::pad")
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "")
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "pad(Tensor self, int[] pad, str mode=\"constant\", float? value=None) -> Tensor")
-  static at::Tensor call(const at::Tensor & self, at::IntArrayRef pad, c10::string_view mode, c10::optional<double> value);
-  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, at::IntArrayRef pad, c10::string_view mode, c10::optional<double> value);
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "pad(Tensor self, SymInt[] pad, str mode=\"constant\", float? value=None) -> Tensor")
+  static at::Tensor call(const at::Tensor & self, c10::SymIntArrayRef pad, c10::string_view mode, c10::optional<double> value);
+  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, c10::SymIntArrayRef pad, c10::string_view mode, c10::optional<double> value);
 };
 
 }} // namespace at::_ops

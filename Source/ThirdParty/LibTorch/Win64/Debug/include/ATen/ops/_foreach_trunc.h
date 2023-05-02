@@ -36,7 +36,6 @@ inline void _foreach_trunc_(at::TensorList self) {
 inline void _foreach_trunc_out(at::TensorList out, at::TensorList self) {
     return at::_ops::_foreach_trunc_out::call(self, out);
 }
-
 // aten::_foreach_trunc.out(Tensor[] self, *, Tensor(a!)[] out) -> ()
 inline void _foreach_trunc_outf(at::TensorList self, at::TensorList out) {
     return at::_ops::_foreach_trunc_out::call(self, out);

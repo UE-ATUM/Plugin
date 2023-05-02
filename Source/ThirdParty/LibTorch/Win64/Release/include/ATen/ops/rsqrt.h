@@ -36,7 +36,6 @@ inline at::Tensor & rsqrt_(at::Tensor & self) {
 inline at::Tensor & rsqrt_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::rsqrt_out::call(self, out);
 }
-
 // aten::rsqrt.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & rsqrt_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::rsqrt_out::call(self, out);

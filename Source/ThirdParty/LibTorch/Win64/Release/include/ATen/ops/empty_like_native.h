@@ -18,6 +18,7 @@ namespace at {
 namespace native {
 TORCH_API at::Tensor empty_like(const at::Tensor & self, c10::optional<at::ScalarType> dtype={}, c10::optional<at::Layout> layout={}, c10::optional<at::Device> device={}, c10::optional<bool> pin_memory={}, c10::optional<at::MemoryFormat> memory_format=c10::nullopt);
 TORCH_API at::Tensor & empty_like_out(const at::Tensor & self, c10::optional<at::MemoryFormat> memory_format, at::Tensor & out);
+TORCH_API at::Tensor empty_like_nested(const at::Tensor & self, c10::optional<at::ScalarType> dtype={}, c10::optional<at::Layout> layout={}, c10::optional<at::Device> device={}, c10::optional<bool> pin_memory={}, c10::optional<at::MemoryFormat> memory_format=c10::nullopt);
 TORCH_API at::Tensor empty_like_sparse_coo(const at::Tensor & self, c10::optional<at::ScalarType> dtype={}, c10::optional<at::Layout> layout={}, c10::optional<at::Device> device={}, c10::optional<bool> pin_memory={}, c10::optional<at::MemoryFormat> memory_format=c10::nullopt);
 TORCH_API at::Tensor empty_like_sparse_csr(const at::Tensor & self, c10::optional<at::ScalarType> dtype={}, c10::optional<at::Layout> layout={}, c10::optional<at::Device> device={}, c10::optional<bool> pin_memory={}, c10::optional<at::MemoryFormat> memory_format=c10::nullopt);
 TORCH_API at::Tensor empty_like_quantized(const at::Tensor & self, c10::optional<at::ScalarType> dtype={}, c10::optional<at::Layout> layout={}, c10::optional<at::Device> device={}, c10::optional<bool> pin_memory={}, c10::optional<at::MemoryFormat> memory_format=c10::nullopt);

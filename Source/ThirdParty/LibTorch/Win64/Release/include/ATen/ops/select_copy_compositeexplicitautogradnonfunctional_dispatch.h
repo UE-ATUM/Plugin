@@ -18,6 +18,7 @@ namespace at {
 namespace compositeexplicitautogradnonfunctional {
 
 TORCH_API at::Tensor select_copy(const at::Tensor & self, int64_t dim, int64_t index);
+TORCH_API at::Tensor select_copy_symint(const at::Tensor & self, int64_t dim, c10::SymInt index);
 
 } // namespace compositeexplicitautogradnonfunctional
 } // namespace at

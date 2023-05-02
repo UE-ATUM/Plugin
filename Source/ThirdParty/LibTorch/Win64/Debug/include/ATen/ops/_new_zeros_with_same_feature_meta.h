@@ -31,7 +31,6 @@ inline at::Tensor _new_zeros_with_same_feature_meta(const at::Tensor & self, con
 inline at::Tensor & _new_zeros_with_same_feature_meta_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other, int64_t self_num_batch_dims=0) {
     return at::_ops::_new_zeros_with_same_feature_meta_out::call(self, other, self_num_batch_dims, out);
 }
-
 // aten::_new_zeros_with_same_feature_meta.out(Tensor self, Tensor other, *, int self_num_batch_dims=0, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _new_zeros_with_same_feature_meta_outf(const at::Tensor & self, const at::Tensor & other, int64_t self_num_batch_dims, at::Tensor & out) {
     return at::_ops::_new_zeros_with_same_feature_meta_out::call(self, other, self_num_batch_dims, out);

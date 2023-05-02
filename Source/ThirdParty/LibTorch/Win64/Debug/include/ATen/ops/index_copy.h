@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & index_copy_out(at::Tensor & out, const at::Tensor & self, int64_t dim, const at::Tensor & index, const at::Tensor & source) {
     return at::_ops::index_copy_out::call(self, dim, index, source, out);
 }
-
 // aten::index_copy.out(Tensor self, int dim, Tensor index, Tensor source, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & index_copy_outf(const at::Tensor & self, int64_t dim, const at::Tensor & index, const at::Tensor & source, at::Tensor & out) {
     return at::_ops::index_copy_out::call(self, dim, index, source, out);

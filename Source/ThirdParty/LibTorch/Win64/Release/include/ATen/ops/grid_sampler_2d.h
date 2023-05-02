@@ -31,7 +31,6 @@ inline at::Tensor grid_sampler_2d(const at::Tensor & input, const at::Tensor & g
 inline at::Tensor & grid_sampler_2d_out(at::Tensor & out, const at::Tensor & input, const at::Tensor & grid, int64_t interpolation_mode, int64_t padding_mode, bool align_corners) {
     return at::_ops::grid_sampler_2d_out::call(input, grid, interpolation_mode, padding_mode, align_corners, out);
 }
-
 // aten::grid_sampler_2d.out(Tensor input, Tensor grid, int interpolation_mode, int padding_mode, bool align_corners, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & grid_sampler_2d_outf(const at::Tensor & input, const at::Tensor & grid, int64_t interpolation_mode, int64_t padding_mode, bool align_corners, at::Tensor & out) {
     return at::_ops::grid_sampler_2d_out::call(input, grid, interpolation_mode, padding_mode, align_corners, out);

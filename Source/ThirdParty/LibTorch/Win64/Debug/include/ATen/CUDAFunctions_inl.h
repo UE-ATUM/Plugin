@@ -28,6 +28,7 @@
 #include <ATen/ops/_cdist_backward_cuda_dispatch.h>
 #include <ATen/ops/_cdist_forward_cuda_dispatch.h>
 #include <ATen/ops/_cholesky_solve_helper_cuda_dispatch.h>
+#include <ATen/ops/_chunk_grad_outputs_efficient_attention_cuda_dispatch.h>
 #include <ATen/ops/_compute_linear_combination_cuda_dispatch.h>
 #include <ATen/ops/_conv_depthwise2d_cuda_dispatch.h>
 #include <ATen/ops/_convert_indices_from_coo_to_csr_cuda_dispatch.h>
@@ -42,6 +43,8 @@
 #include <ATen/ops/_cummax_helper_cuda_dispatch.h>
 #include <ATen/ops/_cummin_helper_cuda_dispatch.h>
 #include <ATen/ops/_dirichlet_grad_cuda_dispatch.h>
+#include <ATen/ops/_efficient_attention_backward_cuda_dispatch.h>
+#include <ATen/ops/_efficient_attention_forward_cuda_dispatch.h>
 #include <ATen/ops/_efficientzerotensor_cuda_dispatch.h>
 #include <ATen/ops/_embedding_bag_cuda_dispatch.h>
 #include <ATen/ops/_embedding_bag_dense_backward_cuda_dispatch.h>
@@ -55,7 +58,8 @@
 #include <ATen/ops/_fft_c2c_cuda_dispatch.h>
 #include <ATen/ops/_fft_c2r_cuda_dispatch.h>
 #include <ATen/ops/_fft_r2c_cuda_dispatch.h>
-#include <ATen/ops/_flash_scaled_dot_product_attention_cuda_dispatch.h>
+#include <ATen/ops/_flash_attention_backward_cuda_dispatch.h>
+#include <ATen/ops/_flash_attention_forward_cuda_dispatch.h>
 #include <ATen/ops/_foreach_abs_cuda_dispatch.h>
 #include <ATen/ops/_foreach_acos_cuda_dispatch.h>
 #include <ATen/ops/_foreach_add_cuda_dispatch.h>
@@ -64,6 +68,8 @@
 #include <ATen/ops/_foreach_asin_cuda_dispatch.h>
 #include <ATen/ops/_foreach_atan_cuda_dispatch.h>
 #include <ATen/ops/_foreach_ceil_cuda_dispatch.h>
+#include <ATen/ops/_foreach_clamp_max_cuda_dispatch.h>
+#include <ATen/ops/_foreach_clamp_min_cuda_dispatch.h>
 #include <ATen/ops/_foreach_cos_cuda_dispatch.h>
 #include <ATen/ops/_foreach_cosh_cuda_dispatch.h>
 #include <ATen/ops/_foreach_div_cuda_dispatch.h>
@@ -73,6 +79,7 @@
 #include <ATen/ops/_foreach_expm1_cuda_dispatch.h>
 #include <ATen/ops/_foreach_floor_cuda_dispatch.h>
 #include <ATen/ops/_foreach_frac_cuda_dispatch.h>
+#include <ATen/ops/_foreach_lerp_cuda_dispatch.h>
 #include <ATen/ops/_foreach_lgamma_cuda_dispatch.h>
 #include <ATen/ops/_foreach_log_cuda_dispatch.h>
 #include <ATen/ops/_foreach_log10_cuda_dispatch.h>
@@ -95,8 +102,10 @@
 #include <ATen/ops/_foreach_trunc_cuda_dispatch.h>
 #include <ATen/ops/_foreach_zero_cuda_dispatch.h>
 #include <ATen/ops/_fused_adam_cuda_dispatch.h>
+#include <ATen/ops/_fused_adamw_cuda_dispatch.h>
 #include <ATen/ops/_fused_dropout_cuda_dispatch.h>
 #include <ATen/ops/_fused_moving_avg_obs_fq_helper_cuda_dispatch.h>
+#include <ATen/ops/_fused_sdp_choice_cuda_dispatch.h>
 #include <ATen/ops/_index_put_impl_cuda_dispatch.h>
 #include <ATen/ops/_linalg_det_cuda_dispatch.h>
 #include <ATen/ops/_linalg_eigh_cuda_dispatch.h>
@@ -112,6 +121,7 @@
 #include <ATen/ops/_masked_scale_cuda_dispatch.h>
 #include <ATen/ops/_masked_softmax_cuda_dispatch.h>
 #include <ATen/ops/_masked_softmax_backward_cuda_dispatch.h>
+#include <ATen/ops/_native_batch_norm_legit_cuda_dispatch.h>
 #include <ATen/ops/_native_decoder_only_multi_head_attention_cuda_dispatch.h>
 #include <ATen/ops/_native_multi_head_attention_cuda_dispatch.h>
 #include <ATen/ops/_nested_from_padded_cuda_dispatch.h>
@@ -121,9 +131,14 @@
 #include <ATen/ops/_pdist_backward_cuda_dispatch.h>
 #include <ATen/ops/_pdist_forward_cuda_dispatch.h>
 #include <ATen/ops/_pin_memory_cuda_dispatch.h>
+#include <ATen/ops/_prelu_kernel_cuda_dispatch.h>
+#include <ATen/ops/_prelu_kernel_backward_cuda_dispatch.h>
 #include <ATen/ops/_reshape_alias_cuda_dispatch.h>
 #include <ATen/ops/_sample_dirichlet_cuda_dispatch.h>
-#include <ATen/ops/_scaled_dot_product_attention_forward_cuda_dispatch.h>
+#include <ATen/ops/_scaled_dot_product_efficient_attention_cuda_dispatch.h>
+#include <ATen/ops/_scaled_dot_product_efficient_attention_backward_cuda_dispatch.h>
+#include <ATen/ops/_scaled_dot_product_flash_attention_cuda_dispatch.h>
+#include <ATen/ops/_scaled_dot_product_flash_attention_backward_cuda_dispatch.h>
 #include <ATen/ops/_segment_reduce_backward_cuda_dispatch.h>
 #include <ATen/ops/_slow_conv2d_backward_cuda_dispatch.h>
 #include <ATen/ops/_slow_conv2d_forward_cuda_dispatch.h>
@@ -131,12 +146,10 @@
 #include <ATen/ops/_softmax_backward_data_cuda_dispatch.h>
 #include <ATen/ops/_standard_gamma_cuda_dispatch.h>
 #include <ATen/ops/_standard_gamma_grad_cuda_dispatch.h>
-#include <ATen/ops/_symeig_helper_cuda_dispatch.h>
 #include <ATen/ops/_thnn_fused_gru_cell_cuda_dispatch.h>
 #include <ATen/ops/_thnn_fused_gru_cell_backward_cuda_dispatch.h>
 #include <ATen/ops/_thnn_fused_lstm_cell_cuda_dispatch.h>
 #include <ATen/ops/_thnn_fused_lstm_cell_backward_impl_cuda_dispatch.h>
-#include <ATen/ops/_torch_cuda_cu_linker_symbol_op_cuda_dispatch.h>
 #include <ATen/ops/_transform_bias_rescale_qkv_cuda_dispatch.h>
 #include <ATen/ops/_transformer_decoder_only_layer_fwd_cuda_dispatch.h>
 #include <ATen/ops/_transformer_encoder_layer_fwd_cuda_dispatch.h>
@@ -245,8 +258,8 @@
 #include <ATen/ops/cudnn_grid_sampler_backward_cuda_dispatch.h>
 #include <ATen/ops/cumprod_cuda_dispatch.h>
 #include <ATen/ops/cumsum_cuda_dispatch.h>
+#include <ATen/ops/dense_dim_cuda_dispatch.h>
 #include <ATen/ops/dequantize_cuda_dispatch.h>
-#include <ATen/ops/diag_cuda_dispatch.h>
 #include <ATen/ops/digamma_cuda_dispatch.h>
 #include <ATen/ops/div_cuda_dispatch.h>
 #include <ATen/ops/dot_cuda_dispatch.h>
@@ -431,8 +444,6 @@
 #include <ATen/ops/polar_cuda_dispatch.h>
 #include <ATen/ops/polygamma_cuda_dispatch.h>
 #include <ATen/ops/pow_cuda_dispatch.h>
-#include <ATen/ops/prelu_cuda_dispatch.h>
-#include <ATen/ops/prelu_backward_cuda_dispatch.h>
 #include <ATen/ops/prod_cuda_dispatch.h>
 #include <ATen/ops/put_cuda_dispatch.h>
 #include <ATen/ops/quantize_per_channel_cuda_dispatch.h>
@@ -493,6 +504,7 @@
 #include <ATen/ops/softshrink_cuda_dispatch.h>
 #include <ATen/ops/softshrink_backward_cuda_dispatch.h>
 #include <ATen/ops/sort_cuda_dispatch.h>
+#include <ATen/ops/sparse_dim_cuda_dispatch.h>
 #include <ATen/ops/special_airy_ai_cuda_dispatch.h>
 #include <ATen/ops/special_bessel_j0_cuda_dispatch.h>
 #include <ATen/ops/special_bessel_j1_cuda_dispatch.h>

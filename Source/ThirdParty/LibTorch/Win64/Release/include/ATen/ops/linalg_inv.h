@@ -31,7 +31,6 @@ inline at::Tensor linalg_inv(const at::Tensor & A) {
 inline at::Tensor & linalg_inv_out(at::Tensor & out, const at::Tensor & A) {
     return at::_ops::linalg_inv_out::call(A, out);
 }
-
 // aten::linalg_inv.out(Tensor A, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & linalg_inv_outf(const at::Tensor & A, at::Tensor & out) {
     return at::_ops::linalg_inv_out::call(A, out);

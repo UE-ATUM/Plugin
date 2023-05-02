@@ -22,19 +22,70 @@
 namespace at {
 
 
-// aten::conv_depthwise3d(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias, int[3] stride, int[3] padding, int[3] dilation) -> Tensor
+// aten::conv_depthwise3d(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias, int[3] stride, SymInt[3] padding, int[3] dilation) -> Tensor
 inline at::Tensor conv_depthwise3d(const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation) {
+    return at::_ops::conv_depthwise3d::call(self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), dilation);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor conv_depthwise3d(const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation) {
+    return at::_ops::conv_depthwise3d::call(self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), dilation);
+  }
+}
+
+// aten::conv_depthwise3d(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias, int[3] stride, SymInt[3] padding, int[3] dilation) -> Tensor
+inline at::Tensor conv_depthwise3d_symint(const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation) {
     return at::_ops::conv_depthwise3d::call(self, weight, kernel_size, bias, stride, padding, dilation);
 }
-
-// aten::conv_depthwise3d.out(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias, int[3] stride, int[3] padding, int[3] dilation, *, Tensor(a!) out) -> Tensor(a!)
-inline at::Tensor & conv_depthwise3d_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation) {
-    return at::_ops::conv_depthwise3d_out::call(self, weight, kernel_size, bias, stride, padding, dilation, out);
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor conv_depthwise3d(const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation) {
+    return at::_ops::conv_depthwise3d::call(self, weight, kernel_size, bias, stride, padding, dilation);
+  }
 }
 
-// aten::conv_depthwise3d.out(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias, int[3] stride, int[3] padding, int[3] dilation, *, Tensor(a!) out) -> Tensor(a!)
+// aten::conv_depthwise3d.out(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias, int[3] stride, SymInt[3] padding, int[3] dilation, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & conv_depthwise3d_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation) {
+    return at::_ops::conv_depthwise3d_out::call(self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), dilation, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & conv_depthwise3d_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation) {
+    return at::_ops::conv_depthwise3d_out::call(self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), dilation, out);
+  }
+}
+
+// aten::conv_depthwise3d.out(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias, int[3] stride, SymInt[3] padding, int[3] dilation, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & conv_depthwise3d_outf(const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, at::Tensor & out) {
+    return at::_ops::conv_depthwise3d_out::call(self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), dilation, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & conv_depthwise3d_outf(const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, at::Tensor & out) {
+    return at::_ops::conv_depthwise3d_out::call(self, weight, kernel_size, bias, stride, c10::fromIntArrayRefSlow(padding), dilation, out);
+  }
+}
+
+// aten::conv_depthwise3d.out(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias, int[3] stride, SymInt[3] padding, int[3] dilation, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & conv_depthwise3d_symint_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation) {
     return at::_ops::conv_depthwise3d_out::call(self, weight, kernel_size, bias, stride, padding, dilation, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & conv_depthwise3d_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation) {
+    return at::_ops::conv_depthwise3d_out::call(self, weight, kernel_size, bias, stride, padding, dilation, out);
+  }
+}
+
+// aten::conv_depthwise3d.out(Tensor self, Tensor weight, int[3] kernel_size, Tensor? bias, int[3] stride, SymInt[3] padding, int[3] dilation, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & conv_depthwise3d_symint_outf(const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation, at::Tensor & out) {
+    return at::_ops::conv_depthwise3d_out::call(self, weight, kernel_size, bias, stride, padding, dilation, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & conv_depthwise3d_outf(const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef kernel_size, const c10::optional<at::Tensor> & bias, at::IntArrayRef stride, c10::SymIntArrayRef padding, at::IntArrayRef dilation, at::Tensor & out) {
+    return at::_ops::conv_depthwise3d_out::call(self, weight, kernel_size, bias, stride, padding, dilation, out);
+  }
 }
 
 }

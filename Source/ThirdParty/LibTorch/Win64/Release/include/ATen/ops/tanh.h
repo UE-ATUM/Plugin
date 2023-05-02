@@ -36,7 +36,6 @@ inline at::Tensor & tanh_(at::Tensor & self) {
 inline at::Tensor & tanh_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::tanh_out::call(self, out);
 }
-
 // aten::tanh.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & tanh_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::tanh_out::call(self, out);

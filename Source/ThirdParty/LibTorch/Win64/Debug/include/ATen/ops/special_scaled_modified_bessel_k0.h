@@ -31,7 +31,6 @@ inline at::Tensor special_scaled_modified_bessel_k0(const at::Tensor & x) {
 inline at::Tensor & special_scaled_modified_bessel_k0_out(at::Tensor & out, const at::Tensor & x) {
     return at::_ops::special_scaled_modified_bessel_k0_out::call(x, out);
 }
-
 // aten::special_scaled_modified_bessel_k0.out(Tensor x, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & special_scaled_modified_bessel_k0_outf(const at::Tensor & x, at::Tensor & out) {
     return at::_ops::special_scaled_modified_bessel_k0_out::call(x, out);

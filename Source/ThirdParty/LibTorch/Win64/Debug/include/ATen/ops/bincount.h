@@ -31,7 +31,6 @@ inline at::Tensor bincount(const at::Tensor & self, const c10::optional<at::Tens
 inline at::Tensor & bincount_out(at::Tensor & out, const at::Tensor & self, const c10::optional<at::Tensor> & weights={}, int64_t minlength=0) {
     return at::_ops::bincount_out::call(self, weights, minlength, out);
 }
-
 // aten::bincount.out(Tensor self, Tensor? weights=None, int minlength=0, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & bincount_outf(const at::Tensor & self, const c10::optional<at::Tensor> & weights, int64_t minlength, at::Tensor & out) {
     return at::_ops::bincount_out::call(self, weights, minlength, out);

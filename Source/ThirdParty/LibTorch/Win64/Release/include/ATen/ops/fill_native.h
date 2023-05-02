@@ -19,12 +19,14 @@ namespace native {
 TORCH_API at::Tensor fill(const at::Tensor & self, const at::Scalar & value);
 TORCH_API at::Tensor & fill_Scalar_out(const at::Tensor & self, const at::Scalar & value, at::Tensor & out);
 TORCH_API at::Tensor & fill_(at::Tensor & self, const at::Scalar & value);
+TORCH_API at::Tensor & fill_nested_(at::Tensor & self, const at::Scalar & value);
 TORCH_API at::Tensor & fill_sparse_csr_(at::Tensor & self, const at::Scalar & value);
 TORCH_API at::Tensor & fill_meta_(at::Tensor & self, const at::Scalar & value);
 TORCH_API at::Tensor & fill_quantized_(at::Tensor & self, const at::Scalar & value);
 TORCH_API at::Tensor fill(const at::Tensor & self, const at::Tensor & value);
 TORCH_API at::Tensor & fill_Tensor_out(const at::Tensor & self, const at::Tensor & value, at::Tensor & out);
 TORCH_API at::Tensor & fill_(at::Tensor & self, const at::Tensor & value);
+TORCH_API at::Tensor & fill_nested_(at::Tensor & self, const at::Tensor & value);
 TORCH_API at::Tensor & fill_meta_(at::Tensor & self, const at::Tensor & value);
 TORCH_API at::Tensor & fill_quantized_(at::Tensor & self, const at::Tensor & value);
 } // namespace native

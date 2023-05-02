@@ -31,7 +31,6 @@ inline at::Tensor permute_copy(const at::Tensor & self, at::IntArrayRef dims) {
 inline at::Tensor & permute_copy_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef dims) {
     return at::_ops::permute_copy_out::call(self, dims, out);
 }
-
 // aten::permute_copy.out(Tensor self, int[] dims, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & permute_copy_outf(const at::Tensor & self, at::IntArrayRef dims, at::Tensor & out) {
     return at::_ops::permute_copy_out::call(self, dims, out);

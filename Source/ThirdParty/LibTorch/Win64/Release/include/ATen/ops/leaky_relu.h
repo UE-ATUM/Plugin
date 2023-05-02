@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & leaky_relu_out(at::Tensor & out, const at::Tensor & self, const at::Scalar & negative_slope=0.01) {
     return at::_ops::leaky_relu_out::call(self, negative_slope, out);
 }
-
 // aten::leaky_relu.out(Tensor self, Scalar negative_slope=0.01, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & leaky_relu_outf(const at::Tensor & self, const at::Scalar & negative_slope, at::Tensor & out) {
     return at::_ops::leaky_relu_out::call(self, negative_slope, out);

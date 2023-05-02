@@ -18,6 +18,7 @@ namespace at {
 namespace compositeexplicitautogradnonfunctional {
 
 TORCH_API at::Tensor nll_loss_backward(const at::Tensor & grad_output, const at::Tensor & self, const at::Tensor & target, const c10::optional<at::Tensor> & weight, int64_t reduction, int64_t ignore_index, const at::Tensor & total_weight);
+TORCH_API at::Tensor nll_loss_backward_symint(const at::Tensor & grad_output, const at::Tensor & self, const at::Tensor & target, const c10::optional<at::Tensor> & weight, int64_t reduction, c10::SymInt ignore_index, const at::Tensor & total_weight);
 
 } // namespace compositeexplicitautogradnonfunctional
 } // namespace at

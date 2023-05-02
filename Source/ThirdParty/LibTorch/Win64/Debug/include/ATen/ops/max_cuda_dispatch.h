@@ -21,6 +21,8 @@ TORCH_API ::std::tuple<at::Tensor,at::Tensor> max(const at::Tensor & self, int64
 TORCH_API ::std::tuple<at::Tensor &,at::Tensor &> max_out(at::Tensor & max, at::Tensor & max_values, const at::Tensor & self, int64_t dim, bool keepdim=false);
 TORCH_API ::std::tuple<at::Tensor &,at::Tensor &> max_outf(const at::Tensor & self, int64_t dim, bool keepdim, at::Tensor & max, at::Tensor & max_values);
 TORCH_API at::Tensor max(const at::Tensor & self);
+TORCH_API at::Tensor & max_out(at::Tensor & out, const at::Tensor & self);
+TORCH_API at::Tensor & max_outf(const at::Tensor & self, at::Tensor & out);
 
 } // namespace cuda
 } // namespace at

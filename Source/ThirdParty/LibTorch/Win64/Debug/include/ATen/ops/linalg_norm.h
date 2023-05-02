@@ -36,7 +36,6 @@ inline at::Tensor linalg_norm(const at::Tensor & self, c10::string_view ord, at:
 inline at::Tensor & linalg_norm_out(at::Tensor & out, const at::Tensor & self, const c10::optional<at::Scalar> & ord=c10::nullopt, at::OptionalIntArrayRef dim=c10::nullopt, bool keepdim=false, c10::optional<at::ScalarType> dtype=c10::nullopt) {
     return at::_ops::linalg_norm_out::call(self, ord, dim, keepdim, dtype, out);
 }
-
 // aten::linalg_norm.out(Tensor self, Scalar? ord=None, int[1]? dim=None, bool keepdim=False, *, ScalarType? dtype=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & linalg_norm_outf(const at::Tensor & self, const c10::optional<at::Scalar> & ord, at::OptionalIntArrayRef dim, bool keepdim, c10::optional<at::ScalarType> dtype, at::Tensor & out) {
     return at::_ops::linalg_norm_out::call(self, ord, dim, keepdim, dtype, out);
@@ -46,7 +45,6 @@ inline at::Tensor & linalg_norm_outf(const at::Tensor & self, const c10::optiona
 inline at::Tensor & linalg_norm_out(at::Tensor & out, const at::Tensor & self, c10::string_view ord, at::OptionalIntArrayRef dim=c10::nullopt, bool keepdim=false, c10::optional<at::ScalarType> dtype=c10::nullopt) {
     return at::_ops::linalg_norm_ord_str_out::call(self, ord, dim, keepdim, dtype, out);
 }
-
 // aten::linalg_norm.ord_str_out(Tensor self, str ord, int[1]? dim=None, bool keepdim=False, *, ScalarType? dtype=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & linalg_norm_outf(const at::Tensor & self, c10::string_view ord, at::OptionalIntArrayRef dim, bool keepdim, c10::optional<at::ScalarType> dtype, at::Tensor & out) {
     return at::_ops::linalg_norm_ord_str_out::call(self, ord, dim, keepdim, dtype, out);

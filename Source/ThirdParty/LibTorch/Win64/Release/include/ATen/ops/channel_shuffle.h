@@ -31,7 +31,6 @@ inline at::Tensor channel_shuffle(const at::Tensor & self, int64_t groups) {
 inline at::Tensor & channel_shuffle_out(at::Tensor & out, const at::Tensor & self, int64_t groups) {
     return at::_ops::channel_shuffle_out::call(self, groups, out);
 }
-
 // aten::channel_shuffle.out(Tensor self, int groups, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & channel_shuffle_outf(const at::Tensor & self, int64_t groups, at::Tensor & out) {
     return at::_ops::channel_shuffle_out::call(self, groups, out);

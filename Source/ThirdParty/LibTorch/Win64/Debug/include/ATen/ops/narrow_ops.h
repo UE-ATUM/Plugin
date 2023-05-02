@@ -15,25 +15,25 @@ namespace _ops {
 
 
 struct TORCH_API narrow {
-  using schema = at::Tensor (const at::Tensor &, int64_t, int64_t, int64_t);
+  using schema = at::Tensor (const at::Tensor &, int64_t, c10::SymInt, c10::SymInt);
   using ptr_schema = schema*;
   // See Note [static constexpr char* members for windows NVCC]
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::narrow")
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "")
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "narrow(Tensor(a) self, int dim, int start, int length) -> Tensor(a)")
-  static at::Tensor call(const at::Tensor & self, int64_t dim, int64_t start, int64_t length);
-  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, int64_t dim, int64_t start, int64_t length);
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "narrow(Tensor(a) self, int dim, SymInt start, SymInt length) -> Tensor(a)")
+  static at::Tensor call(const at::Tensor & self, int64_t dim, c10::SymInt start, c10::SymInt length);
+  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, int64_t dim, c10::SymInt start, c10::SymInt length);
 };
 
 struct TORCH_API narrow_Tensor {
-  using schema = at::Tensor (const at::Tensor &, int64_t, const at::Tensor &, int64_t);
+  using schema = at::Tensor (const at::Tensor &, int64_t, const at::Tensor &, c10::SymInt);
   using ptr_schema = schema*;
   // See Note [static constexpr char* members for windows NVCC]
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::narrow")
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "Tensor")
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "narrow.Tensor(Tensor(a) self, int dim, Tensor start, int length) -> Tensor(a)")
-  static at::Tensor call(const at::Tensor & self, int64_t dim, const at::Tensor & start, int64_t length);
-  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, int64_t dim, const at::Tensor & start, int64_t length);
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "narrow.Tensor(Tensor(a) self, int dim, Tensor start, SymInt length) -> Tensor(a)")
+  static at::Tensor call(const at::Tensor & self, int64_t dim, const at::Tensor & start, c10::SymInt length);
+  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, int64_t dim, const at::Tensor & start, c10::SymInt length);
 };
 
 }} // namespace at::_ops

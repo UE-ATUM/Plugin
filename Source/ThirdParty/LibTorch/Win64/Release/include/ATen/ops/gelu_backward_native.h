@@ -22,6 +22,7 @@ void impl(const at::Tensor & grad_output, const at::Tensor & self, c10::string_v
 struct TORCH_API structured_gelu_backward_out_cuda : public at::meta::structured_gelu_backward {
 void impl(const at::Tensor & grad_output, const at::Tensor & self, c10::string_view approximate, const at::Tensor & grad_input);
 };
+TORCH_API at::Tensor gelu_backwards_nested(const at::Tensor & grad_output, const at::Tensor & self, c10::string_view approximate="none");
 TORCH_API at::Tensor mkldnn_gelu_backward(const at::Tensor & grad_output, const at::Tensor & self, c10::string_view approximate="none");
 } // namespace native
 } // namespace at

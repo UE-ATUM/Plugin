@@ -31,7 +31,6 @@ inline const at::Tensor & _resize_output_(const at::Tensor & self, at::IntArrayR
 inline const at::Tensor & _resize_output_out(const at::Tensor & out, const at::Tensor & self, at::IntArrayRef size, at::Device device) {
     return at::_ops::_resize_output_out::call(self, size, device, out);
 }
-
 // aten::_resize_output.out(Tensor self, int[] size, Device device, *, Tensor(a!) out) -> Tensor(a!)
 inline const at::Tensor & _resize_output_outf(const at::Tensor & self, at::IntArrayRef size, at::Device device, const at::Tensor & out) {
     return at::_ops::_resize_output_out::call(self, size, device, out);

@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & softshrink_backward_out(at::Tensor & grad_input, const at::Tensor & grad_output, const at::Tensor & self, const at::Scalar & lambd) {
     return at::_ops::softshrink_backward_grad_input::call(grad_output, self, lambd, grad_input);
 }
-
 // aten::softshrink_backward.grad_input(Tensor grad_output, Tensor self, Scalar lambd, *, Tensor(a!) grad_input) -> Tensor(a!)
 inline at::Tensor & softshrink_backward_outf(const at::Tensor & grad_output, const at::Tensor & self, const at::Scalar & lambd, at::Tensor & grad_input) {
     return at::_ops::softshrink_backward_grad_input::call(grad_output, self, lambd, grad_input);

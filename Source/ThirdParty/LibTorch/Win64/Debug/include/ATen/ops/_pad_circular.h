@@ -22,9 +22,26 @@
 namespace at {
 
 
-// aten::_pad_circular(Tensor self, int[] pad) -> Tensor
+// aten::_pad_circular(Tensor self, SymInt[] pad) -> Tensor
 inline at::Tensor _pad_circular(const at::Tensor & self, at::IntArrayRef pad) {
+    return at::_ops::_pad_circular::call(self, c10::fromIntArrayRefSlow(pad));
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor _pad_circular(const at::Tensor & self, at::IntArrayRef pad) {
+    return at::_ops::_pad_circular::call(self, c10::fromIntArrayRefSlow(pad));
+  }
+}
+
+// aten::_pad_circular(Tensor self, SymInt[] pad) -> Tensor
+inline at::Tensor _pad_circular_symint(const at::Tensor & self, c10::SymIntArrayRef pad) {
     return at::_ops::_pad_circular::call(self, pad);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor _pad_circular(const at::Tensor & self, c10::SymIntArrayRef pad) {
+    return at::_ops::_pad_circular::call(self, pad);
+  }
 }
 
 }

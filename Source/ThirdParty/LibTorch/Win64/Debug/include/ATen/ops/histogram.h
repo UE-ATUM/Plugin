@@ -26,7 +26,6 @@ namespace at {
 inline ::std::tuple<at::Tensor &,at::Tensor &> histogram_out(at::Tensor & hist, at::Tensor & bin_edges, const at::Tensor & self, const at::Tensor & bins, const c10::optional<at::Tensor> & weight={}, bool density=false) {
     return at::_ops::histogram_bins_tensor_out::call(self, bins, weight, density, hist, bin_edges);
 }
-
 // aten::histogram.bins_tensor_out(Tensor self, Tensor bins, *, Tensor? weight=None, bool density=False, Tensor(a!) hist, Tensor(b!) bin_edges) -> (Tensor(a!) hist, Tensor(b!) bin_edges)
 inline ::std::tuple<at::Tensor &,at::Tensor &> histogram_outf(const at::Tensor & self, const at::Tensor & bins, const c10::optional<at::Tensor> & weight, bool density, at::Tensor & hist, at::Tensor & bin_edges) {
     return at::_ops::histogram_bins_tensor_out::call(self, bins, weight, density, hist, bin_edges);
@@ -41,7 +40,6 @@ inline ::std::tuple<at::Tensor,at::Tensor> histogram(const at::Tensor & self, co
 inline ::std::tuple<at::Tensor &,at::Tensor &> histogram_out(at::Tensor & hist, at::Tensor & bin_edges, const at::Tensor & self, int64_t bins=100, c10::optional<at::ArrayRef<double>> range=c10::nullopt, const c10::optional<at::Tensor> & weight={}, bool density=false) {
     return at::_ops::histogram_bin_ct_out::call(self, bins, range, weight, density, hist, bin_edges);
 }
-
 // aten::histogram.bin_ct_out(Tensor self, int bins=100, *, float[]? range=None, Tensor? weight=None, bool density=False, Tensor(a!) hist, Tensor(b!) bin_edges) -> (Tensor(a!) hist, Tensor(b!) bin_edges)
 inline ::std::tuple<at::Tensor &,at::Tensor &> histogram_outf(const at::Tensor & self, int64_t bins, c10::optional<at::ArrayRef<double>> range, const c10::optional<at::Tensor> & weight, bool density, at::Tensor & hist, at::Tensor & bin_edges) {
     return at::_ops::histogram_bin_ct_out::call(self, bins, range, weight, density, hist, bin_edges);

@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & adaptive_max_pool3d_backward_out(at::Tensor & grad_input, const at::Tensor & grad_output, const at::Tensor & self, const at::Tensor & indices) {
     return at::_ops::adaptive_max_pool3d_backward_grad_input::call(grad_output, self, indices, grad_input);
 }
-
 // aten::adaptive_max_pool3d_backward.grad_input(Tensor grad_output, Tensor self, Tensor indices, *, Tensor(a!) grad_input) -> Tensor(a!)
 inline at::Tensor & adaptive_max_pool3d_backward_outf(const at::Tensor & grad_output, const at::Tensor & self, const at::Tensor & indices, at::Tensor & grad_input) {
     return at::_ops::adaptive_max_pool3d_backward_grad_input::call(grad_output, self, indices, grad_input);

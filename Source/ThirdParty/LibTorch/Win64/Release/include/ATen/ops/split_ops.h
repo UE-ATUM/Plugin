@@ -15,25 +15,25 @@ namespace _ops {
 
 
 struct TORCH_API split_Tensor {
-  using schema = ::std::vector<at::Tensor> (const at::Tensor &, int64_t, int64_t);
+  using schema = ::std::vector<at::Tensor> (const at::Tensor &, c10::SymInt, int64_t);
   using ptr_schema = schema*;
   // See Note [static constexpr char* members for windows NVCC]
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::split")
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "Tensor")
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "split.Tensor(Tensor(a -> *) self, int split_size, int dim=0) -> Tensor(a)[]")
-  static ::std::vector<at::Tensor> call(const at::Tensor & self, int64_t split_size, int64_t dim);
-  static ::std::vector<at::Tensor> redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, int64_t split_size, int64_t dim);
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "split.Tensor(Tensor(a -> *) self, SymInt split_size, int dim=0) -> Tensor(a)[]")
+  static ::std::vector<at::Tensor> call(const at::Tensor & self, c10::SymInt split_size, int64_t dim);
+  static ::std::vector<at::Tensor> redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, c10::SymInt split_size, int64_t dim);
 };
 
 struct TORCH_API split_sizes {
-  using schema = ::std::vector<at::Tensor> (const at::Tensor &, at::IntArrayRef, int64_t);
+  using schema = ::std::vector<at::Tensor> (const at::Tensor &, c10::SymIntArrayRef, int64_t);
   using ptr_schema = schema*;
   // See Note [static constexpr char* members for windows NVCC]
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::split")
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "sizes")
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "split.sizes(Tensor(a -> *) self, int[] split_size, int dim=0) -> Tensor(a)[]")
-  static ::std::vector<at::Tensor> call(const at::Tensor & self, at::IntArrayRef split_size, int64_t dim);
-  static ::std::vector<at::Tensor> redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, at::IntArrayRef split_size, int64_t dim);
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "split.sizes(Tensor(a -> *) self, SymInt[] split_size, int dim=0) -> Tensor(a)[]")
+  static ::std::vector<at::Tensor> call(const at::Tensor & self, c10::SymIntArrayRef split_size, int64_t dim);
+  static ::std::vector<at::Tensor> redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, c10::SymIntArrayRef split_size, int64_t dim);
 };
 
 }} // namespace at::_ops

@@ -46,7 +46,6 @@ inline at::Tensor & clamp_min_(at::Tensor & self, const at::Tensor & min) {
 inline at::Tensor & clamp_min_out(at::Tensor & out, const at::Tensor & self, const at::Scalar & min) {
     return at::_ops::clamp_min_out::call(self, min, out);
 }
-
 // aten::clamp_min.out(Tensor self, Scalar min, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & clamp_min_outf(const at::Tensor & self, const at::Scalar & min, at::Tensor & out) {
     return at::_ops::clamp_min_out::call(self, min, out);
@@ -56,7 +55,6 @@ inline at::Tensor & clamp_min_outf(const at::Tensor & self, const at::Scalar & m
 inline at::Tensor & clamp_min_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & min) {
     return at::_ops::clamp_min_Tensor_out::call(self, min, out);
 }
-
 // aten::clamp_min.Tensor_out(Tensor self, Tensor min, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & clamp_min_outf(const at::Tensor & self, const at::Tensor & min, at::Tensor & out) {
     return at::_ops::clamp_min_Tensor_out::call(self, min, out);

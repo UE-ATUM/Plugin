@@ -19,6 +19,8 @@ namespace compositeexplicitautograd {
 
 TORCH_API at::Tensor & to_padded_tensor_out(at::Tensor & out, const at::Tensor & self, double padding, at::OptionalIntArrayRef output_size=c10::nullopt);
 TORCH_API at::Tensor & to_padded_tensor_outf(const at::Tensor & self, double padding, at::OptionalIntArrayRef output_size, at::Tensor & out);
+TORCH_API at::Tensor & to_padded_tensor_symint_out(at::Tensor & out, const at::Tensor & self, double padding, at::OptionalSymIntArrayRef output_size=c10::nullopt);
+TORCH_API at::Tensor & to_padded_tensor_symint_outf(const at::Tensor & self, double padding, at::OptionalSymIntArrayRef output_size, at::Tensor & out);
 
 } // namespace compositeexplicitautograd
 } // namespace at

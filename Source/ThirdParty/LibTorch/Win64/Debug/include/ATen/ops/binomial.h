@@ -31,7 +31,6 @@ inline at::Tensor binomial(const at::Tensor & count, const at::Tensor & prob, c1
 inline at::Tensor & binomial_out(at::Tensor & out, const at::Tensor & count, const at::Tensor & prob, c10::optional<at::Generator> generator=c10::nullopt) {
     return at::_ops::binomial_out::call(count, prob, generator, out);
 }
-
 // aten::binomial.out(Tensor count, Tensor prob, Generator? generator=None, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & binomial_outf(const at::Tensor & count, const at::Tensor & prob, c10::optional<at::Generator> generator, at::Tensor & out) {
     return at::_ops::binomial_out::call(count, prob, generator, out);

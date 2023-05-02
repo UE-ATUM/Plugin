@@ -17,8 +17,8 @@ namespace at {
 
 namespace compositeexplicitautograd {
 
-TORCH_API at::Tensor & to_sparse_csc_out(at::Tensor & out, const at::Tensor & self);
-TORCH_API at::Tensor & to_sparse_csc_outf(const at::Tensor & self, at::Tensor & out);
+TORCH_API at::Tensor & to_sparse_csc_out(at::Tensor & out, const at::Tensor & self, c10::optional<int64_t> dense_dim=c10::nullopt);
+TORCH_API at::Tensor & to_sparse_csc_outf(const at::Tensor & self, c10::optional<int64_t> dense_dim, at::Tensor & out);
 
 } // namespace compositeexplicitautograd
 } // namespace at

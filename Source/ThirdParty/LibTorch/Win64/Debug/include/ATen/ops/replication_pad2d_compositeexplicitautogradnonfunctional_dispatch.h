@@ -18,6 +18,7 @@ namespace at {
 namespace compositeexplicitautogradnonfunctional {
 
 TORCH_API at::Tensor replication_pad2d(const at::Tensor & self, at::IntArrayRef padding);
+TORCH_API at::Tensor replication_pad2d_symint(const at::Tensor & self, c10::SymIntArrayRef padding);
 
 } // namespace compositeexplicitautogradnonfunctional
 } // namespace at

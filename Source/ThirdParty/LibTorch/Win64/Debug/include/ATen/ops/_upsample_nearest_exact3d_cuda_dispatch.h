@@ -17,8 +17,6 @@ namespace at {
 
 namespace cuda {
 
-TORCH_API at::Tensor _upsample_nearest_exact3d(const at::Tensor & input, at::OptionalIntArrayRef output_size, c10::optional<at::ArrayRef<double>> scale_factors);
-TORCH_API at::Tensor _upsample_nearest_exact3d_symint(const at::Tensor & input, at::OptionalSymIntArrayRef output_size, c10::optional<at::ArrayRef<double>> scale_factors);
 TORCH_API at::Tensor _upsample_nearest_exact3d(const at::Tensor & self, at::IntArrayRef output_size, c10::optional<double> scales_d=c10::nullopt, c10::optional<double> scales_h=c10::nullopt, c10::optional<double> scales_w=c10::nullopt);
 TORCH_API at::Tensor _upsample_nearest_exact3d_symint(const at::Tensor & self, c10::SymIntArrayRef output_size, c10::optional<double> scales_d=c10::nullopt, c10::optional<double> scales_h=c10::nullopt, c10::optional<double> scales_w=c10::nullopt);
 TORCH_API at::Tensor & _upsample_nearest_exact3d_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef output_size, c10::optional<double> scales_d=c10::nullopt, c10::optional<double> scales_h=c10::nullopt, c10::optional<double> scales_w=c10::nullopt);

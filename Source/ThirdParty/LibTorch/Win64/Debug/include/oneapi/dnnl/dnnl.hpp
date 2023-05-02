@@ -315,6 +315,8 @@ struct primitive : public handle<dnnl_primitive_t> {
         prelu = dnnl_prelu,
         /// A softmax version 2 primitive.
         softmax_v2 = dnnl_softmax_v2,
+        /// A layer normalization version 2 primitive.
+        layer_normalization_v2 = dnnl_layer_normalization_v2,
     };
 
     using handle::handle;
@@ -441,6 +443,8 @@ enum class fpmath_mode {
     bf16 = dnnl_fpmath_mode_bf16,
     /// Implicit f32->f16 conversions allowed
     f16 = dnnl_fpmath_mode_f16,
+    /// Implicit f32->tf32 conversions allowed
+    tf32 = dnnl_fpmath_mode_tf32,
     /// Implicit f32->f16 or f32->bf16 conversions allowed
     any = dnnl_fpmath_mode_any
 };
@@ -557,6 +561,8 @@ enum class algorithm {
     eltwise_bounded_relu = dnnl_eltwise_bounded_relu,
     /// Elementwise: soft_relu
     eltwise_soft_relu = dnnl_eltwise_soft_relu,
+    /// Elementwise: soft_relu version 2
+    eltwise_soft_relu_v2 = dnnl_eltwise_soft_relu_v2,
     /// Elementwise: logsigmoid
     eltwise_logsigmoid = dnnl_eltwise_logsigmoid,
     /// Elementwise: mish
@@ -584,6 +590,8 @@ enum class algorithm {
     eltwise_round = dnnl_eltwise_round,
     /// Elementwise: hardswish
     eltwise_hardswish = dnnl_eltwise_hardswish,
+    /// Elementwise: hardsigmoid
+    eltwise_hardsigmoid = dnnl_eltwise_hardsigmoid,
     /// Elementwise: rectified linar unit (ReLU) (dst for backward)
     eltwise_relu_use_dst_for_bwd = dnnl_eltwise_relu_use_dst_for_bwd,
     /// Elementwise: hyperbolic tangent non-linearity (tanh) (dst for backward)
@@ -720,6 +728,11 @@ enum class normalization_flags : unsigned {
     /// workspace is not required and behavior is the same as when normalization
     /// is fused with ReLU using the post-ops API.
     fuse_norm_relu = dnnl_fuse_norm_relu,
+
+    /// Fuse normalization with elementwise binary Add and then fuse with ReLU.
+    /// On training, normalization will require the workspace to implement
+    /// backward propagation. On inference, the workspace is not required.
+    fuse_norm_add_relu = dnnl_fuse_norm_add_relu,
 
     /// Use scale parameter. If specified, the user is expected to pass scale as
     /// input on forward propagation. On backward propagation of type
@@ -1233,6 +1246,8 @@ struct memory : public handle<dnnl_memory_t> {
         bf16 = dnnl_bf16,
         /// [32-bit/single-precision floating point](https://en.wikipedia.org/wiki/Single-precision_floating-point_format).
         f32 = dnnl_f32,
+        //// [64-bit/double-precision floating point](https://en.wikipedia.org/wiki/Double-precision_floating-point_format).
+        f64 = dnnl_f64,
         /// 32-bit signed integer.
         s32 = dnnl_s32,
         /// 8-bit signed integer.
@@ -2439,6 +2454,14 @@ struct memory : public handle<dnnl_memory_t> {
         AB16a32b = dnnl_AB16a32b,
         ABcde16a16b2a = dnnl_ABcde16a16b2a,
         aBCdef16b16c2b = dnnl_aBCdef16b16c2b,
+        Acedb16a = dnnl_Acedb16a,
+        aBdfec16b = dnnl_aBdfec16b,
+        Odwhi16o = dnnl_Odwhi16o,
+        gOdwhi16o = dnnl_gOdwhi16o,
+        abdEC64e2c = dnnl_abdEC64e2c,
+        abdEC64e4c = dnnl_abdEC64e4c,
+        ldgOI64o2i = abdEC64e2c,
+        ldgOI64o4i = abdEC64e4c,
     };
 
     /// A memory descriptor.
@@ -2919,6 +2942,13 @@ struct post_ops : public handle<dnnl_post_ops_t> {
         reset(result);
     }
 
+    /// Creates post-ops primitive attribute from a C API ::dnnl_post_ops_t
+    /// handle. The resulting handle is not weak and the C handle will be
+    /// destroyed during the destruction of the C++ object.
+    ///
+    /// @param post_ops The C API post-ops primitive attribute.
+    post_ops(dnnl_post_ops_t post_ops) : handle<dnnl_post_ops_t>(post_ops) {}
+
     /// Returns the number of post-ops entries.
     int len() const { return dnnl_post_ops_len(get()); }
 
@@ -3081,6 +3111,104 @@ struct post_ops : public handle<dnnl_post_ops_t> {
         aalgorithm = static_cast<dnnl::algorithm>(c_alg);
     }
 
+    /// Appends a depthwise post-op convolution.
+    ///
+    /// This post-op can only be fused with a 2D 1x1 convolution (convolution
+    /// with weights spatial dimension equal to 1 i.e., kh=kw=1).
+    ///
+    /// The kind of this post-op is #dnnl_convolution.
+    ///
+    /// The number of outputs for primitive remain same as before. The output
+    /// spatial size can be derived as below:
+    ///
+    /// output_height = ceil(output_height_1x1_convolution, stride)
+    /// output_width = ceil(output_width_1x1_convolution, stride)
+    ///
+    /// See @ref dev_guide_attributes_post_ops_depthwise and
+    /// @ref dev_guide_attributes_post_ops_depthwise_fusion for more info.
+    ///
+    /// @param weights_data_type Weights data type of depthwise post-op
+    /// @param bias_data_type Bias data type of depthwise post-op
+    /// @param dst_data_type Output data type of depthwise post-op
+    /// @param kernel_size Size of kernel of depthwise post-op
+    /// @param stride_size Size of stride of depthwise post-op
+    /// @param padding_l_size Size of left and top paddings of depthwise post-op
+    /// @param mask Output scaling factors correspondence mask that defines the
+    ///     correspondence between the output tensor dimensions and the
+    ///     @p scales array. The set i-th bit indicates that a dedicated output
+    ///     scaling factor is used for each index along that dimension. The mask
+    ///     value of 0 implies a common scaling factor for the whole output
+    ///     tensor.
+    /// @param scales Output pointer to a constant array of float scaling
+    ///     factors.
+    void append_dw(memory::data_type weights_data_type,
+            memory::data_type bias_data_type, memory::data_type dst_data_type,
+            memory::dim kernel_size, memory::dim stride_size,
+            memory::dim padding_l_size, int mask,
+            const std::vector<float> &scales) {
+
+        error::wrap_c_api(dnnl_post_ops_append_dw(get(),
+                                  memory::convert_to_c(weights_data_type),
+                                  memory::convert_to_c(bias_data_type),
+                                  memory::convert_to_c(dst_data_type),
+                                  kernel_size, stride_size, padding_l_size,
+                                  scales.size(), mask, scales.data()),
+                "could not append depthwise post-op");
+    }
+
+    /// Returns the parameters of an depthwise post-op.
+    ///
+    /// @param index Index of the elementwise post-op.
+    /// @param weights_data_type Weights data type of depthwise post-op
+    /// @param bias_data_type Bias data type of depthwise post-op
+    /// @param dst_data_type Output data type of depthwise post-op
+    /// @param kernel_size Size of kernel of depthwise post-op
+    /// @param stride_size Size of stride of depthwise post-op
+    /// @param padding_l_size Size of left and top paddings of depthwise post-op
+    /// @param mask Output scaling factors correspondence mask that defines the
+    ///     correspondence between the output tensor dimensions and the
+    ///     @p scales array. The set i-th bit indicates that a dedicated output
+    ///     scaling factor is used for each index along that dimension. The mask
+    ///     value of 0 implies a common scaling factor for the whole output
+    ///     tensor.
+    /// @param scales Output pointer to a constant array of float scaling
+    ///     factors.
+    void get_params_dw(int index, memory::data_type &weights_data_type,
+            memory::data_type &bias_data_type, memory::data_type &dst_data_type,
+            memory::dim &kernel_size, memory::dim &stride_size,
+            memory::dim &padding_l_size, int &mask,
+            std::vector<float> &scales) const {
+
+        dnnl_data_type_t c_weights_data_type;
+        dnnl_data_type_t c_bias_data_type;
+        dnnl_data_type_t c_dst_data_type;
+        dnnl_dim_t c_kernel_size;
+        dnnl_dim_t c_stride_size;
+        dnnl_dim_t c_padding_l_size;
+        dnnl_dim_t count;
+        int c_mask;
+        const float *c_scales;
+        error::wrap_c_api(
+                dnnl_post_ops_get_params_dw(get(), index, &c_weights_data_type,
+                        &c_bias_data_type, &c_dst_data_type, &c_kernel_size,
+                        &c_stride_size, &c_padding_l_size, &count, &c_mask,
+                        &c_scales),
+                "could not get parameters of depthwise post-op");
+
+        weights_data_type = static_cast<memory::data_type>(c_weights_data_type);
+        bias_data_type = static_cast<memory::data_type>(c_bias_data_type);
+        dst_data_type = static_cast<memory::data_type>(c_dst_data_type);
+        kernel_size = c_kernel_size;
+        stride_size = c_stride_size;
+        padding_l_size = c_padding_l_size;
+        scales.resize(count);
+
+        mask = c_mask;
+        for (dnnl_dim_t c = 0; c < count; ++c)
+            scales[c] = c_scales[c];
+        return;
+    }
+
     /// Appends a depthwise post-op convolution with stride 1.
     ///
     /// This post-op can only be fused with a 2D 1x1 convolution (convolution
@@ -3113,12 +3241,8 @@ struct post_ops : public handle<dnnl_post_ops_t> {
             memory::data_type bias_data_type, memory::data_type dst_data_type,
             int mask, const std::vector<float> &scales) {
 
-        error::wrap_c_api(dnnl_post_ops_append_dw_k3s1p1(get(),
-                                  memory::convert_to_c(weights_data_type),
-                                  memory::convert_to_c(bias_data_type),
-                                  memory::convert_to_c(dst_data_type),
-                                  scales.size(), mask, scales.data()),
-                "could not append depthwise post-op");
+        append_dw(weights_data_type, bias_data_type, dst_data_type, 3, 1, 1,
+                mask, scales);
     }
 
     /// Returns the parameters of an depthwise post-op with stride 1.
@@ -3139,26 +3263,11 @@ struct post_ops : public handle<dnnl_post_ops_t> {
             memory::data_type &bias_data_type, memory::data_type &dst_data_type,
             int &mask, std::vector<float> &scales) const {
 
-        dnnl_data_type_t c_weights_data_type;
-        dnnl_data_type_t c_bias_data_type;
-        dnnl_data_type_t c_dst_data_type;
-        dnnl_dim_t count;
-        int c_mask;
-        const float *c_scales;
-        error::wrap_c_api(dnnl_post_ops_get_params_dw_k3s1p1(get(), index,
-                                  &c_weights_data_type, &c_bias_data_type,
-                                  &c_dst_data_type, &count, &c_mask, &c_scales),
-                "could not get parameters of depthwise post-op");
-
-        weights_data_type = static_cast<memory::data_type>(c_weights_data_type);
-        bias_data_type = static_cast<memory::data_type>(c_bias_data_type);
-        dst_data_type = static_cast<memory::data_type>(c_dst_data_type);
-        scales.resize(count);
-
-        mask = c_mask;
-        for (dnnl_dim_t c = 0; c < count; ++c)
-            scales[c] = c_scales[c];
-        return;
+        memory::dim kernel_size;
+        memory::dim stride_size;
+        memory::dim padding_l_size;
+        get_params_dw(index, weights_data_type, bias_data_type, dst_data_type,
+                kernel_size, stride_size, padding_l_size, mask, scales);
     }
 
     /// Appends a depthwise post-op convolution with stride 2.
@@ -3197,13 +3306,8 @@ struct post_ops : public handle<dnnl_post_ops_t> {
     void append_dw_k3s2p1(memory::data_type weights_data_type,
             memory::data_type bias_data_type, memory::data_type dst_data_type,
             int mask, const std::vector<float> &scales) {
-
-        error::wrap_c_api(dnnl_post_ops_append_dw_k3s2p1(get(),
-                                  memory::convert_to_c(weights_data_type),
-                                  memory::convert_to_c(bias_data_type),
-                                  memory::convert_to_c(dst_data_type),
-                                  scales.size(), mask, scales.data()),
-                "could not append depthwise post-op");
+        append_dw(weights_data_type, bias_data_type, dst_data_type, 3, 2, 1,
+                mask, scales);
     }
 
     /// Returns the parameters of an depthwise post-op with stride 2.
@@ -3224,26 +3328,11 @@ struct post_ops : public handle<dnnl_post_ops_t> {
             memory::data_type &bias_data_type, memory::data_type &dst_data_type,
             int &mask, std::vector<float> &scales) const {
 
-        dnnl_data_type_t c_weights_data_type;
-        dnnl_data_type_t c_bias_data_type;
-        dnnl_data_type_t c_dst_data_type;
-        dnnl_dim_t count;
-        int c_mask;
-        const float *c_scales;
-        error::wrap_c_api(dnnl_post_ops_get_params_dw_k3s2p1(get(), index,
-                                  &c_weights_data_type, &c_bias_data_type,
-                                  &c_dst_data_type, &count, &c_mask, &c_scales),
-                "could not get parameters of depthwise post-op");
-
-        weights_data_type = static_cast<memory::data_type>(c_weights_data_type);
-        bias_data_type = static_cast<memory::data_type>(c_bias_data_type);
-        dst_data_type = static_cast<memory::data_type>(c_dst_data_type);
-        scales.resize(count);
-
-        mask = c_mask;
-        for (dnnl_dim_t c = 0; c < count; ++c)
-            scales[c] = c_scales[c];
-        return;
+        memory::dim kernel_size;
+        memory::dim stride_size;
+        memory::dim padding_l_size;
+        get_params_dw(index, weights_data_type, bias_data_type, dst_data_type,
+                kernel_size, stride_size, padding_l_size, mask, scales);
     }
 
     /// Appends a binary post-op.
@@ -3315,7 +3404,8 @@ struct post_ops : public handle<dnnl_post_ops_t> {
     ///
     ///     conv_args.insert(
     ///      {DNNL_ARG_ATTR_MULTIPLE_POST_OP(0) | DNNL_ARG_WEIGHTS, prelu_weights})
-
+    /// @endcode
+    ///
     /// @note
     ///     The order of dimensions does not depend on how elements are laid
     ///     out in memory. For example:
@@ -3326,8 +3416,8 @@ struct post_ops : public handle<dnnl_post_ops_t> {
     ///
     ///    Prelu weights tensor is passed in runtime execution phase. Prelu
     ///    weights tensor data type is implicitly assumed as f32 using plain
-    ///    layout (a, ab, acb, acdb, acdeb)
-
+    ///    layout (a, ab, acb, acdb, acdeb).
+    ///
     /// @param mask Defines the correspondence between the output tensor
     ///     dimensions and the prelu weights tensor. The set i-th bit indicates
     ///     that a dedicated weights value is used for each index along that
@@ -3341,7 +3431,7 @@ struct post_ops : public handle<dnnl_post_ops_t> {
     /// Returns the parameters of a prelu post-op.
     ///
     /// @param index Index of the prelu post-op.
-    /// @param maks Weights mask of prelu post-op.
+    /// @param mask Weights mask of prelu post-op.
     void get_params_prelu(int index, int &mask) const {
         error::wrap_c_api(dnnl_post_ops_get_params_prelu(get(), index, &mask),
                 "could not get parameters of a binary post-op");
@@ -3591,12 +3681,14 @@ struct primitive_attr : public handle<dnnl_primitive_attr_t> {
     ///
     /// @returns Post-ops.
     const post_ops get_post_ops() const {
-        post_ops result;
-        const_dnnl_post_ops_t c_result;
-        error::wrap_c_api(dnnl_primitive_attr_get_post_ops(get(), &c_result),
+        const_dnnl_post_ops_t const_c_post_ops;
+        error::wrap_c_api(
+                dnnl_primitive_attr_get_post_ops(get(), &const_c_post_ops),
                 "could not get post-ops primitive attribute");
-        result.reset(const_cast<dnnl_post_ops_t>(c_result), true);
-        return result;
+        dnnl_post_ops_t c_post_ops;
+        error::wrap_c_api(dnnl_post_ops_clone(&c_post_ops, const_c_post_ops),
+                "could not clone post-ops primitive attribute");
+        return post_ops(c_post_ops);
     }
 
     /// Sets post-ops.
@@ -4543,7 +4635,7 @@ struct primitive_desc : public primitive_desc_base {
                 desc, attr ? attr->get() : nullptr, aengine.get(), hint_fwd_pd);
         if (!allow_empty)
             error::wrap_c_api(
-                    status, "could not create a primitive descriptor iterator");
+                    status, "could not create a primitive descriptor");
         pd_iterator.reset(iterator);
         fetch_impl();
     }
@@ -7743,7 +7835,7 @@ struct batch_normalization_backward : public primitive {
 
 /// @} dnnl_api_batch_normalization
 
-/// @addtogroup dnnl_api_layer_normalization Layer Normalization
+/// @addtogroup dnnl_api_layer_normalization_v2 Layer Normalization
 ///
 /// A primitive to perform layer normalization. Normalization is performed
 /// within the last logical dimension of data tensor.
@@ -7767,7 +7859,7 @@ struct batch_normalization_backward : public primitive {
 struct layer_normalization_forward : public primitive {
     /// Descriptor for a layer normalization forward propagation primitive.
     struct desc {
-        dnnl_layer_normalization_desc_t data;
+        dnnl_layer_normalization_v2_desc_t data;
 
         /// Constructs a descriptor for layer normalization forward
         /// propagation primitive.
@@ -7784,9 +7876,10 @@ struct layer_normalization_forward : public primitive {
                 const memory::desc &stat_desc, float epsilon,
                 normalization_flags flags) {
             error::wrap_c_api(
-                    dnnl_layer_normalization_forward_desc_init(&data,
+                    dnnl_layer_normalization_v2_forward_desc_init(&data,
                             dnnl::convert_to_c(aprop_kind), &data_desc.data,
-                            &stat_desc.data, epsilon, convert_to_c(flags)),
+                            &data_desc.data, &stat_desc.data, epsilon,
+                            convert_to_c(flags)),
                     "could not create a descriptor for a layer normalization "
                     "forward propagation primitive");
         }
@@ -7803,10 +7896,34 @@ struct layer_normalization_forward : public primitive {
         ///     dnnl::normalization_flags).
         desc(prop_kind aprop_kind, const memory::desc &data_desc, float epsilon,
                 normalization_flags flags) {
+            error::wrap_c_api(dnnl_layer_normalization_v2_forward_desc_init(
+                                      &data, dnnl::convert_to_c(aprop_kind),
+                                      &data_desc.data, &data_desc.data, nullptr,
+                                      epsilon, convert_to_c(flags)),
+                    "could not create a descriptor for a layer normalization "
+                    "forward propagation primitive");
+        }
+
+        /// Constructs a descriptor for layer normalization forward
+        /// propagation primitive.
+        ///
+        /// @param aprop_kind Propagation kind. Possible values are
+        ///     #dnnl::prop_kind::forward_training, and
+        ///     #dnnl::prop_kind::forward_inference.
+        /// @param src_desc Source memory descriptor.
+        /// @param dst_desc Destination memory descriptor.
+        /// @param stat_desc Statistics memory descriptors.
+        /// @param epsilon Layer normalization epsilon parameter.
+        /// @param flags Layer normalization flags (@ref
+        ///     dnnl::normalization_flags).
+        desc(prop_kind aprop_kind, const memory::desc &src_desc,
+                const memory::desc &dst_desc, const memory::desc &stat_desc,
+                float epsilon, normalization_flags flags) {
             error::wrap_c_api(
-                    dnnl_layer_normalization_forward_desc_init(&data,
-                            dnnl::convert_to_c(aprop_kind), &data_desc.data,
-                            nullptr, epsilon, convert_to_c(flags)),
+                    dnnl_layer_normalization_v2_forward_desc_init(&data,
+                            dnnl::convert_to_c(aprop_kind), &src_desc.data,
+                            &dst_desc.data, &stat_desc.data, epsilon,
+                            convert_to_c(flags)),
                     "could not create a descriptor for a layer normalization "
                     "forward propagation primitive");
         }
@@ -7857,7 +7974,7 @@ struct layer_normalization_forward : public primitive {
         ///     forward propagation primitive.
         primitive_desc(dnnl_primitive_desc_t pd)
             : dnnl::primitive_desc(pd,
-                    dnnl::primitive::kind::layer_normalization,
+                    dnnl::primitive::kind::layer_normalization_v2,
                     dnnl::prop_kind::forward_training,
                     dnnl::prop_kind::forward_inference) {}
 
@@ -7921,7 +8038,7 @@ struct layer_normalization_forward : public primitive {
 struct layer_normalization_backward : public primitive {
     /// Descriptor for a layer normalization backward propagation primitive.
     struct desc {
-        dnnl_layer_normalization_desc_t data;
+        dnnl_layer_normalization_v2_desc_t data;
 
         /// Constructs a descriptor for layer normalization backward
         /// propagation primitive.
@@ -7940,10 +8057,11 @@ struct layer_normalization_backward : public primitive {
                 const memory::desc &data_desc, const memory::desc &stat_desc,
                 float epsilon, normalization_flags flags) {
             error::wrap_c_api(
-                    dnnl_layer_normalization_backward_desc_init(&data,
+                    dnnl_layer_normalization_v2_backward_desc_init(&data,
                             dnnl::convert_to_c(aprop_kind),
-                            &diff_data_desc.data, &data_desc.data,
-                            &stat_desc.data, epsilon, convert_to_c(flags)),
+                            &diff_data_desc.data, &diff_data_desc.data,
+                            &data_desc.data, &stat_desc.data, epsilon,
+                            convert_to_c(flags)),
                     "could not create a descriptor for a batch normalization "
                     "backward propagation primitive");
         }
@@ -7963,10 +8081,37 @@ struct layer_normalization_backward : public primitive {
         desc(prop_kind aprop_kind, const memory::desc &diff_data_desc,
                 const memory::desc &data_desc, float epsilon,
                 normalization_flags flags) {
-            error::wrap_c_api(dnnl_layer_normalization_backward_desc_init(&data,
-                                      dnnl::convert_to_c(aprop_kind),
+            error::wrap_c_api(dnnl_layer_normalization_v2_backward_desc_init(
+                                      &data, dnnl::convert_to_c(aprop_kind),
+                                      &diff_data_desc.data,
                                       &diff_data_desc.data, &data_desc.data,
                                       nullptr, epsilon, convert_to_c(flags)),
+                    "could not create a descriptor for a batch normalization "
+                    "backward propagation primitive");
+        }
+
+        /// Constructs a descriptor for layer normalization backward
+        /// propagation primitive.
+        ///
+        /// @param aprop_kind Propagation kind. Possible values are
+        ///     #dnnl::prop_kind::backward_data and #dnnl::prop_kind::backward
+        ///     (diffs for all parameters are computed in this case).
+        /// @param diff_src_desc Diff source memory descriptor.
+        /// @param diff_dst_desc Diff destination memory descriptor.
+        /// @param src_desc Source memory descriptor.
+        /// @param stat_desc Statistics memory descriptors.
+        /// @param epsilon Layer normalization epsilon parameter.
+        /// @param flags Layer normalization flags (@ref
+        ///     dnnl::normalization_flags).
+        desc(prop_kind aprop_kind, const memory::desc &diff_src_desc,
+                const memory::desc &diff_dst_desc, const memory::desc &src_desc,
+                const memory::desc &stat_desc, float epsilon,
+                normalization_flags flags) {
+            error::wrap_c_api(
+                    dnnl_layer_normalization_v2_backward_desc_init(&data,
+                            dnnl::convert_to_c(aprop_kind), &diff_src_desc.data,
+                            &diff_dst_desc.data, &src_desc.data,
+                            &stat_desc.data, epsilon, convert_to_c(flags)),
                     "could not create a descriptor for a batch normalization "
                     "backward propagation primitive");
         }
@@ -8026,7 +8171,7 @@ struct layer_normalization_backward : public primitive {
         ///     backward propagation primitive.
         primitive_desc(dnnl_primitive_desc_t pd)
             : dnnl::primitive_desc(pd,
-                    dnnl::primitive::kind::layer_normalization,
+                    dnnl::primitive::kind::layer_normalization_v2,
                     dnnl::prop_kind::backward, dnnl::prop_kind::backward_data) {
         }
 
@@ -8080,7 +8225,7 @@ struct layer_normalization_backward : public primitive {
         : primitive(pd, cache_blob) {}
 };
 
-/// @} dnnl_api_layer_normalization
+/// @} dnnl_api_layer_normalization_v2
 
 /// @addtogroup dnnl_api_inner_product Inner Product
 ///
@@ -12904,6 +13049,8 @@ enum class cpu_isa {
     avx512_core_amx = dnnl_cpu_isa_avx512_core_amx,
     /// @copydoc dnnl_cpu_isa_avx2_vnni
     avx2_vnni = dnnl_cpu_isa_avx2_vnni,
+    /// @copydoc dnnl_cpu_isa_avx512_core_fp16
+    avx512_core_fp16 = dnnl_cpu_isa_avx512_core_fp16,
 };
 
 /// @copydoc dnnl_set_max_cpu_isa()

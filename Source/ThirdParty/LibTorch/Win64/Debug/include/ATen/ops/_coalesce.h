@@ -31,7 +31,6 @@ inline at::Tensor _coalesce(const at::Tensor & self) {
 inline at::Tensor & _coalesce_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::_coalesce_out::call(self, out);
 }
-
 // aten::_coalesce.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _coalesce_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::_coalesce_out::call(self, out);

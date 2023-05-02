@@ -4,6 +4,7 @@
 #include <ATen/cuda/detail/PhiloxCudaStateRaw.cuh>
 #include <ATen/Context.h>
 #include <limits>
+#include <atomic>
 
 namespace at {
 /**
@@ -19,10 +20,10 @@ namespace at {
  *
  * A CUDA graph containing multiple RNG ops behaves like a
  * single giant kernel from the perspective of ops external
- * to the graph.  During graph capture, logic below records
- * the total of all offset increments that occur in the graphed
- * region, and records the final total as the offset for the
- * entire graph.
+ * to the graph.  During graph capture, logic in CUDAGeneratorImpl
+ * records the total of all offset increments that occur in the
+ * graphed region, and records the final total as the offset for
+ * the entire graph.
  *
  * When the graph reruns, the logic that reruns it
  * increments this device's CUDA generator's offset
@@ -30,8 +31,8 @@ namespace at {
  *
  * Meanwhile, within the graph, at capture time, instead of
  * populating PhiloxCudaStates with the uint64_t offset pulled
- * directly from the global state, PhiloxCudaState instead
- * holds a pointer to one-element stream-local int64_t device tensor
+ * directly from the global state, PhiloxCudaState uses a pointer
+ * to a one-element stream-local int64_t device tensor
  * holding an initial offset value, and a uint64_t holding an
  * intra-graph offset. (The intra-graph offset starts from zero
  * when capture begins.)  In each consumer kernel,
@@ -104,6 +105,10 @@ struct TORCH_CUDA_CPP_API CUDAGeneratorImpl : public c10::GeneratorImpl {
   uint64_t capture_epilogue();
   PhiloxCudaState philox_cuda_state(uint64_t increment);
 
+  bool reset_rnn_state() {
+    return !no_reset_rnn_state_.test_and_set();
+  }
+
   // Temporarily accommodates call sites that use philox_engine_inputs.
   // Allows incremental refactor of call sites to use philox_cuda_state.
   std::pair<uint64_t, uint64_t> philox_engine_inputs(uint64_t increment);
@@ -118,6 +123,7 @@ private:
   int64_t* offset_extragraph_{};
   uint32_t offset_intragraph_ = 0;
   bool graph_expects_this_gen_ = false;
+  std::atomic_flag no_reset_rnn_state_;
 };
 
 namespace cuda {

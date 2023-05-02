@@ -31,7 +31,6 @@ inline at::Tensor segment_reduce(const at::Tensor & data, c10::string_view reduc
 inline at::Tensor & segment_reduce_out(at::Tensor & out, const at::Tensor & data, c10::string_view reduce, const c10::optional<at::Tensor> & lengths={}, const c10::optional<at::Tensor> & indices={}, const c10::optional<at::Tensor> & offsets={}, int64_t axis=0, bool unsafe=false, const c10::optional<at::Scalar> & initial=c10::nullopt) {
     return at::_ops::segment_reduce_out::call(data, reduce, lengths, indices, offsets, axis, unsafe, initial, out);
 }
-
 // aten::segment_reduce.out(Tensor data, str reduce, *, Tensor? lengths=None, Tensor? indices=None, Tensor? offsets=None, int axis=0, bool unsafe=False, Scalar? initial=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & segment_reduce_outf(const at::Tensor & data, c10::string_view reduce, const c10::optional<at::Tensor> & lengths, const c10::optional<at::Tensor> & indices, const c10::optional<at::Tensor> & offsets, int64_t axis, bool unsafe, const c10::optional<at::Scalar> & initial, at::Tensor & out) {
     return at::_ops::segment_reduce_out::call(data, reduce, lengths, indices, offsets, axis, unsafe, initial, out);

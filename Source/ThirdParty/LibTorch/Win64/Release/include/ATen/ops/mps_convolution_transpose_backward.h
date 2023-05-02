@@ -31,7 +31,6 @@ inline ::std::tuple<at::Tensor,at::Tensor> mps_convolution_transpose_backward(co
 inline ::std::tuple<at::Tensor &,at::Tensor &> mps_convolution_transpose_backward_out(at::Tensor & out0, at::Tensor & out1, const at::Tensor & self, const at::Tensor & grad_output, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, ::std::array<bool,2> output_mask) {
     return at::_ops::mps_convolution_transpose_backward_out::call(self, grad_output, weight, padding, output_padding, stride, dilation, groups, output_mask, out0, out1);
 }
-
 // aten::mps_convolution_transpose_backward.out(Tensor self, Tensor grad_output, Tensor weight, int[] padding, int[] output_padding, int[] stride, int[] dilation, int groups, bool[2] output_mask, *, Tensor(a!) out0, Tensor(b!) out1) -> (Tensor(a!), Tensor(b!))
 inline ::std::tuple<at::Tensor &,at::Tensor &> mps_convolution_transpose_backward_outf(const at::Tensor & self, const at::Tensor & grad_output, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, ::std::array<bool,2> output_mask, at::Tensor & out0, at::Tensor & out1) {
     return at::_ops::mps_convolution_transpose_backward_out::call(self, grad_output, weight, padding, output_padding, stride, dilation, groups, output_mask, out0, out1);

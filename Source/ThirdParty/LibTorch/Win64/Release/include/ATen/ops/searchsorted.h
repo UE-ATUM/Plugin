@@ -31,7 +31,6 @@ inline at::Tensor searchsorted(const at::Tensor & sorted_sequence, const at::Ten
 inline at::Tensor & searchsorted_out(at::Tensor & out, const at::Tensor & sorted_sequence, const at::Tensor & self, bool out_int32=false, bool right=false, c10::optional<c10::string_view> side=c10::nullopt, const c10::optional<at::Tensor> & sorter={}) {
     return at::_ops::searchsorted_Tensor_out::call(sorted_sequence, self, out_int32, right, side, sorter, out);
 }
-
 // aten::searchsorted.Tensor_out(Tensor sorted_sequence, Tensor self, *, bool out_int32=False, bool right=False, str? side=None, Tensor? sorter=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & searchsorted_outf(const at::Tensor & sorted_sequence, const at::Tensor & self, bool out_int32, bool right, c10::optional<c10::string_view> side, const c10::optional<at::Tensor> & sorter, at::Tensor & out) {
     return at::_ops::searchsorted_Tensor_out::call(sorted_sequence, self, out_int32, right, side, sorter, out);
@@ -46,7 +45,6 @@ inline at::Tensor searchsorted(const at::Tensor & sorted_sequence, const at::Sca
 inline at::Tensor & searchsorted_out(at::Tensor & out, const at::Tensor & sorted_sequence, const at::Scalar & self, bool out_int32=false, bool right=false, c10::optional<c10::string_view> side=c10::nullopt, const c10::optional<at::Tensor> & sorter={}) {
     return at::_ops::searchsorted_Scalar_out::call(sorted_sequence, self, out_int32, right, side, sorter, out);
 }
-
 // aten::searchsorted.Scalar_out(Tensor sorted_sequence, Scalar self, *, bool out_int32=False, bool right=False, str? side=None, Tensor? sorter=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & searchsorted_outf(const at::Tensor & sorted_sequence, const at::Scalar & self, bool out_int32, bool right, c10::optional<c10::string_view> side, const c10::optional<at::Tensor> & sorter, at::Tensor & out) {
     return at::_ops::searchsorted_Scalar_out::call(sorted_sequence, self, out_int32, right, side, sorter, out);

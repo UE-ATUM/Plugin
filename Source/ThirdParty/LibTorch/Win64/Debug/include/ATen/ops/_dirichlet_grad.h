@@ -31,7 +31,6 @@ inline at::Tensor _dirichlet_grad(const at::Tensor & x, const at::Tensor & alpha
 inline at::Tensor & _dirichlet_grad_out(at::Tensor & out, const at::Tensor & x, const at::Tensor & alpha, const at::Tensor & total) {
     return at::_ops::_dirichlet_grad_out::call(x, alpha, total, out);
 }
-
 // aten::_dirichlet_grad.out(Tensor x, Tensor alpha, Tensor total, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _dirichlet_grad_outf(const at::Tensor & x, const at::Tensor & alpha, const at::Tensor & total, at::Tensor & out) {
     return at::_ops::_dirichlet_grad_out::call(x, alpha, total, out);

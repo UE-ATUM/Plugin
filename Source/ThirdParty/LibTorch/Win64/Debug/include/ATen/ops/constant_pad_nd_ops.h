@@ -15,25 +15,25 @@ namespace _ops {
 
 
 struct TORCH_API constant_pad_nd {
-  using schema = at::Tensor (const at::Tensor &, at::IntArrayRef, const at::Scalar &);
+  using schema = at::Tensor (const at::Tensor &, c10::SymIntArrayRef, const at::Scalar &);
   using ptr_schema = schema*;
   // See Note [static constexpr char* members for windows NVCC]
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::constant_pad_nd")
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "")
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "constant_pad_nd(Tensor self, int[] pad, Scalar value=0) -> Tensor")
-  static at::Tensor call(const at::Tensor & self, at::IntArrayRef pad, const at::Scalar & value);
-  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, at::IntArrayRef pad, const at::Scalar & value);
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "constant_pad_nd(Tensor self, SymInt[] pad, Scalar value=0) -> Tensor")
+  static at::Tensor call(const at::Tensor & self, c10::SymIntArrayRef pad, const at::Scalar & value);
+  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, c10::SymIntArrayRef pad, const at::Scalar & value);
 };
 
 struct TORCH_API constant_pad_nd_out {
-  using schema = at::Tensor & (const at::Tensor &, at::IntArrayRef, const at::Scalar &, at::Tensor &);
+  using schema = at::Tensor & (const at::Tensor &, c10::SymIntArrayRef, const at::Scalar &, at::Tensor &);
   using ptr_schema = schema*;
   // See Note [static constexpr char* members for windows NVCC]
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::constant_pad_nd")
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "out")
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "constant_pad_nd.out(Tensor self, int[] pad, Scalar value=0, *, Tensor(a!) out) -> Tensor(a!)")
-  static at::Tensor & call(const at::Tensor & self, at::IntArrayRef pad, const at::Scalar & value, at::Tensor & out);
-  static at::Tensor & redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, at::IntArrayRef pad, const at::Scalar & value, at::Tensor & out);
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "constant_pad_nd.out(Tensor self, SymInt[] pad, Scalar value=0, *, Tensor(a!) out) -> Tensor(a!)")
+  static at::Tensor & call(const at::Tensor & self, c10::SymIntArrayRef pad, const at::Scalar & value, at::Tensor & out);
+  static at::Tensor & redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, c10::SymIntArrayRef pad, const at::Scalar & value, at::Tensor & out);
 };
 
 }} // namespace at::_ops

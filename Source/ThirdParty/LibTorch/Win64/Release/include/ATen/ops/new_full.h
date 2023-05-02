@@ -22,24 +22,76 @@
 namespace at {
 
 
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor new_full(const at::Tensor & self, at::IntArrayRef size, const at::Scalar & fill_value, at::TensorOptions options={}) {
+    return at::_ops::new_full::call(self, c10::fromIntArrayRefSlow(size), fill_value, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
+  }
+}
+
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor new_full(const at::Tensor & self, at::IntArrayRef size, const at::Scalar & fill_value, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
+    return at::_ops::new_full::call(self, c10::fromIntArrayRefSlow(size), fill_value, dtype, layout, device, pin_memory);
+  }
+}
+
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor new_full(const at::Tensor & self, c10::SymIntArrayRef size, const at::Scalar & fill_value, at::TensorOptions options={}) {
+    return at::_ops::new_full::call(self, size, fill_value, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
+  }
+}
+
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor new_full(const at::Tensor & self, c10::SymIntArrayRef size, const at::Scalar & fill_value, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
+    return at::_ops::new_full::call(self, size, fill_value, dtype, layout, device, pin_memory);
+  }
+}
+
 // aten::new_full.out(Tensor self, SymInt[] size, Scalar fill_value, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & new_full_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef size, const at::Scalar & fill_value) {
-    return at::_ops::new_full_out::call(self, c10::fromIntArrayRef(size), fill_value, out);
+    return at::_ops::new_full_out::call(self, c10::fromIntArrayRefSlow(size), fill_value, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & new_full_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef size, const at::Scalar & fill_value) {
+    return at::_ops::new_full_out::call(self, c10::fromIntArrayRefSlow(size), fill_value, out);
+  }
 }
 
 // aten::new_full.out(Tensor self, SymInt[] size, Scalar fill_value, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & new_full_outf(const at::Tensor & self, at::IntArrayRef size, const at::Scalar & fill_value, at::Tensor & out) {
-    return at::_ops::new_full_out::call(self, c10::fromIntArrayRef(size), fill_value, out);
+    return at::_ops::new_full_out::call(self, c10::fromIntArrayRefSlow(size), fill_value, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & new_full_outf(const at::Tensor & self, at::IntArrayRef size, const at::Scalar & fill_value, at::Tensor & out) {
+    return at::_ops::new_full_out::call(self, c10::fromIntArrayRefSlow(size), fill_value, out);
+  }
 }
 
 // aten::new_full.out(Tensor self, SymInt[] size, Scalar fill_value, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & new_full_symint_out(at::Tensor & out, const at::Tensor & self, c10::SymIntArrayRef size, const at::Scalar & fill_value) {
     return at::_ops::new_full_out::call(self, size, fill_value, out);
 }
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & new_full_out(at::Tensor & out, const at::Tensor & self, c10::SymIntArrayRef size, const at::Scalar & fill_value) {
+    return at::_ops::new_full_out::call(self, size, fill_value, out);
+  }
+}
 
 // aten::new_full.out(Tensor self, SymInt[] size, Scalar fill_value, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & new_full_symint_outf(const at::Tensor & self, c10::SymIntArrayRef size, const at::Scalar & fill_value, at::Tensor & out) {
     return at::_ops::new_full_out::call(self, size, fill_value, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & new_full_outf(const at::Tensor & self, c10::SymIntArrayRef size, const at::Scalar & fill_value, at::Tensor & out) {
+    return at::_ops::new_full_out::call(self, size, fill_value, out);
+  }
 }
 
 }

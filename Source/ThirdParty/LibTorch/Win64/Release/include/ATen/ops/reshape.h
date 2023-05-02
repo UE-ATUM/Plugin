@@ -24,12 +24,24 @@ namespace at {
 
 // aten::reshape(Tensor(a) self, SymInt[] shape) -> Tensor(a)
 inline at::Tensor reshape(const at::Tensor & self, at::IntArrayRef shape) {
-    return at::_ops::reshape::call(self, c10::fromIntArrayRef(shape));
+    return at::_ops::reshape::call(self, c10::fromIntArrayRefSlow(shape));
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor reshape(const at::Tensor & self, at::IntArrayRef shape) {
+    return at::_ops::reshape::call(self, c10::fromIntArrayRefSlow(shape));
+  }
 }
 
 // aten::reshape(Tensor(a) self, SymInt[] shape) -> Tensor(a)
 inline at::Tensor reshape_symint(const at::Tensor & self, c10::SymIntArrayRef shape) {
     return at::_ops::reshape::call(self, shape);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor reshape(const at::Tensor & self, c10::SymIntArrayRef shape) {
+    return at::_ops::reshape::call(self, shape);
+  }
 }
 
 }

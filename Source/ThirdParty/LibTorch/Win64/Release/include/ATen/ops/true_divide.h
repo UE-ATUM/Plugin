@@ -31,7 +31,6 @@ inline at::Tensor true_divide(const at::Tensor & self, const at::Tensor & other)
 inline at::Tensor & true_divide_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other) {
     return at::_ops::true_divide_out::call(self, other, out);
 }
-
 // aten::true_divide.out(Tensor self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & true_divide_outf(const at::Tensor & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::true_divide_out::call(self, other, out);

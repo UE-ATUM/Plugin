@@ -22,14 +22,62 @@
 namespace at {
 
 
-// aten::to_padded_tensor.out(Tensor self, float padding, int[]? output_size=None, *, Tensor(a!) out) -> Tensor(a!)
-inline at::Tensor & to_padded_tensor_out(at::Tensor & out, const at::Tensor & self, double padding, at::OptionalIntArrayRef output_size=c10::nullopt) {
-    return at::_ops::to_padded_tensor_out::call(self, padding, output_size, out);
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor to_padded_tensor(const at::Tensor & self, double padding, at::OptionalIntArrayRef output_size=c10::nullopt) {
+    return at::_ops::to_padded_tensor::call(self, padding, output_size.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*output_size)) : c10::nullopt);
+  }
 }
 
-// aten::to_padded_tensor.out(Tensor self, float padding, int[]? output_size=None, *, Tensor(a!) out) -> Tensor(a!)
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor to_padded_tensor(const at::Tensor & self, double padding, at::OptionalSymIntArrayRef output_size=c10::nullopt) {
+    return at::_ops::to_padded_tensor::call(self, padding, output_size);
+  }
+}
+
+// aten::to_padded_tensor.out(Tensor self, float padding, SymInt[]? output_size=None, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & to_padded_tensor_out(at::Tensor & out, const at::Tensor & self, double padding, at::OptionalIntArrayRef output_size=c10::nullopt) {
+    return at::_ops::to_padded_tensor_out::call(self, padding, output_size.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*output_size)) : c10::nullopt, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & to_padded_tensor_out(at::Tensor & out, const at::Tensor & self, double padding, at::OptionalIntArrayRef output_size=c10::nullopt) {
+    return at::_ops::to_padded_tensor_out::call(self, padding, output_size.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*output_size)) : c10::nullopt, out);
+  }
+}
+
+// aten::to_padded_tensor.out(Tensor self, float padding, SymInt[]? output_size=None, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & to_padded_tensor_outf(const at::Tensor & self, double padding, at::OptionalIntArrayRef output_size, at::Tensor & out) {
+    return at::_ops::to_padded_tensor_out::call(self, padding, output_size.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*output_size)) : c10::nullopt, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & to_padded_tensor_outf(const at::Tensor & self, double padding, at::OptionalIntArrayRef output_size, at::Tensor & out) {
+    return at::_ops::to_padded_tensor_out::call(self, padding, output_size.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*output_size)) : c10::nullopt, out);
+  }
+}
+
+// aten::to_padded_tensor.out(Tensor self, float padding, SymInt[]? output_size=None, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & to_padded_tensor_symint_out(at::Tensor & out, const at::Tensor & self, double padding, at::OptionalSymIntArrayRef output_size=c10::nullopt) {
     return at::_ops::to_padded_tensor_out::call(self, padding, output_size, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & to_padded_tensor_out(at::Tensor & out, const at::Tensor & self, double padding, at::OptionalSymIntArrayRef output_size=c10::nullopt) {
+    return at::_ops::to_padded_tensor_out::call(self, padding, output_size, out);
+  }
+}
+
+// aten::to_padded_tensor.out(Tensor self, float padding, SymInt[]? output_size=None, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & to_padded_tensor_symint_outf(const at::Tensor & self, double padding, at::OptionalSymIntArrayRef output_size, at::Tensor & out) {
+    return at::_ops::to_padded_tensor_out::call(self, padding, output_size, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & to_padded_tensor_outf(const at::Tensor & self, double padding, at::OptionalSymIntArrayRef output_size, at::Tensor & out) {
+    return at::_ops::to_padded_tensor_out::call(self, padding, output_size, out);
+  }
 }
 
 }

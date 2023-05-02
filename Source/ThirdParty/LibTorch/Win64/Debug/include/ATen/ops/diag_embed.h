@@ -31,7 +31,6 @@ inline at::Tensor diag_embed(const at::Tensor & self, int64_t offset=0, int64_t 
 inline at::Tensor & diag_embed_out(at::Tensor & out, const at::Tensor & self, int64_t offset=0, int64_t dim1=-2, int64_t dim2=-1) {
     return at::_ops::diag_embed_out::call(self, offset, dim1, dim2, out);
 }
-
 // aten::diag_embed.out(Tensor self, int offset=0, int dim1=-2, int dim2=-1, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & diag_embed_outf(const at::Tensor & self, int64_t offset, int64_t dim1, int64_t dim2, at::Tensor & out) {
     return at::_ops::diag_embed_out::call(self, offset, dim1, dim2, out);

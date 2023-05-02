@@ -16,10 +16,6 @@
 
 namespace at {
 namespace native {
-TORCH_API at::Tensor & prelu_out(const at::Tensor & self, const at::Tensor & weight, at::Tensor & out);
-TORCH_API at::Tensor prelu_cpu(const at::Tensor & self, const at::Tensor & weight);
-TORCH_API at::Tensor prelu_cuda(const at::Tensor & self, const at::Tensor & weight);
-TORCH_API at::Tensor mkldnn_prelu(const at::Tensor & self, const at::Tensor & weight);
-TORCH_API at::Tensor prelu_quantized_cpu(const at::Tensor & self, const at::Tensor & weight);
+TORCH_API at::Tensor prelu(const at::Tensor & self, const at::Tensor & weight);
 } // namespace native
 } // namespace at

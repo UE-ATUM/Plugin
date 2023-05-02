@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & cross_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other, c10::optional<int64_t> dim=c10::nullopt) {
     return at::_ops::cross_out::call(self, other, dim, out);
 }
-
 // aten::cross.out(Tensor self, Tensor other, int? dim=None, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & cross_outf(const at::Tensor & self, const at::Tensor & other, c10::optional<int64_t> dim, at::Tensor & out) {
     return at::_ops::cross_out::call(self, other, dim, out);

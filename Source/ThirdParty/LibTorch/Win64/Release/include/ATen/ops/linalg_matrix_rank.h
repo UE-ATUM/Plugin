@@ -31,7 +31,6 @@ inline at::Tensor linalg_matrix_rank(const at::Tensor & input, const c10::option
 inline at::Tensor & linalg_matrix_rank_out(at::Tensor & out, const at::Tensor & input, const c10::optional<at::Tensor> & atol={}, const c10::optional<at::Tensor> & rtol={}, bool hermitian=false) {
     return at::_ops::linalg_matrix_rank_atol_rtol_tensor_out::call(input, atol, rtol, hermitian, out);
 }
-
 // aten::linalg_matrix_rank.atol_rtol_tensor_out(Tensor input, *, Tensor? atol=None, Tensor? rtol=None, bool hermitian=False, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & linalg_matrix_rank_outf(const at::Tensor & input, const c10::optional<at::Tensor> & atol, const c10::optional<at::Tensor> & rtol, bool hermitian, at::Tensor & out) {
     return at::_ops::linalg_matrix_rank_atol_rtol_tensor_out::call(input, atol, rtol, hermitian, out);
@@ -46,7 +45,6 @@ inline at::Tensor linalg_matrix_rank(const at::Tensor & self, c10::optional<doub
 inline at::Tensor & linalg_matrix_rank_out(at::Tensor & out, const at::Tensor & self, c10::optional<double> atol, c10::optional<double> rtol, bool hermitian=false) {
     return at::_ops::linalg_matrix_rank_atol_rtol_float_out::call(self, atol, rtol, hermitian, out);
 }
-
 // aten::linalg_matrix_rank.atol_rtol_float_out(Tensor self, *, float? atol=None, float? rtol=None, bool hermitian=False, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & linalg_matrix_rank_outf(const at::Tensor & self, c10::optional<double> atol, c10::optional<double> rtol, bool hermitian, at::Tensor & out) {
     return at::_ops::linalg_matrix_rank_atol_rtol_float_out::call(self, atol, rtol, hermitian, out);
@@ -61,7 +59,6 @@ inline at::Tensor linalg_matrix_rank(const at::Tensor & self, double tol, bool h
 inline at::Tensor & linalg_matrix_rank_out(at::Tensor & out, const at::Tensor & self, double tol, bool hermitian=false) {
     return at::_ops::linalg_matrix_rank_out::call(self, tol, hermitian, out);
 }
-
 // aten::linalg_matrix_rank.out(Tensor self, float tol, bool hermitian=False, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & linalg_matrix_rank_outf(const at::Tensor & self, double tol, bool hermitian, at::Tensor & out) {
     return at::_ops::linalg_matrix_rank_out::call(self, tol, hermitian, out);
@@ -76,7 +73,6 @@ inline at::Tensor linalg_matrix_rank(const at::Tensor & input, const at::Tensor 
 inline at::Tensor & linalg_matrix_rank_out(at::Tensor & out, const at::Tensor & input, const at::Tensor & tol, bool hermitian=false) {
     return at::_ops::linalg_matrix_rank_out_tol_tensor::call(input, tol, hermitian, out);
 }
-
 // aten::linalg_matrix_rank.out_tol_tensor(Tensor input, Tensor tol, bool hermitian=False, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & linalg_matrix_rank_outf(const at::Tensor & input, const at::Tensor & tol, bool hermitian, at::Tensor & out) {
     return at::_ops::linalg_matrix_rank_out_tol_tensor::call(input, tol, hermitian, out);

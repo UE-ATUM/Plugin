@@ -31,7 +31,6 @@ inline at::Tensor transpose_copy(const at::Tensor & self, int64_t dim0, int64_t 
 inline at::Tensor & transpose_copy_out(at::Tensor & out, const at::Tensor & self, int64_t dim0, int64_t dim1) {
     return at::_ops::transpose_copy_int_out::call(self, dim0, dim1, out);
 }
-
 // aten::transpose_copy.int_out(Tensor self, int dim0, int dim1, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & transpose_copy_outf(const at::Tensor & self, int64_t dim0, int64_t dim1, at::Tensor & out) {
     return at::_ops::transpose_copy_int_out::call(self, dim0, dim1, out);

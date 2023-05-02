@@ -31,7 +31,6 @@ inline at::Tensor amax(const at::Tensor & self, at::IntArrayRef dim={}, bool kee
 inline at::Tensor & amax_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef dim={}, bool keepdim=false) {
     return at::_ops::amax_out::call(self, dim, keepdim, out);
 }
-
 // aten::amax.out(Tensor self, int[1] dim=[], bool keepdim=False, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & amax_outf(const at::Tensor & self, at::IntArrayRef dim, bool keepdim, at::Tensor & out) {
     return at::_ops::amax_out::call(self, dim, keepdim, out);

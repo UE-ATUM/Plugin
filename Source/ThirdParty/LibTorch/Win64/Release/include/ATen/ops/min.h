@@ -31,7 +31,6 @@ inline ::std::tuple<at::Tensor,at::Tensor> min(const at::Tensor & self, int64_t 
 inline ::std::tuple<at::Tensor &,at::Tensor &> min_out(at::Tensor & min, at::Tensor & min_indices, const at::Tensor & self, int64_t dim, bool keepdim=false) {
     return at::_ops::min_dim_min::call(self, dim, keepdim, min, min_indices);
 }
-
 // aten::min.dim_min(Tensor self, int dim, bool keepdim=False, *, Tensor(a!) min, Tensor(b!) min_indices) -> (Tensor(a!) values, Tensor(b!) indices)
 inline ::std::tuple<at::Tensor &,at::Tensor &> min_outf(const at::Tensor & self, int64_t dim, bool keepdim, at::Tensor & min, at::Tensor & min_indices) {
     return at::_ops::min_dim_min::call(self, dim, keepdim, min, min_indices);
@@ -46,7 +45,6 @@ inline ::std::tuple<at::Tensor,at::Tensor> min(const at::Tensor & self, at::Dimn
 inline ::std::tuple<at::Tensor &,at::Tensor &> min_out(at::Tensor & min, at::Tensor & min_indices, const at::Tensor & self, at::Dimname dim, bool keepdim=false) {
     return at::_ops::min_names_dim_min::call(self, dim, keepdim, min, min_indices);
 }
-
 // aten::min.names_dim_min(Tensor self, Dimname dim, bool keepdim=False, *, Tensor(a!) min, Tensor(b!) min_indices) -> (Tensor(a!) values, Tensor(b!) indices)
 inline ::std::tuple<at::Tensor &,at::Tensor &> min_outf(const at::Tensor & self, at::Dimname dim, bool keepdim, at::Tensor & min, at::Tensor & min_indices) {
     return at::_ops::min_names_dim_min::call(self, dim, keepdim, min, min_indices);
@@ -61,7 +59,6 @@ inline at::Tensor min(const at::Tensor & self) {
 inline at::Tensor & min_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other) {
     return at::_ops::min_out::call(self, other, out);
 }
-
 // aten::min.out(Tensor self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & min_outf(const at::Tensor & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::min_out::call(self, other, out);

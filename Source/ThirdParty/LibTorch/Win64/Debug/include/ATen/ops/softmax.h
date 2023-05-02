@@ -31,7 +31,6 @@ inline at::Tensor softmax(const at::Tensor & self, int64_t dim, c10::optional<at
 inline at::Tensor & softmax_out(at::Tensor & out, const at::Tensor & self, int64_t dim, c10::optional<at::ScalarType> dtype=c10::nullopt) {
     return at::_ops::softmax_int_out::call(self, dim, dtype, out);
 }
-
 // aten::softmax.int_out(Tensor self, int dim, ScalarType? dtype=None, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & softmax_outf(const at::Tensor & self, int64_t dim, c10::optional<at::ScalarType> dtype, at::Tensor & out) {
     return at::_ops::softmax_int_out::call(self, dim, dtype, out);

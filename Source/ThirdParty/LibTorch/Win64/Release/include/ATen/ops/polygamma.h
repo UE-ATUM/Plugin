@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & polygamma_out(at::Tensor & out, int64_t n, const at::Tensor & self) {
     return at::_ops::polygamma_out::call(n, self, out);
 }
-
 // aten::polygamma.out(int n, Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & polygamma_outf(int64_t n, const at::Tensor & self, at::Tensor & out) {
     return at::_ops::polygamma_out::call(n, self, out);

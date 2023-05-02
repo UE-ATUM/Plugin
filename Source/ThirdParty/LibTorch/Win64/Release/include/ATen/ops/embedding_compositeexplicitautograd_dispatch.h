@@ -18,8 +18,11 @@ namespace at {
 namespace compositeexplicitautograd {
 
 TORCH_API at::Tensor embedding(const at::Tensor & weight, const at::Tensor & indices, int64_t padding_idx=-1, bool scale_grad_by_freq=false, bool sparse=false);
+TORCH_API at::Tensor embedding_symint(const at::Tensor & weight, const at::Tensor & indices, c10::SymInt padding_idx=-1, bool scale_grad_by_freq=false, bool sparse=false);
 TORCH_API at::Tensor & embedding_out(at::Tensor & out, const at::Tensor & weight, const at::Tensor & indices, int64_t padding_idx=-1, bool scale_grad_by_freq=false, bool sparse=false);
 TORCH_API at::Tensor & embedding_outf(const at::Tensor & weight, const at::Tensor & indices, int64_t padding_idx, bool scale_grad_by_freq, bool sparse, at::Tensor & out);
+TORCH_API at::Tensor & embedding_symint_out(at::Tensor & out, const at::Tensor & weight, const at::Tensor & indices, c10::SymInt padding_idx=-1, bool scale_grad_by_freq=false, bool sparse=false);
+TORCH_API at::Tensor & embedding_symint_outf(const at::Tensor & weight, const at::Tensor & indices, c10::SymInt padding_idx, bool scale_grad_by_freq, bool sparse, at::Tensor & out);
 
 } // namespace compositeexplicitautograd
 } // namespace at

@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & cauchy_out(at::Tensor & out, const at::Tensor & self, double median=0, double sigma=1, c10::optional<at::Generator> generator=c10::nullopt) {
     return at::_ops::cauchy_out::call(self, median, sigma, generator, out);
 }
-
 // aten::cauchy.out(Tensor self, float median=0, float sigma=1, *, Generator? generator=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & cauchy_outf(const at::Tensor & self, double median, double sigma, c10::optional<at::Generator> generator, at::Tensor & out) {
     return at::_ops::cauchy_out::call(self, median, sigma, generator, out);

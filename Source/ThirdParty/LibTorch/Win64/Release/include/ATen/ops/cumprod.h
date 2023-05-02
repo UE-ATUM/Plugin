@@ -31,7 +31,6 @@ inline at::Tensor cumprod(const at::Tensor & self, int64_t dim, c10::optional<at
 inline at::Tensor & cumprod_out(at::Tensor & out, const at::Tensor & self, int64_t dim, c10::optional<at::ScalarType> dtype=c10::nullopt) {
     return at::_ops::cumprod_out::call(self, dim, dtype, out);
 }
-
 // aten::cumprod.out(Tensor self, int dim, *, ScalarType? dtype=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & cumprod_outf(const at::Tensor & self, int64_t dim, c10::optional<at::ScalarType> dtype, at::Tensor & out) {
     return at::_ops::cumprod_out::call(self, dim, dtype, out);
@@ -46,7 +45,6 @@ inline at::Tensor cumprod(const at::Tensor & self, at::Dimname dim, c10::optiona
 inline at::Tensor & cumprod_out(at::Tensor & out, const at::Tensor & self, at::Dimname dim, c10::optional<at::ScalarType> dtype=c10::nullopt) {
     return at::_ops::cumprod_dimname_out::call(self, dim, dtype, out);
 }
-
 // aten::cumprod.dimname_out(Tensor self, Dimname dim, *, ScalarType? dtype=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & cumprod_outf(const at::Tensor & self, at::Dimname dim, c10::optional<at::ScalarType> dtype, at::Tensor & out) {
     return at::_ops::cumprod_dimname_out::call(self, dim, dtype, out);

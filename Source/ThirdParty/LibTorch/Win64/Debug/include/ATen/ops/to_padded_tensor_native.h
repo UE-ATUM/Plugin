@@ -16,7 +16,7 @@
 
 namespace at {
 namespace native {
-TORCH_API at::Tensor & to_padded_tensor_out(const at::Tensor & self, double padding, at::OptionalIntArrayRef output_size, at::Tensor & out);
+TORCH_API at::Tensor & to_padded_tensor_out_symint(const at::Tensor & self, double padding, at::OptionalSymIntArrayRef output_size, at::Tensor & out);
 TORCH_API at::Tensor NestedTensor_to_padded_tensor_generic(const at::Tensor & self, double padding, at::OptionalIntArrayRef output_size=c10::nullopt);
 TORCH_API at::Tensor NestedTensor_to_padded_tensor_cuda(const at::Tensor & self, double padding, at::OptionalIntArrayRef output_size=c10::nullopt);
 } // namespace native

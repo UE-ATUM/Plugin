@@ -26,14 +26,14 @@ struct TORCH_API select_Dimname {
 };
 
 struct TORCH_API select_int {
-  using schema = at::Tensor (const at::Tensor &, int64_t, int64_t);
+  using schema = at::Tensor (const at::Tensor &, int64_t, c10::SymInt);
   using ptr_schema = schema*;
   // See Note [static constexpr char* members for windows NVCC]
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::select")
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "int")
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "select.int(Tensor(a) self, int dim, int index) -> Tensor(a)")
-  static at::Tensor call(const at::Tensor & self, int64_t dim, int64_t index);
-  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, int64_t dim, int64_t index);
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "select.int(Tensor(a) self, int dim, SymInt index) -> Tensor(a)")
+  static at::Tensor call(const at::Tensor & self, int64_t dim, c10::SymInt index);
+  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, int64_t dim, c10::SymInt index);
 };
 
 }} // namespace at::_ops

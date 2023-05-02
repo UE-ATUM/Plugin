@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & take_along_dim_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & indices, c10::optional<int64_t> dim=c10::nullopt) {
     return at::_ops::take_along_dim_out::call(self, indices, dim, out);
 }
-
 // aten::take_along_dim.out(Tensor self, Tensor indices, int? dim=None, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & take_along_dim_outf(const at::Tensor & self, const at::Tensor & indices, c10::optional<int64_t> dim, at::Tensor & out) {
     return at::_ops::take_along_dim_out::call(self, indices, dim, out);

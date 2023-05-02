@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & im2col_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef kernel_size, at::IntArrayRef dilation, at::IntArrayRef padding, at::IntArrayRef stride) {
     return at::_ops::im2col_out::call(self, kernel_size, dilation, padding, stride, out);
 }
-
 // aten::im2col.out(Tensor self, int[2] kernel_size, int[2] dilation, int[2] padding, int[2] stride, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & im2col_outf(const at::Tensor & self, at::IntArrayRef kernel_size, at::IntArrayRef dilation, at::IntArrayRef padding, at::IntArrayRef stride, at::Tensor & out) {
     return at::_ops::im2col_out::call(self, kernel_size, dilation, padding, stride, out);

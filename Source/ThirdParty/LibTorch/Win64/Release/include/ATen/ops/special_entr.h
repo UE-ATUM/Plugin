@@ -31,7 +31,6 @@ inline at::Tensor special_entr(const at::Tensor & self) {
 inline at::Tensor & special_entr_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::special_entr_out::call(self, out);
 }
-
 // aten::special_entr.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & special_entr_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::special_entr_out::call(self, out);

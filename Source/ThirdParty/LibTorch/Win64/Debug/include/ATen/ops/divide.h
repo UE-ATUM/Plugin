@@ -31,7 +31,6 @@ inline at::Tensor divide(const at::Tensor & self, const at::Tensor & other) {
 inline at::Tensor & divide_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other) {
     return at::_ops::divide_out::call(self, other, out);
 }
-
 // aten::divide.out(Tensor self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & divide_outf(const at::Tensor & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::divide_out::call(self, other, out);
@@ -51,7 +50,6 @@ inline at::Tensor divide(const at::Tensor & self, const at::Tensor & other, c10:
 inline at::Tensor & divide_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other, c10::optional<c10::string_view> rounding_mode) {
     return at::_ops::divide_out_mode::call(self, other, rounding_mode, out);
 }
-
 // aten::divide.out_mode(Tensor self, Tensor other, *, str? rounding_mode, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & divide_outf(const at::Tensor & self, const at::Tensor & other, c10::optional<c10::string_view> rounding_mode, at::Tensor & out) {
     return at::_ops::divide_out_mode::call(self, other, rounding_mode, out);

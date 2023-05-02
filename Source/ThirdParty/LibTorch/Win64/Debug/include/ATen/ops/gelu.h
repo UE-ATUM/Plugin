@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & gelu_out(at::Tensor & out, const at::Tensor & self, c10::string_view approximate="none") {
     return at::_ops::gelu_out::call(self, approximate, out);
 }
-
 // aten::gelu.out(Tensor self, *, str approximate='none', Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & gelu_outf(const at::Tensor & self, c10::string_view approximate, at::Tensor & out) {
     return at::_ops::gelu_out::call(self, approximate, out);

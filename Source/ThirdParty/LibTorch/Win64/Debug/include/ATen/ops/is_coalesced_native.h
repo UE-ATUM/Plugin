@@ -16,6 +16,7 @@
 
 namespace at {
 namespace native {
+TORCH_API bool is_coalesced_default(const at::Tensor & self);
 TORCH_API bool is_coalesced_sparse(const at::Tensor & self);
 } // namespace native
 } // namespace at

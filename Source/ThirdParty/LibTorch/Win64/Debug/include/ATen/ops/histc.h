@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & histc_out(at::Tensor & out, const at::Tensor & self, int64_t bins=100, const at::Scalar & min=0, const at::Scalar & max=0) {
     return at::_ops::histc_out::call(self, bins, min, max, out);
 }
-
 // aten::histc.out(Tensor self, int bins=100, Scalar min=0, Scalar max=0, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & histc_outf(const at::Tensor & self, int64_t bins, const at::Scalar & min, const at::Scalar & max, at::Tensor & out) {
     return at::_ops::histc_out::call(self, bins, min, max, out);

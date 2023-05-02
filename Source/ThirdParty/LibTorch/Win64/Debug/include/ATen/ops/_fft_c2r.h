@@ -31,7 +31,6 @@ inline at::Tensor _fft_c2r(const at::Tensor & self, at::IntArrayRef dim, int64_t
 inline at::Tensor & _fft_c2r_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef dim, int64_t normalization, int64_t last_dim_size) {
     return at::_ops::_fft_c2r_out::call(self, dim, normalization, last_dim_size, out);
 }
-
 // aten::_fft_c2r.out(Tensor self, int[] dim, int normalization, int last_dim_size, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _fft_c2r_outf(const at::Tensor & self, at::IntArrayRef dim, int64_t normalization, int64_t last_dim_size, at::Tensor & out) {
     return at::_ops::_fft_c2r_out::call(self, dim, normalization, last_dim_size, out);

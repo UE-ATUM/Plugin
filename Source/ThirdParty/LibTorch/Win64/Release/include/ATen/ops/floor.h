@@ -36,7 +36,6 @@ inline at::Tensor & floor_(at::Tensor & self) {
 inline at::Tensor & floor_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::floor_out::call(self, out);
 }
-
 // aten::floor.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & floor_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::floor_out::call(self, out);

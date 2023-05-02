@@ -31,7 +31,6 @@ inline at::Tensor linalg_vecdot(const at::Tensor & x, const at::Tensor & y, int6
 inline at::Tensor & linalg_vecdot_out(at::Tensor & out, const at::Tensor & x, const at::Tensor & y, int64_t dim=-1) {
     return at::_ops::linalg_vecdot_out::call(x, y, dim, out);
 }
-
 // aten::linalg_vecdot.out(Tensor x, Tensor y, *, int dim=-1, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & linalg_vecdot_outf(const at::Tensor & x, const at::Tensor & y, int64_t dim, at::Tensor & out) {
     return at::_ops::linalg_vecdot_out::call(x, y, dim, out);

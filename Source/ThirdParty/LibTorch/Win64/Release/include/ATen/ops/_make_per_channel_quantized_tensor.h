@@ -31,7 +31,6 @@ inline at::Tensor _make_per_channel_quantized_tensor(const at::Tensor & self, co
 inline at::Tensor & _make_per_channel_quantized_tensor_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & scale, const at::Tensor & zero_point, int64_t axis) {
     return at::_ops::_make_per_channel_quantized_tensor_out::call(self, scale, zero_point, axis, out);
 }
-
 // aten::_make_per_channel_quantized_tensor.out(Tensor self, Tensor scale, Tensor zero_point, int axis, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _make_per_channel_quantized_tensor_outf(const at::Tensor & self, const at::Tensor & scale, const at::Tensor & zero_point, int64_t axis, at::Tensor & out) {
     return at::_ops::_make_per_channel_quantized_tensor_out::call(self, scale, zero_point, axis, out);

@@ -19,6 +19,6 @@ namespace native {
 TORCH_API at::Tensor narrow_copy_dense_cpu(const at::Tensor & self, int64_t dim, int64_t start, int64_t length);
 TORCH_API at::Tensor & narrow_copy_dense_cpu_out(const at::Tensor & self, int64_t dim, int64_t start, int64_t length, at::Tensor & out);
 TORCH_API at::Tensor narrow_copy_sparse(const at::Tensor & self, int64_t dim, int64_t start, int64_t length);
-TORCH_API at::Tensor narrow_copy_dense(const at::Tensor & self, int64_t dim, int64_t start, int64_t length);
+TORCH_API at::Tensor narrow_copy_dense_symint(const at::Tensor & self, int64_t dim, c10::SymInt start, c10::SymInt length);
 } // namespace native
 } // namespace at

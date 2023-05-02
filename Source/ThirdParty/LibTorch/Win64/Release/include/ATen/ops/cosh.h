@@ -36,7 +36,6 @@ inline at::Tensor & cosh_(at::Tensor & self) {
 inline at::Tensor & cosh_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::cosh_out::call(self, out);
 }
-
 // aten::cosh.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & cosh_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::cosh_out::call(self, out);

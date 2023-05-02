@@ -36,7 +36,6 @@ inline at::Tensor & exp2_(at::Tensor & self) {
 inline at::Tensor & exp2_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::exp2_out::call(self, out);
 }
-
 // aten::exp2.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & exp2_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::exp2_out::call(self, out);

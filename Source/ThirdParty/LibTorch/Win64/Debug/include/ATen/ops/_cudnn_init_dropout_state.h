@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor _cudnn_init_dropout_state(double dropout, bool train, int64_t dropout_seed, at::TensorOptions options) {
     return at::_ops::_cudnn_init_dropout_state::call(dropout, train, dropout_seed, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
 }
-
 // aten::_cudnn_init_dropout_state(float dropout, bool train, int dropout_seed, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=False) -> Tensor
 inline at::Tensor _cudnn_init_dropout_state(double dropout, bool train, int64_t dropout_seed, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
     return at::_ops::_cudnn_init_dropout_state::call(dropout, train, dropout_seed, dtype, layout, device, pin_memory);
@@ -36,7 +35,6 @@ inline at::Tensor _cudnn_init_dropout_state(double dropout, bool train, int64_t 
 inline at::Tensor & _cudnn_init_dropout_state_out(at::Tensor & out, double dropout, bool train, int64_t dropout_seed) {
     return at::_ops::_cudnn_init_dropout_state_out::call(dropout, train, dropout_seed, out);
 }
-
 // aten::_cudnn_init_dropout_state.out(float dropout, bool train, int dropout_seed, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _cudnn_init_dropout_state_outf(double dropout, bool train, int64_t dropout_seed, at::Tensor & out) {
     return at::_ops::_cudnn_init_dropout_state_out::call(dropout, train, dropout_seed, out);

@@ -17,8 +17,7 @@
 namespace at {
 namespace native {
 TORCH_API at::Tensor & sparse_mask_out(const at::Tensor & self, const at::Tensor & mask, at::Tensor & out);
-TORCH_API at::Tensor sparse_mask_cpu(const at::Tensor & self, const at::Tensor & mask);
-TORCH_API at::Tensor sparse_mask_cuda(const at::Tensor & self, const at::Tensor & mask);
+TORCH_API at::Tensor sparse_mask(const at::Tensor & self, const at::Tensor & mask);
 TORCH_API at::Tensor sparse_mask_sparse_csr(const at::Tensor & self, const at::Tensor & mask);
 } // namespace native
 } // namespace at

@@ -36,7 +36,6 @@ inline void _foreach_sigmoid_(at::TensorList self) {
 inline void _foreach_sigmoid_out(at::TensorList out, at::TensorList self) {
     return at::_ops::_foreach_sigmoid_out::call(self, out);
 }
-
 // aten::_foreach_sigmoid.out(Tensor[] self, *, Tensor(a!)[] out) -> ()
 inline void _foreach_sigmoid_outf(at::TensorList self, at::TensorList out) {
     return at::_ops::_foreach_sigmoid_out::call(self, out);

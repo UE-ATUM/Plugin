@@ -19,6 +19,7 @@ namespace compositeexplicitautogradnonfunctional {
 
 TORCH_API at::Tensor squeeze_copy(const at::Tensor & self);
 TORCH_API at::Tensor squeeze_copy(const at::Tensor & self, int64_t dim);
+TORCH_API at::Tensor squeeze_copy(const at::Tensor & self, at::IntArrayRef dim);
 
 } // namespace compositeexplicitautogradnonfunctional
 } // namespace at

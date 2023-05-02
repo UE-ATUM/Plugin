@@ -31,7 +31,6 @@ inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor,at::Tensor> linalg_lstsq(co
 inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &,at::Tensor &> linalg_lstsq_out(at::Tensor & solution, at::Tensor & residuals, at::Tensor & rank, at::Tensor & singular_values, const at::Tensor & self, const at::Tensor & b, c10::optional<double> rcond=c10::nullopt, c10::optional<c10::string_view> driver=c10::nullopt) {
     return at::_ops::linalg_lstsq_out::call(self, b, rcond, driver, solution, residuals, rank, singular_values);
 }
-
 // aten::linalg_lstsq.out(Tensor self, Tensor b, float? rcond=None, *, str? driver=None, Tensor(a!) solution, Tensor(b!) residuals, Tensor(c!) rank, Tensor(d!) singular_values) -> (Tensor(a!) solution, Tensor(b!) residuals, Tensor(c!) rank, Tensor(d!) singular_values)
 inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &,at::Tensor &> linalg_lstsq_outf(const at::Tensor & self, const at::Tensor & b, c10::optional<double> rcond, c10::optional<c10::string_view> driver, at::Tensor & solution, at::Tensor & residuals, at::Tensor & rank, at::Tensor & singular_values) {
     return at::_ops::linalg_lstsq_out::call(self, b, rcond, driver, solution, residuals, rank, singular_values);

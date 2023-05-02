@@ -36,7 +36,6 @@ inline at::Tensor __rshift__(const at::Tensor & self, const at::Tensor & other) 
 inline at::Tensor & __rshift___out(at::Tensor & out, const at::Tensor & self, const at::Scalar & other) {
     return at::_ops::__rshift___Scalar_out::call(self, other, out);
 }
-
 // aten::__rshift__.Scalar_out(Tensor self, Scalar other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & __rshift___outf(const at::Tensor & self, const at::Scalar & other, at::Tensor & out) {
     return at::_ops::__rshift___Scalar_out::call(self, other, out);
@@ -46,7 +45,6 @@ inline at::Tensor & __rshift___outf(const at::Tensor & self, const at::Scalar & 
 inline at::Tensor & __rshift___out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other) {
     return at::_ops::__rshift___Tensor_out::call(self, other, out);
 }
-
 // aten::__rshift__.Tensor_out(Tensor self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & __rshift___outf(const at::Tensor & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::__rshift___Tensor_out::call(self, other, out);

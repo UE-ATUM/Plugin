@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & hypot_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other) {
     return at::_ops::hypot_out::call(self, other, out);
 }
-
 // aten::hypot.out(Tensor self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & hypot_outf(const at::Tensor & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::hypot_out::call(self, other, out);

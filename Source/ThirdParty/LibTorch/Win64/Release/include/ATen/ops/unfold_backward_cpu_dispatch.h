@@ -18,6 +18,7 @@ namespace at {
 namespace cpu {
 
 TORCH_API at::Tensor unfold_backward(const at::Tensor & grad_in, at::IntArrayRef input_sizes, int64_t dim, int64_t size, int64_t step);
+TORCH_API at::Tensor unfold_backward_symint(const at::Tensor & grad_in, c10::SymIntArrayRef input_sizes, int64_t dim, int64_t size, int64_t step);
 
 } // namespace cpu
 } // namespace at

@@ -46,7 +46,6 @@ inline at::Tensor index_fill(const at::Tensor & self, at::Dimname dim, const at:
 inline at::Tensor & index_fill_out(at::Tensor & out, const at::Tensor & self, int64_t dim, const at::Tensor & index, const at::Scalar & value) {
     return at::_ops::index_fill_int_Scalar_out::call(self, dim, index, value, out);
 }
-
 // aten::index_fill.int_Scalar_out(Tensor self, int dim, Tensor index, Scalar value, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & index_fill_outf(const at::Tensor & self, int64_t dim, const at::Tensor & index, const at::Scalar & value, at::Tensor & out) {
     return at::_ops::index_fill_int_Scalar_out::call(self, dim, index, value, out);
@@ -56,7 +55,6 @@ inline at::Tensor & index_fill_outf(const at::Tensor & self, int64_t dim, const 
 inline at::Tensor & index_fill_out(at::Tensor & out, const at::Tensor & self, int64_t dim, const at::Tensor & index, const at::Tensor & value) {
     return at::_ops::index_fill_int_Tensor_out::call(self, dim, index, value, out);
 }
-
 // aten::index_fill.int_Tensor_out(Tensor self, int dim, Tensor index, Tensor value, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & index_fill_outf(const at::Tensor & self, int64_t dim, const at::Tensor & index, const at::Tensor & value, at::Tensor & out) {
     return at::_ops::index_fill_int_Tensor_out::call(self, dim, index, value, out);

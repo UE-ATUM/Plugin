@@ -17,10 +17,10 @@
 namespace at {
 namespace native {
 struct TORCH_API structured_replication_pad3d_out_cpu : public at::meta::structured_replication_pad3d {
-void impl(const at::Tensor & self, at::IntArrayRef padding, const at::Tensor & out);
+void impl(const at::Tensor & self, at::ArrayRef<int64_t> padding, const at::Tensor & out);
 };
 struct TORCH_API structured_replication_pad3d_out_cuda : public at::meta::structured_replication_pad3d {
-void impl(const at::Tensor & self, at::IntArrayRef padding, const at::Tensor & out);
+void impl(const at::Tensor & self, at::ArrayRef<int64_t> padding, const at::Tensor & out);
 };
 } // namespace native
 } // namespace at

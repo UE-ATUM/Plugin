@@ -22,8 +22,12 @@ TORCH_API at::Tensor & normal_out(at::Tensor & out, const at::Tensor & self, dou
 TORCH_API at::Tensor & normal_outf(const at::Tensor & self, double mean, double std, c10::optional<at::Generator> generator, at::Tensor & out);
 TORCH_API at::Tensor normal(double mean, double std, at::IntArrayRef size, c10::optional<at::Generator> generator=c10::nullopt, at::TensorOptions options={});
 TORCH_API at::Tensor normal(double mean, double std, at::IntArrayRef size, c10::optional<at::Generator> generator, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory);
+TORCH_API at::Tensor normal_symint(double mean, double std, c10::SymIntArrayRef size, c10::optional<at::Generator> generator=c10::nullopt, at::TensorOptions options={});
+TORCH_API at::Tensor normal_symint(double mean, double std, c10::SymIntArrayRef size, c10::optional<at::Generator> generator, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory);
 TORCH_API at::Tensor & normal_out(at::Tensor & out, double mean, double std, at::IntArrayRef size, c10::optional<at::Generator> generator=c10::nullopt);
 TORCH_API at::Tensor & normal_outf(double mean, double std, at::IntArrayRef size, c10::optional<at::Generator> generator, at::Tensor & out);
+TORCH_API at::Tensor & normal_symint_out(at::Tensor & out, double mean, double std, c10::SymIntArrayRef size, c10::optional<at::Generator> generator=c10::nullopt);
+TORCH_API at::Tensor & normal_symint_outf(double mean, double std, c10::SymIntArrayRef size, c10::optional<at::Generator> generator, at::Tensor & out);
 
 } // namespace compositeexplicitautograd
 } // namespace at

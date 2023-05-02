@@ -36,7 +36,6 @@ inline at::Tensor & round_(at::Tensor & self) {
 inline at::Tensor & round_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::round_out::call(self, out);
 }
-
 // aten::round.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & round_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::round_out::call(self, out);
@@ -56,7 +55,6 @@ inline at::Tensor & round_(at::Tensor & self, int64_t decimals) {
 inline at::Tensor & round_out(at::Tensor & out, const at::Tensor & self, int64_t decimals) {
     return at::_ops::round_decimals_out::call(self, decimals, out);
 }
-
 // aten::round.decimals_out(Tensor self, *, int decimals, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & round_outf(const at::Tensor & self, int64_t decimals, at::Tensor & out) {
     return at::_ops::round_decimals_out::call(self, decimals, out);

@@ -46,7 +46,6 @@ inline at::Tensor _sparse_sum(const at::Tensor & self, at::IntArrayRef dim, at::
 inline at::Tensor & _sparse_sum_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef dim) {
     return at::_ops::_sparse_sum_dim_out::call(self, dim, out);
 }
-
 // aten::_sparse_sum.dim_out(Tensor self, int[1] dim, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _sparse_sum_outf(const at::Tensor & self, at::IntArrayRef dim, at::Tensor & out) {
     return at::_ops::_sparse_sum_dim_out::call(self, dim, out);

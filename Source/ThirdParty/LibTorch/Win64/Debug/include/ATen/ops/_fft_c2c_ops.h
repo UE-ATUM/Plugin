@@ -15,25 +15,25 @@ namespace _ops {
 
 
 struct TORCH_API _fft_c2c {
-  using schema = at::Tensor (const at::Tensor &, at::IntArrayRef, int64_t, bool);
+  using schema = at::Tensor (const at::Tensor &, c10::SymIntArrayRef, int64_t, bool);
   using ptr_schema = schema*;
   // See Note [static constexpr char* members for windows NVCC]
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::_fft_c2c")
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "")
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "_fft_c2c(Tensor self, int[] dim, int normalization, bool forward) -> Tensor")
-  static at::Tensor call(const at::Tensor & self, at::IntArrayRef dim, int64_t normalization, bool forward);
-  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, at::IntArrayRef dim, int64_t normalization, bool forward);
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "_fft_c2c(Tensor self, SymInt[] dim, int normalization, bool forward) -> Tensor")
+  static at::Tensor call(const at::Tensor & self, c10::SymIntArrayRef dim, int64_t normalization, bool forward);
+  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, c10::SymIntArrayRef dim, int64_t normalization, bool forward);
 };
 
 struct TORCH_API _fft_c2c_out {
-  using schema = at::Tensor & (const at::Tensor &, at::IntArrayRef, int64_t, bool, at::Tensor &);
+  using schema = at::Tensor & (const at::Tensor &, c10::SymIntArrayRef, int64_t, bool, at::Tensor &);
   using ptr_schema = schema*;
   // See Note [static constexpr char* members for windows NVCC]
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::_fft_c2c")
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "out")
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "_fft_c2c.out(Tensor self, int[] dim, int normalization, bool forward, *, Tensor(a!) out) -> Tensor(a!)")
-  static at::Tensor & call(const at::Tensor & self, at::IntArrayRef dim, int64_t normalization, bool forward, at::Tensor & out);
-  static at::Tensor & redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, at::IntArrayRef dim, int64_t normalization, bool forward, at::Tensor & out);
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "_fft_c2c.out(Tensor self, SymInt[] dim, int normalization, bool forward, *, Tensor(a!) out) -> Tensor(a!)")
+  static at::Tensor & call(const at::Tensor & self, c10::SymIntArrayRef dim, int64_t normalization, bool forward, at::Tensor & out);
+  static at::Tensor & redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, c10::SymIntArrayRef dim, int64_t normalization, bool forward, at::Tensor & out);
 };
 
 }} // namespace at::_ops

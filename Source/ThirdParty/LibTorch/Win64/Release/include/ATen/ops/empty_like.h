@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor empty_like(const at::Tensor & self, at::TensorOptions options={}, c10::optional<at::MemoryFormat> memory_format=c10::nullopt) {
     return at::_ops::empty_like::call(self, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt(), c10::impl::check_tensor_options_and_extract_memory_format(options, memory_format));
 }
-
 // aten::empty_like(Tensor self, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, MemoryFormat? memory_format=None) -> Tensor
 inline at::Tensor empty_like(const at::Tensor & self, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory, c10::optional<at::MemoryFormat> memory_format) {
     return at::_ops::empty_like::call(self, dtype, layout, device, pin_memory, memory_format);
@@ -36,7 +35,6 @@ inline at::Tensor empty_like(const at::Tensor & self, c10::optional<at::ScalarTy
 inline at::Tensor & empty_like_out(at::Tensor & out, const at::Tensor & self, c10::optional<at::MemoryFormat> memory_format=c10::nullopt) {
     return at::_ops::empty_like_out::call(self, memory_format, out);
 }
-
 // aten::empty_like.out(Tensor self, *, MemoryFormat? memory_format=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & empty_like_outf(const at::Tensor & self, c10::optional<at::MemoryFormat> memory_format, at::Tensor & out) {
     return at::_ops::empty_like_out::call(self, memory_format, out);

@@ -31,7 +31,6 @@ inline at::Tensor linalg_eigvals(const at::Tensor & self) {
 inline at::Tensor & linalg_eigvals_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::linalg_eigvals_out::call(self, out);
 }
-
 // aten::linalg_eigvals.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & linalg_eigvals_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::linalg_eigvals_out::call(self, out);

@@ -18,8 +18,11 @@ namespace at {
 namespace cuda {
 
 TORCH_API at::Tensor reflection_pad2d_backward(const at::Tensor & grad_output, const at::Tensor & self, at::IntArrayRef padding);
+TORCH_API at::Tensor reflection_pad2d_backward_symint(const at::Tensor & grad_output, const at::Tensor & self, c10::SymIntArrayRef padding);
 TORCH_API at::Tensor & reflection_pad2d_backward_out(at::Tensor & grad_input, const at::Tensor & grad_output, const at::Tensor & self, at::IntArrayRef padding);
 TORCH_API at::Tensor & reflection_pad2d_backward_outf(const at::Tensor & grad_output, const at::Tensor & self, at::IntArrayRef padding, at::Tensor & grad_input);
+TORCH_API at::Tensor & reflection_pad2d_backward_symint_out(at::Tensor & grad_input, const at::Tensor & grad_output, const at::Tensor & self, c10::SymIntArrayRef padding);
+TORCH_API at::Tensor & reflection_pad2d_backward_symint_outf(const at::Tensor & grad_output, const at::Tensor & self, c10::SymIntArrayRef padding, at::Tensor & grad_input);
 
 } // namespace cuda
 } // namespace at

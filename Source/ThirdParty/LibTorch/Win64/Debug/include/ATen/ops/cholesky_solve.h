@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & cholesky_solve_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & input2, bool upper=false) {
     return at::_ops::cholesky_solve_out::call(self, input2, upper, out);
 }
-
 // aten::cholesky_solve.out(Tensor self, Tensor input2, bool upper=False, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & cholesky_solve_outf(const at::Tensor & self, const at::Tensor & input2, bool upper, at::Tensor & out) {
     return at::_ops::cholesky_solve_out::call(self, input2, upper, out);

@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & lgamma_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::lgamma_out::call(self, out);
 }
-
 // aten::lgamma.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & lgamma_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::lgamma_out::call(self, out);

@@ -31,7 +31,6 @@ inline at::Tensor linalg_tensorsolve(const at::Tensor & self, const at::Tensor &
 inline at::Tensor & linalg_tensorsolve_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other, at::OptionalIntArrayRef dims=c10::nullopt) {
     return at::_ops::linalg_tensorsolve_out::call(self, other, dims, out);
 }
-
 // aten::linalg_tensorsolve.out(Tensor self, Tensor other, int[]? dims=None, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & linalg_tensorsolve_outf(const at::Tensor & self, const at::Tensor & other, at::OptionalIntArrayRef dims, at::Tensor & out) {
     return at::_ops::linalg_tensorsolve_out::call(self, other, dims, out);

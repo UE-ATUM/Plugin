@@ -31,7 +31,6 @@ inline at::Tensor _euclidean_dist(const at::Tensor & x1, const at::Tensor & x2) 
 inline at::Tensor & _euclidean_dist_out(at::Tensor & out, const at::Tensor & x1, const at::Tensor & x2) {
     return at::_ops::_euclidean_dist_out::call(x1, x2, out);
 }
-
 // aten::_euclidean_dist.out(Tensor x1, Tensor x2, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _euclidean_dist_outf(const at::Tensor & x1, const at::Tensor & x2, at::Tensor & out) {
     return at::_ops::_euclidean_dist_out::call(x1, x2, out);

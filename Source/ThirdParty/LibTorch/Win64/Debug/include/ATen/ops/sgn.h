@@ -31,7 +31,6 @@ inline at::Tensor sgn(const at::Tensor & self) {
 inline at::Tensor & sgn_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::sgn_out::call(self, out);
 }
-
 // aten::sgn.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & sgn_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::sgn_out::call(self, out);

@@ -31,7 +31,6 @@ inline at::Tensor logsumexp(const at::Tensor & self, at::IntArrayRef dim, bool k
 inline at::Tensor & logsumexp_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef dim, bool keepdim=false) {
     return at::_ops::logsumexp_out::call(self, dim, keepdim, out);
 }
-
 // aten::logsumexp.out(Tensor self, int[1] dim, bool keepdim=False, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & logsumexp_outf(const at::Tensor & self, at::IntArrayRef dim, bool keepdim, at::Tensor & out) {
     return at::_ops::logsumexp_out::call(self, dim, keepdim, out);
@@ -46,7 +45,6 @@ inline at::Tensor logsumexp(const at::Tensor & self, at::DimnameList dim, bool k
 inline at::Tensor & logsumexp_out(at::Tensor & out, const at::Tensor & self, at::DimnameList dim, bool keepdim=false) {
     return at::_ops::logsumexp_names_out::call(self, dim, keepdim, out);
 }
-
 // aten::logsumexp.names_out(Tensor self, Dimname[1] dim, bool keepdim=False, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & logsumexp_outf(const at::Tensor & self, at::DimnameList dim, bool keepdim, at::Tensor & out) {
     return at::_ops::logsumexp_names_out::call(self, dim, keepdim, out);

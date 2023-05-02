@@ -31,7 +31,6 @@ inline at::Tensor quantize_per_tensor_dynamic(const at::Tensor & self, at::Scala
 inline at::Tensor & quantize_per_tensor_dynamic_out(at::Tensor & out, const at::Tensor & self, at::ScalarType dtype, bool reduce_range) {
     return at::_ops::quantize_per_tensor_dynamic_out::call(self, dtype, reduce_range, out);
 }
-
 // aten::quantize_per_tensor_dynamic.out(Tensor self, ScalarType dtype, bool reduce_range, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & quantize_per_tensor_dynamic_outf(const at::Tensor & self, at::ScalarType dtype, bool reduce_range, at::Tensor & out) {
     return at::_ops::quantize_per_tensor_dynamic_out::call(self, dtype, reduce_range, out);

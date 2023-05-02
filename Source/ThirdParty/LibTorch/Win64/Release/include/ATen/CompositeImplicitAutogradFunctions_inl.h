@@ -76,6 +76,7 @@
 #include <ATen/ops/_sparse_sum_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/_test_ambiguous_defaults_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/_test_autograd_multiple_dispatch_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/_test_check_tensor_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/_test_serialization_subcmul_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/_test_string_default_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/_thnn_differentiable_gru_cell_backward_compositeimplicitautograd_dispatch.h>
@@ -83,6 +84,11 @@
 #include <ATen/ops/_thnn_fused_lstm_cell_backward_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/_to_cpu_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/_unpack_dual_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/_upsample_bicubic2d_aa_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/_upsample_bilinear2d_aa_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/_upsample_nearest_exact1d_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/_upsample_nearest_exact2d_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/_upsample_nearest_exact3d_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/_use_cudnn_rnn_flatten_weight_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/_validate_sparse_bsc_tensor_args_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/_validate_sparse_bsr_tensor_args_compositeimplicitautograd_dispatch.h>
@@ -121,7 +127,6 @@
 #include <ATen/ops/atleast_3d_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/avg_pool1d_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/batch_norm_compositeimplicitautograd_dispatch.h>
-#include <ATen/ops/bernoulli_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/bilinear_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/bitwise_and_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/bitwise_or_compositeimplicitautograd_dispatch.h>
@@ -152,7 +157,6 @@
 #include <ATen/ops/conv_transpose1d_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/conv_transpose2d_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/conv_transpose3d_compositeimplicitautograd_dispatch.h>
-#include <ATen/ops/copy_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/corrcoef_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/cosine_embedding_loss_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/cosine_similarity_compositeimplicitautograd_dispatch.h>
@@ -170,7 +174,7 @@
 #include <ATen/ops/cumulative_trapezoid_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/data_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/det_compositeimplicitautograd_dispatch.h>
-#include <ATen/ops/diag_backward_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/diag_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/diagflat_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/diagonal_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/diff_compositeimplicitautograd_dispatch.h>
@@ -363,6 +367,7 @@
 #include <ATen/ops/pinverse_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/poisson_nll_loss_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/positive_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/prelu_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/prod_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/promote_types_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/qr_compositeimplicitautograd_dispatch.h>
@@ -393,6 +398,7 @@
 #include <ATen/ops/rnn_tanh_cell_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/row_stack_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/rrelu_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/scaled_dot_product_attention_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/scatter_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/scatter_add_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/select_compositeimplicitautograd_dispatch.h>
@@ -481,6 +487,13 @@
 #include <ATen/ops/unflatten_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/unflatten_dense_tensors_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/unsafe_chunk_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/upsample_bicubic2d_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/upsample_bilinear2d_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/upsample_linear1d_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/upsample_nearest1d_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/upsample_nearest2d_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/upsample_nearest3d_compositeimplicitautograd_dispatch.h>
+#include <ATen/ops/upsample_trilinear3d_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/value_selecting_reduction_backward_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/vander_compositeimplicitautograd_dispatch.h>
 #include <ATen/ops/var_compositeimplicitautograd_dispatch.h>

@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor randint_like(const at::Tensor & self, int64_t high, at::TensorOptions options={}, c10::optional<at::MemoryFormat> memory_format=c10::nullopt) {
     return at::_ops::randint_like::call(self, high, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt(), c10::impl::check_tensor_options_and_extract_memory_format(options, memory_format));
 }
-
 // aten::randint_like(Tensor self, int high, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, MemoryFormat? memory_format=None) -> Tensor
 inline at::Tensor randint_like(const at::Tensor & self, int64_t high, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory, c10::optional<at::MemoryFormat> memory_format) {
     return at::_ops::randint_like::call(self, high, dtype, layout, device, pin_memory, memory_format);
@@ -36,7 +35,6 @@ inline at::Tensor randint_like(const at::Tensor & self, int64_t high, c10::optio
 inline at::Tensor randint_like(const at::Tensor & self, int64_t low, int64_t high, at::TensorOptions options={}, c10::optional<at::MemoryFormat> memory_format=c10::nullopt) {
     return at::_ops::randint_like_low_dtype::call(self, low, high, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt(), c10::impl::check_tensor_options_and_extract_memory_format(options, memory_format));
 }
-
 // aten::randint_like.low_dtype(Tensor self, int low, int high, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None, MemoryFormat? memory_format=None) -> Tensor
 inline at::Tensor randint_like(const at::Tensor & self, int64_t low, int64_t high, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory, c10::optional<at::MemoryFormat> memory_format) {
     return at::_ops::randint_like_low_dtype::call(self, low, high, dtype, layout, device, pin_memory, memory_format);
@@ -46,7 +44,6 @@ inline at::Tensor randint_like(const at::Tensor & self, int64_t low, int64_t hig
 inline at::Tensor & randint_like_out(at::Tensor & out, const at::Tensor & self, int64_t high, c10::optional<at::MemoryFormat> memory_format=c10::nullopt) {
     return at::_ops::randint_like_out::call(self, high, memory_format, out);
 }
-
 // aten::randint_like.out(Tensor self, int high, *, MemoryFormat? memory_format=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & randint_like_outf(const at::Tensor & self, int64_t high, c10::optional<at::MemoryFormat> memory_format, at::Tensor & out) {
     return at::_ops::randint_like_out::call(self, high, memory_format, out);
@@ -56,7 +53,6 @@ inline at::Tensor & randint_like_outf(const at::Tensor & self, int64_t high, c10
 inline at::Tensor & randint_like_out(at::Tensor & out, const at::Tensor & self, int64_t low, int64_t high, c10::optional<at::MemoryFormat> memory_format=c10::nullopt) {
     return at::_ops::randint_like_low_dtype_out::call(self, low, high, memory_format, out);
 }
-
 // aten::randint_like.low_dtype_out(Tensor self, int low, int high, *, MemoryFormat? memory_format=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & randint_like_outf(const at::Tensor & self, int64_t low, int64_t high, c10::optional<at::MemoryFormat> memory_format, at::Tensor & out) {
     return at::_ops::randint_like_low_dtype_out::call(self, low, high, memory_format, out);

@@ -32,16 +32,32 @@ inline at::Tensor repeat_interleave(const at::Tensor & self, const at::Tensor & 
     return at::_ops::repeat_interleave_self_Tensor::call(self, repeats, dim, output_size);
 }
 
-// aten::repeat_interleave.self_int(Tensor self, int repeats, int? dim=None, *, int? output_size=None) -> Tensor
+// aten::repeat_interleave.self_int(Tensor self, SymInt repeats, int? dim=None, *, int? output_size=None) -> Tensor
 inline at::Tensor repeat_interleave(const at::Tensor & self, int64_t repeats, c10::optional<int64_t> dim=c10::nullopt, c10::optional<int64_t> output_size=c10::nullopt) {
     return at::_ops::repeat_interleave_self_int::call(self, repeats, dim, output_size);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor repeat_interleave(const at::Tensor & self, int64_t repeats, c10::optional<int64_t> dim=c10::nullopt, c10::optional<int64_t> output_size=c10::nullopt) {
+    return at::_ops::repeat_interleave_self_int::call(self, repeats, dim, output_size);
+  }
+}
+
+// aten::repeat_interleave.self_int(Tensor self, SymInt repeats, int? dim=None, *, int? output_size=None) -> Tensor
+inline at::Tensor repeat_interleave_symint(const at::Tensor & self, c10::SymInt repeats, c10::optional<int64_t> dim=c10::nullopt, c10::optional<int64_t> output_size=c10::nullopt) {
+    return at::_ops::repeat_interleave_self_int::call(self, repeats, dim, output_size);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor repeat_interleave(const at::Tensor & self, c10::SymInt repeats, c10::optional<int64_t> dim=c10::nullopt, c10::optional<int64_t> output_size=c10::nullopt) {
+    return at::_ops::repeat_interleave_self_int::call(self, repeats, dim, output_size);
+  }
 }
 
 // aten::repeat_interleave.Tensor_out(Tensor repeats, *, int? output_size=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & repeat_interleave_out(at::Tensor & out, const at::Tensor & repeats, c10::optional<int64_t> output_size=c10::nullopt) {
     return at::_ops::repeat_interleave_Tensor_out::call(repeats, output_size, out);
 }
-
 // aten::repeat_interleave.Tensor_out(Tensor repeats, *, int? output_size=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & repeat_interleave_outf(const at::Tensor & repeats, c10::optional<int64_t> output_size, at::Tensor & out) {
     return at::_ops::repeat_interleave_Tensor_out::call(repeats, output_size, out);

@@ -343,7 +343,7 @@ class TORCH_API TensorProto_Segment PROTOBUF_FINAL :
     return reinterpret_cast<const TensorProto_Segment*>(
                &_TensorProto_Segment_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     0;
 
   friend void swap(TensorProto_Segment& a, TensorProto_Segment& b) {
@@ -510,7 +510,7 @@ class TORCH_API TensorProto PROTOBUF_FINAL :
     return reinterpret_cast<const TensorProto*>(
                &_TensorProto_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     1;
 
   friend void swap(TensorProto& a, TensorProto& b) {
@@ -582,44 +582,44 @@ class TORCH_API TensorProto PROTOBUF_FINAL :
   typedef TensorProto_Segment Segment;
 
   typedef TensorProto_DataType DataType;
-  static DataType const UNDEFINED =
+  static constexpr DataType UNDEFINED =
     TensorProto_DataType_UNDEFINED;
-  static DataType const FLOAT =
+  static constexpr DataType FLOAT =
     TensorProto_DataType_FLOAT;
-  static DataType const INT32 =
+  static constexpr DataType INT32 =
     TensorProto_DataType_INT32;
-  static DataType const BYTE =
+  static constexpr DataType BYTE =
     TensorProto_DataType_BYTE;
-  static DataType const STRING =
+  static constexpr DataType STRING =
     TensorProto_DataType_STRING;
-  static DataType const BOOL =
+  static constexpr DataType BOOL =
     TensorProto_DataType_BOOL;
-  static DataType const UINT8 =
+  static constexpr DataType UINT8 =
     TensorProto_DataType_UINT8;
-  static DataType const INT8 =
+  static constexpr DataType INT8 =
     TensorProto_DataType_INT8;
-  static DataType const UINT16 =
+  static constexpr DataType UINT16 =
     TensorProto_DataType_UINT16;
-  static DataType const INT16 =
+  static constexpr DataType INT16 =
     TensorProto_DataType_INT16;
-  static DataType const INT64 =
+  static constexpr DataType INT64 =
     TensorProto_DataType_INT64;
-  static DataType const FLOAT16 =
+  static constexpr DataType FLOAT16 =
     TensorProto_DataType_FLOAT16;
-  static DataType const DOUBLE =
+  static constexpr DataType DOUBLE =
     TensorProto_DataType_DOUBLE;
-  static DataType const ZERO_COLLISION_HASH =
+  static constexpr DataType ZERO_COLLISION_HASH =
     TensorProto_DataType_ZERO_COLLISION_HASH;
-  static DataType const REBATCHING_BUFFER =
+  static constexpr DataType REBATCHING_BUFFER =
     TensorProto_DataType_REBATCHING_BUFFER;
   static inline bool DataType_IsValid(int value) {
     return TensorProto_DataType_IsValid(value);
   }
-  static DataType const DataType_MIN =
+  static constexpr DataType DataType_MIN =
     TensorProto_DataType_DataType_MIN;
-  static DataType const DataType_MAX =
+  static constexpr DataType DataType_MAX =
     TensorProto_DataType_DataType_MAX;
-  static int const DataType_ARRAYSIZE =
+  static constexpr int DataType_ARRAYSIZE =
     TensorProto_DataType_DataType_ARRAYSIZE;
   static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
   DataType_descriptor() {
@@ -638,18 +638,18 @@ class TORCH_API TensorProto PROTOBUF_FINAL :
   }
 
   typedef TensorProto_SerializationFormat SerializationFormat;
-  static SerializationFormat const FMT_PROTOBUF =
+  static constexpr SerializationFormat FMT_PROTOBUF =
     TensorProto_SerializationFormat_FMT_PROTOBUF;
-  static SerializationFormat const FMT_BFLOAT16 =
+  static constexpr SerializationFormat FMT_BFLOAT16 =
     TensorProto_SerializationFormat_FMT_BFLOAT16;
   static inline bool SerializationFormat_IsValid(int value) {
     return TensorProto_SerializationFormat_IsValid(value);
   }
-  static SerializationFormat const SerializationFormat_MIN =
+  static constexpr SerializationFormat SerializationFormat_MIN =
     TensorProto_SerializationFormat_SerializationFormat_MIN;
-  static SerializationFormat const SerializationFormat_MAX =
+  static constexpr SerializationFormat SerializationFormat_MAX =
     TensorProto_SerializationFormat_SerializationFormat_MAX;
-  static int const SerializationFormat_ARRAYSIZE =
+  static constexpr int SerializationFormat_ARRAYSIZE =
     TensorProto_SerializationFormat_SerializationFormat_ARRAYSIZE;
   static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
   SerializationFormat_descriptor() {
@@ -1018,7 +1018,7 @@ class TORCH_API QTensorProto PROTOBUF_FINAL :
     return reinterpret_cast<const QTensorProto*>(
                &_QTensorProto_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     2;
 
   friend void swap(QTensorProto& a, QTensorProto& b) {
@@ -1379,7 +1379,7 @@ class TORCH_API TensorProtos PROTOBUF_FINAL :
     return reinterpret_cast<const TensorProtos*>(
                &_TensorProtos_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     3;
 
   friend void swap(TensorProtos& a, TensorProtos& b) {
@@ -1532,7 +1532,7 @@ class TORCH_API TensorShape PROTOBUF_FINAL :
     return reinterpret_cast<const TensorShape*>(
                &_TensorShape_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     4;
 
   friend void swap(TensorShape& a, TensorShape& b) {
@@ -1766,7 +1766,7 @@ class TORCH_API TensorShapes PROTOBUF_FINAL :
     return reinterpret_cast<const TensorShapes*>(
                &_TensorShapes_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     5;
 
   friend void swap(TensorShapes& a, TensorShapes& b) {
@@ -1919,7 +1919,7 @@ class TORCH_API TensorBoundShape PROTOBUF_FINAL :
     return reinterpret_cast<const TensorBoundShape*>(
                &_TensorBoundShape_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     6;
 
   friend void swap(TensorBoundShape& a, TensorBoundShape& b) {
@@ -1989,28 +1989,28 @@ class TORCH_API TensorBoundShape PROTOBUF_FINAL :
   // nested types ----------------------------------------------------
 
   typedef TensorBoundShape_DimType DimType;
-  static DimType const UNKNOWN =
+  static constexpr DimType UNKNOWN =
     TensorBoundShape_DimType_UNKNOWN;
-  static DimType const CONSTANT =
+  static constexpr DimType CONSTANT =
     TensorBoundShape_DimType_CONSTANT;
-  static DimType const BATCH =
+  static constexpr DimType BATCH =
     TensorBoundShape_DimType_BATCH;
-  static DimType const BATCH_OF_FEATURE_MAX =
+  static constexpr DimType BATCH_OF_FEATURE_MAX =
     TensorBoundShape_DimType_BATCH_OF_FEATURE_MAX;
-  static DimType const BATCH_OF_FEATURE_MAX_DEFAULT =
+  static constexpr DimType BATCH_OF_FEATURE_MAX_DEFAULT =
     TensorBoundShape_DimType_BATCH_OF_FEATURE_MAX_DEFAULT;
-  static DimType const FEATURE_MAX =
+  static constexpr DimType FEATURE_MAX =
     TensorBoundShape_DimType_FEATURE_MAX;
-  static DimType const FEATURE_MAX_DEFAULT =
+  static constexpr DimType FEATURE_MAX_DEFAULT =
     TensorBoundShape_DimType_FEATURE_MAX_DEFAULT;
   static inline bool DimType_IsValid(int value) {
     return TensorBoundShape_DimType_IsValid(value);
   }
-  static DimType const DimType_MIN =
+  static constexpr DimType DimType_MIN =
     TensorBoundShape_DimType_DimType_MIN;
-  static DimType const DimType_MAX =
+  static constexpr DimType DimType_MAX =
     TensorBoundShape_DimType_DimType_MAX;
-  static int const DimType_ARRAYSIZE =
+  static constexpr int DimType_ARRAYSIZE =
     TensorBoundShape_DimType_DimType_ARRAYSIZE;
   static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
   DimType_descriptor() {
@@ -2169,7 +2169,7 @@ class TORCH_API TensorBoundShapes PROTOBUF_FINAL :
     return reinterpret_cast<const TensorBoundShapes*>(
                &_TensorBoundShapes_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     7;
 
   friend void swap(TensorBoundShapes& a, TensorBoundShapes& b) {
@@ -2353,7 +2353,7 @@ class TORCH_API AOTConfig PROTOBUF_FINAL :
     return reinterpret_cast<const AOTConfig*>(
                &_AOTConfig_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     8;
 
   friend void swap(AOTConfig& a, AOTConfig& b) {
@@ -2572,7 +2572,7 @@ class TORCH_API Argument PROTOBUF_FINAL :
     return reinterpret_cast<const Argument*>(
                &_Argument_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     9;
 
   friend void swap(Argument& a, Argument& b) {
@@ -2954,7 +2954,7 @@ class TORCH_API DeviceOption PROTOBUF_FINAL :
     return reinterpret_cast<const DeviceOption*>(
                &_DeviceOption_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     10;
 
   friend void swap(DeviceOption& a, DeviceOption& b) {
@@ -3196,7 +3196,7 @@ class TORCH_API OperatorDef PROTOBUF_FINAL :
     return reinterpret_cast<const OperatorDef*>(
                &_OperatorDef_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     11;
 
   friend void swap(OperatorDef& a, OperatorDef& b) {
@@ -3588,7 +3588,7 @@ class TORCH_API MapFieldEntry PROTOBUF_FINAL :
     return reinterpret_cast<const MapFieldEntry*>(
                &_MapFieldEntry_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     12;
 
   friend void swap(MapFieldEntry& a, MapFieldEntry& b) {
@@ -3769,7 +3769,7 @@ class TORCH_API BackendOptions PROTOBUF_FINAL :
     return reinterpret_cast<const BackendOptions*>(
                &_BackendOptions_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     13;
 
   friend void swap(BackendOptions& a, BackendOptions& b) {
@@ -3945,7 +3945,7 @@ class TORCH_API PartitionInfo PROTOBUF_FINAL :
     return reinterpret_cast<const PartitionInfo*>(
                &_PartitionInfo_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     14;
 
   friend void swap(PartitionInfo& a, PartitionInfo& b) {
@@ -4167,7 +4167,7 @@ class TORCH_API NetDef PROTOBUF_FINAL :
     return reinterpret_cast<const NetDef*>(
                &_NetDef_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     15;
 
   friend void swap(NetDef& a, NetDef& b) {
@@ -4492,7 +4492,7 @@ class TORCH_API ExecutionStep PROTOBUF_FINAL :
     return reinterpret_cast<const ExecutionStep*>(
                &_ExecutionStep_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     16;
 
   friend void swap(ExecutionStep& a, ExecutionStep& b) {
@@ -4865,7 +4865,7 @@ class TORCH_API PlanDef PROTOBUF_FINAL :
     return reinterpret_cast<const PlanDef*>(
                &_PlanDef_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     17;
 
   friend void swap(PlanDef& a, PlanDef& b) {
@@ -5061,7 +5061,7 @@ class TORCH_API BlobProto PROTOBUF_FINAL :
     return reinterpret_cast<const BlobProto*>(
                &_BlobProto_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     18;
 
   friend void swap(BlobProto& a, BlobProto& b) {
@@ -5331,7 +5331,7 @@ class TORCH_API DBReaderProto PROTOBUF_FINAL :
     return reinterpret_cast<const DBReaderProto*>(
                &_DBReaderProto_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     19;
 
   friend void swap(DBReaderProto& a, DBReaderProto& b) {
@@ -5553,7 +5553,7 @@ class TORCH_API BlobSerializationOptions PROTOBUF_FINAL :
     return reinterpret_cast<const BlobSerializationOptions*>(
                &_BlobSerializationOptions_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     20;
 
   friend void swap(BlobSerializationOptions& a, BlobSerializationOptions& b) {
@@ -5623,20 +5623,20 @@ class TORCH_API BlobSerializationOptions PROTOBUF_FINAL :
   // nested types ----------------------------------------------------
 
   typedef BlobSerializationOptions_FloatFormat FloatFormat;
-  static FloatFormat const FLOAT_DEFAULT =
+  static constexpr FloatFormat FLOAT_DEFAULT =
     BlobSerializationOptions_FloatFormat_FLOAT_DEFAULT;
-  static FloatFormat const FLOAT_PROTOBUF =
+  static constexpr FloatFormat FLOAT_PROTOBUF =
     BlobSerializationOptions_FloatFormat_FLOAT_PROTOBUF;
-  static FloatFormat const FLOAT_BFLOAT16 =
+  static constexpr FloatFormat FLOAT_BFLOAT16 =
     BlobSerializationOptions_FloatFormat_FLOAT_BFLOAT16;
   static inline bool FloatFormat_IsValid(int value) {
     return BlobSerializationOptions_FloatFormat_IsValid(value);
   }
-  static FloatFormat const FloatFormat_MIN =
+  static constexpr FloatFormat FloatFormat_MIN =
     BlobSerializationOptions_FloatFormat_FloatFormat_MIN;
-  static FloatFormat const FloatFormat_MAX =
+  static constexpr FloatFormat FloatFormat_MAX =
     BlobSerializationOptions_FloatFormat_FloatFormat_MAX;
-  static int const FloatFormat_ARRAYSIZE =
+  static constexpr int FloatFormat_ARRAYSIZE =
     BlobSerializationOptions_FloatFormat_FloatFormat_ARRAYSIZE;
   static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
   FloatFormat_descriptor() {
@@ -5771,7 +5771,7 @@ class TORCH_API SerializationOptions PROTOBUF_FINAL :
     return reinterpret_cast<const SerializationOptions*>(
                &_SerializationOptions_default_instance_);
   }
-  static int const kIndexInFileMessages =
+  static constexpr int kIndexInFileMessages =
     21;
 
   friend void swap(SerializationOptions& a, SerializationOptions& b) {

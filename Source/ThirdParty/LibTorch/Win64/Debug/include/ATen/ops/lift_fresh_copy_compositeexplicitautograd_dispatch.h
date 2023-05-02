@@ -17,7 +17,6 @@ namespace at {
 
 namespace compositeexplicitautograd {
 
-TORCH_API at::Tensor lift_fresh_copy(const at::Tensor & self);
 TORCH_API at::Tensor & lift_fresh_copy_out(at::Tensor & out, const at::Tensor & self);
 TORCH_API at::Tensor & lift_fresh_copy_outf(const at::Tensor & self, at::Tensor & out);
 

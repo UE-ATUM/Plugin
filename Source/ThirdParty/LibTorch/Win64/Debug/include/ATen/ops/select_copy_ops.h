@@ -15,25 +15,25 @@ namespace _ops {
 
 
 struct TORCH_API select_copy_int {
-  using schema = at::Tensor (const at::Tensor &, int64_t, int64_t);
+  using schema = at::Tensor (const at::Tensor &, int64_t, c10::SymInt);
   using ptr_schema = schema*;
   // See Note [static constexpr char* members for windows NVCC]
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::select_copy")
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "int")
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "select_copy.int(Tensor self, int dim, int index) -> Tensor")
-  static at::Tensor call(const at::Tensor & self, int64_t dim, int64_t index);
-  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, int64_t dim, int64_t index);
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "select_copy.int(Tensor self, int dim, SymInt index) -> Tensor")
+  static at::Tensor call(const at::Tensor & self, int64_t dim, c10::SymInt index);
+  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, int64_t dim, c10::SymInt index);
 };
 
 struct TORCH_API select_copy_int_out {
-  using schema = at::Tensor & (const at::Tensor &, int64_t, int64_t, at::Tensor &);
+  using schema = at::Tensor & (const at::Tensor &, int64_t, c10::SymInt, at::Tensor &);
   using ptr_schema = schema*;
   // See Note [static constexpr char* members for windows NVCC]
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::select_copy")
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "int_out")
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "select_copy.int_out(Tensor self, int dim, int index, *, Tensor(a!) out) -> Tensor(a!)")
-  static at::Tensor & call(const at::Tensor & self, int64_t dim, int64_t index, at::Tensor & out);
-  static at::Tensor & redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, int64_t dim, int64_t index, at::Tensor & out);
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "select_copy.int_out(Tensor self, int dim, SymInt index, *, Tensor(a!) out) -> Tensor(a!)")
+  static at::Tensor & call(const at::Tensor & self, int64_t dim, c10::SymInt index, at::Tensor & out);
+  static at::Tensor & redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, int64_t dim, c10::SymInt index, at::Tensor & out);
 };
 
 }} // namespace at::_ops

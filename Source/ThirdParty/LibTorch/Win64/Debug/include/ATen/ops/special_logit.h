@@ -31,7 +31,6 @@ inline at::Tensor special_logit(const at::Tensor & self, c10::optional<double> e
 inline at::Tensor & special_logit_out(at::Tensor & out, const at::Tensor & self, c10::optional<double> eps=c10::nullopt) {
     return at::_ops::special_logit_out::call(self, eps, out);
 }
-
 // aten::special_logit.out(Tensor self, float? eps=None, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & special_logit_outf(const at::Tensor & self, c10::optional<double> eps, at::Tensor & out) {
     return at::_ops::special_logit_out::call(self, eps, out);

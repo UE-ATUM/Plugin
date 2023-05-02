@@ -26,9 +26,10 @@
 #include <ATen/ops/_dimV_ops.h>
 #include <ATen/ops/_fw_primal_ops.h>
 #include <ATen/ops/_indices_ops.h>
+#include <ATen/ops/_is_all_true_ops.h>
+#include <ATen/ops/_is_any_true_ops.h>
 #include <ATen/ops/_is_zerotensor_ops.h>
 #include <ATen/ops/_neg_view_ops.h>
-#include <ATen/ops/_nested_tensor_layer_norm_ops.h>
 #include <ATen/ops/_nested_tensor_offsets_ops.h>
 #include <ATen/ops/_nested_tensor_size_ops.h>
 #include <ATen/ops/_nested_tensor_strides_ops.h>
@@ -302,7 +303,6 @@
 #include <ATen/ops/polygamma_ops.h>
 #include <ATen/ops/positive_ops.h>
 #include <ATen/ops/pow_ops.h>
-#include <ATen/ops/prelu_backward_ops.h>
 #include <ATen/ops/prelu_ops.h>
 #include <ATen/ops/prod_ops.h>
 #include <ATen/ops/put_ops.h>
@@ -383,7 +383,6 @@
 #include <ATen/ops/svd_ops.h>
 #include <ATen/ops/swapaxes_ops.h>
 #include <ATen/ops/swapdims_ops.h>
-#include <ATen/ops/symeig_ops.h>
 #include <ATen/ops/t_ops.h>
 #include <ATen/ops/take_along_dim_ops.h>
 #include <ATen/ops/take_ops.h>

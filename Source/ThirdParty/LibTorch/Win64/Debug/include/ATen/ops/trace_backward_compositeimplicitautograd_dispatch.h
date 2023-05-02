@@ -18,6 +18,7 @@ namespace at {
 namespace compositeimplicitautograd {
 
 TORCH_API at::Tensor trace_backward(const at::Tensor & grad, at::IntArrayRef sizes);
+TORCH_API at::Tensor trace_backward_symint(const at::Tensor & grad, c10::SymIntArrayRef sizes);
 
 } // namespace compositeimplicitautograd
 } // namespace at

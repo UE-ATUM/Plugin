@@ -31,7 +31,6 @@ inline at::Tensor _make_per_tensor_quantized_tensor(const at::Tensor & self, dou
 inline at::Tensor & _make_per_tensor_quantized_tensor_out(at::Tensor & out, const at::Tensor & self, double scale, int64_t zero_point) {
     return at::_ops::_make_per_tensor_quantized_tensor_out::call(self, scale, zero_point, out);
 }
-
 // aten::_make_per_tensor_quantized_tensor.out(Tensor self, float scale, int zero_point, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _make_per_tensor_quantized_tensor_outf(const at::Tensor & self, double scale, int64_t zero_point, at::Tensor & out) {
     return at::_ops::_make_per_tensor_quantized_tensor_out::call(self, scale, zero_point, out);

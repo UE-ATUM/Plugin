@@ -16,6 +16,6 @@
 
 namespace at {
 namespace native {
-TORCH_API at::Tensor _pack_padded_sequence_backward(const at::Tensor & grad, at::IntArrayRef input_size, const at::Tensor & batch_sizes, bool batch_first);
+TORCH_API at::Tensor _pack_padded_sequence_backward_symint(const at::Tensor & grad, c10::SymIntArrayRef input_size, const at::Tensor & batch_sizes, bool batch_first);
 } // namespace native
 } // namespace at

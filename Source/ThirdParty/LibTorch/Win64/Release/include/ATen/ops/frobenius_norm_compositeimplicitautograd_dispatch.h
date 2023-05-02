@@ -17,7 +17,6 @@ namespace at {
 
 namespace compositeimplicitautograd {
 
-TORCH_API at::Tensor frobenius_norm(const at::Tensor & self);
 TORCH_API at::Tensor frobenius_norm(const at::Tensor & self, at::IntArrayRef dim, bool keepdim=false);
 TORCH_API at::Tensor & frobenius_norm_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef dim, bool keepdim=false);
 TORCH_API at::Tensor & frobenius_norm_outf(const at::Tensor & self, at::IntArrayRef dim, bool keepdim, at::Tensor & out);

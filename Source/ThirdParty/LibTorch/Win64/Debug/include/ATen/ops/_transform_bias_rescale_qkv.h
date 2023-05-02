@@ -31,7 +31,6 @@ inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor> _transform_bias_rescale_qk
 inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> _transform_bias_rescale_qkv_out(at::Tensor & out0, at::Tensor & out1, at::Tensor & out2, const at::Tensor & qkv, const at::Tensor & qkv_bias, int64_t num_heads) {
     return at::_ops::_transform_bias_rescale_qkv_out::call(qkv, qkv_bias, num_heads, out0, out1, out2);
 }
-
 // aten::_transform_bias_rescale_qkv.out(Tensor qkv, Tensor qkv_bias, int num_heads, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
 inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> _transform_bias_rescale_qkv_outf(const at::Tensor & qkv, const at::Tensor & qkv_bias, int64_t num_heads, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2) {
     return at::_ops::_transform_bias_rescale_qkv_out::call(qkv, qkv_bias, num_heads, out0, out1, out2);

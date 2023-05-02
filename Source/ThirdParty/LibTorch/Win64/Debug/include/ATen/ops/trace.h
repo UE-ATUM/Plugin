@@ -31,7 +31,6 @@ inline at::Tensor trace(const at::Tensor & self) {
 inline at::Tensor & trace_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::trace_out::call(self, out);
 }
-
 // aten::trace.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & trace_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::trace_out::call(self, out);

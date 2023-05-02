@@ -36,7 +36,6 @@ inline at::Tensor masked_fill(const at::Tensor & self, const at::Tensor & mask, 
 inline at::Tensor & masked_fill_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & mask, const at::Scalar & value) {
     return at::_ops::masked_fill_Scalar_out::call(self, mask, value, out);
 }
-
 // aten::masked_fill.Scalar_out(Tensor self, Tensor mask, Scalar value, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & masked_fill_outf(const at::Tensor & self, const at::Tensor & mask, const at::Scalar & value, at::Tensor & out) {
     return at::_ops::masked_fill_Scalar_out::call(self, mask, value, out);
@@ -46,7 +45,6 @@ inline at::Tensor & masked_fill_outf(const at::Tensor & self, const at::Tensor &
 inline at::Tensor & masked_fill_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & mask, const at::Tensor & value) {
     return at::_ops::masked_fill_Tensor_out::call(self, mask, value, out);
 }
-
 // aten::masked_fill.Tensor_out(Tensor self, Tensor mask, Tensor value, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & masked_fill_outf(const at::Tensor & self, const at::Tensor & mask, const at::Tensor & value, at::Tensor & out) {
     return at::_ops::masked_fill_Tensor_out::call(self, mask, value, out);

@@ -17,8 +17,8 @@ namespace at {
 
 namespace cuda {
 
-TORCH_API at::Tensor std(const at::Tensor & self, at::OptionalIntArrayRef dim, c10::optional<int64_t> correction, bool keepdim=false);
-TORCH_API at::Tensor & std_out(at::Tensor & out, const at::Tensor & self, at::OptionalIntArrayRef dim, c10::optional<int64_t> correction, bool keepdim=false);
+TORCH_API at::Tensor std(const at::Tensor & self, at::OptionalIntArrayRef dim=c10::nullopt, c10::optional<int64_t> correction=c10::nullopt, bool keepdim=false);
+TORCH_API at::Tensor & std_out(at::Tensor & out, const at::Tensor & self, at::OptionalIntArrayRef dim=c10::nullopt, c10::optional<int64_t> correction=c10::nullopt, bool keepdim=false);
 TORCH_API at::Tensor & std_outf(const at::Tensor & self, at::OptionalIntArrayRef dim, c10::optional<int64_t> correction, bool keepdim, at::Tensor & out);
 
 } // namespace cuda

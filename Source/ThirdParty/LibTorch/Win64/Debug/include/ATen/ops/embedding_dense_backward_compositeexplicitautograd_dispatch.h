@@ -19,8 +19,8 @@ namespace compositeexplicitautograd {
 
 TORCH_API at::Tensor & embedding_dense_backward_out(at::Tensor & out, const at::Tensor & grad_output, const at::Tensor & indices, int64_t num_weights, int64_t padding_idx, bool scale_grad_by_freq);
 TORCH_API at::Tensor & embedding_dense_backward_outf(const at::Tensor & grad_output, const at::Tensor & indices, int64_t num_weights, int64_t padding_idx, bool scale_grad_by_freq, at::Tensor & out);
-TORCH_API at::Tensor & embedding_dense_backward_symint_out(at::Tensor & out, const at::Tensor & grad_output, const at::Tensor & indices, c10::SymInt num_weights, int64_t padding_idx, bool scale_grad_by_freq);
-TORCH_API at::Tensor & embedding_dense_backward_symint_outf(const at::Tensor & grad_output, const at::Tensor & indices, c10::SymInt num_weights, int64_t padding_idx, bool scale_grad_by_freq, at::Tensor & out);
+TORCH_API at::Tensor & embedding_dense_backward_symint_out(at::Tensor & out, const at::Tensor & grad_output, const at::Tensor & indices, c10::SymInt num_weights, c10::SymInt padding_idx, bool scale_grad_by_freq);
+TORCH_API at::Tensor & embedding_dense_backward_symint_outf(const at::Tensor & grad_output, const at::Tensor & indices, c10::SymInt num_weights, c10::SymInt padding_idx, bool scale_grad_by_freq, at::Tensor & out);
 
 } // namespace compositeexplicitautograd
 } // namespace at

@@ -36,7 +36,6 @@ inline at::Tensor & negative_(at::Tensor & self) {
 inline at::Tensor & negative_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::negative_out::call(self, out);
 }
-
 // aten::negative.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & negative_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::negative_out::call(self, out);

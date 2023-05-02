@@ -31,7 +31,6 @@ inline at::Tensor special_expm1(const at::Tensor & self) {
 inline at::Tensor & special_expm1_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::special_expm1_out::call(self, out);
 }
-
 // aten::special_expm1.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & special_expm1_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::special_expm1_out::call(self, out);

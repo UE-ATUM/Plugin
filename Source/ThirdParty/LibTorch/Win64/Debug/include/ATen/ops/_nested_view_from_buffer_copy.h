@@ -31,7 +31,6 @@ inline at::Tensor _nested_view_from_buffer_copy(const at::Tensor & self, const a
 inline at::Tensor & _nested_view_from_buffer_copy_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & nested_size, const at::Tensor & nested_strides, at::IntArrayRef offsets) {
     return at::_ops::_nested_view_from_buffer_copy_out::call(self, nested_size, nested_strides, offsets, out);
 }
-
 // aten::_nested_view_from_buffer_copy.out(Tensor self, Tensor nested_size, Tensor nested_strides, int[] offsets, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _nested_view_from_buffer_copy_outf(const at::Tensor & self, const at::Tensor & nested_size, const at::Tensor & nested_strides, at::IntArrayRef offsets, at::Tensor & out) {
     return at::_ops::_nested_view_from_buffer_copy_out::call(self, nested_size, nested_strides, offsets, out);

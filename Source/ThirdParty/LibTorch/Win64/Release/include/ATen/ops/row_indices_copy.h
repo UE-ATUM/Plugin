@@ -31,7 +31,6 @@ inline at::Tensor row_indices_copy(const at::Tensor & self) {
 inline at::Tensor & row_indices_copy_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::row_indices_copy_out::call(self, out);
 }
-
 // aten::row_indices_copy.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & row_indices_copy_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::row_indices_copy_out::call(self, out);

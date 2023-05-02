@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & gather_out(at::Tensor & out, const at::Tensor & self, int64_t dim, const at::Tensor & index, bool sparse_grad=false) {
     return at::_ops::gather_out::call(self, dim, index, sparse_grad, out);
 }
-
 // aten::gather.out(Tensor self, int dim, Tensor index, *, bool sparse_grad=False, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & gather_outf(const at::Tensor & self, int64_t dim, const at::Tensor & index, bool sparse_grad, at::Tensor & out) {
     return at::_ops::gather_out::call(self, dim, index, sparse_grad, out);
@@ -41,7 +40,6 @@ inline at::Tensor gather(const at::Tensor & self, int64_t dim, const at::Tensor 
 inline at::Tensor & gather_out(at::Tensor & out, const at::Tensor & self, at::Dimname dim, const at::Tensor & index, bool sparse_grad=false) {
     return at::_ops::gather_dimname_out::call(self, dim, index, sparse_grad, out);
 }
-
 // aten::gather.dimname_out(Tensor self, Dimname dim, Tensor index, *, bool sparse_grad=False, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & gather_outf(const at::Tensor & self, at::Dimname dim, const at::Tensor & index, bool sparse_grad, at::Tensor & out) {
     return at::_ops::gather_dimname_out::call(self, dim, index, sparse_grad, out);

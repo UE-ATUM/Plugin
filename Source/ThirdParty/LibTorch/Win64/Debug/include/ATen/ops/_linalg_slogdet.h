@@ -31,7 +31,6 @@ inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor,at::Tensor> _linalg_slogdet
 inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &,at::Tensor &> _linalg_slogdet_out(at::Tensor & sign, at::Tensor & logabsdet, at::Tensor & LU, at::Tensor & pivots, const at::Tensor & A) {
     return at::_ops::_linalg_slogdet_sign::call(A, sign, logabsdet, LU, pivots);
 }
-
 // aten::_linalg_slogdet.sign(Tensor A, *, Tensor(a!) sign, Tensor(b!) logabsdet, Tensor(c!) LU, Tensor(d!) pivots) -> (Tensor(a!) sign, Tensor(b!) logabsdet, Tensor(c!) LU, Tensor(d!) pivots)
 inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &,at::Tensor &> _linalg_slogdet_outf(const at::Tensor & A, at::Tensor & sign, at::Tensor & logabsdet, at::Tensor & LU, at::Tensor & pivots) {
     return at::_ops::_linalg_slogdet_sign::call(A, sign, logabsdet, LU, pivots);

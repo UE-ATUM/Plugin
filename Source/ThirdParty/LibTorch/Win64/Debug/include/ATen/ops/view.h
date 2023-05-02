@@ -22,5 +22,18 @@
 namespace at {
 
 
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor view(const at::Tensor & self, at::IntArrayRef size) {
+    return at::_ops::view::call(self, c10::fromIntArrayRefSlow(size));
+  }
+}
+
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor view(const at::Tensor & self, c10::SymIntArrayRef size) {
+    return at::_ops::view::call(self, size);
+  }
+}
 
 }

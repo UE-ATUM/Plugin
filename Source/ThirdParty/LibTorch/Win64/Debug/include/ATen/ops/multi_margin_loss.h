@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & multi_margin_loss_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & target, const at::Scalar & p=1, const at::Scalar & margin=1, const c10::optional<at::Tensor> & weight={}, int64_t reduction=at::Reduction::Mean) {
     return at::_ops::multi_margin_loss_out::call(self, target, p, margin, weight, reduction, out);
 }
-
 // aten::multi_margin_loss.out(Tensor self, Tensor target, Scalar p=1, Scalar margin=1, Tensor? weight=None, int reduction=Mean, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & multi_margin_loss_outf(const at::Tensor & self, const at::Tensor & target, const at::Scalar & p, const at::Scalar & margin, const c10::optional<at::Tensor> & weight, int64_t reduction, at::Tensor & out) {
     return at::_ops::multi_margin_loss_out::call(self, target, p, margin, weight, reduction, out);

@@ -22,9 +22,26 @@
 namespace at {
 
 
-// aten::trace_backward(Tensor grad, int[] sizes) -> Tensor
+// aten::trace_backward(Tensor grad, SymInt[] sizes) -> Tensor
 inline at::Tensor trace_backward(const at::Tensor & grad, at::IntArrayRef sizes) {
+    return at::_ops::trace_backward::call(grad, c10::fromIntArrayRefSlow(sizes));
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor trace_backward(const at::Tensor & grad, at::IntArrayRef sizes) {
+    return at::_ops::trace_backward::call(grad, c10::fromIntArrayRefSlow(sizes));
+  }
+}
+
+// aten::trace_backward(Tensor grad, SymInt[] sizes) -> Tensor
+inline at::Tensor trace_backward_symint(const at::Tensor & grad, c10::SymIntArrayRef sizes) {
     return at::_ops::trace_backward::call(grad, sizes);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor trace_backward(const at::Tensor & grad, c10::SymIntArrayRef sizes) {
+    return at::_ops::trace_backward::call(grad, sizes);
+  }
 }
 
 }

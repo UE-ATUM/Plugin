@@ -31,7 +31,6 @@ inline ::std::tuple<at::Tensor,at::Tensor> fake_quantize_per_tensor_affine_cache
 inline ::std::tuple<at::Tensor &,at::Tensor &> fake_quantize_per_tensor_affine_cachemask_out(at::Tensor & out0, at::Tensor & out1, const at::Tensor & self, double scale, int64_t zero_point, int64_t quant_min, int64_t quant_max) {
     return at::_ops::fake_quantize_per_tensor_affine_cachemask_out::call(self, scale, zero_point, quant_min, quant_max, out0, out1);
 }
-
 // aten::fake_quantize_per_tensor_affine_cachemask.out(Tensor self, float scale, int zero_point, int quant_min, int quant_max, *, Tensor(a!) out0, Tensor(b!) out1) -> (Tensor(a!), Tensor(b!))
 inline ::std::tuple<at::Tensor &,at::Tensor &> fake_quantize_per_tensor_affine_cachemask_outf(const at::Tensor & self, double scale, int64_t zero_point, int64_t quant_min, int64_t quant_max, at::Tensor & out0, at::Tensor & out1) {
     return at::_ops::fake_quantize_per_tensor_affine_cachemask_out::call(self, scale, zero_point, quant_min, quant_max, out0, out1);

@@ -31,7 +31,6 @@ inline at::Tensor _nested_tensor_from_mask(const at::Tensor & t, const at::Tenso
 inline at::Tensor & _nested_tensor_from_mask_out(at::Tensor & out, const at::Tensor & t, const at::Tensor & mask, bool mask_check=true) {
     return at::_ops::_nested_tensor_from_mask_out::call(t, mask, mask_check, out);
 }
-
 // aten::_nested_tensor_from_mask.out(Tensor t, Tensor mask, bool mask_check=True, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _nested_tensor_from_mask_outf(const at::Tensor & t, const at::Tensor & mask, bool mask_check, at::Tensor & out) {
     return at::_ops::_nested_tensor_from_mask_out::call(t, mask, mask_check, out);

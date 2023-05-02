@@ -1,12 +1,19 @@
 #pragma once
 
-#include <ATen/ATen.h>
+#include <ATen/core/Tensor.h>
 #include <ATen/core/List.h>
 #include <ATen/native/quantized/cpu/fbgemm_utils.h>
 #include <ATen/native/quantized/cpu/QnnpackUtils.h>
 #include <ATen/native/quantized/cpu/OnednnUtils.h>
 #include <c10/util/irange.h>
 #include <cpuinfo.h>
+
+#ifndef AT_PER_OPERATOR_HEADERS
+#include <ATen/Functions.h>
+#else
+#include <ATen/ops/from_blob.h>
+#endif
+
 
 #include <tuple>
 
@@ -83,12 +90,12 @@ ConvParamsSerializationTypeV3 parse_conv_serialized_state(c10::IValue v) {
   int version = -1;
   if (v.isTuple()) {
     const auto& elements = v.toTupleRef().elements();
-    if (elements.size() > 0) {
+    if (!elements.empty()) {
       auto firstElement = elements[0];
       if (firstElement.isTensor()) {
         version = 1;
       } else if (firstElement.isString()) {
-        std::string version_str = firstElement.toStringRef();
+        const std::string& version_str = firstElement.toStringRef();
         // note: not parsing the string to automatically handle bad
         // inputs
         if (version_str == "2") {
@@ -116,7 +123,6 @@ ConvParamsSerializationTypeV3 parse_conv_serialized_state(c10::IValue v) {
     torch::List<at::Tensor> dilation_x_kSpatialDim = elements[4].toTensorList();
     at::Tensor groups = elements[5].toTensor();
 
-    std::vector<at::Tensor> non_optional;
     std::vector<c10::optional<at::Tensor>> optional;
 
     std::vector<int64_t> config_vals;

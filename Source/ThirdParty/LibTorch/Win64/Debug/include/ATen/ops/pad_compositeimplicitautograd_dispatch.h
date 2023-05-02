@@ -18,6 +18,7 @@ namespace at {
 namespace compositeimplicitautograd {
 
 TORCH_API at::Tensor pad(const at::Tensor & self, at::IntArrayRef pad, c10::string_view mode="constant", c10::optional<double> value=c10::nullopt);
+TORCH_API at::Tensor pad_symint(const at::Tensor & self, c10::SymIntArrayRef pad, c10::string_view mode="constant", c10::optional<double> value=c10::nullopt);
 
 } // namespace compositeimplicitautograd
 } // namespace at

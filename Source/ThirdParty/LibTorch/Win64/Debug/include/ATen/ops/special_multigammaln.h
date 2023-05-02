@@ -31,7 +31,6 @@ inline at::Tensor special_multigammaln(const at::Tensor & self, int64_t p) {
 inline at::Tensor & special_multigammaln_out(at::Tensor & out, const at::Tensor & self, int64_t p) {
     return at::_ops::special_multigammaln_out::call(self, p, out);
 }
-
 // aten::special_multigammaln.out(Tensor self, int p, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & special_multigammaln_outf(const at::Tensor & self, int64_t p, at::Tensor & out) {
     return at::_ops::special_multigammaln_out::call(self, p, out);

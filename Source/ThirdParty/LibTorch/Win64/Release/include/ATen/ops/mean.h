@@ -36,7 +36,6 @@ inline at::Tensor mean(const at::Tensor & self, at::OptionalIntArrayRef dim, boo
 inline at::Tensor & mean_out(at::Tensor & out, const at::Tensor & self, at::OptionalIntArrayRef dim, bool keepdim=false, c10::optional<at::ScalarType> dtype=c10::nullopt) {
     return at::_ops::mean_out::call(self, dim, keepdim, dtype, out);
 }
-
 // aten::mean.out(Tensor self, int[1]? dim, bool keepdim=False, *, ScalarType? dtype=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & mean_outf(const at::Tensor & self, at::OptionalIntArrayRef dim, bool keepdim, c10::optional<at::ScalarType> dtype, at::Tensor & out) {
     return at::_ops::mean_out::call(self, dim, keepdim, dtype, out);
@@ -51,7 +50,6 @@ inline at::Tensor mean(const at::Tensor & self, at::DimnameList dim, bool keepdi
 inline at::Tensor & mean_out(at::Tensor & out, const at::Tensor & self, at::DimnameList dim, bool keepdim=false, c10::optional<at::ScalarType> dtype=c10::nullopt) {
     return at::_ops::mean_names_out::call(self, dim, keepdim, dtype, out);
 }
-
 // aten::mean.names_out(Tensor self, Dimname[1] dim, bool keepdim=False, *, ScalarType? dtype=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & mean_outf(const at::Tensor & self, at::DimnameList dim, bool keepdim, c10::optional<at::ScalarType> dtype, at::Tensor & out) {
     return at::_ops::mean_names_out::call(self, dim, keepdim, dtype, out);

@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & greater_equal_out(at::Tensor & out, const at::Tensor & self, const at::Scalar & other) {
     return at::_ops::greater_equal_Scalar_out::call(self, other, out);
 }
-
 // aten::greater_equal.Scalar_out(Tensor self, Scalar other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & greater_equal_outf(const at::Tensor & self, const at::Scalar & other, at::Tensor & out) {
     return at::_ops::greater_equal_Scalar_out::call(self, other, out);
@@ -41,7 +40,6 @@ inline at::Tensor greater_equal(const at::Tensor & self, const at::Scalar & othe
 inline at::Tensor & greater_equal_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other) {
     return at::_ops::greater_equal_Tensor_out::call(self, other, out);
 }
-
 // aten::greater_equal.Tensor_out(Tensor self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & greater_equal_outf(const at::Tensor & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::greater_equal_Tensor_out::call(self, other, out);

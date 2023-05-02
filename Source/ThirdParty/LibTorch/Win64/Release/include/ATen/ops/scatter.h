@@ -31,7 +31,6 @@ inline at::Tensor scatter(const at::Tensor & self, int64_t dim, const at::Tensor
 inline at::Tensor & scatter_out(at::Tensor & out, const at::Tensor & self, int64_t dim, const at::Tensor & index, const at::Tensor & src) {
     return at::_ops::scatter_src_out::call(self, dim, index, src, out);
 }
-
 // aten::scatter.src_out(Tensor self, int dim, Tensor index, Tensor src, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & scatter_outf(const at::Tensor & self, int64_t dim, const at::Tensor & index, const at::Tensor & src, at::Tensor & out) {
     return at::_ops::scatter_src_out::call(self, dim, index, src, out);
@@ -46,7 +45,6 @@ inline at::Tensor scatter(const at::Tensor & self, int64_t dim, const at::Tensor
 inline at::Tensor & scatter_out(at::Tensor & out, const at::Tensor & self, int64_t dim, const at::Tensor & index, const at::Scalar & value) {
     return at::_ops::scatter_value_out::call(self, dim, index, value, out);
 }
-
 // aten::scatter.value_out(Tensor self, int dim, Tensor index, Scalar value, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & scatter_outf(const at::Tensor & self, int64_t dim, const at::Tensor & index, const at::Scalar & value, at::Tensor & out) {
     return at::_ops::scatter_value_out::call(self, dim, index, value, out);
@@ -61,7 +59,6 @@ inline at::Tensor scatter(const at::Tensor & self, int64_t dim, const at::Tensor
 inline at::Tensor & scatter_out(at::Tensor & out, const at::Tensor & self, int64_t dim, const at::Tensor & index, const at::Tensor & src, c10::string_view reduce) {
     return at::_ops::scatter_reduce_out::call(self, dim, index, src, reduce, out);
 }
-
 // aten::scatter.reduce_out(Tensor self, int dim, Tensor index, Tensor src, *, str reduce, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & scatter_outf(const at::Tensor & self, int64_t dim, const at::Tensor & index, const at::Tensor & src, c10::string_view reduce, at::Tensor & out) {
     return at::_ops::scatter_reduce_out::call(self, dim, index, src, reduce, out);
@@ -76,7 +73,6 @@ inline at::Tensor scatter(const at::Tensor & self, int64_t dim, const at::Tensor
 inline at::Tensor & scatter_out(at::Tensor & out, const at::Tensor & self, int64_t dim, const at::Tensor & index, const at::Scalar & value, c10::string_view reduce) {
     return at::_ops::scatter_value_reduce_out::call(self, dim, index, value, reduce, out);
 }
-
 // aten::scatter.value_reduce_out(Tensor self, int dim, Tensor index, Scalar value, *, str reduce, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & scatter_outf(const at::Tensor & self, int64_t dim, const at::Tensor & index, const at::Scalar & value, c10::string_view reduce, at::Tensor & out) {
     return at::_ops::scatter_value_reduce_out::call(self, dim, index, value, reduce, out);

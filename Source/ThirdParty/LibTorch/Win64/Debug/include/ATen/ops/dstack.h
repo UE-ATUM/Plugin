@@ -31,7 +31,6 @@ inline at::Tensor dstack(at::TensorList tensors) {
 inline at::Tensor & dstack_out(at::Tensor & out, at::TensorList tensors) {
     return at::_ops::dstack_out::call(tensors, out);
 }
-
 // aten::dstack.out(Tensor[] tensors, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & dstack_outf(at::TensorList tensors, at::Tensor & out) {
     return at::_ops::dstack_out::call(tensors, out);

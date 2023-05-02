@@ -17,6 +17,6 @@
 namespace at {
 namespace native {
 TORCH_API at::Tensor constant_pad_nd(const at::Tensor & self, at::IntArrayRef pad, const at::Scalar & value=0);
-TORCH_API at::Tensor & constant_pad_nd_out(const at::Tensor & self, at::IntArrayRef pad, const at::Scalar & value, at::Tensor & out);
+TORCH_API at::Tensor & constant_pad_nd_out_symint(const at::Tensor & self, c10::SymIntArrayRef pad, const at::Scalar & value, at::Tensor & out);
 } // namespace native
 } // namespace at

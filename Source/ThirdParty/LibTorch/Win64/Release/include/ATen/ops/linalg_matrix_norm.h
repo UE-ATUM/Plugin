@@ -31,7 +31,6 @@ inline at::Tensor linalg_matrix_norm(const at::Tensor & self, const at::Scalar &
 inline at::Tensor & linalg_matrix_norm_out(at::Tensor & out, const at::Tensor & self, const at::Scalar & ord, at::IntArrayRef dim={-2,-1}, bool keepdim=false, c10::optional<at::ScalarType> dtype=c10::nullopt) {
     return at::_ops::linalg_matrix_norm_out::call(self, ord, dim, keepdim, dtype, out);
 }
-
 // aten::linalg_matrix_norm.out(Tensor self, Scalar ord, int[] dim=[-2,-1], bool keepdim=False, *, ScalarType? dtype=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & linalg_matrix_norm_outf(const at::Tensor & self, const at::Scalar & ord, at::IntArrayRef dim, bool keepdim, c10::optional<at::ScalarType> dtype, at::Tensor & out) {
     return at::_ops::linalg_matrix_norm_out::call(self, ord, dim, keepdim, dtype, out);
@@ -46,7 +45,6 @@ inline at::Tensor linalg_matrix_norm(const at::Tensor & self, c10::string_view o
 inline at::Tensor & linalg_matrix_norm_out(at::Tensor & out, const at::Tensor & self, c10::string_view ord="fro", at::IntArrayRef dim={-2,-1}, bool keepdim=false, c10::optional<at::ScalarType> dtype=c10::nullopt) {
     return at::_ops::linalg_matrix_norm_str_ord_out::call(self, ord, dim, keepdim, dtype, out);
 }
-
 // aten::linalg_matrix_norm.str_ord_out(Tensor self, str ord='fro', int[] dim=[-2,-1], bool keepdim=False, *, ScalarType? dtype=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & linalg_matrix_norm_outf(const at::Tensor & self, c10::string_view ord, at::IntArrayRef dim, bool keepdim, c10::optional<at::ScalarType> dtype, at::Tensor & out) {
     return at::_ops::linalg_matrix_norm_str_ord_out::call(self, ord, dim, keepdim, dtype, out);

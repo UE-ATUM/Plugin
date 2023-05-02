@@ -19,5 +19,11 @@ namespace native {
 TORCH_API at::Tensor deg2rad(const at::Tensor & self);
 TORCH_API at::Tensor & deg2rad_out(const at::Tensor & self, at::Tensor & out);
 TORCH_API at::Tensor & deg2rad_(at::Tensor & self);
+TORCH_API at::Tensor deg2rad_sparse(const at::Tensor & self);
+TORCH_API at::Tensor & deg2rad_sparse_out(const at::Tensor & self, at::Tensor & out);
+TORCH_API at::Tensor & deg2rad_sparse_(at::Tensor & self);
+TORCH_API at::Tensor deg2rad_sparse_csr(const at::Tensor & self);
+TORCH_API at::Tensor & deg2rad_sparse_csr_out(const at::Tensor & self, at::Tensor & out);
+TORCH_API at::Tensor & deg2rad_sparse_csr_(at::Tensor & self);
 } // namespace native
 } // namespace at

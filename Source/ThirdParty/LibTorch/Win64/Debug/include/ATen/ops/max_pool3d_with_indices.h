@@ -26,7 +26,6 @@ namespace at {
 inline ::std::tuple<at::Tensor &,at::Tensor &> max_pool3d_with_indices_out(at::Tensor & out, at::Tensor & indices, const at::Tensor & self, at::IntArrayRef kernel_size, at::IntArrayRef stride={}, at::IntArrayRef padding=0, at::IntArrayRef dilation=1, bool ceil_mode=false) {
     return at::_ops::max_pool3d_with_indices_out::call(self, kernel_size, stride, padding, dilation, ceil_mode, out, indices);
 }
-
 // aten::max_pool3d_with_indices.out(Tensor self, int[3] kernel_size, int[3] stride=[], int[3] padding=0, int[3] dilation=1, bool ceil_mode=False, *, Tensor(a!) out, Tensor(b!) indices) -> (Tensor(a!), Tensor(b!))
 inline ::std::tuple<at::Tensor &,at::Tensor &> max_pool3d_with_indices_outf(const at::Tensor & self, at::IntArrayRef kernel_size, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool ceil_mode, at::Tensor & out, at::Tensor & indices) {
     return at::_ops::max_pool3d_with_indices_out::call(self, kernel_size, stride, padding, dilation, ceil_mode, out, indices);

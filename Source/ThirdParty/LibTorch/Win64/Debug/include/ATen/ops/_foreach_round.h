@@ -36,7 +36,6 @@ inline void _foreach_round_(at::TensorList self) {
 inline void _foreach_round_out(at::TensorList out, at::TensorList self) {
     return at::_ops::_foreach_round_out::call(self, out);
 }
-
 // aten::_foreach_round.out(Tensor[] self, *, Tensor(a!)[] out) -> ()
 inline void _foreach_round_outf(at::TensorList self, at::TensorList out) {
     return at::_ops::_foreach_round_out::call(self, out);

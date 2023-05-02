@@ -207,14 +207,14 @@ class TORCH_API TensorBase {
     impl_ = x.impl_;
     return *this;
   };
-  TensorBase& operator=(TensorBase&& x) & {
+  TensorBase& operator=(TensorBase&& x) & noexcept {
     impl_ = std::move(x.impl_);
     return *this;
   }
 
   // Ban assignment to rvalues, since at::Tensor (weirdly) performs a deep copy here
   TensorBase& operator=(const TensorBase&) && = delete;
-  TensorBase& operator=(TensorBase&&) && = delete;
+  TensorBase& operator=(TensorBase&&) && noexcept = delete;
 
   bool is_same(const TensorBase& other) const noexcept {
     return impl_ == other.impl_;
@@ -858,7 +858,7 @@ auto TensorBase::register_hook(T&& hook) const -> TensorBase::hook_return_void_t
 
 template <typename T>
 auto TensorBase::register_hook(T&& hook) const -> TensorBase::hook_return_var_t<T> {
-  return _register_hook(std::move(hook));
+  return _register_hook(std::forward<T>(hook));
 }
 
 namespace detail {
@@ -942,4 +942,34 @@ inline c10::MaybeOwned<TensorBase> TensorBase::expect_contiguous(MemoryFormat me
     return c10::MaybeOwned<TensorBase>::owned(__dispatch_contiguous(memory_format));
   }
 }
+
+namespace symint {
+
+template <typename T>
+using enable_if_symint = std::enable_if_t<std::is_same<T, c10::SymInt>::value>;
+template <typename T>
+using enable_if_int = std::enable_if_t<std::is_same<T, int64_t>::value>;
+
+template <typename T, typename = enable_if_symint<T>>
+c10::SymIntArrayRef sizes(const TensorBase& t) { return t.sym_sizes(); }
+template <typename T, typename = enable_if_int<T>>
+IntArrayRef sizes(const TensorBase& t) { return t.sizes(); }
+
+template <typename T, typename = enable_if_symint<T>>
+c10::SymInt size(const TensorBase& t, int64_t dim) { return t.sym_size(dim); }
+template <typename T, typename = enable_if_int<T>>
+int64_t size(const TensorBase& t, int64_t dim) { return t.size(dim); }
+
+template <typename T, typename = enable_if_symint<T>>
+c10::SymIntArrayRef strides(const TensorBase& t) { return t.sym_strides(); }
+template <typename T, typename = enable_if_int<T>>
+IntArrayRef strides(const TensorBase& t) { return t.strides(); }
+
+template <typename T, typename = enable_if_symint<T>>
+c10::SymInt numel(const TensorBase& t) { return t.sym_numel(); }
+template <typename T, typename = enable_if_int<T>>
+int64_t numel(const TensorBase& t) { return t.numel(); }
+
+} // namespace symint
+
 } // namespace at

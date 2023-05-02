@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & index_select_out(at::Tensor & out, const at::Tensor & self, int64_t dim, const at::Tensor & index) {
     return at::_ops::index_select_out::call(self, dim, index, out);
 }
-
 // aten::index_select.out(Tensor self, int dim, Tensor index, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & index_select_outf(const at::Tensor & self, int64_t dim, const at::Tensor & index, at::Tensor & out) {
     return at::_ops::index_select_out::call(self, dim, index, out);
@@ -41,7 +40,6 @@ inline at::Tensor index_select(const at::Tensor & self, int64_t dim, const at::T
 inline at::Tensor & index_select_out(at::Tensor & out, const at::Tensor & self, at::Dimname dim, const at::Tensor & index) {
     return at::_ops::index_select_dimname_out::call(self, dim, index, out);
 }
-
 // aten::index_select.dimname_out(Tensor self, Dimname dim, Tensor index, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & index_select_outf(const at::Tensor & self, at::Dimname dim, const at::Tensor & index, at::Tensor & out) {
     return at::_ops::index_select_dimname_out::call(self, dim, index, out);

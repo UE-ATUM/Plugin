@@ -31,7 +31,6 @@ inline at::Tensor _histogramdd_from_bin_cts(const at::Tensor & self, at::IntArra
 inline at::Tensor & _histogramdd_from_bin_cts_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef bins, c10::optional<at::ArrayRef<double>> range=c10::nullopt, const c10::optional<at::Tensor> & weight={}, bool density=false) {
     return at::_ops::_histogramdd_from_bin_cts_out::call(self, bins, range, weight, density, out);
 }
-
 // aten::_histogramdd_from_bin_cts.out(Tensor self, int[] bins, *, float[]? range=None, Tensor? weight=None, bool density=False, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _histogramdd_from_bin_cts_outf(const at::Tensor & self, at::IntArrayRef bins, c10::optional<at::ArrayRef<double>> range, const c10::optional<at::Tensor> & weight, bool density, at::Tensor & out) {
     return at::_ops::_histogramdd_from_bin_cts_out::call(self, bins, range, weight, density, out);

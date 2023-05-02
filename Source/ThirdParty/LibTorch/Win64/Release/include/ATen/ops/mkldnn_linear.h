@@ -31,7 +31,6 @@ inline at::Tensor mkldnn_linear(const at::Tensor & self, const at::Tensor & weig
 inline at::Tensor & mkldnn_linear_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}) {
     return at::_ops::mkldnn_linear_out::call(self, weight, bias, out);
 }
-
 // aten::mkldnn_linear.out(Tensor self, Tensor weight, Tensor? bias=None, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & mkldnn_linear_outf(const at::Tensor & self, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::Tensor & out) {
     return at::_ops::mkldnn_linear_out::call(self, weight, bias, out);

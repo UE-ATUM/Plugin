@@ -36,7 +36,6 @@ inline at::Tensor & tan_(at::Tensor & self) {
 inline at::Tensor & tan_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::tan_out::call(self, out);
 }
-
 // aten::tan.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & tan_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::tan_out::call(self, out);

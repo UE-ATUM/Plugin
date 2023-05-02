@@ -18,8 +18,11 @@ namespace at {
 namespace cuda {
 
 TORCH_API at::Tensor _fft_c2c(const at::Tensor & self, at::IntArrayRef dim, int64_t normalization, bool forward);
+TORCH_API at::Tensor _fft_c2c_symint(const at::Tensor & self, c10::SymIntArrayRef dim, int64_t normalization, bool forward);
 TORCH_API at::Tensor & _fft_c2c_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef dim, int64_t normalization, bool forward);
 TORCH_API at::Tensor & _fft_c2c_outf(const at::Tensor & self, at::IntArrayRef dim, int64_t normalization, bool forward, at::Tensor & out);
+TORCH_API at::Tensor & _fft_c2c_symint_out(at::Tensor & out, const at::Tensor & self, c10::SymIntArrayRef dim, int64_t normalization, bool forward);
+TORCH_API at::Tensor & _fft_c2c_symint_outf(const at::Tensor & self, c10::SymIntArrayRef dim, int64_t normalization, bool forward, at::Tensor & out);
 
 } // namespace cuda
 } // namespace at

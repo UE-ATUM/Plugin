@@ -36,6 +36,7 @@
 #include <ATen/ops/_cdist_forward_meta.h>
 #include <ATen/ops/_cholesky_solve_helper_meta.h>
 #include <ATen/ops/_choose_qparams_per_tensor_meta.h>
+#include <ATen/ops/_chunk_grad_outputs_efficient_attention_meta.h>
 #include <ATen/ops/_coalesce_meta.h>
 #include <ATen/ops/_coalesced_meta.h>
 #include <ATen/ops/_compute_linear_combination_meta.h>
@@ -68,6 +69,8 @@
 #include <ATen/ops/_dimV_meta.h>
 #include <ATen/ops/_dim_arange_meta.h>
 #include <ATen/ops/_dirichlet_grad_meta.h>
+#include <ATen/ops/_efficient_attention_backward_meta.h>
+#include <ATen/ops/_efficient_attention_forward_meta.h>
 #include <ATen/ops/_efficientzerotensor_meta.h>
 #include <ATen/ops/_embedding_bag_meta.h>
 #include <ATen/ops/_embedding_bag_backward_meta.h>
@@ -86,7 +89,8 @@
 #include <ATen/ops/_fft_c2c_meta.h>
 #include <ATen/ops/_fft_c2r_meta.h>
 #include <ATen/ops/_fft_r2c_meta.h>
-#include <ATen/ops/_flash_scaled_dot_product_attention_meta.h>
+#include <ATen/ops/_flash_attention_backward_meta.h>
+#include <ATen/ops/_flash_attention_forward_meta.h>
 #include <ATen/ops/_foobar_meta.h>
 #include <ATen/ops/_foreach_abs_meta.h>
 #include <ATen/ops/_foreach_acos_meta.h>
@@ -96,6 +100,8 @@
 #include <ATen/ops/_foreach_asin_meta.h>
 #include <ATen/ops/_foreach_atan_meta.h>
 #include <ATen/ops/_foreach_ceil_meta.h>
+#include <ATen/ops/_foreach_clamp_max_meta.h>
+#include <ATen/ops/_foreach_clamp_min_meta.h>
 #include <ATen/ops/_foreach_cos_meta.h>
 #include <ATen/ops/_foreach_cosh_meta.h>
 #include <ATen/ops/_foreach_div_meta.h>
@@ -105,6 +111,7 @@
 #include <ATen/ops/_foreach_expm1_meta.h>
 #include <ATen/ops/_foreach_floor_meta.h>
 #include <ATen/ops/_foreach_frac_meta.h>
+#include <ATen/ops/_foreach_lerp_meta.h>
 #include <ATen/ops/_foreach_lgamma_meta.h>
 #include <ATen/ops/_foreach_log_meta.h>
 #include <ATen/ops/_foreach_log10_meta.h>
@@ -127,8 +134,10 @@
 #include <ATen/ops/_foreach_trunc_meta.h>
 #include <ATen/ops/_foreach_zero_meta.h>
 #include <ATen/ops/_fused_adam_meta.h>
+#include <ATen/ops/_fused_adamw_meta.h>
 #include <ATen/ops/_fused_dropout_meta.h>
 #include <ATen/ops/_fused_moving_avg_obs_fq_helper_meta.h>
+#include <ATen/ops/_fused_sdp_choice_meta.h>
 #include <ATen/ops/_fw_primal_meta.h>
 #include <ATen/ops/_fw_primal_copy_meta.h>
 #include <ATen/ops/_gather_sparse_backward_meta.h>
@@ -142,6 +151,8 @@
 #include <ATen/ops/_index_put_impl_meta.h>
 #include <ATen/ops/_indices_meta.h>
 #include <ATen/ops/_indices_copy_meta.h>
+#include <ATen/ops/_is_all_true_meta.h>
+#include <ATen/ops/_is_any_true_meta.h>
 #include <ATen/ops/_is_zerotensor_meta.h>
 #include <ATen/ops/_linalg_check_errors_meta.h>
 #include <ATen/ops/_linalg_det_meta.h>
@@ -166,7 +177,7 @@
 #include <ATen/ops/_mkldnn_transpose_meta.h>
 #include <ATen/ops/_mps_convolution_meta.h>
 #include <ATen/ops/_mps_convolution_transpose_meta.h>
-#include <ATen/ops/_mps_max_pool2d_meta.h>
+#include <ATen/ops/_native_batch_norm_legit_meta.h>
 #include <ATen/ops/_native_decoder_only_multi_head_attention_meta.h>
 #include <ATen/ops/_native_multi_head_attention_meta.h>
 #include <ATen/ops/_neg_view_meta.h>
@@ -178,7 +189,6 @@
 #include <ATen/ops/_nested_tensor_from_mask_meta.h>
 #include <ATen/ops/_nested_tensor_from_mask_left_aligned_meta.h>
 #include <ATen/ops/_nested_tensor_from_tensor_list_meta.h>
-#include <ATen/ops/_nested_tensor_layer_norm_meta.h>
 #include <ATen/ops/_nested_tensor_offsets_meta.h>
 #include <ATen/ops/_nested_tensor_size_meta.h>
 #include <ATen/ops/_nested_tensor_softmax_with_shape_meta.h>
@@ -197,17 +207,23 @@
 #include <ATen/ops/_pdist_backward_meta.h>
 #include <ATen/ops/_pdist_forward_meta.h>
 #include <ATen/ops/_pin_memory_meta.h>
+#include <ATen/ops/_prelu_kernel_meta.h>
+#include <ATen/ops/_prelu_kernel_backward_meta.h>
 #include <ATen/ops/_remove_batch_dim_meta.h>
 #include <ATen/ops/_reshape_alias_meta.h>
 #include <ATen/ops/_reshape_alias_copy_meta.h>
+#include <ATen/ops/_reshape_copy_meta.h>
 #include <ATen/ops/_reshape_from_tensor_meta.h>
 #include <ATen/ops/_resize_output_meta.h>
 #include <ATen/ops/_rowwise_prune_meta.h>
 #include <ATen/ops/_sample_dirichlet_meta.h>
 #include <ATen/ops/_saturate_weight_to_fp16_meta.h>
 #include <ATen/ops/_scaled_dot_product_attention_meta.h>
-#include <ATen/ops/_scaled_dot_product_attention_forward_meta.h>
 #include <ATen/ops/_scaled_dot_product_attention_math_meta.h>
+#include <ATen/ops/_scaled_dot_product_efficient_attention_meta.h>
+#include <ATen/ops/_scaled_dot_product_efficient_attention_backward_meta.h>
+#include <ATen/ops/_scaled_dot_product_flash_attention_meta.h>
+#include <ATen/ops/_scaled_dot_product_flash_attention_backward_meta.h>
 #include <ATen/ops/_segment_reduce_backward_meta.h>
 #include <ATen/ops/_shape_as_tensor_meta.h>
 #include <ATen/ops/_slow_conv2d_backward_meta.h>
@@ -233,8 +249,9 @@
 #include <ATen/ops/_sparse_csr_tensor_unsafe_meta.h>
 #include <ATen/ops/_sparse_log_softmax_meta.h>
 #include <ATen/ops/_sparse_log_softmax_backward_data_meta.h>
-#include <ATen/ops/_sparse_mask_helper_meta.h>
 #include <ATen/ops/_sparse_mm_meta.h>
+#include <ATen/ops/_sparse_mm_reduce_impl_meta.h>
+#include <ATen/ops/_sparse_mm_reduce_impl_backward_meta.h>
 #include <ATen/ops/_sparse_softmax_meta.h>
 #include <ATen/ops/_sparse_softmax_backward_data_meta.h>
 #include <ATen/ops/_sparse_sparse_matmul_meta.h>
@@ -244,11 +261,11 @@
 #include <ATen/ops/_stack_meta.h>
 #include <ATen/ops/_standard_gamma_meta.h>
 #include <ATen/ops/_standard_gamma_grad_meta.h>
-#include <ATen/ops/_symeig_helper_meta.h>
 #include <ATen/ops/_test_ambiguous_defaults_meta.h>
 #include <ATen/ops/_test_autograd_multiple_dispatch_meta.h>
 #include <ATen/ops/_test_autograd_multiple_dispatch_view_meta.h>
 #include <ATen/ops/_test_autograd_multiple_dispatch_view_copy_meta.h>
+#include <ATen/ops/_test_check_tensor_meta.h>
 #include <ATen/ops/_test_optional_filled_intlist_meta.h>
 #include <ATen/ops/_test_optional_floatlist_meta.h>
 #include <ATen/ops/_test_optional_intlist_meta.h>
@@ -265,7 +282,6 @@
 #include <ATen/ops/_to_copy_meta.h>
 #include <ATen/ops/_to_cpu_meta.h>
 #include <ATen/ops/_to_dense_meta.h>
-#include <ATen/ops/_torch_cuda_cu_linker_symbol_op_meta.h>
 #include <ATen/ops/_transform_bias_rescale_qkv_meta.h>
 #include <ATen/ops/_transformer_decoder_only_layer_fwd_meta.h>
 #include <ATen/ops/_transformer_encoder_layer_fwd_meta.h>
@@ -485,7 +501,6 @@
 #include <ATen/ops/detach_meta.h>
 #include <ATen/ops/detach_copy_meta.h>
 #include <ATen/ops/diag_meta.h>
-#include <ATen/ops/diag_backward_meta.h>
 #include <ATen/ops/diag_embed_meta.h>
 #include <ATen/ops/diagflat_meta.h>
 #include <ATen/ops/diagonal_meta.h>
@@ -786,6 +801,7 @@
 #include <ATen/ops/max_pool1d_meta.h>
 #include <ATen/ops/max_pool1d_with_indices_meta.h>
 #include <ATen/ops/max_pool2d_meta.h>
+#include <ATen/ops/max_pool2d_backward_meta.h>
 #include <ATen/ops/max_pool2d_with_indices_meta.h>
 #include <ATen/ops/max_pool2d_with_indices_backward_meta.h>
 #include <ATen/ops/max_pool3d_meta.h>
@@ -823,13 +839,14 @@
 #include <ATen/ops/mkldnn_max_pool3d_backward_meta.h>
 #include <ATen/ops/mkldnn_reorder_conv2d_weight_meta.h>
 #include <ATen/ops/mkldnn_reorder_conv3d_weight_meta.h>
+#include <ATen/ops/mkldnn_rnn_layer_meta.h>
+#include <ATen/ops/mkldnn_rnn_layer_backward_meta.h>
 #include <ATen/ops/mm_meta.h>
 #include <ATen/ops/mode_meta.h>
 #include <ATen/ops/moveaxis_meta.h>
 #include <ATen/ops/movedim_meta.h>
 #include <ATen/ops/mps_convolution_backward_meta.h>
 #include <ATen/ops/mps_convolution_transpose_backward_meta.h>
-#include <ATen/ops/mps_max_pool2d_backward_meta.h>
 #include <ATen/ops/mse_loss_meta.h>
 #include <ATen/ops/mse_loss_backward_meta.h>
 #include <ATen/ops/msort_meta.h>
@@ -910,7 +927,6 @@
 #include <ATen/ops/positive_meta.h>
 #include <ATen/ops/pow_meta.h>
 #include <ATen/ops/prelu_meta.h>
-#include <ATen/ops/prelu_backward_meta.h>
 #include <ATen/ops/prod_meta.h>
 #include <ATen/ops/promote_types_meta.h>
 #include <ATen/ops/put_meta.h>
@@ -994,6 +1010,7 @@
 #include <ATen/ops/rsqrt_meta.h>
 #include <ATen/ops/rsub_meta.h>
 #include <ATen/ops/scalar_tensor_meta.h>
+#include <ATen/ops/scaled_dot_product_attention_meta.h>
 #include <ATen/ops/scatter_meta.h>
 #include <ATen/ops/scatter_add_meta.h>
 #include <ATen/ops/scatter_reduce_meta.h>
@@ -1127,7 +1144,6 @@
 #include <ATen/ops/svd_meta.h>
 #include <ATen/ops/swapaxes_meta.h>
 #include <ATen/ops/swapdims_meta.h>
-#include <ATen/ops/symeig_meta.h>
 #include <ATen/ops/t_meta.h>
 #include <ATen/ops/t_copy_meta.h>
 #include <ATen/ops/take_meta.h>

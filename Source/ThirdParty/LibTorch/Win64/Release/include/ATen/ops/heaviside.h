@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & heaviside_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & values) {
     return at::_ops::heaviside_out::call(self, values, out);
 }
-
 // aten::heaviside.out(Tensor self, Tensor values, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & heaviside_outf(const at::Tensor & self, const at::Tensor & values, at::Tensor & out) {
     return at::_ops::heaviside_out::call(self, values, out);

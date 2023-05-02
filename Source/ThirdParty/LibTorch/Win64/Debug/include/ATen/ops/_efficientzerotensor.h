@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor _efficientzerotensor(at::IntArrayRef size, at::TensorOptions options={}) {
     return at::_ops::_efficientzerotensor::call(size, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
 }
-
 // aten::_efficientzerotensor(int[] size, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
 inline at::Tensor _efficientzerotensor(at::IntArrayRef size, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
     return at::_ops::_efficientzerotensor::call(size, dtype, layout, device, pin_memory);
@@ -36,7 +35,6 @@ inline at::Tensor _efficientzerotensor(at::IntArrayRef size, c10::optional<at::S
 inline at::Tensor & _efficientzerotensor_out(at::Tensor & out, at::IntArrayRef size) {
     return at::_ops::_efficientzerotensor_out::call(size, out);
 }
-
 // aten::_efficientzerotensor.out(int[] size, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _efficientzerotensor_outf(at::IntArrayRef size, at::Tensor & out) {
     return at::_ops::_efficientzerotensor_out::call(size, out);

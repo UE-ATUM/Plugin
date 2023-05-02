@@ -16,6 +16,6 @@
 
 namespace at {
 namespace native {
-TORCH_API at::Tensor trace_backward(const at::Tensor & grad, at::IntArrayRef sizes);
+TORCH_API at::Tensor trace_backward_symint(const at::Tensor & grad, c10::SymIntArrayRef sizes);
 } // namespace native
 } // namespace at

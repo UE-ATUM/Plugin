@@ -31,7 +31,6 @@ inline at::Tensor special_spherical_bessel_j0(const at::Tensor & x) {
 inline at::Tensor & special_spherical_bessel_j0_out(at::Tensor & out, const at::Tensor & x) {
     return at::_ops::special_spherical_bessel_j0_out::call(x, out);
 }
-
 // aten::special_spherical_bessel_j0.out(Tensor x, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & special_spherical_bessel_j0_outf(const at::Tensor & x, at::Tensor & out) {
     return at::_ops::special_spherical_bessel_j0_out::call(x, out);

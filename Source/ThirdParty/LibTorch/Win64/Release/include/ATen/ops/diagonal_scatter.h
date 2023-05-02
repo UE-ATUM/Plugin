@@ -31,7 +31,6 @@ inline at::Tensor diagonal_scatter(const at::Tensor & self, const at::Tensor & s
 inline at::Tensor & diagonal_scatter_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & src, int64_t offset=0, int64_t dim1=0, int64_t dim2=1) {
     return at::_ops::diagonal_scatter_out::call(self, src, offset, dim1, dim2, out);
 }
-
 // aten::diagonal_scatter.out(Tensor self, Tensor src, int offset=0, int dim1=0, int dim2=1, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & diagonal_scatter_outf(const at::Tensor & self, const at::Tensor & src, int64_t offset, int64_t dim1, int64_t dim2, at::Tensor & out) {
     return at::_ops::diagonal_scatter_out::call(self, src, offset, dim1, dim2, out);

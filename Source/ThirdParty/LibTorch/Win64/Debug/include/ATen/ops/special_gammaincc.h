@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & special_gammaincc_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other) {
     return at::_ops::special_gammaincc_out::call(self, other, out);
 }
-
 // aten::special_gammaincc.out(Tensor self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & special_gammaincc_outf(const at::Tensor & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::special_gammaincc_out::call(self, other, out);

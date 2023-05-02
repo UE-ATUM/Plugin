@@ -18,8 +18,11 @@ namespace at {
 namespace cuda {
 
 TORCH_API ::std::tuple<at::Tensor,at::Tensor> nll_loss2d_forward(const at::Tensor & self, const at::Tensor & target, const c10::optional<at::Tensor> & weight, int64_t reduction, int64_t ignore_index);
+TORCH_API ::std::tuple<at::Tensor,at::Tensor> nll_loss2d_forward_symint(const at::Tensor & self, const at::Tensor & target, const c10::optional<at::Tensor> & weight, int64_t reduction, c10::SymInt ignore_index);
 TORCH_API ::std::tuple<at::Tensor &,at::Tensor &> nll_loss2d_forward_out(at::Tensor & output, at::Tensor & total_weight, const at::Tensor & self, const at::Tensor & target, const c10::optional<at::Tensor> & weight, int64_t reduction, int64_t ignore_index);
 TORCH_API ::std::tuple<at::Tensor &,at::Tensor &> nll_loss2d_forward_outf(const at::Tensor & self, const at::Tensor & target, const c10::optional<at::Tensor> & weight, int64_t reduction, int64_t ignore_index, at::Tensor & output, at::Tensor & total_weight);
+TORCH_API ::std::tuple<at::Tensor &,at::Tensor &> nll_loss2d_forward_symint_out(at::Tensor & output, at::Tensor & total_weight, const at::Tensor & self, const at::Tensor & target, const c10::optional<at::Tensor> & weight, int64_t reduction, c10::SymInt ignore_index);
+TORCH_API ::std::tuple<at::Tensor &,at::Tensor &> nll_loss2d_forward_symint_outf(const at::Tensor & self, const at::Tensor & target, const c10::optional<at::Tensor> & weight, int64_t reduction, c10::SymInt ignore_index, at::Tensor & output, at::Tensor & total_weight);
 
 } // namespace cuda
 } // namespace at

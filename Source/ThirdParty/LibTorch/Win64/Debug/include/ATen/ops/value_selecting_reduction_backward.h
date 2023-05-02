@@ -22,9 +22,26 @@
 namespace at {
 
 
-// aten::value_selecting_reduction_backward(Tensor grad, int dim, Tensor indices, int[] sizes, bool keepdim) -> Tensor
+// aten::value_selecting_reduction_backward(Tensor grad, int dim, Tensor indices, SymInt[] sizes, bool keepdim) -> Tensor
 inline at::Tensor value_selecting_reduction_backward(const at::Tensor & grad, int64_t dim, const at::Tensor & indices, at::IntArrayRef sizes, bool keepdim) {
+    return at::_ops::value_selecting_reduction_backward::call(grad, dim, indices, c10::fromIntArrayRefSlow(sizes), keepdim);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor value_selecting_reduction_backward(const at::Tensor & grad, int64_t dim, const at::Tensor & indices, at::IntArrayRef sizes, bool keepdim) {
+    return at::_ops::value_selecting_reduction_backward::call(grad, dim, indices, c10::fromIntArrayRefSlow(sizes), keepdim);
+  }
+}
+
+// aten::value_selecting_reduction_backward(Tensor grad, int dim, Tensor indices, SymInt[] sizes, bool keepdim) -> Tensor
+inline at::Tensor value_selecting_reduction_backward_symint(const at::Tensor & grad, int64_t dim, const at::Tensor & indices, c10::SymIntArrayRef sizes, bool keepdim) {
     return at::_ops::value_selecting_reduction_backward::call(grad, dim, indices, sizes, keepdim);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor value_selecting_reduction_backward(const at::Tensor & grad, int64_t dim, const at::Tensor & indices, c10::SymIntArrayRef sizes, bool keepdim) {
+    return at::_ops::value_selecting_reduction_backward::call(grad, dim, indices, sizes, keepdim);
+  }
 }
 
 }

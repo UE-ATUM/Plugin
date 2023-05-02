@@ -14,17 +14,6 @@ namespace at {
 namespace _ops {
 
 
-struct TORCH_API _upsample_nearest_exact1d_backward_vec {
-  using schema = at::Tensor (const at::Tensor &, at::OptionalSymIntArrayRef, c10::SymIntArrayRef, c10::optional<at::ArrayRef<double>>);
-  using ptr_schema = schema*;
-  // See Note [static constexpr char* members for windows NVCC]
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::_upsample_nearest_exact1d_backward")
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "vec")
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "_upsample_nearest_exact1d_backward.vec(Tensor grad_output, SymInt[]? output_size, SymInt[] input_size, float[]? scale_factors) -> Tensor")
-  static at::Tensor call(const at::Tensor & grad_output, at::OptionalSymIntArrayRef output_size, c10::SymIntArrayRef input_size, c10::optional<at::ArrayRef<double>> scale_factors);
-  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_output, at::OptionalSymIntArrayRef output_size, c10::SymIntArrayRef input_size, c10::optional<at::ArrayRef<double>> scale_factors);
-};
-
 struct TORCH_API _upsample_nearest_exact1d_backward_grad_input {
   using schema = at::Tensor & (const at::Tensor &, c10::SymIntArrayRef, c10::SymIntArrayRef, c10::optional<double>, at::Tensor &);
   using ptr_schema = schema*;
@@ -45,17 +34,6 @@ struct TORCH_API _upsample_nearest_exact1d_backward {
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "_upsample_nearest_exact1d_backward(Tensor grad_output, SymInt[1] output_size, SymInt[3] input_size, float? scales=None) -> Tensor")
   static at::Tensor call(const at::Tensor & grad_output, c10::SymIntArrayRef output_size, c10::SymIntArrayRef input_size, c10::optional<double> scales);
   static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_output, c10::SymIntArrayRef output_size, c10::SymIntArrayRef input_size, c10::optional<double> scales);
-};
-
-struct TORCH_API _upsample_nearest_exact1d_backward_vec_out {
-  using schema = at::Tensor & (const at::Tensor &, at::OptionalSymIntArrayRef, c10::SymIntArrayRef, c10::optional<at::ArrayRef<double>>, at::Tensor &);
-  using ptr_schema = schema*;
-  // See Note [static constexpr char* members for windows NVCC]
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::_upsample_nearest_exact1d_backward")
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "vec_out")
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "_upsample_nearest_exact1d_backward.vec_out(Tensor grad_output, SymInt[]? output_size, SymInt[] input_size, float[]? scale_factors, *, Tensor(a!) out) -> Tensor(a!)")
-  static at::Tensor & call(const at::Tensor & grad_output, at::OptionalSymIntArrayRef output_size, c10::SymIntArrayRef input_size, c10::optional<at::ArrayRef<double>> scale_factors, at::Tensor & out);
-  static at::Tensor & redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & grad_output, at::OptionalSymIntArrayRef output_size, c10::SymIntArrayRef input_size, c10::optional<at::ArrayRef<double>> scale_factors, at::Tensor & out);
 };
 
 }} // namespace at::_ops

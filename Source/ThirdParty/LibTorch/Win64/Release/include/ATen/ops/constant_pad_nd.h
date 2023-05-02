@@ -22,19 +22,70 @@
 namespace at {
 
 
-// aten::constant_pad_nd(Tensor self, int[] pad, Scalar value=0) -> Tensor
+// aten::constant_pad_nd(Tensor self, SymInt[] pad, Scalar value=0) -> Tensor
 inline at::Tensor constant_pad_nd(const at::Tensor & self, at::IntArrayRef pad, const at::Scalar & value=0) {
+    return at::_ops::constant_pad_nd::call(self, c10::fromIntArrayRefSlow(pad), value);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor constant_pad_nd(const at::Tensor & self, at::IntArrayRef pad, const at::Scalar & value=0) {
+    return at::_ops::constant_pad_nd::call(self, c10::fromIntArrayRefSlow(pad), value);
+  }
+}
+
+// aten::constant_pad_nd(Tensor self, SymInt[] pad, Scalar value=0) -> Tensor
+inline at::Tensor constant_pad_nd_symint(const at::Tensor & self, c10::SymIntArrayRef pad, const at::Scalar & value=0) {
     return at::_ops::constant_pad_nd::call(self, pad, value);
 }
-
-// aten::constant_pad_nd.out(Tensor self, int[] pad, Scalar value=0, *, Tensor(a!) out) -> Tensor(a!)
-inline at::Tensor & constant_pad_nd_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef pad, const at::Scalar & value=0) {
-    return at::_ops::constant_pad_nd_out::call(self, pad, value, out);
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor constant_pad_nd(const at::Tensor & self, c10::SymIntArrayRef pad, const at::Scalar & value=0) {
+    return at::_ops::constant_pad_nd::call(self, pad, value);
+  }
 }
 
-// aten::constant_pad_nd.out(Tensor self, int[] pad, Scalar value=0, *, Tensor(a!) out) -> Tensor(a!)
+// aten::constant_pad_nd.out(Tensor self, SymInt[] pad, Scalar value=0, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & constant_pad_nd_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef pad, const at::Scalar & value=0) {
+    return at::_ops::constant_pad_nd_out::call(self, c10::fromIntArrayRefSlow(pad), value, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & constant_pad_nd_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef pad, const at::Scalar & value=0) {
+    return at::_ops::constant_pad_nd_out::call(self, c10::fromIntArrayRefSlow(pad), value, out);
+  }
+}
+
+// aten::constant_pad_nd.out(Tensor self, SymInt[] pad, Scalar value=0, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & constant_pad_nd_outf(const at::Tensor & self, at::IntArrayRef pad, const at::Scalar & value, at::Tensor & out) {
+    return at::_ops::constant_pad_nd_out::call(self, c10::fromIntArrayRefSlow(pad), value, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & constant_pad_nd_outf(const at::Tensor & self, at::IntArrayRef pad, const at::Scalar & value, at::Tensor & out) {
+    return at::_ops::constant_pad_nd_out::call(self, c10::fromIntArrayRefSlow(pad), value, out);
+  }
+}
+
+// aten::constant_pad_nd.out(Tensor self, SymInt[] pad, Scalar value=0, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & constant_pad_nd_symint_out(at::Tensor & out, const at::Tensor & self, c10::SymIntArrayRef pad, const at::Scalar & value=0) {
     return at::_ops::constant_pad_nd_out::call(self, pad, value, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & constant_pad_nd_out(at::Tensor & out, const at::Tensor & self, c10::SymIntArrayRef pad, const at::Scalar & value=0) {
+    return at::_ops::constant_pad_nd_out::call(self, pad, value, out);
+  }
+}
+
+// aten::constant_pad_nd.out(Tensor self, SymInt[] pad, Scalar value=0, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & constant_pad_nd_symint_outf(const at::Tensor & self, c10::SymIntArrayRef pad, const at::Scalar & value, at::Tensor & out) {
+    return at::_ops::constant_pad_nd_out::call(self, pad, value, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & constant_pad_nd_outf(const at::Tensor & self, c10::SymIntArrayRef pad, const at::Scalar & value, at::Tensor & out) {
+    return at::_ops::constant_pad_nd_out::call(self, pad, value, out);
+  }
 }
 
 }

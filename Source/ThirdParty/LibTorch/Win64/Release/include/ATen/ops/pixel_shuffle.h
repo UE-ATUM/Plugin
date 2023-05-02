@@ -31,7 +31,6 @@ inline at::Tensor pixel_shuffle(const at::Tensor & self, int64_t upscale_factor)
 inline at::Tensor & pixel_shuffle_out(at::Tensor & out, const at::Tensor & self, int64_t upscale_factor) {
     return at::_ops::pixel_shuffle_out::call(self, upscale_factor, out);
 }
-
 // aten::pixel_shuffle.out(Tensor self, int upscale_factor, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & pixel_shuffle_outf(const at::Tensor & self, int64_t upscale_factor, at::Tensor & out) {
     return at::_ops::pixel_shuffle_out::call(self, upscale_factor, out);

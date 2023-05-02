@@ -31,7 +31,6 @@ inline at::Tensor logical_not(const at::Tensor & self) {
 inline at::Tensor & logical_not_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::logical_not_out::call(self, out);
 }
-
 // aten::logical_not.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & logical_not_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::logical_not_out::call(self, out);

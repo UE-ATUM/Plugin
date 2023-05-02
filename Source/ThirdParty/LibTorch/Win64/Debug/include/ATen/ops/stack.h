@@ -31,7 +31,6 @@ inline at::Tensor stack(at::TensorList tensors, int64_t dim=0) {
 inline at::Tensor & stack_out(at::Tensor & out, at::TensorList tensors, int64_t dim=0) {
     return at::_ops::stack_out::call(tensors, dim, out);
 }
-
 // aten::stack.out(Tensor[] tensors, int dim=0, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & stack_outf(at::TensorList tensors, int64_t dim, at::Tensor & out) {
     return at::_ops::stack_out::call(tensors, dim, out);

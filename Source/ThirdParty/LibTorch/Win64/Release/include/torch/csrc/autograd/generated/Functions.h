@@ -117,9 +117,9 @@ struct TORCH_API AddbmmBackward0 : public TraceableFunction {
     batch1_.reset_data();
   }
 
-  int64_t batch1_argsize_0 = 0;
-  int64_t batch1_argsize_1 = 0;
-  int64_t batch2_argsize_2 = 0;
+  c10::SymInt batch1_sym_argsize_0;
+  c10::SymInt batch1_sym_argsize_1;
+  c10::SymInt batch2_sym_argsize_2;
   SavedVariable batch2_;
   at::Scalar alpha;
   SavedVariable batch1_;
@@ -501,7 +501,7 @@ struct TORCH_API CatBackward0 : public TraceableFunction {
 
   }
 
-  ::std::vector<::std::vector<int64_t>> tensors_args_sizes;
+  ::std::vector<::std::vector<c10::SymInt>> tensors_args_sizes_symint;
   ::std::vector<at::ScalarType> tensors_args_scalartypes;
   int64_t dim = 0;
   size_t tensors_size_;
@@ -1060,19 +1060,6 @@ struct TORCH_API DiagEmbedBackward0 : public TraceableFunction {
   int64_t offset = 0;
   int64_t dim1 = 0;
   int64_t dim2 = 0;
-
-};
-struct TORCH_API DiagBackward0 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "DiagBackward0"; }
-  void release_variables() override {
-
-
-  }
-
-  std::vector<c10::SymInt> self_sym_sizes;
-  int64_t diagonal = 0;
 
 };
 struct TORCH_API DiagonalBackward0 : public Node {
@@ -1869,7 +1856,7 @@ struct TORCH_API IndexBackward0 : public TraceableFunction {
     indices_released_ = true;
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
   at::TensorOptions self_options;
   std::vector<SavedVariable> indices_;
   bool indices_released_ = false;
@@ -1996,7 +1983,7 @@ struct TORCH_API IndexSelectBackward0 : public TraceableFunction {
     index_.reset_data();
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
   int64_t dim = 0;
   SavedVariable index_;
 
@@ -2036,7 +2023,7 @@ struct TORCH_API KthvalueBackward0 : public TraceableFunction {
     indices_.reset_data();
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
   int64_t dim = 0;
   bool keepdim;
   SavedVariable indices_;
@@ -2380,8 +2367,6 @@ struct TORCH_API LinalgLstsqBackward0 : public TraceableFunction {
 
   SavedVariable self_;
   SavedVariable b_;
-  c10::optional<double> rcond;
-  c10::optional<std::string> driver;
 
 };
 struct TORCH_API LtBackward0 : public TraceableFunction {
@@ -2464,11 +2449,12 @@ struct TORCH_API LuUnpackBackward0 : public TraceableFunction {
   variable_list apply(variable_list&& grads) override;
   std::string name() const override { return "LuUnpackBackward0"; }
   void release_variables() override {
-    std::lock_guard<std::mutex> lock(mutex_);
-    LU_data_.reset_data();
+
+
   }
 
-  SavedVariable LU_data_;
+  c10::SymInt LU_data_sym_argsize_minus_2;
+  c10::SymInt LU_data_sym_argsize_minus_1;
 
 };
 struct TORCH_API MaskedFillBackward0 : public TraceableFunction {
@@ -2505,7 +2491,7 @@ struct TORCH_API MaskedScatterBackward0 : public TraceableFunction {
   }
 
   SavedVariable mask_;
-  std::vector<int64_t> source_sizes;
+  std::vector<c10::SymInt> source_sym_sizes;
 
 };
 struct TORCH_API MaskedSelectBackward0 : public TraceableFunction {
@@ -2543,7 +2529,7 @@ struct TORCH_API MaxBackward0 : public TraceableFunction {
     indices_.reset_data();
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
   int64_t dim = 0;
   bool keepdim;
   SavedVariable indices_;
@@ -2596,12 +2582,12 @@ struct TORCH_API MeanBackward0 : public TraceableFunction {
   variable_list apply(variable_list&& grads) override;
   std::string name() const override { return "MeanBackward0"; }
   void release_variables() override {
-
-
+    std::lock_guard<std::mutex> lock(mutex_);
+    self_.reset_data();
   }
 
-  std::vector<int64_t> self_sizes;
-  int64_t self_numel = 0;
+  std::vector<c10::SymInt> self_sym_sizes;
+  SavedVariable self_;
 
 };
 struct TORCH_API MeanBackward1 : public TraceableFunction {
@@ -2656,7 +2642,7 @@ struct TORCH_API MedianBackward1 : public TraceableFunction {
     indices_.reset_data();
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
   int64_t dim = 0;
   bool keepdim;
   SavedVariable indices_;
@@ -2671,7 +2657,7 @@ struct TORCH_API NanmedianBackward1 : public TraceableFunction {
     indices_.reset_data();
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
   int64_t dim = 0;
   bool keepdim;
   SavedVariable indices_;
@@ -2686,7 +2672,7 @@ struct TORCH_API MinBackward0 : public TraceableFunction {
     indices_.reset_data();
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
   int64_t dim = 0;
   bool keepdim;
   SavedVariable indices_;
@@ -2795,7 +2781,7 @@ struct TORCH_API ModeBackward0 : public TraceableFunction {
     indices_.reset_data();
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
   int64_t dim = 0;
   bool keepdim;
   SavedVariable indices_;
@@ -2887,6 +2873,50 @@ struct TORCH_API NativeBatchNormBackward0 : public TraceableFunction {
   SavedVariable weight_;
   SavedVariable running_mean_;
   SavedVariable running_var_;
+  bool training;
+  double eps;
+  SavedVariable result1_;
+  SavedVariable result2_;
+
+};
+struct TORCH_API NativeBatchNormLegitBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "NativeBatchNormLegitBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    input_.reset_data();
+    weight_.reset_data();
+    running_mean_.reset_data();
+    running_var_.reset_data();
+    result1_.reset_data();
+    result2_.reset_data();
+  }
+
+  SavedVariable input_;
+  SavedVariable weight_;
+  SavedVariable running_mean_;
+  SavedVariable running_var_;
+  bool training;
+  double eps;
+  SavedVariable result1_;
+  SavedVariable result2_;
+
+};
+struct TORCH_API NativeBatchNormLegitBackward1 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "NativeBatchNormLegitBackward1"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    input_.reset_data();
+    weight_.reset_data();
+    result1_.reset_data();
+    result2_.reset_data();
+  }
+
+  SavedVariable input_;
+  SavedVariable weight_;
   bool training;
   double eps;
   SavedVariable result1_;
@@ -3207,7 +3237,7 @@ struct TORCH_API NormalBackward1 : public TraceableFunction {
 
   }
 
-  std::vector<int64_t> mean_sizes;
+  std::vector<c10::SymInt> mean_sym_sizes;
 
 };
 struct TORCH_API NormalBackward2 : public TraceableFunction {
@@ -3219,7 +3249,7 @@ struct TORCH_API NormalBackward2 : public TraceableFunction {
 
   }
 
-  std::vector<int64_t> std_sizes;
+  std::vector<c10::SymInt> std_sym_sizes;
 
 };
 struct TORCH_API NormalBackward3 : public TraceableFunction {
@@ -3231,8 +3261,8 @@ struct TORCH_API NormalBackward3 : public TraceableFunction {
 
   }
 
-  std::vector<int64_t> mean_sizes;
-  std::vector<int64_t> std_sizes;
+  std::vector<c10::SymInt> mean_sym_sizes;
+  std::vector<c10::SymInt> std_sym_sizes;
 
 };
 struct TORCH_API LinalgHouseholderProductBackward0 : public TraceableFunction {
@@ -3256,11 +3286,19 @@ struct TORCH_API OrmqrBackward0 : public TraceableFunction {
   variable_list apply(variable_list&& grads) override;
   std::string name() const override { return "OrmqrBackward0"; }
   void release_variables() override {
-
-
+    std::lock_guard<std::mutex> lock(mutex_);
+    self_.reset_data();
+    input2_.reset_data();
+    input3_.reset_data();
+    result_.reset_data();
   }
 
-
+  SavedVariable self_;
+  SavedVariable input2_;
+  SavedVariable input3_;
+  bool left;
+  bool transpose;
+  SavedVariable result_;
 
 };
 struct TORCH_API PermuteBackward0 : public Node {
@@ -3640,9 +3678,9 @@ struct TORCH_API SelectBackward0 : public Node {
 
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
   int64_t dim = 0;
-  int64_t index = 0;
+  c10::SymInt index;
 
 };
 struct TORCH_API SelectBackwardAutogradNestedTensor0 : public Node {
@@ -3656,7 +3694,7 @@ struct TORCH_API SelectBackwardAutogradNestedTensor0 : public Node {
 
   SavedVariable self_;
   int64_t dim = 0;
-  int64_t index = 0;
+  c10::SymInt index;
 
 };
 struct TORCH_API SelectBackwardBackward0 : public TraceableFunction {
@@ -3669,7 +3707,7 @@ struct TORCH_API SelectBackwardBackward0 : public TraceableFunction {
   }
 
   int64_t dim = 0;
-  int64_t index = 0;
+  c10::SymInt index;
 
 };
 struct TORCH_API SigmoidBackward0 : public TraceableFunction {
@@ -3817,7 +3855,7 @@ struct TORCH_API SelectScatterBackward0 : public TraceableFunction {
 
   torch::autograd::generated::TypeAndSize src_info;
   int64_t dim = 0;
-  int64_t index = 0;
+  c10::SymInt index;
 
 };
 struct TORCH_API DiagonalScatterBackward0 : public TraceableFunction {
@@ -3879,7 +3917,7 @@ struct TORCH_API SortBackward0 : public TraceableFunction {
     indices_.reset_data();
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
   int64_t dim = 0;
   SavedVariable indices_;
 
@@ -3893,7 +3931,7 @@ struct TORCH_API SortBackward1 : public TraceableFunction {
     indices_.reset_data();
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
   int64_t dim = 0;
   SavedVariable indices_;
 
@@ -3907,9 +3945,9 @@ struct TORCH_API SplitBackward0 : public Node {
 
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
   at::TensorOptions self_options;
-  int64_t split_size = 0;
+  c10::SymInt split_size;
   int64_t dim = 0;
 
 };
@@ -3922,9 +3960,9 @@ struct TORCH_API UnsafeSplitBackward0 : public TraceableFunction {
 
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
   at::TensorOptions self_options;
-  int64_t split_size = 0;
+  c10::SymInt split_size;
   int64_t dim = 0;
 
 };
@@ -3937,9 +3975,9 @@ struct TORCH_API SplitWithSizesBackward0 : public Node {
 
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
   at::TensorOptions self_options;
-  std::vector<int64_t> split_sizes;
+  std::vector<c10::SymInt> split_sizes;
   int64_t dim = 0;
 
 };
@@ -3952,9 +3990,9 @@ struct TORCH_API UnsafeSplitWithSizesBackward0 : public TraceableFunction {
 
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
   at::TensorOptions self_options;
-  std::vector<int64_t> split_sizes;
+  std::vector<c10::SymInt> split_sizes;
   int64_t dim = 0;
 
 };
@@ -3979,7 +4017,7 @@ struct TORCH_API SqueezeBackward0 : public Node {
 
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
 
 };
 struct TORCH_API SqueezeBackward1 : public Node {
@@ -3991,12 +4029,24 @@ struct TORCH_API SqueezeBackward1 : public Node {
 
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
   int64_t dim = 0;
 
 };
-struct TORCH_API SqueezeBackward2 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
+struct TORCH_API SqueezeBackwardAutogradNestedTensor0 : public Node {
+  using Node::Node;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "SqueezeBackwardAutogradNestedTensor0"; }
+  void release_variables() override {
+
+
+  }
+
+  int64_t dim = 0;
+
+};
+struct TORCH_API SqueezeBackward2 : public Node {
+  using Node::Node;
   variable_list apply(variable_list&& grads) override;
   std::string name() const override { return "SqueezeBackward2"; }
   void release_variables() override {
@@ -4004,7 +4054,21 @@ struct TORCH_API SqueezeBackward2 : public TraceableFunction {
 
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
+  std::vector<int64_t> dim;
+
+};
+struct TORCH_API SqueezeBackwardAutogradNestedTensor1 : public Node {
+  using Node::Node;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "SqueezeBackwardAutogradNestedTensor1"; }
+  void release_variables() override {
+
+
+  }
+
+  int64_t self_dim = 0;
+  std::vector<int64_t> dim;
 
 };
 struct TORCH_API SqueezeBackward3 : public TraceableFunction {
@@ -4016,8 +4080,33 @@ struct TORCH_API SqueezeBackward3 : public TraceableFunction {
 
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
+
+};
+struct TORCH_API SqueezeBackward4 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "SqueezeBackward4"; }
+  void release_variables() override {
+
+
+  }
+
+  std::vector<c10::SymInt> self_sym_sizes;
   int64_t dim = 0;
+
+};
+struct TORCH_API SqueezeBackward5 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "SqueezeBackward5"; }
+  void release_variables() override {
+
+
+  }
+
+  std::vector<c10::SymInt> self_sym_sizes;
+  std::vector<int64_t> dim;
 
 };
 struct TORCH_API StdBackward0 : public TraceableFunction {
@@ -4175,23 +4264,9 @@ struct TORCH_API LinalgSvdBackward0 : public TraceableFunction {
 
   bool full_matrices;
   SavedVariable U_;
+  c10::SymInt S_sym_argsize_minus_1;
   SavedVariable S_;
   SavedVariable Vh_;
-
-};
-struct TORCH_API SymeigBackward0 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "SymeigBackward0"; }
-  void release_variables() override {
-    std::lock_guard<std::mutex> lock(mutex_);
-    eigenvalues_.reset_data();
-    eigenvectors_return_.reset_data();
-  }
-
-  bool eigenvectors;
-  SavedVariable eigenvalues_;
-  SavedVariable eigenvectors_return_;
 
 };
 struct TORCH_API LinalgEighBackward0 : public TraceableFunction {
@@ -4332,7 +4407,7 @@ struct TORCH_API TopkBackward0 : public TraceableFunction {
     indices_.reset_data();
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
   int64_t dim = 0;
   SavedVariable indices_;
 
@@ -4346,7 +4421,7 @@ struct TORCH_API TraceBackward0 : public TraceableFunction {
 
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
 
 };
 struct TORCH_API TransposeBackward0 : public Node {
@@ -4468,7 +4543,8 @@ struct TORCH_API ToSparseBackward0 : public TraceableFunction {
 
   }
 
-
+  c10::OptionalArray<c10::SymInt> self_self_sym_blocksize_opt;
+  at::Layout self_layout;
 
 };
 struct TORCH_API ToSparseBackward1 : public TraceableFunction {
@@ -4480,7 +4556,60 @@ struct TORCH_API ToSparseBackward1 : public TraceableFunction {
 
   }
 
+  c10::OptionalArray<c10::SymInt> self_self_sym_blocksize_opt;
+  at::Layout self_layout;
 
+};
+struct TORCH_API ToSparseCsrBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ToSparseCsrBackward0"; }
+  void release_variables() override {
+
+
+  }
+
+  c10::OptionalArray<c10::SymInt> self_self_sym_blocksize_opt;
+  at::Layout self_layout;
+
+};
+struct TORCH_API ToSparseCscBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ToSparseCscBackward0"; }
+  void release_variables() override {
+
+
+  }
+
+  c10::OptionalArray<c10::SymInt> self_self_sym_blocksize_opt;
+  at::Layout self_layout;
+
+};
+struct TORCH_API ToSparseBsrBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ToSparseBsrBackward0"; }
+  void release_variables() override {
+
+
+  }
+
+  c10::OptionalArray<c10::SymInt> self_self_sym_blocksize_opt;
+  at::Layout self_layout;
+
+};
+struct TORCH_API ToSparseBscBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ToSparseBscBackward0"; }
+  void release_variables() override {
+
+
+  }
+
+  c10::OptionalArray<c10::SymInt> self_self_sym_blocksize_opt;
+  at::Layout self_layout;
 
 };
 struct TORCH_API ToMkldnnBackward0 : public TraceableFunction {
@@ -4504,7 +4633,7 @@ struct TORCH_API UnfoldBackward0 : public Node {
 
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
   int64_t dimension = 0;
   int64_t size = 0;
   int64_t step = 0;
@@ -4793,10 +4922,10 @@ struct TORCH_API SparseCooTensorWithDimsAndTensorsBackward0 : public TraceableFu
   std::string name() const override { return "SparseCooTensorWithDimsAndTensorsBackward0"; }
   void release_variables() override {
     std::lock_guard<std::mutex> lock(mutex_);
-    indices_.reset_data();
+    result_.reset_data();
   }
 
-  SavedVariable indices_;
+  SavedVariable result_;
 
 };
 struct TORCH_API SparseSumBackward0 : public TraceableFunction {
@@ -4847,7 +4976,7 @@ struct TORCH_API ValuesBackward0 : public Node {
     self_.reset_data();
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
   SavedVariable self_;
 
 };
@@ -4892,7 +5021,7 @@ struct TORCH_API ConstantPadNdBackward0 : public TraceableFunction {
 
   }
 
-  std::vector<int64_t> pad;
+  std::vector<c10::SymInt> pad;
 
 };
 struct TORCH_API BinaryCrossEntropyBackward0 : public TraceableFunction {
@@ -4956,13 +5085,12 @@ struct TORCH_API EmbeddingBackward0 : public TraceableFunction {
   std::string name() const override { return "EmbeddingBackward0"; }
   void release_variables() override {
     std::lock_guard<std::mutex> lock(mutex_);
-    weight_.reset_data();
     indices_.reset_data();
   }
 
-  SavedVariable weight_;
+  c10::SymInt weight_sym_argsize_0;
   SavedVariable indices_;
-  int64_t padding_idx = 0;
+  c10::SymInt padding_idx;
   bool scale_grad_by_freq;
   bool sparse;
 
@@ -4977,7 +5105,7 @@ struct TORCH_API EmbeddingDenseBackwardBackward0 : public TraceableFunction {
   }
 
   SavedVariable indices_;
-  int64_t padding_idx = 0;
+  c10::SymInt padding_idx;
 
 };
 struct TORCH_API EmbeddingBagBackward0 : public TraceableFunction {
@@ -5000,7 +5128,7 @@ struct TORCH_API EmbeddingBagBackward0 : public TraceableFunction {
   SavedVariable offsets_;
   int64_t mode = 0;
   int64_t padding_idx = 0;
-  int64_t weight_argsize_0 = 0;
+  c10::SymInt weight_sym_argsize_0;
   bool scale_grad_by_freq;
   bool sparse;
   SavedVariable per_sample_weights_;
@@ -5088,7 +5216,7 @@ struct TORCH_API NllLossBackward0 : public TraceableFunction {
   SavedVariable target_;
   SavedVariable weight_;
   int64_t reduction = 0;
-  int64_t ignore_index = 0;
+  c10::SymInt ignore_index;
   SavedVariable total_weight_;
 
 };
@@ -5108,7 +5236,7 @@ struct TORCH_API NllLoss2DBackward0 : public TraceableFunction {
   SavedVariable target_;
   SavedVariable weight_;
   int64_t reduction = 0;
-  int64_t ignore_index = 0;
+  c10::SymInt ignore_index;
   SavedVariable total_weight_;
 
 };
@@ -5416,10 +5544,10 @@ struct TORCH_API MaskedSoftmaxBackward0 : public TraceableFunction {
   SavedVariable result_;
 
 };
-struct TORCH_API PreluBackward0 : public TraceableFunction {
+struct TORCH_API PreluKernelBackward0 : public TraceableFunction {
   using TraceableFunction::TraceableFunction;
   variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "PreluBackward0"; }
+  std::string name() const override { return "PreluKernelBackward0"; }
   void release_variables() override {
     std::lock_guard<std::mutex> lock(mutex_);
     self_.reset_data();
@@ -5430,20 +5558,24 @@ struct TORCH_API PreluBackward0 : public TraceableFunction {
   SavedVariable weight_;
 
 };
-struct TORCH_API PreluBackwardBackward0 : public TraceableFunction {
+struct TORCH_API PreluKernelBackwardBackward0 : public TraceableFunction {
   using TraceableFunction::TraceableFunction;
   variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "PreluBackwardBackward0"; }
+  std::string name() const override { return "PreluKernelBackwardBackward0"; }
   void release_variables() override {
     std::lock_guard<std::mutex> lock(mutex_);
-    grad_output_.reset_data();
     self_.reset_data();
     weight_.reset_data();
+    grad_output_.reset_data();
   }
 
-  SavedVariable grad_output_;
+  at::TensorOptions grad_output_options;
   SavedVariable self_;
   SavedVariable weight_;
+  SavedVariable grad_output_;
+  at::TensorOptions self_options;
+  torch::autograd::generated::TypeAndSize self_info;
+  at::TensorOptions weight_options;
 
 };
 struct TORCH_API RreluWithNoiseBackward0 : public TraceableFunction {
@@ -5586,7 +5718,7 @@ struct TORCH_API ReflectionPad1DBackward0 : public TraceableFunction {
   }
 
   SavedVariable self_;
-  std::vector<int64_t> padding;
+  std::vector<c10::SymInt> padding;
 
 };
 struct TORCH_API ReflectionPad2DBackward0 : public TraceableFunction {
@@ -5599,7 +5731,7 @@ struct TORCH_API ReflectionPad2DBackward0 : public TraceableFunction {
   }
 
   SavedVariable self_;
-  std::vector<int64_t> padding;
+  std::vector<c10::SymInt> padding;
 
 };
 struct TORCH_API ReflectionPad3DBackward0 : public TraceableFunction {
@@ -5612,7 +5744,7 @@ struct TORCH_API ReflectionPad3DBackward0 : public TraceableFunction {
   }
 
   SavedVariable self_;
-  std::vector<int64_t> padding;
+  std::vector<c10::SymInt> padding;
 
 };
 struct TORCH_API ReplicationPad1DBackward0 : public TraceableFunction {
@@ -5625,7 +5757,7 @@ struct TORCH_API ReplicationPad1DBackward0 : public TraceableFunction {
   }
 
   SavedVariable self_;
-  std::vector<int64_t> padding;
+  std::vector<c10::SymInt> padding;
 
 };
 struct TORCH_API ReplicationPad2DBackward0 : public TraceableFunction {
@@ -5638,7 +5770,7 @@ struct TORCH_API ReplicationPad2DBackward0 : public TraceableFunction {
   }
 
   SavedVariable self_;
-  std::vector<int64_t> padding;
+  std::vector<c10::SymInt> padding;
 
 };
 struct TORCH_API ReplicationPad3DBackward0 : public TraceableFunction {
@@ -5651,7 +5783,7 @@ struct TORCH_API ReplicationPad3DBackward0 : public TraceableFunction {
   }
 
   SavedVariable self_;
-  std::vector<int64_t> padding;
+  std::vector<c10::SymInt> padding;
 
 };
 struct TORCH_API UpsampleLinear1DBackward0 : public TraceableFunction {
@@ -5840,180 +5972,6 @@ struct TORCH_API UpsampleNearestExact3DBackward0 : public TraceableFunction {
   c10::optional<double> scales_w;
 
 };
-struct TORCH_API UpsampleLinear1DBackward1 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "UpsampleLinear1DBackward1"; }
-  void release_variables() override {
-
-
-  }
-
-  std::vector<c10::SymInt> input_sym_sizes;
-  c10::OptionalArray<c10::SymInt> output_size;
-  bool align_corners;
-  c10::OptionalArray<double> scale_factors;
-
-};
-struct TORCH_API UpsampleBilinear2DBackward1 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "UpsampleBilinear2DBackward1"; }
-  void release_variables() override {
-
-
-  }
-
-  std::vector<c10::SymInt> input_sym_sizes;
-  c10::OptionalArray<c10::SymInt> output_size;
-  bool align_corners;
-  c10::OptionalArray<double> scale_factors;
-
-};
-struct TORCH_API UpsampleBilinear2DAaBackward1 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "UpsampleBilinear2DAaBackward1"; }
-  void release_variables() override {
-
-
-  }
-
-  std::vector<c10::SymInt> input_sym_sizes;
-  c10::OptionalArray<c10::SymInt> output_size;
-  bool align_corners;
-  c10::OptionalArray<double> scale_factors;
-
-};
-struct TORCH_API UpsampleTrilinear3DBackward1 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "UpsampleTrilinear3DBackward1"; }
-  void release_variables() override {
-
-
-  }
-
-  std::vector<c10::SymInt> input_sym_sizes;
-  c10::OptionalArray<c10::SymInt> output_size;
-  bool align_corners;
-  c10::OptionalArray<double> scale_factors;
-
-};
-struct TORCH_API UpsampleBicubic2DBackward1 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "UpsampleBicubic2DBackward1"; }
-  void release_variables() override {
-
-
-  }
-
-  std::vector<c10::SymInt> input_sym_sizes;
-  c10::OptionalArray<c10::SymInt> output_size;
-  bool align_corners;
-  c10::OptionalArray<double> scale_factors;
-
-};
-struct TORCH_API UpsampleBicubic2DAaBackward1 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "UpsampleBicubic2DAaBackward1"; }
-  void release_variables() override {
-
-
-  }
-
-  std::vector<c10::SymInt> input_sym_sizes;
-  c10::OptionalArray<c10::SymInt> output_size;
-  bool align_corners;
-  c10::OptionalArray<double> scale_factors;
-
-};
-struct TORCH_API UpsampleNearest1DBackward1 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "UpsampleNearest1DBackward1"; }
-  void release_variables() override {
-
-
-  }
-
-  std::vector<c10::SymInt> input_sym_sizes;
-  c10::OptionalArray<c10::SymInt> output_size;
-  c10::OptionalArray<double> scale_factors;
-
-};
-struct TORCH_API UpsampleNearestExact1DBackward1 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "UpsampleNearestExact1DBackward1"; }
-  void release_variables() override {
-
-
-  }
-
-  std::vector<c10::SymInt> input_sym_sizes;
-  c10::OptionalArray<c10::SymInt> output_size;
-  c10::OptionalArray<double> scale_factors;
-
-};
-struct TORCH_API UpsampleNearest2DBackward1 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "UpsampleNearest2DBackward1"; }
-  void release_variables() override {
-
-
-  }
-
-  std::vector<c10::SymInt> input_sym_sizes;
-  c10::OptionalArray<c10::SymInt> output_size;
-  c10::OptionalArray<double> scale_factors;
-
-};
-struct TORCH_API UpsampleNearestExact2DBackward1 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "UpsampleNearestExact2DBackward1"; }
-  void release_variables() override {
-
-
-  }
-
-  std::vector<c10::SymInt> input_sym_sizes;
-  c10::OptionalArray<c10::SymInt> output_size;
-  c10::OptionalArray<double> scale_factors;
-
-};
-struct TORCH_API UpsampleNearest3DBackward1 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "UpsampleNearest3DBackward1"; }
-  void release_variables() override {
-
-
-  }
-
-  std::vector<c10::SymInt> input_sym_sizes;
-  c10::OptionalArray<c10::SymInt> output_size;
-  c10::OptionalArray<double> scale_factors;
-
-};
-struct TORCH_API UpsampleNearestExact3DBackward1 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "UpsampleNearestExact3DBackward1"; }
-  void release_variables() override {
-
-
-  }
-
-  std::vector<c10::SymInt> input_sym_sizes;
-  c10::OptionalArray<c10::SymInt> output_size;
-  c10::OptionalArray<double> scale_factors;
-
-};
 struct TORCH_API PixelShuffleBackward0 : public TraceableFunction {
   using TraceableFunction::TraceableFunction;
   variable_list apply(variable_list&& grads) override;
@@ -6172,10 +6130,10 @@ struct TORCH_API LinearBackward0 : public TraceableFunction {
   SavedVariable weight_;
 
 };
-struct TORCH_API MpsMaxPool2DBackward0 : public TraceableFunction {
+struct TORCH_API MaxPool2DBackward0 : public TraceableFunction {
   using TraceableFunction::TraceableFunction;
   variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "MpsMaxPool2DBackward0"; }
+  std::string name() const override { return "MaxPool2DBackward0"; }
   void release_variables() override {
     std::lock_guard<std::mutex> lock(mutex_);
     self_.reset_data();
@@ -6303,10 +6261,10 @@ struct TORCH_API ConvolutionBackward0 : public TraceableFunction {
   SavedVariable weight_;
   c10::OptionalArray<c10::SymInt> bias_sym_sizes_opt;
   std::vector<int64_t> stride;
-  std::vector<int64_t> padding;
+  std::vector<c10::SymInt> padding;
   std::vector<int64_t> dilation;
   bool transposed;
-  std::vector<int64_t> output_padding;
+  std::vector<c10::SymInt> output_padding;
   int64_t groups = 0;
 
 };
@@ -6322,12 +6280,12 @@ struct TORCH_API ConvolutionBackward1 : public TraceableFunction {
 
   SavedVariable input_;
   SavedVariable weight_;
-  c10::OptionalArray<int64_t> bias_sizes_opt;
+  c10::OptionalArray<c10::SymInt> bias_sym_sizes_opt;
   std::vector<int64_t> stride;
-  std::vector<int64_t> padding;
+  std::vector<c10::SymInt> padding;
   std::vector<int64_t> dilation;
   bool transposed;
-  std::vector<int64_t> output_padding;
+  std::vector<c10::SymInt> output_padding;
   int64_t groups = 0;
 
 };
@@ -6346,10 +6304,10 @@ struct TORCH_API ConvolutionBackwardBackward0 : public TraceableFunction {
   SavedVariable input_;
   SavedVariable weight_;
   std::vector<int64_t> stride;
-  std::vector<int64_t> padding;
+  std::vector<c10::SymInt> padding;
   std::vector<int64_t> dilation;
   bool transposed;
-  std::vector<int64_t> output_padding;
+  std::vector<c10::SymInt> output_padding;
   int64_t groups = 0;
 
 };
@@ -6407,10 +6365,10 @@ struct TORCH_API SlowConvTranspose2DBackward0 : public TraceableFunction {
 
   SavedVariable self_;
   SavedVariable weight_;
-  c10::OptionalArray<int64_t> bias_sizes_opt;
+  c10::OptionalArray<c10::SymInt> bias_sym_sizes_opt;
   std::vector<int64_t> stride;
-  std::vector<int64_t> padding;
-  std::vector<int64_t> output_padding;
+  std::vector<c10::SymInt> padding;
+  std::vector<c10::SymInt> output_padding;
   std::vector<int64_t> dilation;
 
 };
@@ -6426,10 +6384,10 @@ struct TORCH_API SlowConvTranspose3DBackward0 : public TraceableFunction {
 
   SavedVariable self_;
   SavedVariable weight_;
-  c10::OptionalArray<int64_t> bias_sizes_opt;
+  c10::OptionalArray<c10::SymInt> bias_sym_sizes_opt;
   std::vector<int64_t> stride;
-  std::vector<int64_t> padding;
-  std::vector<int64_t> output_padding;
+  std::vector<c10::SymInt> padding;
+  std::vector<c10::SymInt> output_padding;
   std::vector<int64_t> dilation;
 
 };
@@ -6480,9 +6438,9 @@ struct TORCH_API ConvDepthwise2DBackward0 : public TraceableFunction {
 
   SavedVariable self_;
   SavedVariable weight_;
-  c10::OptionalArray<int64_t> bias_sizes_opt;
+  c10::OptionalArray<c10::SymInt> bias_sym_sizes_opt;
   std::vector<int64_t> stride;
-  std::vector<int64_t> padding;
+  std::vector<c10::SymInt> padding;
   std::vector<int64_t> dilation;
 
 };
@@ -6498,9 +6456,9 @@ struct TORCH_API ConvDepthwise3DBackward0 : public TraceableFunction {
 
   SavedVariable self_;
   SavedVariable weight_;
-  c10::OptionalArray<int64_t> bias_sizes_opt;
+  c10::OptionalArray<c10::SymInt> bias_sym_sizes_opt;
   std::vector<int64_t> stride;
-  std::vector<int64_t> padding;
+  std::vector<c10::SymInt> padding;
   std::vector<int64_t> dilation;
 
 };
@@ -6516,9 +6474,9 @@ struct TORCH_API SlowConv3DBackward0 : public TraceableFunction {
 
   SavedVariable self_;
   SavedVariable weight_;
-  c10::OptionalArray<int64_t> bias_sizes_opt;
+  c10::OptionalArray<c10::SymInt> bias_sym_sizes_opt;
   std::vector<int64_t> stride;
-  std::vector<int64_t> padding;
+  std::vector<c10::SymInt> padding;
 
 };
 struct TORCH_API SlowConvDilated2DBackward0 : public TraceableFunction {
@@ -6533,9 +6491,9 @@ struct TORCH_API SlowConvDilated2DBackward0 : public TraceableFunction {
 
   SavedVariable self_;
   SavedVariable weight_;
-  c10::OptionalArray<int64_t> bias_sizes_opt;
+  c10::OptionalArray<c10::SymInt> bias_sym_sizes_opt;
   std::vector<int64_t> stride;
-  std::vector<int64_t> padding;
+  std::vector<c10::SymInt> padding;
   std::vector<int64_t> dilation;
 
 };
@@ -6551,9 +6509,9 @@ struct TORCH_API SlowConvDilated3DBackward0 : public TraceableFunction {
 
   SavedVariable self_;
   SavedVariable weight_;
-  c10::OptionalArray<int64_t> bias_sizes_opt;
+  c10::OptionalArray<c10::SymInt> bias_sym_sizes_opt;
   std::vector<int64_t> stride;
-  std::vector<int64_t> padding;
+  std::vector<c10::SymInt> padding;
   std::vector<int64_t> dilation;
 
 };
@@ -6577,11 +6535,12 @@ struct TORCH_API Im2ColBackward0 : public TraceableFunction {
   variable_list apply(variable_list&& grads) override;
   std::string name() const override { return "Im2ColBackward0"; }
   void release_variables() override {
-    std::lock_guard<std::mutex> lock(mutex_);
-    self_.reset_data();
+
+
   }
 
-  SavedVariable self_;
+  c10::SymInt self_sym_argsize_minus_2;
+  c10::SymInt self_sym_argsize_minus_1;
   std::vector<int64_t> kernel_size;
   std::vector<int64_t> dilation;
   std::vector<int64_t> padding;
@@ -6593,11 +6552,12 @@ struct TORCH_API AdaptiveAvgPool2DBackwardBackward0 : public TraceableFunction {
   variable_list apply(variable_list&& grads) override;
   std::string name() const override { return "AdaptiveAvgPool2DBackwardBackward0"; }
   void release_variables() override {
-    std::lock_guard<std::mutex> lock(mutex_);
-    grad_output_.reset_data();
+
+
   }
 
-  SavedVariable grad_output_;
+  c10::SymInt grad_output_sym_argsize_minus_2;
+  c10::SymInt grad_output_sym_argsize_minus_1;
   torch::autograd::generated::TypeAndSize self_info;
 
 };
@@ -6606,11 +6566,13 @@ struct TORCH_API AdaptiveAvgPool3DBackwardBackward0 : public TraceableFunction {
   variable_list apply(variable_list&& grads) override;
   std::string name() const override { return "AdaptiveAvgPool3DBackwardBackward0"; }
   void release_variables() override {
-    std::lock_guard<std::mutex> lock(mutex_);
-    grad_output_.reset_data();
+
+
   }
 
-  SavedVariable grad_output_;
+  c10::SymInt grad_output_sym_argsize_minus_3;
+  c10::SymInt grad_output_sym_argsize_minus_2;
+  c10::SymInt grad_output_sym_argsize_minus_1;
   torch::autograd::generated::TypeAndSize self_info;
 
 };
@@ -6849,7 +6811,7 @@ struct TORCH_API NllLossBackwardBackward0 : public TraceableFunction {
   SavedVariable target_;
   SavedVariable weight_;
   int64_t reduction = 0;
-  int64_t ignore_index = 0;
+  c10::SymInt ignore_index;
 
 };
 struct TORCH_API NllLoss2DBackwardBackward0 : public TraceableFunction {
@@ -6865,7 +6827,7 @@ struct TORCH_API NllLoss2DBackwardBackward0 : public TraceableFunction {
   SavedVariable target_;
   SavedVariable weight_;
   int64_t reduction = 0;
-  int64_t ignore_index = 0;
+  c10::SymInt ignore_index;
 
 };
 struct TORCH_API RreluWithNoiseBackwardBackward0 : public TraceableFunction {
@@ -6894,7 +6856,7 @@ struct TORCH_API ReflectionPad1DBackwardBackward0 : public TraceableFunction {
 
   }
 
-  std::vector<int64_t> padding;
+  std::vector<c10::SymInt> padding;
   torch::autograd::generated::TypeAndSize self_info;
 
 };
@@ -6907,7 +6869,7 @@ struct TORCH_API ReflectionPad2DBackwardBackward0 : public TraceableFunction {
 
   }
 
-  std::vector<int64_t> padding;
+  std::vector<c10::SymInt> padding;
   torch::autograd::generated::TypeAndSize self_info;
 
 };
@@ -6920,7 +6882,7 @@ struct TORCH_API ReflectionPad3DBackwardBackward0 : public TraceableFunction {
 
   }
 
-  std::vector<int64_t> padding;
+  std::vector<c10::SymInt> padding;
   torch::autograd::generated::TypeAndSize self_info;
 
 };
@@ -6933,7 +6895,7 @@ struct TORCH_API ReplicationPad1DBackwardBackward0 : public TraceableFunction {
 
   }
 
-  std::vector<int64_t> padding;
+  std::vector<c10::SymInt> padding;
   torch::autograd::generated::TypeAndSize self_info;
 
 };
@@ -6946,7 +6908,7 @@ struct TORCH_API ReplicationPad2DBackwardBackward0 : public TraceableFunction {
 
   }
 
-  std::vector<int64_t> padding;
+  std::vector<c10::SymInt> padding;
   torch::autograd::generated::TypeAndSize self_info;
 
 };
@@ -6959,7 +6921,7 @@ struct TORCH_API ReplicationPad3DBackwardBackward0 : public TraceableFunction {
 
   }
 
-  std::vector<int64_t> padding;
+  std::vector<c10::SymInt> padding;
   torch::autograd::generated::TypeAndSize self_info;
 
 };
@@ -6979,6 +6941,23 @@ struct TORCH_API SparseSampledAddmmBackward0 : public TraceableFunction {
   at::Scalar alpha;
   SavedVariable mat1_;
   at::Scalar beta;
+
+};
+struct TORCH_API SparseMmReduceImplBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "SparseMmReduceImplBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    self_.reset_data();
+    other_.reset_data();
+    result1_.reset_data();
+  }
+
+  SavedVariable self_;
+  SavedVariable other_;
+  std::string reduce;
+  SavedVariable result1_;
 
 };
 struct TORCH_API SmoothL1LossBackwardBackward0 : public TraceableFunction {
@@ -7266,168 +7245,6 @@ struct TORCH_API UpsampleNearestExact3DBackwardBackward0 : public TraceableFunct
   c10::optional<double> scales_w;
 
 };
-struct TORCH_API UpsampleLinear1DBackwardBackward1 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "UpsampleLinear1DBackwardBackward1"; }
-  void release_variables() override {
-
-
-  }
-
-  c10::OptionalArray<c10::SymInt> output_size;
-  bool align_corners;
-  c10::OptionalArray<double> scale_factors;
-
-};
-struct TORCH_API UpsampleBilinear2DBackwardBackward1 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "UpsampleBilinear2DBackwardBackward1"; }
-  void release_variables() override {
-
-
-  }
-
-  c10::OptionalArray<c10::SymInt> output_size;
-  bool align_corners;
-  c10::OptionalArray<double> scale_factors;
-
-};
-struct TORCH_API UpsampleBilinear2DAaBackwardBackward1 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "UpsampleBilinear2DAaBackwardBackward1"; }
-  void release_variables() override {
-
-
-  }
-
-  c10::OptionalArray<c10::SymInt> output_size;
-  bool align_corners;
-  c10::OptionalArray<double> scale_factors;
-
-};
-struct TORCH_API UpsampleTrilinear3DBackwardBackward1 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "UpsampleTrilinear3DBackwardBackward1"; }
-  void release_variables() override {
-
-
-  }
-
-  c10::OptionalArray<c10::SymInt> output_size;
-  bool align_corners;
-  c10::OptionalArray<double> scale_factors;
-
-};
-struct TORCH_API UpsampleBicubic2DBackwardBackward1 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "UpsampleBicubic2DBackwardBackward1"; }
-  void release_variables() override {
-
-
-  }
-
-  c10::OptionalArray<c10::SymInt> output_size;
-  bool align_corners;
-  c10::OptionalArray<double> scale_factors;
-
-};
-struct TORCH_API UpsampleBicubic2DAaBackwardBackward1 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "UpsampleBicubic2DAaBackwardBackward1"; }
-  void release_variables() override {
-
-
-  }
-
-  c10::OptionalArray<c10::SymInt> output_size;
-  bool align_corners;
-  c10::OptionalArray<double> scale_factors;
-
-};
-struct TORCH_API UpsampleNearest1DBackwardBackward1 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "UpsampleNearest1DBackwardBackward1"; }
-  void release_variables() override {
-
-
-  }
-
-  c10::OptionalArray<c10::SymInt> output_size;
-  c10::OptionalArray<double> scale_factors;
-
-};
-struct TORCH_API UpsampleNearestExact1DBackwardBackward1 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "UpsampleNearestExact1DBackwardBackward1"; }
-  void release_variables() override {
-
-
-  }
-
-  c10::OptionalArray<c10::SymInt> output_size;
-  c10::OptionalArray<double> scale_factors;
-
-};
-struct TORCH_API UpsampleNearest2DBackwardBackward1 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "UpsampleNearest2DBackwardBackward1"; }
-  void release_variables() override {
-
-
-  }
-
-  c10::OptionalArray<c10::SymInt> output_size;
-  c10::OptionalArray<double> scale_factors;
-
-};
-struct TORCH_API UpsampleNearestExact2DBackwardBackward1 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "UpsampleNearestExact2DBackwardBackward1"; }
-  void release_variables() override {
-
-
-  }
-
-  c10::OptionalArray<c10::SymInt> output_size;
-  c10::OptionalArray<double> scale_factors;
-
-};
-struct TORCH_API UpsampleNearest3DBackwardBackward1 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "UpsampleNearest3DBackwardBackward1"; }
-  void release_variables() override {
-
-
-  }
-
-  c10::OptionalArray<c10::SymInt> output_size;
-  c10::OptionalArray<double> scale_factors;
-
-};
-struct TORCH_API UpsampleNearestExact3DBackwardBackward1 : public TraceableFunction {
-  using TraceableFunction::TraceableFunction;
-  variable_list apply(variable_list&& grads) override;
-  std::string name() const override { return "UpsampleNearestExact3DBackwardBackward1"; }
-  void release_variables() override {
-
-
-  }
-
-  c10::OptionalArray<c10::SymInt> output_size;
-  c10::OptionalArray<double> scale_factors;
-
-};
 struct TORCH_API SigmoidBackwardBackward0 : public TraceableFunction {
   using TraceableFunction::TraceableFunction;
   variable_list apply(variable_list&& grads) override;
@@ -7639,8 +7456,8 @@ struct TORCH_API NnpackSpatialConvolutionBackward0 : public TraceableFunction {
 
   SavedVariable input_;
   SavedVariable weight_;
-  c10::OptionalArray<int64_t> bias_sizes_opt;
-  std::vector<int64_t> padding;
+  c10::OptionalArray<c10::SymInt> bias_sym_sizes_opt;
+  std::vector<c10::SymInt> padding;
   std::vector<int64_t> stride;
 
 };
@@ -7657,6 +7474,7 @@ struct TORCH_API LstmMpsBackward0 : public TraceableFunction {
     params_released_ = true;
     result3_.reset_data();
     result4_.reset_data();
+    result5_.reset_data();
   }
 
   SavedVariable input_;
@@ -7672,6 +7490,7 @@ struct TORCH_API LstmMpsBackward0 : public TraceableFunction {
   bool batch_first;
   SavedVariable result3_;
   SavedVariable result4_;
+  SavedVariable result5_;
   size_t hx_size_;
   size_t params_size_;
 };
@@ -7740,9 +7559,9 @@ struct TORCH_API MiopenConvolutionTransposeBackward0 : public TraceableFunction 
 
   SavedVariable self_;
   SavedVariable weight_;
-  c10::OptionalArray<int64_t> bias_sizes_opt;
-  std::vector<int64_t> padding;
-  std::vector<int64_t> output_padding;
+  c10::OptionalArray<c10::SymInt> bias_sym_sizes_opt;
+  std::vector<c10::SymInt> padding;
+  std::vector<c10::SymInt> output_padding;
   std::vector<int64_t> stride;
   std::vector<int64_t> dilation;
   int64_t groups = 0;
@@ -7760,8 +7579,8 @@ struct TORCH_API MiopenConvolutionBackward0 : public TraceableFunction {
 
   SavedVariable self_;
   SavedVariable weight_;
-  c10::OptionalArray<int64_t> bias_sizes_opt;
-  std::vector<int64_t> padding;
+  c10::OptionalArray<c10::SymInt> bias_sym_sizes_opt;
+  std::vector<c10::SymInt> padding;
   std::vector<int64_t> stride;
   std::vector<int64_t> dilation;
   int64_t groups = 0;
@@ -7779,8 +7598,8 @@ struct TORCH_API MiopenDepthwiseConvolutionBackward0 : public TraceableFunction 
 
   SavedVariable self_;
   SavedVariable weight_;
-  c10::OptionalArray<int64_t> bias_sizes_opt;
-  std::vector<int64_t> padding;
+  c10::OptionalArray<c10::SymInt> bias_sym_sizes_opt;
+  std::vector<c10::SymInt> padding;
   std::vector<int64_t> stride;
   std::vector<int64_t> dilation;
   int64_t groups = 0;
@@ -7875,6 +7694,47 @@ struct TORCH_API MiopenRnnBackward0 : public TraceableFunction {
   SavedVariable result4_;
   size_t weight_size_;
 };
+struct TORCH_API MkldnnRnnLayerBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "MkldnnRnnLayerBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    input_.reset_data();
+    weight0_.reset_data();
+    weight1_.reset_data();
+    weight2_.reset_data();
+    weight3_.reset_data();
+    hx__.reset_data();
+    cx__.reset_data();
+    result0_.reset_data();
+    result1_.reset_data();
+    result2_.reset_data();
+    result3_.reset_data();
+  }
+
+  SavedVariable input_;
+  SavedVariable weight0_;
+  SavedVariable weight1_;
+  SavedVariable weight2_;
+  SavedVariable weight3_;
+  SavedVariable hx__;
+  SavedVariable cx__;
+  bool reverse;
+  std::vector<int64_t> batch_sizes;
+  int64_t mode = 0;
+  int64_t hidden_size = 0;
+  int64_t num_layers = 0;
+  bool has_biases;
+  bool bidirectional;
+  bool batch_first;
+  bool train;
+  SavedVariable result0_;
+  SavedVariable result1_;
+  SavedVariable result2_;
+  SavedVariable result3_;
+
+};
 struct TORCH_API MkldnnConvolutionBackward0 : public TraceableFunction {
   using TraceableFunction::TraceableFunction;
   variable_list apply(variable_list&& grads) override;
@@ -7887,8 +7747,8 @@ struct TORCH_API MkldnnConvolutionBackward0 : public TraceableFunction {
 
   SavedVariable self_;
   SavedVariable weight_;
-  c10::OptionalArray<int64_t> bias_sizes_opt;
-  std::vector<int64_t> padding;
+  c10::OptionalArray<c10::SymInt> bias_sym_sizes_opt;
+  std::vector<c10::SymInt> padding;
   std::vector<int64_t> stride;
   std::vector<int64_t> dilation;
   int64_t groups = 0;
@@ -7967,7 +7827,7 @@ struct TORCH_API MkldnnReshapeBackward0 : public TraceableFunction {
 
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
 
 };
 struct TORCH_API NestedTensorFromTensorListBackward0 : public TraceableFunction {
@@ -7993,7 +7853,7 @@ struct TORCH_API NestedTensorFromMaskBackward0 : public TraceableFunction {
 
   }
 
-  std::vector<int64_t> t_sizes;
+  std::vector<c10::SymInt> t_sym_sizes;
 
 };
 struct TORCH_API NestedFromPaddedBackward0 : public TraceableFunction {
@@ -8033,6 +7893,108 @@ struct TORCH_API NestedViewFromBufferBackward0 : public Node {
 
 
 };
+struct TORCH_API ScaledDotProductEfficientAttentionBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ScaledDotProductEfficientAttentionBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    query_.reset_data();
+    key_.reset_data();
+    value_.reset_data();
+    result0_.reset_data();
+    result1_.reset_data();
+  }
+
+  SavedVariable query_;
+  SavedVariable key_;
+  SavedVariable value_;
+  bool is_causal;
+  SavedVariable result0_;
+  SavedVariable result1_;
+
+};
+struct TORCH_API EfficientAttentionBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "EfficientAttentionBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    query_.reset_data();
+    key_.reset_data();
+    value_.reset_data();
+    result0_.reset_data();
+    result1_.reset_data();
+  }
+
+  SavedVariable query_;
+  SavedVariable key_;
+  SavedVariable value_;
+  bool causal;
+  SavedVariable result0_;
+  SavedVariable result1_;
+
+};
+struct TORCH_API ScaledDotProductFlashAttentionBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ScaledDotProductFlashAttentionBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    query_.reset_data();
+    key_.reset_data();
+    value_.reset_data();
+    ouput_.reset_data();
+    logsumexp_.reset_data();
+    cum_seq_q_.reset_data();
+    cum_seq_k_.reset_data();
+  }
+
+  SavedVariable query_;
+  SavedVariable key_;
+  SavedVariable value_;
+  double dropout_p;
+  bool is_causal;
+  SavedVariable ouput_;
+  SavedVariable logsumexp_;
+  SavedVariable cum_seq_q_;
+  SavedVariable cum_seq_k_;
+  int64_t max_q = 0;
+  int64_t max_k = 0;
+  int64_t philox_seed = 0;
+  int64_t philox_offset = 0;
+
+};
+struct TORCH_API FlashAttentionBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "FlashAttentionBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    query_.reset_data();
+    key_.reset_data();
+    value_.reset_data();
+    cum_seq_q_.reset_data();
+    cum_seq_k_.reset_data();
+    output_.reset_data();
+    softmax_logsumexp_.reset_data();
+  }
+
+  SavedVariable query_;
+  SavedVariable key_;
+  SavedVariable value_;
+  SavedVariable cum_seq_q_;
+  SavedVariable cum_seq_k_;
+  int64_t max_q = 0;
+  int64_t max_k = 0;
+  double dropout_p;
+  bool is_causal;
+  SavedVariable output_;
+  SavedVariable softmax_logsumexp_;
+  int64_t philox_seed = 0;
+  int64_t philox_offset = 0;
+
+};
 struct TORCH_API FftR2CBackward0 : public TraceableFunction {
   using TraceableFunction::TraceableFunction;
   variable_list apply(variable_list&& grads) override;
@@ -8070,7 +8032,7 @@ struct TORCH_API FftC2CBackward0 : public TraceableFunction {
 
   }
 
-  std::vector<int64_t> dim;
+  std::vector<c10::SymInt> dim;
   int64_t normalization = 0;
   bool forward;
 
@@ -8155,7 +8117,7 @@ struct TORCH_API PackPaddedSequenceBackward0 : public TraceableFunction {
     result1_.reset_data();
   }
 
-  std::vector<int64_t> input_sizes;
+  std::vector<c10::SymInt> input_sym_sizes;
   bool batch_first;
   SavedVariable result1_;
 
@@ -8214,7 +8176,7 @@ struct TORCH_API TestAutogradMultipleDispatchBackward0 : public TraceableFunctio
 
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
 
 };
 struct TORCH_API TestAutogradMultipleDispatchBackwardAutogradNestedTensor0 : public TraceableFunction {
@@ -8238,7 +8200,7 @@ struct TORCH_API TestAutogradMultipleDispatchBackwardAutogradCUDA0 : public Trac
 
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
 
 };
 struct TORCH_API TestAutogradMultipleDispatchBackwardAutogradNestedTensor1 : public TraceableFunction {
@@ -8296,6 +8258,18 @@ struct TORCH_API ScatterReduceBackward0 : public TraceableFunction {
   std::string reduce;
   bool include_self;
   SavedVariable result_;
+
+};
+struct TORCH_API ReshapeCopyBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ReshapeCopyBackward0"; }
+  void release_variables() override {
+
+
+  }
+
+  std::vector<c10::SymInt> self_sym_sizes;
 
 };
 struct TORCH_API AliasBackward0_copy : public TraceableFunction {
@@ -8409,9 +8383,9 @@ struct TORCH_API SelectBackward0_copy : public TraceableFunction {
 
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
   int64_t dim = 0;
-  int64_t index = 0;
+  c10::SymInt index;
 
 };
 struct TORCH_API SelectBackwardAutogradNestedTensor0_copy : public TraceableFunction {
@@ -8425,7 +8399,7 @@ struct TORCH_API SelectBackwardAutogradNestedTensor0_copy : public TraceableFunc
 
   SavedVariable self_;
   int64_t dim = 0;
-  int64_t index = 0;
+  c10::SymInt index;
 
 };
 struct TORCH_API SliceBackward0_copy : public TraceableFunction {
@@ -8453,9 +8427,9 @@ struct TORCH_API SplitBackward0_copy : public TraceableFunction {
 
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
   at::TensorOptions self_options;
-  int64_t split_size = 0;
+  c10::SymInt split_size;
   int64_t dim = 0;
 
 };
@@ -8468,9 +8442,9 @@ struct TORCH_API SplitWithSizesBackward0_copy : public TraceableFunction {
 
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
   at::TensorOptions self_options;
-  std::vector<int64_t> split_sizes;
+  std::vector<c10::SymInt> split_sizes;
   int64_t dim = 0;
 
 };
@@ -8483,7 +8457,7 @@ struct TORCH_API SqueezeBackward0_copy : public TraceableFunction {
 
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
 
 };
 struct TORCH_API SqueezeBackward1_copy : public TraceableFunction {
@@ -8495,8 +8469,46 @@ struct TORCH_API SqueezeBackward1_copy : public TraceableFunction {
 
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
   int64_t dim = 0;
+
+};
+struct TORCH_API SqueezeBackwardAutogradNestedTensor0_copy : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "SqueezeBackwardAutogradNestedTensor0_copy"; }
+  void release_variables() override {
+
+
+  }
+
+  int64_t dim = 0;
+
+};
+struct TORCH_API SqueezeBackward2_copy : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "SqueezeBackward2_copy"; }
+  void release_variables() override {
+
+
+  }
+
+  std::vector<c10::SymInt> self_sym_sizes;
+  std::vector<int64_t> dim;
+
+};
+struct TORCH_API SqueezeBackwardAutogradNestedTensor1_copy : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "SqueezeBackwardAutogradNestedTensor1_copy"; }
+  void release_variables() override {
+
+
+  }
+
+  int64_t self_dim = 0;
+  std::vector<int64_t> dim;
 
 };
 struct TORCH_API TBackward0_copy : public TraceableFunction {
@@ -8533,7 +8545,7 @@ struct TORCH_API UnfoldBackward0_copy : public TraceableFunction {
 
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
   int64_t dimension = 0;
   int64_t size = 0;
   int64_t step = 0;
@@ -8620,7 +8632,7 @@ struct TORCH_API ValuesBackward0_copy : public TraceableFunction {
     self_.reset_data();
   }
 
-  std::vector<int64_t> self_sizes;
+  std::vector<c10::SymInt> self_sym_sizes;
   SavedVariable self_;
 
 };
@@ -8683,6 +8695,386 @@ struct TORCH_API TestAutogradMultipleDispatchViewBackwardAutogradCUDA0_copy : pu
 
   SavedVariable self_;
 
+};
+struct TORCH_API ForeachAbsBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachAbsBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    self_.clear();
+    self_released_ = true;
+  }
+
+  std::vector<SavedVariable> self_;
+  bool self_released_ = false;
+  size_t self_size_;
+};
+struct TORCH_API ForeachAcosBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachAcosBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    self_.clear();
+    self_released_ = true;
+  }
+
+  std::vector<SavedVariable> self_;
+  bool self_released_ = false;
+  size_t self_size_;
+};
+struct TORCH_API ForeachAsinBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachAsinBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    self_.clear();
+    self_released_ = true;
+  }
+
+  std::vector<SavedVariable> self_;
+  bool self_released_ = false;
+  size_t self_size_;
+};
+struct TORCH_API ForeachAtanBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachAtanBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    self_.clear();
+    self_released_ = true;
+  }
+
+  std::vector<SavedVariable> self_;
+  bool self_released_ = false;
+  size_t self_size_;
+};
+struct TORCH_API ForeachCeilBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachCeilBackward0"; }
+  void release_variables() override {
+
+
+  }
+
+
+  size_t self_size_;
+};
+struct TORCH_API ForeachCosBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachCosBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    self_.clear();
+    self_released_ = true;
+  }
+
+  std::vector<SavedVariable> self_;
+  bool self_released_ = false;
+  size_t self_size_;
+};
+struct TORCH_API ForeachCoshBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachCoshBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    self_.clear();
+    self_released_ = true;
+  }
+
+  std::vector<SavedVariable> self_;
+  bool self_released_ = false;
+  size_t self_size_;
+};
+struct TORCH_API ForeachErfBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachErfBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    self_.clear();
+    self_released_ = true;
+  }
+
+  std::vector<SavedVariable> self_;
+  bool self_released_ = false;
+  size_t self_size_;
+};
+struct TORCH_API ForeachErfcBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachErfcBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    self_.clear();
+    self_released_ = true;
+  }
+
+  std::vector<SavedVariable> self_;
+  bool self_released_ = false;
+  size_t self_size_;
+};
+struct TORCH_API ForeachExpBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachExpBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    result_.clear();
+    result_released_ = true;
+  }
+
+  std::vector<SavedVariable> result_;
+  bool result_released_ = false;
+  size_t self_size_;
+};
+struct TORCH_API ForeachExpm1Backward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachExpm1Backward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    result_.clear();
+    result_released_ = true;
+  }
+
+  std::vector<SavedVariable> result_;
+  bool result_released_ = false;
+  size_t self_size_;
+};
+struct TORCH_API ForeachFloorBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachFloorBackward0"; }
+  void release_variables() override {
+
+
+  }
+
+
+  size_t self_size_;
+};
+struct TORCH_API ForeachFracBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachFracBackward0"; }
+  void release_variables() override {
+
+
+  }
+
+
+  size_t self_size_;
+};
+struct TORCH_API ForeachLgammaBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachLgammaBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    self_.clear();
+    self_released_ = true;
+  }
+
+  std::vector<SavedVariable> self_;
+  bool self_released_ = false;
+  size_t self_size_;
+};
+struct TORCH_API ForeachLogBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachLogBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    self_.clear();
+    self_released_ = true;
+  }
+
+  std::vector<SavedVariable> self_;
+  bool self_released_ = false;
+  size_t self_size_;
+};
+struct TORCH_API ForeachLog10Backward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachLog10Backward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    self_.clear();
+    self_released_ = true;
+  }
+
+  std::vector<SavedVariable> self_;
+  bool self_released_ = false;
+  size_t self_size_;
+};
+struct TORCH_API ForeachLog1PBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachLog1PBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    self_.clear();
+    self_released_ = true;
+  }
+
+  std::vector<SavedVariable> self_;
+  bool self_released_ = false;
+  size_t self_size_;
+};
+struct TORCH_API ForeachLog2Backward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachLog2Backward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    self_.clear();
+    self_released_ = true;
+  }
+
+  std::vector<SavedVariable> self_;
+  bool self_released_ = false;
+  size_t self_size_;
+};
+struct TORCH_API ForeachNegBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachNegBackward0"; }
+  void release_variables() override {
+
+
+  }
+
+
+  size_t self_size_;
+};
+struct TORCH_API ForeachReciprocalBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachReciprocalBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    result_.clear();
+    result_released_ = true;
+  }
+
+  std::vector<SavedVariable> result_;
+  bool result_released_ = false;
+  size_t self_size_;
+};
+struct TORCH_API ForeachRoundBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachRoundBackward0"; }
+  void release_variables() override {
+
+
+  }
+
+
+  size_t self_size_;
+};
+struct TORCH_API ForeachSigmoidBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachSigmoidBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    result_.clear();
+    result_released_ = true;
+  }
+
+  std::vector<SavedVariable> result_;
+  bool result_released_ = false;
+  size_t self_size_;
+};
+struct TORCH_API ForeachSinBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachSinBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    self_.clear();
+    self_released_ = true;
+  }
+
+  std::vector<SavedVariable> self_;
+  bool self_released_ = false;
+  size_t self_size_;
+};
+struct TORCH_API ForeachSinhBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachSinhBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    self_.clear();
+    self_released_ = true;
+  }
+
+  std::vector<SavedVariable> self_;
+  bool self_released_ = false;
+  size_t self_size_;
+};
+struct TORCH_API ForeachSqrtBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachSqrtBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    result_.clear();
+    result_released_ = true;
+  }
+
+  std::vector<SavedVariable> result_;
+  bool result_released_ = false;
+  size_t self_size_;
+};
+struct TORCH_API ForeachTanBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachTanBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    result_.clear();
+    result_released_ = true;
+  }
+
+  std::vector<SavedVariable> result_;
+  bool result_released_ = false;
+  size_t self_size_;
+};
+struct TORCH_API ForeachTanhBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachTanhBackward0"; }
+  void release_variables() override {
+    std::lock_guard<std::mutex> lock(mutex_);
+    result_.clear();
+    result_released_ = true;
+  }
+
+  std::vector<SavedVariable> result_;
+  bool result_released_ = false;
+  size_t self_size_;
+};
+struct TORCH_API ForeachTruncBackward0 : public TraceableFunction {
+  using TraceableFunction::TraceableFunction;
+  variable_list apply(variable_list&& grads) override;
+  std::string name() const override { return "ForeachTruncBackward0"; }
+  void release_variables() override {
+
+
+  }
+
+
+  size_t self_size_;
 };
 
 }}} // namespace torch::autograd::generated

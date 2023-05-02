@@ -31,7 +31,6 @@ inline at::Tensor row_stack(at::TensorList tensors) {
 inline at::Tensor & row_stack_out(at::Tensor & out, at::TensorList tensors) {
     return at::_ops::row_stack_out::call(tensors, out);
 }
-
 // aten::row_stack.out(Tensor[] tensors, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & row_stack_outf(at::TensorList tensors, at::Tensor & out) {
     return at::_ops::row_stack_out::call(tensors, out);

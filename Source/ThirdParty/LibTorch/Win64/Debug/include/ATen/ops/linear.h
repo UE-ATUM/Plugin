@@ -31,7 +31,6 @@ inline at::Tensor linear(const at::Tensor & input, const at::Tensor & weight, co
 inline at::Tensor & linear_out(at::Tensor & out, const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias={}) {
     return at::_ops::linear_out::call(input, weight, bias, out);
 }
-
 // aten::linear.out(Tensor input, Tensor weight, Tensor? bias=None, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & linear_outf(const at::Tensor & input, const at::Tensor & weight, const c10::optional<at::Tensor> & bias, at::Tensor & out) {
     return at::_ops::linear_out::call(input, weight, bias, out);

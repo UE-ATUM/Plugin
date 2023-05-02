@@ -31,7 +31,6 @@ inline at::Tensor floor_divide(const at::Tensor & self, const at::Tensor & other
 inline at::Tensor & floor_divide_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other) {
     return at::_ops::floor_divide_out::call(self, other, out);
 }
-
 // aten::floor_divide.out(Tensor self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & floor_divide_outf(const at::Tensor & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::floor_divide_out::call(self, other, out);

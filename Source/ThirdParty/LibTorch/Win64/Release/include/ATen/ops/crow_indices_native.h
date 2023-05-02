@@ -16,6 +16,7 @@
 
 namespace at {
 namespace native {
+TORCH_API at::Tensor crow_indices_default(const at::Tensor & self);
 TORCH_API at::Tensor crow_indices_sparse_csr(const at::Tensor & self);
 } // namespace native
 } // namespace at

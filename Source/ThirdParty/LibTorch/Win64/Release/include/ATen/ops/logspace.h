@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor logspace(const at::Scalar & start, const at::Scalar & end, int64_t steps, double base=10.0, at::TensorOptions options={}) {
     return at::_ops::logspace::call(start, end, steps, base, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
 }
-
 // aten::logspace(Scalar start, Scalar end, int steps, float base=10.0, *, ScalarType? dtype=None, Layout? layout=None, Device? device=None, bool? pin_memory=None) -> Tensor
 inline at::Tensor logspace(const at::Scalar & start, const at::Scalar & end, int64_t steps, double base, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
     return at::_ops::logspace::call(start, end, steps, base, dtype, layout, device, pin_memory);
@@ -36,7 +35,6 @@ inline at::Tensor logspace(const at::Scalar & start, const at::Scalar & end, int
 inline at::Tensor & logspace_out(at::Tensor & out, const at::Scalar & start, const at::Scalar & end, int64_t steps, double base=10.0) {
     return at::_ops::logspace_out::call(start, end, steps, base, out);
 }
-
 // aten::logspace.out(Scalar start, Scalar end, int steps, float base=10.0, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & logspace_outf(const at::Scalar & start, const at::Scalar & end, int64_t steps, double base, at::Tensor & out) {
     return at::_ops::logspace_out::call(start, end, steps, base, out);

@@ -36,7 +36,6 @@ inline at::Tensor & deg2rad_(at::Tensor & self) {
 inline at::Tensor & deg2rad_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::deg2rad_out::call(self, out);
 }
-
 // aten::deg2rad.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & deg2rad_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::deg2rad_out::call(self, out);

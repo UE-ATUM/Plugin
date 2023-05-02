@@ -31,7 +31,6 @@ inline ::std::tuple<at::Tensor,at::Tensor> mkldnn_linear_backward_weights(const 
 inline ::std::tuple<at::Tensor &,at::Tensor &> mkldnn_linear_backward_weights_out(at::Tensor & out0, at::Tensor & out1, const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, bool bias_defined) {
     return at::_ops::mkldnn_linear_backward_weights_out::call(grad_output, input, weight, bias_defined, out0, out1);
 }
-
 // aten::mkldnn_linear_backward_weights.out(Tensor grad_output, Tensor input, Tensor weight, bool bias_defined, *, Tensor(a!) out0, Tensor(b!) out1) -> (Tensor(a!), Tensor(b!))
 inline ::std::tuple<at::Tensor &,at::Tensor &> mkldnn_linear_backward_weights_outf(const at::Tensor & grad_output, const at::Tensor & input, const at::Tensor & weight, bool bias_defined, at::Tensor & out0, at::Tensor & out1) {
     return at::_ops::mkldnn_linear_backward_weights_out::call(grad_output, input, weight, bias_defined, out0, out1);

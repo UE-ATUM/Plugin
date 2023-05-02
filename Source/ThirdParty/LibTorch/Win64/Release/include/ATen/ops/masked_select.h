@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & masked_select_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & mask) {
     return at::_ops::masked_select_out::call(self, mask, out);
 }
-
 // aten::masked_select.out(Tensor self, Tensor mask, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & masked_select_outf(const at::Tensor & self, const at::Tensor & mask, at::Tensor & out) {
     return at::_ops::masked_select_out::call(self, mask, out);

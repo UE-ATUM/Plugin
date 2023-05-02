@@ -26,7 +26,6 @@ namespace at {
 inline ::std::tuple<at::Tensor &,at::Tensor &> qr_out(at::Tensor & Q, at::Tensor & R, const at::Tensor & self, bool some=true) {
     return at::_ops::qr_Q::call(self, some, Q, R);
 }
-
 // aten::qr.Q(Tensor self, bool some=True, *, Tensor(a!) Q, Tensor(b!) R) -> (Tensor(a!) Q, Tensor(b!) R)
 inline ::std::tuple<at::Tensor &,at::Tensor &> qr_outf(const at::Tensor & self, bool some, at::Tensor & Q, at::Tensor & R) {
     return at::_ops::qr_Q::call(self, some, Q, R);

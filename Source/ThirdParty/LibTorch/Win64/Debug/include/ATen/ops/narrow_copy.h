@@ -26,30 +26,66 @@ namespace at {
 inline at::Tensor narrow_copy(const at::Tensor & self, int64_t dim, int64_t start, int64_t length) {
     return at::_ops::narrow_copy::call(self, dim, start, length);
 }
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor narrow_copy(const at::Tensor & self, int64_t dim, int64_t start, int64_t length) {
+    return at::_ops::narrow_copy::call(self, dim, start, length);
+  }
+}
 
 // aten::narrow_copy(Tensor self, int dim, SymInt start, SymInt length) -> Tensor
 inline at::Tensor narrow_copy_symint(const at::Tensor & self, int64_t dim, c10::SymInt start, c10::SymInt length) {
     return at::_ops::narrow_copy::call(self, dim, start, length);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor narrow_copy(const at::Tensor & self, int64_t dim, c10::SymInt start, c10::SymInt length) {
+    return at::_ops::narrow_copy::call(self, dim, start, length);
+  }
 }
 
 // aten::narrow_copy.out(Tensor self, int dim, SymInt start, SymInt length, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & narrow_copy_out(at::Tensor & out, const at::Tensor & self, int64_t dim, int64_t start, int64_t length) {
     return at::_ops::narrow_copy_out::call(self, dim, start, length, out);
 }
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & narrow_copy_out(at::Tensor & out, const at::Tensor & self, int64_t dim, int64_t start, int64_t length) {
+    return at::_ops::narrow_copy_out::call(self, dim, start, length, out);
+  }
+}
 
 // aten::narrow_copy.out(Tensor self, int dim, SymInt start, SymInt length, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & narrow_copy_outf(const at::Tensor & self, int64_t dim, int64_t start, int64_t length, at::Tensor & out) {
     return at::_ops::narrow_copy_out::call(self, dim, start, length, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & narrow_copy_outf(const at::Tensor & self, int64_t dim, int64_t start, int64_t length, at::Tensor & out) {
+    return at::_ops::narrow_copy_out::call(self, dim, start, length, out);
+  }
 }
 
 // aten::narrow_copy.out(Tensor self, int dim, SymInt start, SymInt length, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & narrow_copy_symint_out(at::Tensor & out, const at::Tensor & self, int64_t dim, c10::SymInt start, c10::SymInt length) {
     return at::_ops::narrow_copy_out::call(self, dim, start, length, out);
 }
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & narrow_copy_out(at::Tensor & out, const at::Tensor & self, int64_t dim, c10::SymInt start, c10::SymInt length) {
+    return at::_ops::narrow_copy_out::call(self, dim, start, length, out);
+  }
+}
 
 // aten::narrow_copy.out(Tensor self, int dim, SymInt start, SymInt length, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & narrow_copy_symint_outf(const at::Tensor & self, int64_t dim, c10::SymInt start, c10::SymInt length, at::Tensor & out) {
     return at::_ops::narrow_copy_out::call(self, dim, start, length, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & narrow_copy_outf(const at::Tensor & self, int64_t dim, c10::SymInt start, c10::SymInt length, at::Tensor & out) {
+    return at::_ops::narrow_copy_out::call(self, dim, start, length, out);
+  }
 }
 
 }

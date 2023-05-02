@@ -31,7 +31,6 @@ inline at::Tensor linalg_cross(const at::Tensor & self, const at::Tensor & other
 inline at::Tensor & linalg_cross_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other, int64_t dim=-1) {
     return at::_ops::linalg_cross_out::call(self, other, dim, out);
 }
-
 // aten::linalg_cross.out(Tensor self, Tensor other, *, int dim=-1, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & linalg_cross_outf(const at::Tensor & self, const at::Tensor & other, int64_t dim, at::Tensor & out) {
     return at::_ops::linalg_cross_out::call(self, other, dim, out);

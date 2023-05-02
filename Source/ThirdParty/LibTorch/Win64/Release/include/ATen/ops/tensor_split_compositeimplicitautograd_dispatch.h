@@ -18,7 +18,9 @@ namespace at {
 namespace compositeimplicitautograd {
 
 TORCH_API ::std::vector<at::Tensor> tensor_split(const at::Tensor & self, int64_t sections, int64_t dim=0);
+TORCH_API ::std::vector<at::Tensor> tensor_split_symint(const at::Tensor & self, c10::SymInt sections, int64_t dim=0);
 TORCH_API ::std::vector<at::Tensor> tensor_split(const at::Tensor & self, at::IntArrayRef indices, int64_t dim=0);
+TORCH_API ::std::vector<at::Tensor> tensor_split_symint(const at::Tensor & self, c10::SymIntArrayRef indices, int64_t dim=0);
 TORCH_API ::std::vector<at::Tensor> tensor_split(const at::Tensor & self, const at::Tensor & tensor_indices_or_sections, int64_t dim=0);
 
 } // namespace compositeimplicitautograd

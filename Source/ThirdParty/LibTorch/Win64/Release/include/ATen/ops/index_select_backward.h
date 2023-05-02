@@ -22,9 +22,26 @@
 namespace at {
 
 
-// aten::index_select_backward(Tensor grad, int[] self_sizes, int dim, Tensor index) -> Tensor
+// aten::index_select_backward(Tensor grad, SymInt[] self_sizes, int dim, Tensor index) -> Tensor
 inline at::Tensor index_select_backward(const at::Tensor & grad, at::IntArrayRef self_sizes, int64_t dim, const at::Tensor & index) {
+    return at::_ops::index_select_backward::call(grad, c10::fromIntArrayRefSlow(self_sizes), dim, index);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor index_select_backward(const at::Tensor & grad, at::IntArrayRef self_sizes, int64_t dim, const at::Tensor & index) {
+    return at::_ops::index_select_backward::call(grad, c10::fromIntArrayRefSlow(self_sizes), dim, index);
+  }
+}
+
+// aten::index_select_backward(Tensor grad, SymInt[] self_sizes, int dim, Tensor index) -> Tensor
+inline at::Tensor index_select_backward_symint(const at::Tensor & grad, c10::SymIntArrayRef self_sizes, int64_t dim, const at::Tensor & index) {
     return at::_ops::index_select_backward::call(grad, self_sizes, dim, index);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor index_select_backward(const at::Tensor & grad, c10::SymIntArrayRef self_sizes, int64_t dim, const at::Tensor & index) {
+    return at::_ops::index_select_backward::call(grad, self_sizes, dim, index);
+  }
 }
 
 }

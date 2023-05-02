@@ -31,7 +31,6 @@ inline at::Tensor linalg_svdvals(const at::Tensor & A, c10::optional<c10::string
 inline at::Tensor & linalg_svdvals_out(at::Tensor & out, const at::Tensor & A, c10::optional<c10::string_view> driver=c10::nullopt) {
     return at::_ops::linalg_svdvals_out::call(A, driver, out);
 }
-
 // aten::linalg_svdvals.out(Tensor A, *, str? driver=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & linalg_svdvals_outf(const at::Tensor & A, c10::optional<c10::string_view> driver, at::Tensor & out) {
     return at::_ops::linalg_svdvals_out::call(A, driver, out);

@@ -22,24 +22,76 @@
 namespace at {
 
 
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor new_zeros(const at::Tensor & self, at::IntArrayRef size, at::TensorOptions options={}) {
+    return at::_ops::new_zeros::call(self, c10::fromIntArrayRefSlow(size), optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
+  }
+}
+
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor new_zeros(const at::Tensor & self, at::IntArrayRef size, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
+    return at::_ops::new_zeros::call(self, c10::fromIntArrayRefSlow(size), dtype, layout, device, pin_memory);
+  }
+}
+
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor new_zeros(const at::Tensor & self, c10::SymIntArrayRef size, at::TensorOptions options={}) {
+    return at::_ops::new_zeros::call(self, size, optTypeMetaToScalarType(options.dtype_opt()), options.layout_opt(), options.device_opt(), options.pinned_memory_opt());
+  }
+}
+
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor new_zeros(const at::Tensor & self, c10::SymIntArrayRef size, c10::optional<at::ScalarType> dtype, c10::optional<at::Layout> layout, c10::optional<at::Device> device, c10::optional<bool> pin_memory) {
+    return at::_ops::new_zeros::call(self, size, dtype, layout, device, pin_memory);
+  }
+}
+
 // aten::new_zeros.out(Tensor self, SymInt[] size, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & new_zeros_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef size) {
-    return at::_ops::new_zeros_out::call(self, c10::fromIntArrayRef(size), out);
+    return at::_ops::new_zeros_out::call(self, c10::fromIntArrayRefSlow(size), out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & new_zeros_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef size) {
+    return at::_ops::new_zeros_out::call(self, c10::fromIntArrayRefSlow(size), out);
+  }
 }
 
 // aten::new_zeros.out(Tensor self, SymInt[] size, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & new_zeros_outf(const at::Tensor & self, at::IntArrayRef size, at::Tensor & out) {
-    return at::_ops::new_zeros_out::call(self, c10::fromIntArrayRef(size), out);
+    return at::_ops::new_zeros_out::call(self, c10::fromIntArrayRefSlow(size), out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & new_zeros_outf(const at::Tensor & self, at::IntArrayRef size, at::Tensor & out) {
+    return at::_ops::new_zeros_out::call(self, c10::fromIntArrayRefSlow(size), out);
+  }
 }
 
 // aten::new_zeros.out(Tensor self, SymInt[] size, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & new_zeros_symint_out(at::Tensor & out, const at::Tensor & self, c10::SymIntArrayRef size) {
     return at::_ops::new_zeros_out::call(self, size, out);
 }
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & new_zeros_out(at::Tensor & out, const at::Tensor & self, c10::SymIntArrayRef size) {
+    return at::_ops::new_zeros_out::call(self, size, out);
+  }
+}
 
 // aten::new_zeros.out(Tensor self, SymInt[] size, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & new_zeros_symint_outf(const at::Tensor & self, c10::SymIntArrayRef size, at::Tensor & out) {
     return at::_ops::new_zeros_out::call(self, size, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & new_zeros_outf(const at::Tensor & self, c10::SymIntArrayRef size, at::Tensor & out) {
+    return at::_ops::new_zeros_out::call(self, size, out);
+  }
 }
 
 }

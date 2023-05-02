@@ -14,17 +14,6 @@ namespace at {
 namespace _ops {
 
 
-struct TORCH_API frobenius_norm {
-  using schema = at::Tensor (const at::Tensor &);
-  using ptr_schema = schema*;
-  // See Note [static constexpr char* members for windows NVCC]
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::frobenius_norm")
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "")
-  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "frobenius_norm(Tensor self) -> Tensor")
-  static at::Tensor call(const at::Tensor & self);
-  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self);
-};
-
 struct TORCH_API frobenius_norm_dim {
   using schema = at::Tensor (const at::Tensor &, at::IntArrayRef, bool);
   using ptr_schema = schema*;

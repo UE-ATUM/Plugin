@@ -18,6 +18,7 @@ namespace at {
 namespace compositeexplicitautogradnonfunctional {
 
 TORCH_API at::Tensor reflection_pad1d_backward(const at::Tensor & grad_output, const at::Tensor & self, at::IntArrayRef padding);
+TORCH_API at::Tensor reflection_pad1d_backward_symint(const at::Tensor & grad_output, const at::Tensor & self, c10::SymIntArrayRef padding);
 
 } // namespace compositeexplicitautogradnonfunctional
 } // namespace at

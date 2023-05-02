@@ -19,6 +19,8 @@ namespace compositeimplicitautograd {
 
 TORCH_API at::Tensor & rand_out(at::Tensor & out, at::IntArrayRef size, c10::optional<at::Generator> generator);
 TORCH_API at::Tensor & rand_outf(at::IntArrayRef size, c10::optional<at::Generator> generator, at::Tensor & out);
+TORCH_API at::Tensor & rand_symint_out(at::Tensor & out, c10::SymIntArrayRef size, c10::optional<at::Generator> generator);
+TORCH_API at::Tensor & rand_symint_outf(c10::SymIntArrayRef size, c10::optional<at::Generator> generator, at::Tensor & out);
 
 } // namespace compositeimplicitautograd
 } // namespace at

@@ -32,11 +32,15 @@ inline at::Tensor squeeze_copy(const at::Tensor & self, int64_t dim) {
     return at::_ops::squeeze_copy_dim::call(self, dim);
 }
 
+// aten::squeeze_copy.dims(Tensor self, int[] dim) -> Tensor
+inline at::Tensor squeeze_copy(const at::Tensor & self, at::IntArrayRef dim) {
+    return at::_ops::squeeze_copy_dims::call(self, dim);
+}
+
 // aten::squeeze_copy.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & squeeze_copy_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::squeeze_copy_out::call(self, out);
 }
-
 // aten::squeeze_copy.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & squeeze_copy_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::squeeze_copy_out::call(self, out);
@@ -46,10 +50,18 @@ inline at::Tensor & squeeze_copy_outf(const at::Tensor & self, at::Tensor & out)
 inline at::Tensor & squeeze_copy_out(at::Tensor & out, const at::Tensor & self, int64_t dim) {
     return at::_ops::squeeze_copy_dim_out::call(self, dim, out);
 }
-
 // aten::squeeze_copy.dim_out(Tensor self, int dim, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & squeeze_copy_outf(const at::Tensor & self, int64_t dim, at::Tensor & out) {
     return at::_ops::squeeze_copy_dim_out::call(self, dim, out);
+}
+
+// aten::squeeze_copy.dims_out(Tensor self, int[] dim, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & squeeze_copy_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef dim) {
+    return at::_ops::squeeze_copy_dims_out::call(self, dim, out);
+}
+// aten::squeeze_copy.dims_out(Tensor self, int[] dim, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & squeeze_copy_outf(const at::Tensor & self, at::IntArrayRef dim, at::Tensor & out) {
+    return at::_ops::squeeze_copy_dims_out::call(self, dim, out);
 }
 
 }

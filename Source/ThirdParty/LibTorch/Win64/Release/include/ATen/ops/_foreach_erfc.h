@@ -36,7 +36,6 @@ inline void _foreach_erfc_(at::TensorList self) {
 inline void _foreach_erfc_out(at::TensorList out, at::TensorList self) {
     return at::_ops::_foreach_erfc_out::call(self, out);
 }
-
 // aten::_foreach_erfc.out(Tensor[] self, *, Tensor(a!)[] out) -> ()
 inline void _foreach_erfc_outf(at::TensorList self, at::TensorList out) {
     return at::_ops::_foreach_erfc_out::call(self, out);

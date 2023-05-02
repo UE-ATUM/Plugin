@@ -23,7 +23,9 @@ TORCH_API ::std::tuple<at::Tensor,at::Tensor> qmax(const at::Tensor & self, int6
 TORCH_API ::std::tuple<at::Tensor,at::Tensor> max(const at::Tensor & self, at::Dimname dim, bool keepdim=false);
 TORCH_API ::std::tuple<at::Tensor &,at::Tensor &> max_out(const at::Tensor & self, at::Dimname dim, bool keepdim, at::Tensor & max, at::Tensor & max_values);
 TORCH_API at::Tensor max(const at::Tensor & self);
+TORCH_API at::Tensor & max_unary_out(const at::Tensor & self, at::Tensor & out);
 TORCH_API at::Tensor max_quantized_cpu(const at::Tensor & self);
+TORCH_API at::Tensor & max_quantized_unary_out(const at::Tensor & self, at::Tensor & out);
 TORCH_API at::Tensor max(const at::Tensor & self, const at::Tensor & other);
 TORCH_API at::Tensor & max_out(const at::Tensor & self, const at::Tensor & other, at::Tensor & out);
 } // namespace native

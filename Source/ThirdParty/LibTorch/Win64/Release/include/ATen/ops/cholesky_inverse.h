@@ -31,7 +31,6 @@ inline at::Tensor cholesky_inverse(const at::Tensor & self, bool upper=false) {
 inline at::Tensor & cholesky_inverse_out(at::Tensor & out, const at::Tensor & self, bool upper=false) {
     return at::_ops::cholesky_inverse_out::call(self, upper, out);
 }
-
 // aten::cholesky_inverse.out(Tensor self, bool upper=False, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & cholesky_inverse_outf(const at::Tensor & self, bool upper, at::Tensor & out) {
     return at::_ops::cholesky_inverse_out::call(self, upper, out);

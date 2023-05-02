@@ -36,7 +36,6 @@ inline at::Tensor & _add_relu_(at::Tensor & self, const at::Tensor & other, cons
 inline at::Tensor & _add_relu_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other, const at::Scalar & alpha=1) {
     return at::_ops::_add_relu_out::call(self, other, alpha, out);
 }
-
 // aten::_add_relu.out(Tensor self, Tensor other, *, Scalar alpha=1, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _add_relu_outf(const at::Tensor & self, const at::Tensor & other, const at::Scalar & alpha, at::Tensor & out) {
     return at::_ops::_add_relu_out::call(self, other, alpha, out);
@@ -56,7 +55,6 @@ inline at::Tensor & _add_relu_(at::Tensor & self, const at::Scalar & other, cons
 inline at::Tensor & _add_relu_out(at::Tensor & out, const at::Tensor & self, const at::Scalar & other, const at::Scalar & alpha=1) {
     return at::_ops::_add_relu_Scalar_out::call(self, other, alpha, out);
 }
-
 // aten::_add_relu.Scalar_out(Tensor self, Scalar other, Scalar alpha=1, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _add_relu_outf(const at::Tensor & self, const at::Scalar & other, const at::Scalar & alpha, at::Tensor & out) {
     return at::_ops::_add_relu_Scalar_out::call(self, other, alpha, out);

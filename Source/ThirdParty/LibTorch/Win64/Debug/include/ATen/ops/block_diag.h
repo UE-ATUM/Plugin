@@ -31,7 +31,6 @@ inline at::Tensor block_diag(at::TensorList tensors) {
 inline at::Tensor & block_diag_out(at::Tensor & out, at::TensorList tensors) {
     return at::_ops::block_diag_out::call(tensors, out);
 }
-
 // aten::block_diag.out(Tensor[] tensors, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & block_diag_outf(at::TensorList tensors, at::Tensor & out) {
     return at::_ops::block_diag_out::call(tensors, out);

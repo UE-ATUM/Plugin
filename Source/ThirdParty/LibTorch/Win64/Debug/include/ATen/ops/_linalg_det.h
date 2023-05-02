@@ -31,7 +31,6 @@ inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor> _linalg_det(const at::Tens
 inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> _linalg_det_out(at::Tensor & result, at::Tensor & LU, at::Tensor & pivots, const at::Tensor & A) {
     return at::_ops::_linalg_det_result::call(A, result, LU, pivots);
 }
-
 // aten::_linalg_det.result(Tensor A, *, Tensor(a!) result, Tensor(b!) LU, Tensor(c!) pivots) -> (Tensor(a!) result, Tensor(b!) LU, Tensor(c!) pivots)
 inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> _linalg_det_outf(const at::Tensor & A, at::Tensor & result, at::Tensor & LU, at::Tensor & pivots) {
     return at::_ops::_linalg_det_result::call(A, result, LU, pivots);

@@ -16,9 +16,9 @@
 
 namespace at {
 namespace native {
-TORCH_API at::Tensor & to_sparse_bsc_out(const at::Tensor & self, at::IntArrayRef blocksize, at::Tensor & out);
-TORCH_API at::Tensor dense_to_sparse_bsc(const at::Tensor & self, at::IntArrayRef blocksize);
-TORCH_API at::Tensor coo_to_sparse_bsc(const at::Tensor & self, at::IntArrayRef blocksize);
-TORCH_API at::Tensor sparse_compressed_to_sparse_bsc(const at::Tensor & self, at::IntArrayRef blocksize);
+TORCH_API at::Tensor & to_sparse_bsc_out(const at::Tensor & self, at::IntArrayRef blocksize, c10::optional<int64_t> dense_dim, at::Tensor & out);
+TORCH_API at::Tensor dense_to_sparse_bsc(const at::Tensor & self, at::IntArrayRef blocksize, c10::optional<int64_t> dense_dim=c10::nullopt);
+TORCH_API at::Tensor coo_to_sparse_bsc(const at::Tensor & self, at::IntArrayRef blocksize, c10::optional<int64_t> dense_dim=c10::nullopt);
+TORCH_API at::Tensor sparse_compressed_to_sparse_bsc(const at::Tensor & self, at::IntArrayRef blocksize, c10::optional<int64_t> dense_dim=c10::nullopt);
 } // namespace native
 } // namespace at

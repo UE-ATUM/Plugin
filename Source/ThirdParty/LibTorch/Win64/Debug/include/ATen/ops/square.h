@@ -36,7 +36,6 @@ inline at::Tensor & square_(at::Tensor & self) {
 inline at::Tensor & square_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::square_out::call(self, out);
 }
-
 // aten::square.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & square_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::square_out::call(self, out);

@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & avg_pool3d_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef kernel_size, at::IntArrayRef stride={}, at::IntArrayRef padding=0, bool ceil_mode=false, bool count_include_pad=true, c10::optional<int64_t> divisor_override=c10::nullopt) {
     return at::_ops::avg_pool3d_out::call(self, kernel_size, stride, padding, ceil_mode, count_include_pad, divisor_override, out);
 }
-
 // aten::avg_pool3d.out(Tensor self, int[3] kernel_size, int[3] stride=[], int[3] padding=0, bool ceil_mode=False, bool count_include_pad=True, int? divisor_override=None, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & avg_pool3d_outf(const at::Tensor & self, at::IntArrayRef kernel_size, at::IntArrayRef stride, at::IntArrayRef padding, bool ceil_mode, bool count_include_pad, c10::optional<int64_t> divisor_override, at::Tensor & out) {
     return at::_ops::avg_pool3d_out::call(self, kernel_size, stride, padding, ceil_mode, count_include_pad, divisor_override, out);

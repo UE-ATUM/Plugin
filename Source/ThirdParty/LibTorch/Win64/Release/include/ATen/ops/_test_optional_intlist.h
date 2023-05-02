@@ -31,7 +31,6 @@ inline at::Tensor _test_optional_intlist(const at::Tensor & values, at::Optional
 inline at::Tensor & _test_optional_intlist_out(at::Tensor & out, const at::Tensor & values, at::OptionalIntArrayRef addends) {
     return at::_ops::_test_optional_intlist_out::call(values, addends, out);
 }
-
 // aten::_test_optional_intlist.out(Tensor values, int[]? addends, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _test_optional_intlist_outf(const at::Tensor & values, at::OptionalIntArrayRef addends, at::Tensor & out) {
     return at::_ops::_test_optional_intlist_out::call(values, addends, out);

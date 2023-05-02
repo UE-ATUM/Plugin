@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & logaddexp2_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other) {
     return at::_ops::logaddexp2_out::call(self, other, out);
 }
-
 // aten::logaddexp2.out(Tensor self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & logaddexp2_outf(const at::Tensor & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::logaddexp2_out::call(self, other, out);

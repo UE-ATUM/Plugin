@@ -17,7 +17,7 @@ namespace at {
 
 namespace compositeexplicitautograd {
 
-TORCH_API ::std::tuple<at::Tensor &,at::Tensor &> var_mean_out(at::Tensor & out0, at::Tensor & out1, const at::Tensor & self, at::OptionalIntArrayRef dim, c10::optional<int64_t> correction, bool keepdim=false);
+TORCH_API ::std::tuple<at::Tensor &,at::Tensor &> var_mean_out(at::Tensor & out0, at::Tensor & out1, const at::Tensor & self, at::OptionalIntArrayRef dim=c10::nullopt, c10::optional<int64_t> correction=c10::nullopt, bool keepdim=false);
 TORCH_API ::std::tuple<at::Tensor &,at::Tensor &> var_mean_outf(const at::Tensor & self, at::OptionalIntArrayRef dim, c10::optional<int64_t> correction, bool keepdim, at::Tensor & out0, at::Tensor & out1);
 
 } // namespace compositeexplicitautograd

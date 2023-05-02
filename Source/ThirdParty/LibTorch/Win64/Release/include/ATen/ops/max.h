@@ -31,7 +31,6 @@ inline ::std::tuple<at::Tensor,at::Tensor> max(const at::Tensor & self, int64_t 
 inline ::std::tuple<at::Tensor &,at::Tensor &> max_out(at::Tensor & max, at::Tensor & max_values, const at::Tensor & self, int64_t dim, bool keepdim=false) {
     return at::_ops::max_dim_max::call(self, dim, keepdim, max, max_values);
 }
-
 // aten::max.dim_max(Tensor self, int dim, bool keepdim=False, *, Tensor(a!) max, Tensor(b!) max_values) -> (Tensor(a!) values, Tensor(b!) indices)
 inline ::std::tuple<at::Tensor &,at::Tensor &> max_outf(const at::Tensor & self, int64_t dim, bool keepdim, at::Tensor & max, at::Tensor & max_values) {
     return at::_ops::max_dim_max::call(self, dim, keepdim, max, max_values);
@@ -46,7 +45,6 @@ inline ::std::tuple<at::Tensor,at::Tensor> max(const at::Tensor & self, at::Dimn
 inline ::std::tuple<at::Tensor &,at::Tensor &> max_out(at::Tensor & max, at::Tensor & max_values, const at::Tensor & self, at::Dimname dim, bool keepdim=false) {
     return at::_ops::max_names_dim_max::call(self, dim, keepdim, max, max_values);
 }
-
 // aten::max.names_dim_max(Tensor self, Dimname dim, bool keepdim=False, *, Tensor(a!) max, Tensor(b!) max_values) -> (Tensor(a!) values, Tensor(b!) indices)
 inline ::std::tuple<at::Tensor &,at::Tensor &> max_outf(const at::Tensor & self, at::Dimname dim, bool keepdim, at::Tensor & max, at::Tensor & max_values) {
     return at::_ops::max_names_dim_max::call(self, dim, keepdim, max, max_values);
@@ -66,10 +64,18 @@ inline at::Tensor max(const at::Tensor & self, const at::Tensor & other) {
 inline at::Tensor & max_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other) {
     return at::_ops::max_out::call(self, other, out);
 }
-
 // aten::max.out(Tensor self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & max_outf(const at::Tensor & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::max_out::call(self, other, out);
+}
+
+// aten::max.unary_out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & max_out(at::Tensor & out, const at::Tensor & self) {
+    return at::_ops::max_unary_out::call(self, out);
+}
+// aten::max.unary_out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & max_outf(const at::Tensor & self, at::Tensor & out) {
+    return at::_ops::max_unary_out::call(self, out);
 }
 
 }

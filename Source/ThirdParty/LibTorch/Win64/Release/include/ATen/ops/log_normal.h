@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & log_normal_out(at::Tensor & out, const at::Tensor & self, double mean=1, double std=2, c10::optional<at::Generator> generator=c10::nullopt) {
     return at::_ops::log_normal_out::call(self, mean, std, generator, out);
 }
-
 // aten::log_normal.out(Tensor self, float mean=1, float std=2, *, Generator? generator=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & log_normal_outf(const at::Tensor & self, double mean, double std, c10::optional<at::Generator> generator, at::Tensor & out) {
     return at::_ops::log_normal_out::call(self, mean, std, generator, out);

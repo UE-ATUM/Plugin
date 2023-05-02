@@ -31,7 +31,6 @@ inline at::Tensor dist(const at::Tensor & self, const at::Tensor & other, const 
 inline at::Tensor & dist_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other, const at::Scalar & p=2) {
     return at::_ops::dist_out::call(self, other, p, out);
 }
-
 // aten::dist.out(Tensor self, Tensor other, Scalar p=2, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & dist_outf(const at::Tensor & self, const at::Tensor & other, const at::Scalar & p, at::Tensor & out) {
     return at::_ops::dist_out::call(self, other, p, out);

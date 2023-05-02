@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & bitwise_or_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other) {
     return at::_ops::bitwise_or_Tensor_out::call(self, other, out);
 }
-
 // aten::bitwise_or.Tensor_out(Tensor self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & bitwise_or_outf(const at::Tensor & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::bitwise_or_Tensor_out::call(self, other, out);
@@ -36,7 +35,6 @@ inline at::Tensor & bitwise_or_outf(const at::Tensor & self, const at::Tensor & 
 inline at::Tensor & bitwise_or_out(at::Tensor & out, const at::Tensor & self, const at::Scalar & other) {
     return at::_ops::bitwise_or_Scalar_out::call(self, other, out);
 }
-
 // aten::bitwise_or.Scalar_out(Tensor self, Scalar other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & bitwise_or_outf(const at::Tensor & self, const at::Scalar & other, at::Tensor & out) {
     return at::_ops::bitwise_or_Scalar_out::call(self, other, out);
@@ -61,7 +59,6 @@ inline at::Tensor bitwise_or(const at::Tensor & self, const at::Tensor & other) 
 inline at::Tensor & bitwise_or_out(at::Tensor & out, const at::Scalar & self, const at::Tensor & other) {
     return at::_ops::bitwise_or_Scalar_Tensor_out::call(self, other, out);
 }
-
 // aten::bitwise_or.Scalar_Tensor_out(Scalar self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & bitwise_or_outf(const at::Scalar & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::bitwise_or_Scalar_Tensor_out::call(self, other, out);

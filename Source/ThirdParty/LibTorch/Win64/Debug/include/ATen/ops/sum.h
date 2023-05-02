@@ -41,7 +41,6 @@ inline at::Tensor sum(const at::Tensor & self, at::DimnameList dim, bool keepdim
 inline at::Tensor & sum_out(at::Tensor & out, const at::Tensor & self, at::OptionalIntArrayRef dim, bool keepdim=false, c10::optional<at::ScalarType> dtype=c10::nullopt) {
     return at::_ops::sum_IntList_out::call(self, dim, keepdim, dtype, out);
 }
-
 // aten::sum.IntList_out(Tensor self, int[1]? dim, bool keepdim=False, *, ScalarType? dtype=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & sum_outf(const at::Tensor & self, at::OptionalIntArrayRef dim, bool keepdim, c10::optional<at::ScalarType> dtype, at::Tensor & out) {
     return at::_ops::sum_IntList_out::call(self, dim, keepdim, dtype, out);
@@ -51,7 +50,6 @@ inline at::Tensor & sum_outf(const at::Tensor & self, at::OptionalIntArrayRef di
 inline at::Tensor & sum_out(at::Tensor & out, const at::Tensor & self, at::DimnameList dim, bool keepdim=false, c10::optional<at::ScalarType> dtype=c10::nullopt) {
     return at::_ops::sum_DimnameList_out::call(self, dim, keepdim, dtype, out);
 }
-
 // aten::sum.DimnameList_out(Tensor self, Dimname[1] dim, bool keepdim=False, *, ScalarType? dtype=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & sum_outf(const at::Tensor & self, at::DimnameList dim, bool keepdim, c10::optional<at::ScalarType> dtype, at::Tensor & out) {
     return at::_ops::sum_DimnameList_out::call(self, dim, keepdim, dtype, out);
@@ -61,7 +59,6 @@ inline at::Tensor & sum_outf(const at::Tensor & self, at::DimnameList dim, bool 
 inline at::Tensor & sum_out(at::Tensor & out, const at::Tensor & self, c10::optional<at::ScalarType> dtype=c10::nullopt) {
     return at::_ops::sum_out::call(self, dtype, out);
 }
-
 // aten::sum.out(Tensor self, *, ScalarType? dtype=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & sum_outf(const at::Tensor & self, c10::optional<at::ScalarType> dtype, at::Tensor & out) {
     return at::_ops::sum_out::call(self, dtype, out);

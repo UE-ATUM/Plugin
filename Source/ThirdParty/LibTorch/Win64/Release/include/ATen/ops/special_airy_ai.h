@@ -31,7 +31,6 @@ inline at::Tensor special_airy_ai(const at::Tensor & x) {
 inline at::Tensor & special_airy_ai_out(at::Tensor & out, const at::Tensor & x) {
     return at::_ops::special_airy_ai_out::call(x, out);
 }
-
 // aten::special_airy_ai.out(Tensor x, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & special_airy_ai_outf(const at::Tensor & x, at::Tensor & out) {
     return at::_ops::special_airy_ai_out::call(x, out);

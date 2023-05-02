@@ -31,7 +31,6 @@ inline at::Tensor ger(const at::Tensor & self, const at::Tensor & vec2) {
 inline at::Tensor & ger_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & vec2) {
     return at::_ops::ger_out::call(self, vec2, out);
 }
-
 // aten::ger.out(Tensor self, Tensor vec2, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & ger_outf(const at::Tensor & self, const at::Tensor & vec2, at::Tensor & out) {
     return at::_ops::ger_out::call(self, vec2, out);

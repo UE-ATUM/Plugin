@@ -17,8 +17,8 @@ namespace at {
 
 namespace compositeexplicitautograd {
 
-TORCH_API at::Tensor & mkldnn_reorder_conv2d_weight_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef padding=0, at::IntArrayRef stride=1, at::IntArrayRef dilation=1, int64_t groups=1);
-TORCH_API at::Tensor & mkldnn_reorder_conv2d_weight_outf(const at::Tensor & self, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, at::Tensor & out);
+TORCH_API at::Tensor & mkldnn_reorder_conv2d_weight_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef padding=0, at::IntArrayRef stride=1, at::IntArrayRef dilation=1, int64_t groups=1, at::OptionalIntArrayRef input_size=c10::nullopt);
+TORCH_API at::Tensor & mkldnn_reorder_conv2d_weight_outf(const at::Tensor & self, at::IntArrayRef padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, at::OptionalIntArrayRef input_size, at::Tensor & out);
 
 } // namespace compositeexplicitautograd
 } // namespace at

@@ -24,32 +24,68 @@ namespace at {
 
 // aten::_adaptive_avg_pool2d(Tensor self, SymInt[2] output_size) -> Tensor
 inline at::Tensor _adaptive_avg_pool2d(const at::Tensor & self, at::IntArrayRef output_size) {
-    return at::_ops::_adaptive_avg_pool2d::call(self, c10::fromIntArrayRef(output_size));
+    return at::_ops::_adaptive_avg_pool2d::call(self, c10::fromIntArrayRefSlow(output_size));
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor _adaptive_avg_pool2d(const at::Tensor & self, at::IntArrayRef output_size) {
+    return at::_ops::_adaptive_avg_pool2d::call(self, c10::fromIntArrayRefSlow(output_size));
+  }
 }
 
 // aten::_adaptive_avg_pool2d(Tensor self, SymInt[2] output_size) -> Tensor
 inline at::Tensor _adaptive_avg_pool2d_symint(const at::Tensor & self, c10::SymIntArrayRef output_size) {
     return at::_ops::_adaptive_avg_pool2d::call(self, output_size);
 }
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor _adaptive_avg_pool2d(const at::Tensor & self, c10::SymIntArrayRef output_size) {
+    return at::_ops::_adaptive_avg_pool2d::call(self, output_size);
+  }
+}
 
 // aten::_adaptive_avg_pool2d.out(Tensor self, SymInt[2] output_size, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _adaptive_avg_pool2d_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef output_size) {
-    return at::_ops::_adaptive_avg_pool2d_out::call(self, c10::fromIntArrayRef(output_size), out);
+    return at::_ops::_adaptive_avg_pool2d_out::call(self, c10::fromIntArrayRefSlow(output_size), out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & _adaptive_avg_pool2d_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef output_size) {
+    return at::_ops::_adaptive_avg_pool2d_out::call(self, c10::fromIntArrayRefSlow(output_size), out);
+  }
 }
 
 // aten::_adaptive_avg_pool2d.out(Tensor self, SymInt[2] output_size, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _adaptive_avg_pool2d_outf(const at::Tensor & self, at::IntArrayRef output_size, at::Tensor & out) {
-    return at::_ops::_adaptive_avg_pool2d_out::call(self, c10::fromIntArrayRef(output_size), out);
+    return at::_ops::_adaptive_avg_pool2d_out::call(self, c10::fromIntArrayRefSlow(output_size), out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & _adaptive_avg_pool2d_outf(const at::Tensor & self, at::IntArrayRef output_size, at::Tensor & out) {
+    return at::_ops::_adaptive_avg_pool2d_out::call(self, c10::fromIntArrayRefSlow(output_size), out);
+  }
 }
 
 // aten::_adaptive_avg_pool2d.out(Tensor self, SymInt[2] output_size, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _adaptive_avg_pool2d_symint_out(at::Tensor & out, const at::Tensor & self, c10::SymIntArrayRef output_size) {
     return at::_ops::_adaptive_avg_pool2d_out::call(self, output_size, out);
 }
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & _adaptive_avg_pool2d_out(at::Tensor & out, const at::Tensor & self, c10::SymIntArrayRef output_size) {
+    return at::_ops::_adaptive_avg_pool2d_out::call(self, output_size, out);
+  }
+}
 
 // aten::_adaptive_avg_pool2d.out(Tensor self, SymInt[2] output_size, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _adaptive_avg_pool2d_symint_outf(const at::Tensor & self, c10::SymIntArrayRef output_size, at::Tensor & out) {
     return at::_ops::_adaptive_avg_pool2d_out::call(self, output_size, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & _adaptive_avg_pool2d_outf(const at::Tensor & self, c10::SymIntArrayRef output_size, at::Tensor & out) {
+    return at::_ops::_adaptive_avg_pool2d_out::call(self, output_size, out);
+  }
 }
 
 }

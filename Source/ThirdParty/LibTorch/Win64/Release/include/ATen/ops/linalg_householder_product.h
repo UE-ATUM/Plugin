@@ -31,7 +31,6 @@ inline at::Tensor linalg_householder_product(const at::Tensor & input, const at:
 inline at::Tensor & linalg_householder_product_out(at::Tensor & out, const at::Tensor & input, const at::Tensor & tau) {
     return at::_ops::linalg_householder_product_out::call(input, tau, out);
 }
-
 // aten::linalg_householder_product.out(Tensor input, Tensor tau, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & linalg_householder_product_outf(const at::Tensor & input, const at::Tensor & tau, at::Tensor & out) {
     return at::_ops::linalg_householder_product_out::call(input, tau, out);

@@ -25,4 +25,15 @@ struct TORCH_API _sparse_mm {
   static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & sparse, const at::Tensor & dense);
 };
 
+struct TORCH_API _sparse_mm_reduce {
+  using schema = at::Tensor (const at::Tensor &, const at::Tensor &, c10::string_view);
+  using ptr_schema = schema*;
+  // See Note [static constexpr char* members for windows NVCC]
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::_sparse_mm")
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "reduce")
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "_sparse_mm.reduce(Tensor sparse, Tensor dense, str reduce) -> Tensor")
+  static at::Tensor call(const at::Tensor & sparse, const at::Tensor & dense, c10::string_view reduce);
+  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & sparse, const at::Tensor & dense, c10::string_view reduce);
+};
+
 }} // namespace at::_ops

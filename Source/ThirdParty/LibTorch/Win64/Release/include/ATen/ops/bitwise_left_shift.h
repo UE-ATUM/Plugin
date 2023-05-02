@@ -31,7 +31,6 @@ inline at::Tensor bitwise_left_shift(const at::Tensor & self, const at::Tensor &
 inline at::Tensor & bitwise_left_shift_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other) {
     return at::_ops::bitwise_left_shift_Tensor_out::call(self, other, out);
 }
-
 // aten::bitwise_left_shift.Tensor_out(Tensor self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & bitwise_left_shift_outf(const at::Tensor & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::bitwise_left_shift_Tensor_out::call(self, other, out);
@@ -46,7 +45,6 @@ inline at::Tensor bitwise_left_shift(const at::Tensor & self, const at::Scalar &
 inline at::Tensor & bitwise_left_shift_out(at::Tensor & out, const at::Tensor & self, const at::Scalar & other) {
     return at::_ops::bitwise_left_shift_Tensor_Scalar_out::call(self, other, out);
 }
-
 // aten::bitwise_left_shift.Tensor_Scalar_out(Tensor self, Scalar other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & bitwise_left_shift_outf(const at::Tensor & self, const at::Scalar & other, at::Tensor & out) {
     return at::_ops::bitwise_left_shift_Tensor_Scalar_out::call(self, other, out);
@@ -61,7 +59,6 @@ inline at::Tensor bitwise_left_shift(const at::Scalar & self, const at::Tensor &
 inline at::Tensor & bitwise_left_shift_out(at::Tensor & out, const at::Scalar & self, const at::Tensor & other) {
     return at::_ops::bitwise_left_shift_Scalar_Tensor_out::call(self, other, out);
 }
-
 // aten::bitwise_left_shift.Scalar_Tensor_out(Scalar self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & bitwise_left_shift_outf(const at::Scalar & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::bitwise_left_shift_Scalar_Tensor_out::call(self, other, out);

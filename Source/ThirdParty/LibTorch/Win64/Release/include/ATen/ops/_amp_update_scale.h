@@ -31,7 +31,6 @@ inline at::Tensor & _amp_update_scale_(at::Tensor & self, at::Tensor & growth_tr
 inline at::Tensor & _amp_update_scale_out(at::Tensor & out, const at::Tensor & self, at::Tensor & growth_tracker, const at::Tensor & found_inf, double scale_growth_factor, double scale_backoff_factor, int64_t growth_interval) {
     return at::_ops::_amp_update_scale_out::call(self, growth_tracker, found_inf, scale_growth_factor, scale_backoff_factor, growth_interval, out);
 }
-
 // aten::_amp_update_scale.out(Tensor self, Tensor(b!) growth_tracker, Tensor found_inf, float scale_growth_factor, float scale_backoff_factor, int growth_interval, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _amp_update_scale_outf(const at::Tensor & self, at::Tensor & growth_tracker, const at::Tensor & found_inf, double scale_growth_factor, double scale_backoff_factor, int64_t growth_interval, at::Tensor & out) {
     return at::_ops::_amp_update_scale_out::call(self, growth_tracker, found_inf, scale_growth_factor, scale_backoff_factor, growth_interval, out);

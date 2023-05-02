@@ -31,7 +31,6 @@ inline at::Tensor _masked_softmax(const at::Tensor & self, const at::Tensor & ma
 inline at::Tensor & _masked_softmax_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & mask, c10::optional<int64_t> dim=c10::nullopt, c10::optional<int64_t> mask_type=c10::nullopt) {
     return at::_ops::_masked_softmax_out::call(self, mask, dim, mask_type, out);
 }
-
 // aten::_masked_softmax.out(Tensor self, Tensor mask, int? dim=None, int? mask_type=None, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _masked_softmax_outf(const at::Tensor & self, const at::Tensor & mask, c10::optional<int64_t> dim, c10::optional<int64_t> mask_type, at::Tensor & out) {
     return at::_ops::_masked_softmax_out::call(self, mask, dim, mask_type, out);

@@ -31,7 +31,6 @@ inline at::Tensor index(const at::Tensor & self, const c10::List<c10::optional<a
 inline at::Tensor & index_out(at::Tensor & out, const at::Tensor & self, const c10::List<c10::optional<at::Tensor>> & indices) {
     return at::_ops::index_Tensor_out::call(self, indices, out);
 }
-
 // aten::index.Tensor_out(Tensor self, Tensor?[] indices, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & index_outf(const at::Tensor & self, const c10::List<c10::optional<at::Tensor>> & indices, at::Tensor & out) {
     return at::_ops::index_Tensor_out::call(self, indices, out);

@@ -31,7 +31,6 @@ inline at::Tensor glu_backward_jvp(const at::Tensor & grad_x, const at::Tensor &
 inline at::Tensor & glu_backward_jvp_out(at::Tensor & out, const at::Tensor & grad_x, const at::Tensor & grad_glu, const at::Tensor & x, const at::Tensor & dgrad_glu, const at::Tensor & dx, int64_t dim) {
     return at::_ops::glu_backward_jvp_out::call(grad_x, grad_glu, x, dgrad_glu, dx, dim, out);
 }
-
 // aten::glu_backward_jvp.out(Tensor grad_x, Tensor grad_glu, Tensor x, Tensor dgrad_glu, Tensor dx, int dim, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & glu_backward_jvp_outf(const at::Tensor & grad_x, const at::Tensor & grad_glu, const at::Tensor & x, const at::Tensor & dgrad_glu, const at::Tensor & dx, int64_t dim, at::Tensor & out) {
     return at::_ops::glu_backward_jvp_out::call(grad_x, grad_glu, x, dgrad_glu, dx, dim, out);

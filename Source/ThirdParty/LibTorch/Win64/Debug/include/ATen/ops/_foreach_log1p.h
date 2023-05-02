@@ -36,7 +36,6 @@ inline void _foreach_log1p_(at::TensorList self) {
 inline void _foreach_log1p_out(at::TensorList out, at::TensorList self) {
     return at::_ops::_foreach_log1p_out::call(self, out);
 }
-
 // aten::_foreach_log1p.out(Tensor[] self, *, Tensor(a!)[] out) -> ()
 inline void _foreach_log1p_outf(at::TensorList self, at::TensorList out) {
     return at::_ops::_foreach_log1p_out::call(self, out);

@@ -26,7 +26,6 @@ namespace at {
 inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> svd_out(at::Tensor & U, at::Tensor & S, at::Tensor & V, const at::Tensor & self, bool some=true, bool compute_uv=true) {
     return at::_ops::svd_U::call(self, some, compute_uv, U, S, V);
 }
-
 // aten::svd.U(Tensor self, bool some=True, bool compute_uv=True, *, Tensor(a!) U, Tensor(b!) S, Tensor(c!) V) -> (Tensor(a!) U, Tensor(b!) S, Tensor(c!) V)
 inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> svd_outf(const at::Tensor & self, bool some, bool compute_uv, at::Tensor & U, at::Tensor & S, at::Tensor & V) {
     return at::_ops::svd_U::call(self, some, compute_uv, U, S, V);

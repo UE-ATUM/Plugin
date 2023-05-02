@@ -31,7 +31,6 @@ inline at::Tensor bucketize(const at::Tensor & self, const at::Tensor & boundari
 inline at::Tensor & bucketize_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & boundaries, bool out_int32=false, bool right=false) {
     return at::_ops::bucketize_Tensor_out::call(self, boundaries, out_int32, right, out);
 }
-
 // aten::bucketize.Tensor_out(Tensor self, Tensor boundaries, *, bool out_int32=False, bool right=False, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & bucketize_outf(const at::Tensor & self, const at::Tensor & boundaries, bool out_int32, bool right, at::Tensor & out) {
     return at::_ops::bucketize_Tensor_out::call(self, boundaries, out_int32, right, out);
@@ -46,7 +45,6 @@ inline at::Tensor bucketize(const at::Scalar & self, const at::Tensor & boundari
 inline at::Tensor & bucketize_out(at::Tensor & out, const at::Scalar & self, const at::Tensor & boundaries, bool out_int32=false, bool right=false) {
     return at::_ops::bucketize_Scalar_out::call(self, boundaries, out_int32, right, out);
 }
-
 // aten::bucketize.Scalar_out(Scalar self, Tensor boundaries, *, bool out_int32=False, bool right=False, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & bucketize_outf(const at::Scalar & self, const at::Tensor & boundaries, bool out_int32, bool right, at::Tensor & out) {
     return at::_ops::bucketize_Scalar_out::call(self, boundaries, out_int32, right, out);

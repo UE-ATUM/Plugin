@@ -31,7 +31,6 @@ inline at::Tensor _nested_from_padded_and_nested_example(const at::Tensor & padd
 inline at::Tensor & _nested_from_padded_and_nested_example_out(at::Tensor & out, const at::Tensor & padded, const at::Tensor & nt_example) {
     return at::_ops::_nested_from_padded_and_nested_example_out::call(padded, nt_example, out);
 }
-
 // aten::_nested_from_padded_and_nested_example.out(Tensor padded, Tensor nt_example, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _nested_from_padded_and_nested_example_outf(const at::Tensor & padded, const at::Tensor & nt_example, at::Tensor & out) {
     return at::_ops::_nested_from_padded_and_nested_example_out::call(padded, nt_example, out);

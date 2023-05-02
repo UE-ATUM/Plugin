@@ -18,7 +18,7 @@ namespace at {
 namespace cpu {
 
 TORCH_API at::Tensor to_sparse(const at::Tensor & self, int64_t sparse_dim);
-TORCH_API at::Tensor to_sparse(const at::Tensor & self);
+TORCH_API at::Tensor to_sparse(const at::Tensor & self, c10::optional<at::Layout> layout=c10::nullopt, at::OptionalIntArrayRef blocksize=c10::nullopt, c10::optional<int64_t> dense_dim=c10::nullopt);
 
 } // namespace cpu
 } // namespace at

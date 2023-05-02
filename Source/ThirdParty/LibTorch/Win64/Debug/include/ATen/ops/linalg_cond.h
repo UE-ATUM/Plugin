@@ -31,7 +31,6 @@ inline at::Tensor linalg_cond(const at::Tensor & self, const c10::optional<at::S
 inline at::Tensor & linalg_cond_out(at::Tensor & out, const at::Tensor & self, const c10::optional<at::Scalar> & p=c10::nullopt) {
     return at::_ops::linalg_cond_out::call(self, p, out);
 }
-
 // aten::linalg_cond.out(Tensor self, Scalar? p=None, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & linalg_cond_outf(const at::Tensor & self, const c10::optional<at::Scalar> & p, at::Tensor & out) {
     return at::_ops::linalg_cond_out::call(self, p, out);
@@ -46,7 +45,6 @@ inline at::Tensor linalg_cond(const at::Tensor & self, c10::string_view p) {
 inline at::Tensor & linalg_cond_out(at::Tensor & out, const at::Tensor & self, c10::string_view p) {
     return at::_ops::linalg_cond_p_str_out::call(self, p, out);
 }
-
 // aten::linalg_cond.p_str_out(Tensor self, str p, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & linalg_cond_outf(const at::Tensor & self, c10::string_view p, at::Tensor & out) {
     return at::_ops::linalg_cond_p_str_out::call(self, p, out);

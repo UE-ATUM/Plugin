@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & nextafter_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & other) {
     return at::_ops::nextafter_out::call(self, other, out);
 }
-
 // aten::nextafter.out(Tensor self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & nextafter_outf(const at::Tensor & self, const at::Tensor & other, at::Tensor & out) {
     return at::_ops::nextafter_out::call(self, other, out);

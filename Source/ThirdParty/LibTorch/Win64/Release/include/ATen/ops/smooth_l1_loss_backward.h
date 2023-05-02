@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & smooth_l1_loss_backward_out(at::Tensor & grad_input, const at::Tensor & grad_output, const at::Tensor & self, const at::Tensor & target, int64_t reduction, double beta) {
     return at::_ops::smooth_l1_loss_backward_grad_input::call(grad_output, self, target, reduction, beta, grad_input);
 }
-
 // aten::smooth_l1_loss_backward.grad_input(Tensor grad_output, Tensor self, Tensor target, int reduction, float beta, *, Tensor(a!) grad_input) -> Tensor(a!)
 inline at::Tensor & smooth_l1_loss_backward_outf(const at::Tensor & grad_output, const at::Tensor & self, const at::Tensor & target, int64_t reduction, double beta, at::Tensor & grad_input) {
     return at::_ops::smooth_l1_loss_backward_grad_input::call(grad_output, self, target, reduction, beta, grad_input);

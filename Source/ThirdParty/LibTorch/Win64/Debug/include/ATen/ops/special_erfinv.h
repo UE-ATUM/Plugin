@@ -31,7 +31,6 @@ inline at::Tensor special_erfinv(const at::Tensor & self) {
 inline at::Tensor & special_erfinv_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::special_erfinv_out::call(self, out);
 }
-
 // aten::special_erfinv.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & special_erfinv_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::special_erfinv_out::call(self, out);

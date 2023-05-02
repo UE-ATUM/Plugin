@@ -31,7 +31,6 @@ inline ::std::tuple<at::Tensor,at::Tensor> cummin(const at::Tensor & self, int64
 inline ::std::tuple<at::Tensor &,at::Tensor &> cummin_out(at::Tensor & values, at::Tensor & indices, const at::Tensor & self, int64_t dim) {
     return at::_ops::cummin_out::call(self, dim, values, indices);
 }
-
 // aten::cummin.out(Tensor self, int dim, *, Tensor(a!) values, Tensor(b!) indices) -> (Tensor(a!) values, Tensor(b!) indices)
 inline ::std::tuple<at::Tensor &,at::Tensor &> cummin_outf(const at::Tensor & self, int64_t dim, at::Tensor & values, at::Tensor & indices) {
     return at::_ops::cummin_out::call(self, dim, values, indices);
@@ -46,7 +45,6 @@ inline ::std::tuple<at::Tensor,at::Tensor> cummin(const at::Tensor & self, at::D
 inline ::std::tuple<at::Tensor &,at::Tensor &> cummin_out(at::Tensor & values, at::Tensor & indices, const at::Tensor & self, at::Dimname dim) {
     return at::_ops::cummin_dimname_out::call(self, dim, values, indices);
 }
-
 // aten::cummin.dimname_out(Tensor self, Dimname dim, *, Tensor(a!) values, Tensor(b!) indices) -> (Tensor(a!) values, Tensor(b!) indices)
 inline ::std::tuple<at::Tensor &,at::Tensor &> cummin_outf(const at::Tensor & self, at::Dimname dim, at::Tensor & values, at::Tensor & indices) {
     return at::_ops::cummin_dimname_out::call(self, dim, values, indices);

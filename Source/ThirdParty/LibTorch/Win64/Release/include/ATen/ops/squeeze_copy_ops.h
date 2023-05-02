@@ -36,6 +36,17 @@ struct TORCH_API squeeze_copy_dim {
   static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, int64_t dim);
 };
 
+struct TORCH_API squeeze_copy_dims {
+  using schema = at::Tensor (const at::Tensor &, at::IntArrayRef);
+  using ptr_schema = schema*;
+  // See Note [static constexpr char* members for windows NVCC]
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::squeeze_copy")
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "dims")
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "squeeze_copy.dims(Tensor self, int[] dim) -> Tensor")
+  static at::Tensor call(const at::Tensor & self, at::IntArrayRef dim);
+  static at::Tensor redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, at::IntArrayRef dim);
+};
+
 struct TORCH_API squeeze_copy_out {
   using schema = at::Tensor & (const at::Tensor &, at::Tensor &);
   using ptr_schema = schema*;
@@ -56,6 +67,17 @@ struct TORCH_API squeeze_copy_dim_out {
   STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "squeeze_copy.dim_out(Tensor self, int dim, *, Tensor(a!) out) -> Tensor(a!)")
   static at::Tensor & call(const at::Tensor & self, int64_t dim, at::Tensor & out);
   static at::Tensor & redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, int64_t dim, at::Tensor & out);
+};
+
+struct TORCH_API squeeze_copy_dims_out {
+  using schema = at::Tensor & (const at::Tensor &, at::IntArrayRef, at::Tensor &);
+  using ptr_schema = schema*;
+  // See Note [static constexpr char* members for windows NVCC]
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(name, "aten::squeeze_copy")
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(overload_name, "dims_out")
+  STATIC_CONSTEXPR_STR_INL_EXCEPT_WIN_CUDA(schema_str, "squeeze_copy.dims_out(Tensor self, int[] dim, *, Tensor(a!) out) -> Tensor(a!)")
+  static at::Tensor & call(const at::Tensor & self, at::IntArrayRef dim, at::Tensor & out);
+  static at::Tensor & redispatch(c10::DispatchKeySet dispatchKeySet, const at::Tensor & self, at::IntArrayRef dim, at::Tensor & out);
 };
 
 }} // namespace at::_ops

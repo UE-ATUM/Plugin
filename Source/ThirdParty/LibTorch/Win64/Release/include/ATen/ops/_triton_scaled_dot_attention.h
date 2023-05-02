@@ -31,7 +31,6 @@ inline at::Tensor _triton_scaled_dot_attention(const at::Tensor & q, const at::T
 inline at::Tensor & _triton_scaled_dot_attention_out(at::Tensor & out, const at::Tensor & q, const at::Tensor & k, const at::Tensor & v, double dropout_p=0.0) {
     return at::_ops::_triton_scaled_dot_attention_out::call(q, k, v, dropout_p, out);
 }
-
 // aten::_triton_scaled_dot_attention.out(Tensor q, Tensor k, Tensor v, float dropout_p=0.0, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _triton_scaled_dot_attention_outf(const at::Tensor & q, const at::Tensor & k, const at::Tensor & v, double dropout_p, at::Tensor & out) {
     return at::_ops::_triton_scaled_dot_attention_out::call(q, k, v, dropout_p, out);

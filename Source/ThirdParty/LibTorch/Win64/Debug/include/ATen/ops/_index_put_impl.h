@@ -31,7 +31,6 @@ inline at::Tensor & _index_put_impl_(at::Tensor & self, const c10::List<c10::opt
 inline at::Tensor & _index_put_impl_out(at::Tensor & out, const at::Tensor & self, const c10::List<c10::optional<at::Tensor>> & indices, const at::Tensor & values, bool accumulate=false, bool unsafe=false) {
     return at::_ops::_index_put_impl_out::call(self, indices, values, accumulate, unsafe, out);
 }
-
 // aten::_index_put_impl.out(Tensor self, Tensor?[] indices, Tensor values, bool accumulate=False, bool unsafe=False, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _index_put_impl_outf(const at::Tensor & self, const c10::List<c10::optional<at::Tensor>> & indices, const at::Tensor & values, bool accumulate, bool unsafe, at::Tensor & out) {
     return at::_ops::_index_put_impl_out::call(self, indices, values, accumulate, unsafe, out);

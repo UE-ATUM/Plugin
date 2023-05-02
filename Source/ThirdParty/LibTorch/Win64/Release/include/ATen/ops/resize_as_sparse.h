@@ -31,7 +31,6 @@ inline const at::Tensor & resize_as_sparse_(const at::Tensor & self, const at::T
 inline const at::Tensor & resize_as_sparse_out(const at::Tensor & out, const at::Tensor & self, const at::Tensor & the_template) {
     return at::_ops::resize_as_sparse_out::call(self, the_template, out);
 }
-
 // aten::resize_as_sparse.out(Tensor self, Tensor the_template, *, Tensor(a!) out) -> Tensor(a!)
 inline const at::Tensor & resize_as_sparse_outf(const at::Tensor & self, const at::Tensor & the_template, const at::Tensor & out) {
     return at::_ops::resize_as_sparse_out::call(self, the_template, out);

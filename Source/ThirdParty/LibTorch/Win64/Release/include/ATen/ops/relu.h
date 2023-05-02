@@ -36,7 +36,6 @@ inline at::Tensor & relu_(at::Tensor & self) {
 inline at::Tensor & relu_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::relu_out::call(self, out);
 }
-
 // aten::relu.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & relu_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::relu_out::call(self, out);

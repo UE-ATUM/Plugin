@@ -31,7 +31,6 @@ inline at::Tensor cudnn_convolution_transpose(const at::Tensor & self, const at:
 inline at::Tensor & cudnn_convolution_transpose_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic, bool allow_tf32) {
     return at::_ops::cudnn_convolution_transpose_out::call(self, weight, padding, output_padding, stride, dilation, groups, benchmark, deterministic, allow_tf32, out);
 }
-
 // aten::cudnn_convolution_transpose.out(Tensor self, Tensor weight, int[] padding, int[] output_padding, int[] stride, int[] dilation, int groups, bool benchmark, bool deterministic, bool allow_tf32, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & cudnn_convolution_transpose_outf(const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, bool benchmark, bool deterministic, bool allow_tf32, at::Tensor & out) {
     return at::_ops::cudnn_convolution_transpose_out::call(self, weight, padding, output_padding, stride, dilation, groups, benchmark, deterministic, allow_tf32, out);

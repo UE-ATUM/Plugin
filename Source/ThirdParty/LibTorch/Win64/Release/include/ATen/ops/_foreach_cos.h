@@ -36,7 +36,6 @@ inline void _foreach_cos_(at::TensorList self) {
 inline void _foreach_cos_out(at::TensorList out, at::TensorList self) {
     return at::_ops::_foreach_cos_out::call(self, out);
 }
-
 // aten::_foreach_cos.out(Tensor[] self, *, Tensor(a!)[] out) -> ()
 inline void _foreach_cos_outf(at::TensorList self, at::TensorList out) {
     return at::_ops::_foreach_cos_out::call(self, out);

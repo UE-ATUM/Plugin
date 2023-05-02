@@ -31,7 +31,6 @@ inline at::Tensor quantized_max_pool1d(const at::Tensor & self, at::IntArrayRef 
 inline at::Tensor & quantized_max_pool1d_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef kernel_size, at::IntArrayRef stride={}, at::IntArrayRef padding=0, at::IntArrayRef dilation=1, bool ceil_mode=false) {
     return at::_ops::quantized_max_pool1d_out::call(self, kernel_size, stride, padding, dilation, ceil_mode, out);
 }
-
 // aten::quantized_max_pool1d.out(Tensor self, int[1] kernel_size, int[1] stride=[], int[1] padding=0, int[1] dilation=1, bool ceil_mode=False, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & quantized_max_pool1d_outf(const at::Tensor & self, at::IntArrayRef kernel_size, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool ceil_mode, at::Tensor & out) {
     return at::_ops::quantized_max_pool1d_out::call(self, kernel_size, stride, padding, dilation, ceil_mode, out);

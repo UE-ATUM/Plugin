@@ -31,7 +31,6 @@ inline ::std::tuple<at::Tensor,at::Tensor> _weight_norm_interface(const at::Tens
 inline ::std::tuple<at::Tensor &,at::Tensor &> _weight_norm_interface_out(at::Tensor & out0, at::Tensor & out1, const at::Tensor & v, const at::Tensor & g, int64_t dim=0) {
     return at::_ops::_weight_norm_interface_out::call(v, g, dim, out0, out1);
 }
-
 // aten::_weight_norm_interface.out(Tensor v, Tensor g, int dim=0, *, Tensor(a!) out0, Tensor(b!) out1) -> (Tensor(a!), Tensor(b!))
 inline ::std::tuple<at::Tensor &,at::Tensor &> _weight_norm_interface_outf(const at::Tensor & v, const at::Tensor & g, int64_t dim, at::Tensor & out0, at::Tensor & out1) {
     return at::_ops::_weight_norm_interface_out::call(v, g, dim, out0, out1);

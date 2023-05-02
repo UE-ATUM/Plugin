@@ -31,7 +31,6 @@ inline at::Tensor _log_softmax(const at::Tensor & self, int64_t dim, bool half_t
 inline at::Tensor & _log_softmax_out(at::Tensor & out, const at::Tensor & self, int64_t dim, bool half_to_float) {
     return at::_ops::_log_softmax_out::call(self, dim, half_to_float, out);
 }
-
 // aten::_log_softmax.out(Tensor self, int dim, bool half_to_float, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _log_softmax_outf(const at::Tensor & self, int64_t dim, bool half_to_float, at::Tensor & out) {
     return at::_ops::_log_softmax_out::call(self, dim, half_to_float, out);

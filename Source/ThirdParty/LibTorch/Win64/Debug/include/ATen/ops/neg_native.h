@@ -19,6 +19,8 @@ namespace native {
 struct TORCH_API structured_neg_out : public at::meta::structured_neg {
 void impl(const at::Tensor & self, const at::Tensor & out);
 };
+TORCH_API at::Tensor NestedTensor_neg(const at::Tensor & self);
+TORCH_API at::Tensor & NestedTensor_neg_(at::Tensor & self);
 TORCH_API at::Tensor neg_sparse(const at::Tensor & self);
 TORCH_API at::Tensor & neg_out_sparse(const at::Tensor & self, at::Tensor & out);
 TORCH_API at::Tensor & neg_sparse_(at::Tensor & self);

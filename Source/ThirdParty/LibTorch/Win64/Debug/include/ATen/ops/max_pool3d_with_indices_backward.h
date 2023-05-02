@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & max_pool3d_with_indices_backward_out(at::Tensor & grad_input, const at::Tensor & grad_output, const at::Tensor & self, at::IntArrayRef kernel_size, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool ceil_mode, const at::Tensor & indices) {
     return at::_ops::max_pool3d_with_indices_backward_grad_input::call(grad_output, self, kernel_size, stride, padding, dilation, ceil_mode, indices, grad_input);
 }
-
 // aten::max_pool3d_with_indices_backward.grad_input(Tensor grad_output, Tensor self, int[3] kernel_size, int[3] stride, int[3] padding, int[3] dilation, bool ceil_mode, Tensor indices, *, Tensor(a!) grad_input) -> Tensor(a!)
 inline at::Tensor & max_pool3d_with_indices_backward_outf(const at::Tensor & grad_output, const at::Tensor & self, at::IntArrayRef kernel_size, at::IntArrayRef stride, at::IntArrayRef padding, at::IntArrayRef dilation, bool ceil_mode, const at::Tensor & indices, at::Tensor & grad_input) {
     return at::_ops::max_pool3d_with_indices_backward_grad_input::call(grad_output, self, kernel_size, stride, padding, dilation, ceil_mode, indices, grad_input);

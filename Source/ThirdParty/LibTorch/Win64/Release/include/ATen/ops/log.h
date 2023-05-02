@@ -36,7 +36,6 @@ inline at::Tensor & log_(at::Tensor & self) {
 inline at::Tensor & log_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::log_out::call(self, out);
 }
-
 // aten::log.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & log_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::log_out::call(self, out);

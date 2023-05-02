@@ -31,7 +31,6 @@ inline at::Tensor clone(const at::Tensor & self, c10::optional<at::MemoryFormat>
 inline at::Tensor & clone_out(at::Tensor & out, const at::Tensor & self, c10::optional<at::MemoryFormat> memory_format=c10::nullopt) {
     return at::_ops::clone_out::call(self, memory_format, out);
 }
-
 // aten::clone.out(Tensor self, *, MemoryFormat? memory_format=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & clone_outf(const at::Tensor & self, c10::optional<at::MemoryFormat> memory_format, at::Tensor & out) {
     return at::_ops::clone_out::call(self, memory_format, out);

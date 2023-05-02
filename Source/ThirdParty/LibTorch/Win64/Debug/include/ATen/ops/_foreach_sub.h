@@ -56,7 +56,6 @@ inline void _foreach_sub_(at::TensorList self, at::ArrayRef<at::Scalar> scalars)
 inline void _foreach_sub_out(at::TensorList out, at::TensorList self, const at::Scalar & scalar) {
     return at::_ops::_foreach_sub_Scalar_out::call(self, scalar, out);
 }
-
 // aten::_foreach_sub.Scalar_out(Tensor[] self, Scalar scalar, *, Tensor(a!)[] out) -> ()
 inline void _foreach_sub_outf(at::TensorList self, const at::Scalar & scalar, at::TensorList out) {
     return at::_ops::_foreach_sub_Scalar_out::call(self, scalar, out);
@@ -66,7 +65,6 @@ inline void _foreach_sub_outf(at::TensorList self, const at::Scalar & scalar, at
 inline void _foreach_sub_out(at::TensorList out, at::TensorList self, at::TensorList other, const at::Scalar & alpha=1) {
     return at::_ops::_foreach_sub_List_out::call(self, other, alpha, out);
 }
-
 // aten::_foreach_sub.List_out(Tensor[] self, Tensor[] other, *, Scalar alpha=1, Tensor(a!)[] out) -> ()
 inline void _foreach_sub_outf(at::TensorList self, at::TensorList other, const at::Scalar & alpha, at::TensorList out) {
     return at::_ops::_foreach_sub_List_out::call(self, other, alpha, out);
@@ -76,7 +74,6 @@ inline void _foreach_sub_outf(at::TensorList self, at::TensorList other, const a
 inline void _foreach_sub_out(at::TensorList out, at::TensorList self, at::ArrayRef<at::Scalar> scalars) {
     return at::_ops::_foreach_sub_ScalarList_out::call(self, scalars, out);
 }
-
 // aten::_foreach_sub.ScalarList_out(Tensor[] self, Scalar[] scalars, *, Tensor(a!)[] out) -> ()
 inline void _foreach_sub_outf(at::TensorList self, at::ArrayRef<at::Scalar> scalars, at::TensorList out) {
     return at::_ops::_foreach_sub_ScalarList_out::call(self, scalars, out);

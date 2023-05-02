@@ -31,7 +31,6 @@ inline at::Tensor _log_softmax_backward_data(const at::Tensor & grad_output, con
 inline at::Tensor & _log_softmax_backward_data_out(at::Tensor & out, const at::Tensor & grad_output, const at::Tensor & output, int64_t dim, at::ScalarType input_dtype) {
     return at::_ops::_log_softmax_backward_data_out::call(grad_output, output, dim, input_dtype, out);
 }
-
 // aten::_log_softmax_backward_data.out(Tensor grad_output, Tensor output, int dim, ScalarType input_dtype, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _log_softmax_backward_data_outf(const at::Tensor & grad_output, const at::Tensor & output, int64_t dim, at::ScalarType input_dtype, at::Tensor & out) {
     return at::_ops::_log_softmax_backward_data_out::call(grad_output, output, dim, input_dtype, out);

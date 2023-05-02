@@ -31,7 +31,6 @@ inline at::Tensor linalg_vector_norm(const at::Tensor & self, const at::Scalar &
 inline at::Tensor & linalg_vector_norm_out(at::Tensor & out, const at::Tensor & self, const at::Scalar & ord=2, at::OptionalIntArrayRef dim=c10::nullopt, bool keepdim=false, c10::optional<at::ScalarType> dtype=c10::nullopt) {
     return at::_ops::linalg_vector_norm_out::call(self, ord, dim, keepdim, dtype, out);
 }
-
 // aten::linalg_vector_norm.out(Tensor self, Scalar ord=2, int[1]? dim=None, bool keepdim=False, *, ScalarType? dtype=None, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & linalg_vector_norm_outf(const at::Tensor & self, const at::Scalar & ord, at::OptionalIntArrayRef dim, bool keepdim, c10::optional<at::ScalarType> dtype, at::Tensor & out) {
     return at::_ops::linalg_vector_norm_out::call(self, ord, dim, keepdim, dtype, out);

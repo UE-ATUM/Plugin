@@ -31,7 +31,6 @@ inline at::Tensor absolute(const at::Tensor & self) {
 inline at::Tensor & absolute_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::absolute_out::call(self, out);
 }
-
 // aten::absolute.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & absolute_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::absolute_out::call(self, out);

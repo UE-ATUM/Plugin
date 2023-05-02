@@ -22,11 +22,6 @@
 namespace at {
 
 
-// aten::frobenius_norm(Tensor self) -> Tensor
-inline at::Tensor frobenius_norm(const at::Tensor & self) {
-    return at::_ops::frobenius_norm::call(self);
-}
-
 // aten::frobenius_norm.dim(Tensor self, int[1] dim, bool keepdim=False) -> Tensor
 inline at::Tensor frobenius_norm(const at::Tensor & self, at::IntArrayRef dim, bool keepdim=false) {
     return at::_ops::frobenius_norm_dim::call(self, dim, keepdim);
@@ -36,7 +31,6 @@ inline at::Tensor frobenius_norm(const at::Tensor & self, at::IntArrayRef dim, b
 inline at::Tensor & frobenius_norm_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef dim, bool keepdim=false) {
     return at::_ops::frobenius_norm_out::call(self, dim, keepdim, out);
 }
-
 // aten::frobenius_norm.out(Tensor self, int[1] dim, bool keepdim=False, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & frobenius_norm_outf(const at::Tensor & self, at::IntArrayRef dim, bool keepdim, at::Tensor & out) {
     return at::_ops::frobenius_norm_out::call(self, dim, keepdim, out);

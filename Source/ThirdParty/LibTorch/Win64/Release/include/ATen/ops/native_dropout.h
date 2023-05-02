@@ -31,7 +31,6 @@ inline ::std::tuple<at::Tensor,at::Tensor> native_dropout(const at::Tensor & inp
 inline ::std::tuple<at::Tensor &,at::Tensor &> native_dropout_out(at::Tensor & out0, at::Tensor & out1, const at::Tensor & input, double p, c10::optional<bool> train) {
     return at::_ops::native_dropout_out::call(input, p, train, out0, out1);
 }
-
 // aten::native_dropout.out(Tensor input, float p, bool? train, *, Tensor(a!) out0, Tensor(b!) out1) -> (Tensor(a!), Tensor(b!))
 inline ::std::tuple<at::Tensor &,at::Tensor &> native_dropout_outf(const at::Tensor & input, double p, c10::optional<bool> train, at::Tensor & out0, at::Tensor & out1) {
     return at::_ops::native_dropout_out::call(input, p, train, out0, out1);

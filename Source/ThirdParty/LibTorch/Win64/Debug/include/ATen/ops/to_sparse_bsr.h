@@ -22,14 +22,13 @@
 namespace at {
 
 
-// aten::to_sparse_bsr.out(Tensor self, int[2] blocksize, *, Tensor(a!) out) -> Tensor(a!)
-inline at::Tensor & to_sparse_bsr_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef blocksize) {
-    return at::_ops::to_sparse_bsr_out::call(self, blocksize, out);
+// aten::to_sparse_bsr.out(Tensor self, int[2] blocksize, int? dense_dim=None, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & to_sparse_bsr_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef blocksize, c10::optional<int64_t> dense_dim=c10::nullopt) {
+    return at::_ops::to_sparse_bsr_out::call(self, blocksize, dense_dim, out);
 }
-
-// aten::to_sparse_bsr.out(Tensor self, int[2] blocksize, *, Tensor(a!) out) -> Tensor(a!)
-inline at::Tensor & to_sparse_bsr_outf(const at::Tensor & self, at::IntArrayRef blocksize, at::Tensor & out) {
-    return at::_ops::to_sparse_bsr_out::call(self, blocksize, out);
+// aten::to_sparse_bsr.out(Tensor self, int[2] blocksize, int? dense_dim=None, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & to_sparse_bsr_outf(const at::Tensor & self, at::IntArrayRef blocksize, c10::optional<int64_t> dense_dim, at::Tensor & out) {
+    return at::_ops::to_sparse_bsr_out::call(self, blocksize, dense_dim, out);
 }
 
 }

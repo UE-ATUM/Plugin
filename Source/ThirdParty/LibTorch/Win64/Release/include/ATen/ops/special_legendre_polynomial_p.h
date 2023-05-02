@@ -41,7 +41,6 @@ inline at::Tensor special_legendre_polynomial_p(const at::Tensor & x, const at::
 inline at::Tensor & special_legendre_polynomial_p_out(at::Tensor & out, const at::Tensor & x, const at::Tensor & n) {
     return at::_ops::special_legendre_polynomial_p_out::call(x, n, out);
 }
-
 // aten::special_legendre_polynomial_p.out(Tensor x, Tensor n, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & special_legendre_polynomial_p_outf(const at::Tensor & x, const at::Tensor & n, at::Tensor & out) {
     return at::_ops::special_legendre_polynomial_p_out::call(x, n, out);
@@ -51,7 +50,6 @@ inline at::Tensor & special_legendre_polynomial_p_outf(const at::Tensor & x, con
 inline at::Tensor & special_legendre_polynomial_p_out(at::Tensor & out, const at::Scalar & x, const at::Tensor & n) {
     return at::_ops::special_legendre_polynomial_p_x_scalar_out::call(x, n, out);
 }
-
 // aten::special_legendre_polynomial_p.x_scalar_out(Scalar x, Tensor n, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & special_legendre_polynomial_p_outf(const at::Scalar & x, const at::Tensor & n, at::Tensor & out) {
     return at::_ops::special_legendre_polynomial_p_x_scalar_out::call(x, n, out);
@@ -61,7 +59,6 @@ inline at::Tensor & special_legendre_polynomial_p_outf(const at::Scalar & x, con
 inline at::Tensor & special_legendre_polynomial_p_out(at::Tensor & out, const at::Tensor & x, const at::Scalar & n) {
     return at::_ops::special_legendre_polynomial_p_n_scalar_out::call(x, n, out);
 }
-
 // aten::special_legendre_polynomial_p.n_scalar_out(Tensor x, Scalar n, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & special_legendre_polynomial_p_outf(const at::Tensor & x, const at::Scalar & n, at::Tensor & out) {
     return at::_ops::special_legendre_polynomial_p_n_scalar_out::call(x, n, out);

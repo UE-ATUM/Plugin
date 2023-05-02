@@ -31,7 +31,6 @@ inline ::std::tuple<at::Tensor,at::Tensor,at::Tensor> _unique2(const at::Tensor 
 inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> _unique2_out(at::Tensor & out0, at::Tensor & out1, at::Tensor & out2, const at::Tensor & self, bool sorted=true, bool return_inverse=false, bool return_counts=false) {
     return at::_ops::_unique2_out::call(self, sorted, return_inverse, return_counts, out0, out1, out2);
 }
-
 // aten::_unique2.out(Tensor self, bool sorted=True, bool return_inverse=False, bool return_counts=False, *, Tensor(a!) out0, Tensor(b!) out1, Tensor(c!) out2) -> (Tensor(a!), Tensor(b!), Tensor(c!))
 inline ::std::tuple<at::Tensor &,at::Tensor &,at::Tensor &> _unique2_outf(const at::Tensor & self, bool sorted, bool return_inverse, bool return_counts, at::Tensor & out0, at::Tensor & out1, at::Tensor & out2) {
     return at::_ops::_unique2_out::call(self, sorted, return_inverse, return_counts, out0, out1, out2);

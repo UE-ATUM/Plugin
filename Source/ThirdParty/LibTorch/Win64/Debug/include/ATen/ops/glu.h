@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & glu_out(at::Tensor & out, const at::Tensor & self, int64_t dim=-1) {
     return at::_ops::glu_out::call(self, dim, out);
 }
-
 // aten::glu.out(Tensor self, int dim=-1, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & glu_outf(const at::Tensor & self, int64_t dim, at::Tensor & out) {
     return at::_ops::glu_out::call(self, dim, out);

@@ -16,7 +16,7 @@
 
 namespace at {
 namespace native {
-TORCH_API at::Tensor & _reshape_alias_copy_out(const at::Tensor & self, at::IntArrayRef size, at::IntArrayRef stride, at::Tensor & out);
-TORCH_API at::Tensor _reshape_alias_copy(const at::Tensor & self, at::IntArrayRef size, at::IntArrayRef stride);
+TORCH_API at::Tensor & _reshape_alias_copy_out_symint(const at::Tensor & self, c10::SymIntArrayRef size, c10::SymIntArrayRef stride, at::Tensor & out);
+TORCH_API at::Tensor _reshape_alias_copy_symint(const at::Tensor & self, c10::SymIntArrayRef size, c10::SymIntArrayRef stride);
 } // namespace native
 } // namespace at

@@ -22,9 +22,26 @@
 namespace at {
 
 
-// aten::broadcast_to(Tensor(a) self, int[] size) -> Tensor(a)
+// aten::broadcast_to(Tensor(a) self, SymInt[] size) -> Tensor(a)
 inline at::Tensor broadcast_to(const at::Tensor & self, at::IntArrayRef size) {
+    return at::_ops::broadcast_to::call(self, c10::fromIntArrayRefSlow(size));
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor broadcast_to(const at::Tensor & self, at::IntArrayRef size) {
+    return at::_ops::broadcast_to::call(self, c10::fromIntArrayRefSlow(size));
+  }
+}
+
+// aten::broadcast_to(Tensor(a) self, SymInt[] size) -> Tensor(a)
+inline at::Tensor broadcast_to_symint(const at::Tensor & self, c10::SymIntArrayRef size) {
     return at::_ops::broadcast_to::call(self, size);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor broadcast_to(const at::Tensor & self, c10::SymIntArrayRef size) {
+    return at::_ops::broadcast_to::call(self, size);
+  }
 }
 
 }

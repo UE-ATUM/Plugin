@@ -31,7 +31,6 @@ inline at::Tensor special_log_ndtr(const at::Tensor & self) {
 inline at::Tensor & special_log_ndtr_out(at::Tensor & out, const at::Tensor & self) {
     return at::_ops::special_log_ndtr_out::call(self, out);
 }
-
 // aten::special_log_ndtr.out(Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & special_log_ndtr_outf(const at::Tensor & self, at::Tensor & out) {
     return at::_ops::special_log_ndtr_out::call(self, out);

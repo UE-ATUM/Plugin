@@ -26,7 +26,6 @@ namespace at {
 inline ::std::tuple<at::Tensor &,at::Tensor &> triangular_solve_out(at::Tensor & X, at::Tensor & M, const at::Tensor & self, const at::Tensor & A, bool upper=true, bool transpose=false, bool unitriangular=false) {
     return at::_ops::triangular_solve_X::call(self, A, upper, transpose, unitriangular, X, M);
 }
-
 // aten::triangular_solve.X(Tensor self, Tensor A, bool upper=True, bool transpose=False, bool unitriangular=False, *, Tensor(a!) X, Tensor(b!) M) -> (Tensor(a!) solution, Tensor(b!) cloned_coefficient)
 inline ::std::tuple<at::Tensor &,at::Tensor &> triangular_solve_outf(const at::Tensor & self, const at::Tensor & A, bool upper, bool transpose, bool unitriangular, at::Tensor & X, at::Tensor & M) {
     return at::_ops::triangular_solve_X::call(self, A, upper, transpose, unitriangular, X, M);

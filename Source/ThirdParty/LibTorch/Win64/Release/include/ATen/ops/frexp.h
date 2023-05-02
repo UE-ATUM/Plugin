@@ -31,7 +31,6 @@ inline ::std::tuple<at::Tensor,at::Tensor> frexp(const at::Tensor & self) {
 inline ::std::tuple<at::Tensor &,at::Tensor &> frexp_out(at::Tensor & mantissa, at::Tensor & exponent, const at::Tensor & self) {
     return at::_ops::frexp_Tensor_out::call(self, mantissa, exponent);
 }
-
 // aten::frexp.Tensor_out(Tensor self, *, Tensor(a!) mantissa, Tensor(b!) exponent) -> (Tensor(a!) mantissa, Tensor(b!) exponent)
 inline ::std::tuple<at::Tensor &,at::Tensor &> frexp_outf(const at::Tensor & self, at::Tensor & mantissa, at::Tensor & exponent) {
     return at::_ops::frexp_Tensor_out::call(self, mantissa, exponent);

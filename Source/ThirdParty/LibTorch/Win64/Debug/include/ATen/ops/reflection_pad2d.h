@@ -22,19 +22,70 @@
 namespace at {
 
 
-// aten::reflection_pad2d.out(Tensor self, int[4] padding, *, Tensor(a!) out) -> Tensor(a!)
+// aten::reflection_pad2d.out(Tensor self, SymInt[4] padding, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & reflection_pad2d_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef padding) {
-    return at::_ops::reflection_pad2d_out::call(self, padding, out);
+    return at::_ops::reflection_pad2d_out::call(self, c10::fromIntArrayRefSlow(padding), out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & reflection_pad2d_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef padding) {
+    return at::_ops::reflection_pad2d_out::call(self, c10::fromIntArrayRefSlow(padding), out);
+  }
 }
 
-// aten::reflection_pad2d.out(Tensor self, int[4] padding, *, Tensor(a!) out) -> Tensor(a!)
+// aten::reflection_pad2d.out(Tensor self, SymInt[4] padding, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & reflection_pad2d_outf(const at::Tensor & self, at::IntArrayRef padding, at::Tensor & out) {
-    return at::_ops::reflection_pad2d_out::call(self, padding, out);
+    return at::_ops::reflection_pad2d_out::call(self, c10::fromIntArrayRefSlow(padding), out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & reflection_pad2d_outf(const at::Tensor & self, at::IntArrayRef padding, at::Tensor & out) {
+    return at::_ops::reflection_pad2d_out::call(self, c10::fromIntArrayRefSlow(padding), out);
+  }
 }
 
-// aten::reflection_pad2d(Tensor self, int[4] padding) -> Tensor
+// aten::reflection_pad2d.out(Tensor self, SymInt[4] padding, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & reflection_pad2d_symint_out(at::Tensor & out, const at::Tensor & self, c10::SymIntArrayRef padding) {
+    return at::_ops::reflection_pad2d_out::call(self, padding, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & reflection_pad2d_out(at::Tensor & out, const at::Tensor & self, c10::SymIntArrayRef padding) {
+    return at::_ops::reflection_pad2d_out::call(self, padding, out);
+  }
+}
+
+// aten::reflection_pad2d.out(Tensor self, SymInt[4] padding, *, Tensor(a!) out) -> Tensor(a!)
+inline at::Tensor & reflection_pad2d_symint_outf(const at::Tensor & self, c10::SymIntArrayRef padding, at::Tensor & out) {
+    return at::_ops::reflection_pad2d_out::call(self, padding, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & reflection_pad2d_outf(const at::Tensor & self, c10::SymIntArrayRef padding, at::Tensor & out) {
+    return at::_ops::reflection_pad2d_out::call(self, padding, out);
+  }
+}
+
+// aten::reflection_pad2d(Tensor self, SymInt[4] padding) -> Tensor
 inline at::Tensor reflection_pad2d(const at::Tensor & self, at::IntArrayRef padding) {
+    return at::_ops::reflection_pad2d::call(self, c10::fromIntArrayRefSlow(padding));
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor reflection_pad2d(const at::Tensor & self, at::IntArrayRef padding) {
+    return at::_ops::reflection_pad2d::call(self, c10::fromIntArrayRefSlow(padding));
+  }
+}
+
+// aten::reflection_pad2d(Tensor self, SymInt[4] padding) -> Tensor
+inline at::Tensor reflection_pad2d_symint(const at::Tensor & self, c10::SymIntArrayRef padding) {
     return at::_ops::reflection_pad2d::call(self, padding);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor reflection_pad2d(const at::Tensor & self, c10::SymIntArrayRef padding) {
+    return at::_ops::reflection_pad2d::call(self, padding);
+  }
 }
 
 }

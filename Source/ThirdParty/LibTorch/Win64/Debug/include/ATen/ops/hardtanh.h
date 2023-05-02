@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & hardtanh_out(at::Tensor & out, const at::Tensor & self, const at::Scalar & min_val=-1, const at::Scalar & max_val=1) {
     return at::_ops::hardtanh_out::call(self, min_val, max_val, out);
 }
-
 // aten::hardtanh.out(Tensor self, Scalar min_val=-1, Scalar max_val=1, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & hardtanh_outf(const at::Tensor & self, const at::Scalar & min_val, const at::Scalar & max_val, at::Tensor & out) {
     return at::_ops::hardtanh_out::call(self, min_val, max_val, out);

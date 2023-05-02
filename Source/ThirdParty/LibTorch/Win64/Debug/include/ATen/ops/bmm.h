@@ -31,7 +31,6 @@ inline at::Tensor bmm(const at::Tensor & self, const at::Tensor & mat2) {
 inline at::Tensor & bmm_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & mat2) {
     return at::_ops::bmm_out::call(self, mat2, out);
 }
-
 // aten::bmm.out(Tensor self, Tensor mat2, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & bmm_outf(const at::Tensor & self, const at::Tensor & mat2, at::Tensor & out) {
     return at::_ops::bmm_out::call(self, mat2, out);

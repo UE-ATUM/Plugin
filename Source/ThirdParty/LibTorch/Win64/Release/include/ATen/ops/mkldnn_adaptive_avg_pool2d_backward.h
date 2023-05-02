@@ -31,7 +31,6 @@ inline at::Tensor mkldnn_adaptive_avg_pool2d_backward(const at::Tensor & grad_ou
 inline at::Tensor & mkldnn_adaptive_avg_pool2d_backward_out(at::Tensor & out, const at::Tensor & grad_output, const at::Tensor & self) {
     return at::_ops::mkldnn_adaptive_avg_pool2d_backward_out::call(grad_output, self, out);
 }
-
 // aten::mkldnn_adaptive_avg_pool2d_backward.out(Tensor grad_output, Tensor self, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & mkldnn_adaptive_avg_pool2d_backward_outf(const at::Tensor & grad_output, const at::Tensor & self, at::Tensor & out) {
     return at::_ops::mkldnn_adaptive_avg_pool2d_backward_out::call(grad_output, self, out);

@@ -31,7 +31,6 @@ inline at::Tensor mkldnn_linear_backward_input(at::IntArrayRef input_size, const
 inline at::Tensor & mkldnn_linear_backward_input_out(at::Tensor & out, at::IntArrayRef input_size, const at::Tensor & grad_output, const at::Tensor & weight) {
     return at::_ops::mkldnn_linear_backward_input_out::call(input_size, grad_output, weight, out);
 }
-
 // aten::mkldnn_linear_backward_input.out(int[] input_size, Tensor grad_output, Tensor weight, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & mkldnn_linear_backward_input_outf(at::IntArrayRef input_size, const at::Tensor & grad_output, const at::Tensor & weight, at::Tensor & out) {
     return at::_ops::mkldnn_linear_backward_input_out::call(input_size, grad_output, weight, out);

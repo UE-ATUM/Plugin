@@ -8,9 +8,9 @@
 // Caffe2 version. The plan is to increment the minor version every other week
 // as a track point for bugs, until we find a proper versioning cycle.
 
-#define CAFFE2_VERSION_MAJOR 1
-#define CAFFE2_VERSION_MINOR 13
-#define CAFFE2_VERSION_PATCH 1
+#define CAFFE2_VERSION_MAJOR 2
+#define CAFFE2_VERSION_MINOR 0
+#define CAFFE2_VERSION_PATCH 0
 
 static_assert(
     CAFFE2_VERSION_MINOR < 100,
@@ -44,6 +44,7 @@ static_assert(
 /* #undef CAFFE2_USE_NVTX */
 /* #undef CAFFE2_USE_ITT */
 /* #undef CAFFE2_USE_TRT */
+/* #undef TORCH_DISABLE_GPU_ASSERTS */
 
 #ifndef EIGEN_MPL2_ONLY
 #define EIGEN_MPL2_ONLY
@@ -51,9 +52,9 @@ static_assert(
 
 // Useful build settings that are recorded in the compiled binary
 #define CAFFE2_BUILD_STRINGS { \
-  {"TORCH_VERSION", "1.13.1"}, \
+  {"TORCH_VERSION", "2.0.0"}, \
   {"CXX_COMPILER", "C:/actions-runner/_work/pytorch/pytorch/builder/windows/tmp_bin/sccache-cl.exe"}, \
-  {"CXX_FLAGS", "/DWIN32 /D_WINDOWS /GR /EHsc /w /bigobj -DUSE_PTHREADPOOL -openmp:experimental -IC:/actions-runner/_work/pytorch/pytorch/builder/windows/mkl/include -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOCUPTI -DUSE_FBGEMM -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DEDGE_PROFILER_USE_KINETO"}, \
+  {"CXX_FLAGS", "/DWIN32 /D_WINDOWS /GR /EHsc /w /bigobj /FS -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOCUPTI -DLIBKINETO_NOROCTRACER -DUSE_FBGEMM -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE"}, \
   {"BUILD_TYPE", "Release"}, \
   {"BLAS_INFO", "mkl"}, \
   {"LAPACK_INFO", "mkl"}, \
@@ -85,4 +86,5 @@ static_assert(
   {"USE_NVTX", ""}, \
   {"USE_ITT", ""}, \
   {"USE_TRT", ""}, \
+  {"TORCH_DISABLE_GPU_ASSERTS", "OFF"}, \
 }

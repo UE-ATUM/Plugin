@@ -24,62 +24,90 @@ namespace at {
 
 // aten::upsample_linear1d.vec(Tensor input, SymInt[]? output_size, bool align_corners, float[]? scale_factors) -> Tensor
 inline at::Tensor upsample_linear1d(const at::Tensor & input, at::OptionalIntArrayRef output_size, bool align_corners, c10::optional<at::ArrayRef<double>> scale_factors) {
-    return at::_ops::upsample_linear1d_vec::call(input, output_size.has_value() ? c10::make_optional(c10::fromIntArrayRef(*output_size)) : c10::nullopt, align_corners, scale_factors);
+    return at::_ops::upsample_linear1d_vec::call(input, output_size.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*output_size)) : c10::nullopt, align_corners, scale_factors);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor upsample_linear1d(const at::Tensor & input, at::OptionalIntArrayRef output_size, bool align_corners, c10::optional<at::ArrayRef<double>> scale_factors) {
+    return at::_ops::upsample_linear1d_vec::call(input, output_size.has_value() ? c10::make_optional(c10::fromIntArrayRefSlow(*output_size)) : c10::nullopt, align_corners, scale_factors);
+  }
 }
 
 // aten::upsample_linear1d.vec(Tensor input, SymInt[]? output_size, bool align_corners, float[]? scale_factors) -> Tensor
 inline at::Tensor upsample_linear1d_symint(const at::Tensor & input, at::OptionalSymIntArrayRef output_size, bool align_corners, c10::optional<at::ArrayRef<double>> scale_factors) {
     return at::_ops::upsample_linear1d_vec::call(input, output_size, align_corners, scale_factors);
 }
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor upsample_linear1d(const at::Tensor & input, at::OptionalSymIntArrayRef output_size, bool align_corners, c10::optional<at::ArrayRef<double>> scale_factors) {
+    return at::_ops::upsample_linear1d_vec::call(input, output_size, align_corners, scale_factors);
+  }
+}
 
 // aten::upsample_linear1d.out(Tensor self, SymInt[1] output_size, bool align_corners, float? scales=None, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & upsample_linear1d_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef output_size, bool align_corners, c10::optional<double> scales=c10::nullopt) {
-    return at::_ops::upsample_linear1d_out::call(self, c10::fromIntArrayRef(output_size), align_corners, scales, out);
+    return at::_ops::upsample_linear1d_out::call(self, c10::fromIntArrayRefSlow(output_size), align_corners, scales, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & upsample_linear1d_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef output_size, bool align_corners, c10::optional<double> scales=c10::nullopt) {
+    return at::_ops::upsample_linear1d_out::call(self, c10::fromIntArrayRefSlow(output_size), align_corners, scales, out);
+  }
 }
 
 // aten::upsample_linear1d.out(Tensor self, SymInt[1] output_size, bool align_corners, float? scales=None, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & upsample_linear1d_outf(const at::Tensor & self, at::IntArrayRef output_size, bool align_corners, c10::optional<double> scales, at::Tensor & out) {
-    return at::_ops::upsample_linear1d_out::call(self, c10::fromIntArrayRef(output_size), align_corners, scales, out);
+    return at::_ops::upsample_linear1d_out::call(self, c10::fromIntArrayRefSlow(output_size), align_corners, scales, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & upsample_linear1d_outf(const at::Tensor & self, at::IntArrayRef output_size, bool align_corners, c10::optional<double> scales, at::Tensor & out) {
+    return at::_ops::upsample_linear1d_out::call(self, c10::fromIntArrayRefSlow(output_size), align_corners, scales, out);
+  }
 }
 
 // aten::upsample_linear1d.out(Tensor self, SymInt[1] output_size, bool align_corners, float? scales=None, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & upsample_linear1d_symint_out(at::Tensor & out, const at::Tensor & self, c10::SymIntArrayRef output_size, bool align_corners, c10::optional<double> scales=c10::nullopt) {
     return at::_ops::upsample_linear1d_out::call(self, output_size, align_corners, scales, out);
 }
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & upsample_linear1d_out(at::Tensor & out, const at::Tensor & self, c10::SymIntArrayRef output_size, bool align_corners, c10::optional<double> scales=c10::nullopt) {
+    return at::_ops::upsample_linear1d_out::call(self, output_size, align_corners, scales, out);
+  }
+}
 
 // aten::upsample_linear1d.out(Tensor self, SymInt[1] output_size, bool align_corners, float? scales=None, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & upsample_linear1d_symint_outf(const at::Tensor & self, c10::SymIntArrayRef output_size, bool align_corners, c10::optional<double> scales, at::Tensor & out) {
     return at::_ops::upsample_linear1d_out::call(self, output_size, align_corners, scales, out);
 }
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & upsample_linear1d_outf(const at::Tensor & self, c10::SymIntArrayRef output_size, bool align_corners, c10::optional<double> scales, at::Tensor & out) {
+    return at::_ops::upsample_linear1d_out::call(self, output_size, align_corners, scales, out);
+  }
+}
 
 // aten::upsample_linear1d(Tensor self, SymInt[1] output_size, bool align_corners, float? scales=None) -> Tensor
 inline at::Tensor upsample_linear1d(const at::Tensor & self, at::IntArrayRef output_size, bool align_corners, c10::optional<double> scales=c10::nullopt) {
-    return at::_ops::upsample_linear1d::call(self, c10::fromIntArrayRef(output_size), align_corners, scales);
+    return at::_ops::upsample_linear1d::call(self, c10::fromIntArrayRefSlow(output_size), align_corners, scales);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor upsample_linear1d(const at::Tensor & self, at::IntArrayRef output_size, bool align_corners, c10::optional<double> scales=c10::nullopt) {
+    return at::_ops::upsample_linear1d::call(self, c10::fromIntArrayRefSlow(output_size), align_corners, scales);
+  }
 }
 
 // aten::upsample_linear1d(Tensor self, SymInt[1] output_size, bool align_corners, float? scales=None) -> Tensor
 inline at::Tensor upsample_linear1d_symint(const at::Tensor & self, c10::SymIntArrayRef output_size, bool align_corners, c10::optional<double> scales=c10::nullopt) {
     return at::_ops::upsample_linear1d::call(self, output_size, align_corners, scales);
 }
-
-// aten::upsample_linear1d.vec_out(Tensor input, SymInt[]? output_size, bool align_corners, float[]? scale_factors, *, Tensor(a!) out) -> Tensor(a!)
-inline at::Tensor & upsample_linear1d_out(at::Tensor & out, const at::Tensor & input, at::OptionalIntArrayRef output_size, bool align_corners, c10::optional<at::ArrayRef<double>> scale_factors) {
-    return at::_ops::upsample_linear1d_vec_out::call(input, output_size.has_value() ? c10::make_optional(c10::fromIntArrayRef(*output_size)) : c10::nullopt, align_corners, scale_factors, out);
-}
-
-// aten::upsample_linear1d.vec_out(Tensor input, SymInt[]? output_size, bool align_corners, float[]? scale_factors, *, Tensor(a!) out) -> Tensor(a!)
-inline at::Tensor & upsample_linear1d_outf(const at::Tensor & input, at::OptionalIntArrayRef output_size, bool align_corners, c10::optional<at::ArrayRef<double>> scale_factors, at::Tensor & out) {
-    return at::_ops::upsample_linear1d_vec_out::call(input, output_size.has_value() ? c10::make_optional(c10::fromIntArrayRef(*output_size)) : c10::nullopt, align_corners, scale_factors, out);
-}
-
-// aten::upsample_linear1d.vec_out(Tensor input, SymInt[]? output_size, bool align_corners, float[]? scale_factors, *, Tensor(a!) out) -> Tensor(a!)
-inline at::Tensor & upsample_linear1d_symint_out(at::Tensor & out, const at::Tensor & input, at::OptionalSymIntArrayRef output_size, bool align_corners, c10::optional<at::ArrayRef<double>> scale_factors) {
-    return at::_ops::upsample_linear1d_vec_out::call(input, output_size, align_corners, scale_factors, out);
-}
-
-// aten::upsample_linear1d.vec_out(Tensor input, SymInt[]? output_size, bool align_corners, float[]? scale_factors, *, Tensor(a!) out) -> Tensor(a!)
-inline at::Tensor & upsample_linear1d_symint_outf(const at::Tensor & input, at::OptionalSymIntArrayRef output_size, bool align_corners, c10::optional<at::ArrayRef<double>> scale_factors, at::Tensor & out) {
-    return at::_ops::upsample_linear1d_vec_out::call(input, output_size, align_corners, scale_factors, out);
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor upsample_linear1d(const at::Tensor & self, c10::SymIntArrayRef output_size, bool align_corners, c10::optional<double> scales=c10::nullopt) {
+    return at::_ops::upsample_linear1d::call(self, output_size, align_corners, scales);
+  }
 }
 
 }

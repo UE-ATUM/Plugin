@@ -17,7 +17,7 @@
 namespace at {
 namespace native {
 TORCH_API at::Tensor select(const at::Tensor & self, at::Dimname dim, int64_t index);
-TORCH_API at::Tensor select(const at::Tensor & self, int64_t dim, int64_t index);
+TORCH_API at::Tensor select_symint(const at::Tensor & self, int64_t dim, c10::SymInt index);
 TORCH_API at::Tensor select_nested(const at::Tensor & self, int64_t dim, int64_t index);
 TORCH_API at::Tensor select_sparse_csr(const at::Tensor & self, int64_t dim, int64_t index);
 } // namespace native

@@ -31,7 +31,6 @@ inline at::Tensor linalg_eigvalsh(const at::Tensor & self, c10::string_view UPLO
 inline at::Tensor & linalg_eigvalsh_out(at::Tensor & out, const at::Tensor & self, c10::string_view UPLO="L") {
     return at::_ops::linalg_eigvalsh_out::call(self, UPLO, out);
 }
-
 // aten::linalg_eigvalsh.out(Tensor self, str UPLO="L", *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & linalg_eigvalsh_outf(const at::Tensor & self, c10::string_view UPLO, at::Tensor & out) {
     return at::_ops::linalg_eigvalsh_out::call(self, UPLO, out);

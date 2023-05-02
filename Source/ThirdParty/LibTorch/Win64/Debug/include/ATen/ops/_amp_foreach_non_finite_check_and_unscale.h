@@ -31,7 +31,6 @@ inline void _amp_foreach_non_finite_check_and_unscale_(at::TensorList self, at::
 inline void _amp_foreach_non_finite_check_and_unscale_out(at::TensorList out, at::TensorList self, at::Tensor & found_inf, const at::Tensor & inv_scale) {
     return at::_ops::_amp_foreach_non_finite_check_and_unscale_out::call(self, found_inf, inv_scale, out);
 }
-
 // aten::_amp_foreach_non_finite_check_and_unscale.out(Tensor[] self, Tensor(b!) found_inf, Tensor inv_scale, *, Tensor(a!)[] out) -> ()
 inline void _amp_foreach_non_finite_check_and_unscale_outf(at::TensorList self, at::Tensor & found_inf, const at::Tensor & inv_scale, at::TensorList out) {
     return at::_ops::_amp_foreach_non_finite_check_and_unscale_out::call(self, found_inf, inv_scale, out);

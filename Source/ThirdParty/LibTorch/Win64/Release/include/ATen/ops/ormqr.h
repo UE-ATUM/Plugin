@@ -26,7 +26,6 @@ namespace at {
 inline at::Tensor & ormqr_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & input2, const at::Tensor & input3, bool left=true, bool transpose=false) {
     return at::_ops::ormqr_out::call(self, input2, input3, left, transpose, out);
 }
-
 // aten::ormqr.out(Tensor self, Tensor input2, Tensor input3, bool left=True, bool transpose=False, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & ormqr_outf(const at::Tensor & self, const at::Tensor & input2, const at::Tensor & input3, bool left, bool transpose, at::Tensor & out) {
     return at::_ops::ormqr_out::call(self, input2, input3, left, transpose, out);

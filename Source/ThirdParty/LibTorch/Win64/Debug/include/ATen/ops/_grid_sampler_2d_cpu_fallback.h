@@ -31,7 +31,6 @@ inline at::Tensor _grid_sampler_2d_cpu_fallback(const at::Tensor & input, const 
 inline at::Tensor & _grid_sampler_2d_cpu_fallback_out(at::Tensor & out, const at::Tensor & input, const at::Tensor & grid, int64_t interpolation_mode, int64_t padding_mode, bool align_corners) {
     return at::_ops::_grid_sampler_2d_cpu_fallback_out::call(input, grid, interpolation_mode, padding_mode, align_corners, out);
 }
-
 // aten::_grid_sampler_2d_cpu_fallback.out(Tensor input, Tensor grid, int interpolation_mode, int padding_mode, bool align_corners, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _grid_sampler_2d_cpu_fallback_outf(const at::Tensor & input, const at::Tensor & grid, int64_t interpolation_mode, int64_t padding_mode, bool align_corners, at::Tensor & out) {
     return at::_ops::_grid_sampler_2d_cpu_fallback_out::call(input, grid, interpolation_mode, padding_mode, align_corners, out);

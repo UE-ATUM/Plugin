@@ -26,30 +26,66 @@ namespace at {
 inline at::Tensor slice_copy(const at::Tensor & self, int64_t dim=0, c10::optional<int64_t> start=c10::nullopt, c10::optional<int64_t> end=c10::nullopt, int64_t step=1) {
     return at::_ops::slice_copy_Tensor::call(self, dim, start.has_value() ? c10::make_optional(c10::SymInt(*start)) : c10::nullopt, end.has_value() ? c10::make_optional(c10::SymInt(*end)) : c10::nullopt, step);
 }
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor slice_copy(const at::Tensor & self, int64_t dim=0, c10::optional<int64_t> start=c10::nullopt, c10::optional<int64_t> end=c10::nullopt, int64_t step=1) {
+    return at::_ops::slice_copy_Tensor::call(self, dim, start.has_value() ? c10::make_optional(c10::SymInt(*start)) : c10::nullopt, end.has_value() ? c10::make_optional(c10::SymInt(*end)) : c10::nullopt, step);
+  }
+}
 
 // aten::slice_copy.Tensor(Tensor self, int dim=0, SymInt? start=None, SymInt? end=None, SymInt step=1) -> Tensor
 inline at::Tensor slice_copy_symint(const at::Tensor & self, int64_t dim=0, c10::optional<c10::SymInt> start=c10::nullopt, c10::optional<c10::SymInt> end=c10::nullopt, c10::SymInt step=1) {
     return at::_ops::slice_copy_Tensor::call(self, dim, start, end, step);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor slice_copy(const at::Tensor & self, int64_t dim=0, c10::optional<c10::SymInt> start=c10::nullopt, c10::optional<c10::SymInt> end=c10::nullopt, c10::SymInt step=1) {
+    return at::_ops::slice_copy_Tensor::call(self, dim, start, end, step);
+  }
 }
 
 // aten::slice_copy.Tensor_out(Tensor self, int dim=0, SymInt? start=None, SymInt? end=None, SymInt step=1, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & slice_copy_out(at::Tensor & out, const at::Tensor & self, int64_t dim=0, c10::optional<int64_t> start=c10::nullopt, c10::optional<int64_t> end=c10::nullopt, int64_t step=1) {
     return at::_ops::slice_copy_Tensor_out::call(self, dim, start.has_value() ? c10::make_optional(c10::SymInt(*start)) : c10::nullopt, end.has_value() ? c10::make_optional(c10::SymInt(*end)) : c10::nullopt, step, out);
 }
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & slice_copy_out(at::Tensor & out, const at::Tensor & self, int64_t dim=0, c10::optional<int64_t> start=c10::nullopt, c10::optional<int64_t> end=c10::nullopt, int64_t step=1) {
+    return at::_ops::slice_copy_Tensor_out::call(self, dim, start.has_value() ? c10::make_optional(c10::SymInt(*start)) : c10::nullopt, end.has_value() ? c10::make_optional(c10::SymInt(*end)) : c10::nullopt, step, out);
+  }
+}
 
 // aten::slice_copy.Tensor_out(Tensor self, int dim=0, SymInt? start=None, SymInt? end=None, SymInt step=1, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & slice_copy_outf(const at::Tensor & self, int64_t dim, c10::optional<int64_t> start, c10::optional<int64_t> end, int64_t step, at::Tensor & out) {
     return at::_ops::slice_copy_Tensor_out::call(self, dim, start.has_value() ? c10::make_optional(c10::SymInt(*start)) : c10::nullopt, end.has_value() ? c10::make_optional(c10::SymInt(*end)) : c10::nullopt, step, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, int64_t>::value>>
+  at::Tensor & slice_copy_outf(const at::Tensor & self, int64_t dim, c10::optional<int64_t> start, c10::optional<int64_t> end, int64_t step, at::Tensor & out) {
+    return at::_ops::slice_copy_Tensor_out::call(self, dim, start.has_value() ? c10::make_optional(c10::SymInt(*start)) : c10::nullopt, end.has_value() ? c10::make_optional(c10::SymInt(*end)) : c10::nullopt, step, out);
+  }
 }
 
 // aten::slice_copy.Tensor_out(Tensor self, int dim=0, SymInt? start=None, SymInt? end=None, SymInt step=1, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & slice_copy_symint_out(at::Tensor & out, const at::Tensor & self, int64_t dim=0, c10::optional<c10::SymInt> start=c10::nullopt, c10::optional<c10::SymInt> end=c10::nullopt, c10::SymInt step=1) {
     return at::_ops::slice_copy_Tensor_out::call(self, dim, start, end, step, out);
 }
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & slice_copy_out(at::Tensor & out, const at::Tensor & self, int64_t dim=0, c10::optional<c10::SymInt> start=c10::nullopt, c10::optional<c10::SymInt> end=c10::nullopt, c10::SymInt step=1) {
+    return at::_ops::slice_copy_Tensor_out::call(self, dim, start, end, step, out);
+  }
+}
 
 // aten::slice_copy.Tensor_out(Tensor self, int dim=0, SymInt? start=None, SymInt? end=None, SymInt step=1, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & slice_copy_symint_outf(const at::Tensor & self, int64_t dim, c10::optional<c10::SymInt> start, c10::optional<c10::SymInt> end, c10::SymInt step, at::Tensor & out) {
     return at::_ops::slice_copy_Tensor_out::call(self, dim, start, end, step, out);
+}
+namespace symint {
+  template <typename T, typename = std::enable_if_t<std::is_same<T, c10::SymInt>::value>>
+  at::Tensor & slice_copy_outf(const at::Tensor & self, int64_t dim, c10::optional<c10::SymInt> start, c10::optional<c10::SymInt> end, c10::SymInt step, at::Tensor & out) {
+    return at::_ops::slice_copy_Tensor_out::call(self, dim, start, end, step, out);
+  }
 }
 
 }

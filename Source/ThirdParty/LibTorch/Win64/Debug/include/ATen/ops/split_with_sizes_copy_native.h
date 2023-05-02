@@ -17,6 +17,6 @@
 namespace at {
 namespace native {
 TORCH_API void split_with_sizes_copy_out(const at::Tensor & self, at::IntArrayRef split_sizes, int64_t dim, at::TensorList out);
-TORCH_API ::std::vector<at::Tensor> split_with_sizes_copy(const at::Tensor & self, at::IntArrayRef split_sizes, int64_t dim=0);
+TORCH_API ::std::vector<at::Tensor> split_with_sizes_copy_symint(const at::Tensor & self, c10::SymIntArrayRef split_sizes, int64_t dim=0);
 } // namespace native
 } // namespace at

@@ -36,7 +36,6 @@ inline at::Tensor count_nonzero(const at::Tensor & self, c10::optional<int64_t> 
 inline at::Tensor & count_nonzero_out(at::Tensor & out, const at::Tensor & self, at::IntArrayRef dim) {
     return at::_ops::count_nonzero_dim_IntList_out::call(self, dim, out);
 }
-
 // aten::count_nonzero.dim_IntList_out(Tensor self, int[] dim, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & count_nonzero_outf(const at::Tensor & self, at::IntArrayRef dim, at::Tensor & out) {
     return at::_ops::count_nonzero_dim_IntList_out::call(self, dim, out);
@@ -46,7 +45,6 @@ inline at::Tensor & count_nonzero_outf(const at::Tensor & self, at::IntArrayRef 
 inline at::Tensor & count_nonzero_out(at::Tensor & out, const at::Tensor & self, c10::optional<int64_t> dim=c10::nullopt) {
     return at::_ops::count_nonzero_out::call(self, dim, out);
 }
-
 // aten::count_nonzero.out(Tensor self, int? dim=None, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & count_nonzero_outf(const at::Tensor & self, c10::optional<int64_t> dim, at::Tensor & out) {
     return at::_ops::count_nonzero_out::call(self, dim, out);

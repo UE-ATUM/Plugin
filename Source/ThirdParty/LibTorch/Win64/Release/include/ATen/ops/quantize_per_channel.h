@@ -31,7 +31,6 @@ inline at::Tensor quantize_per_channel(const at::Tensor & self, const at::Tensor
 inline at::Tensor & quantize_per_channel_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & scales, const at::Tensor & zero_points, int64_t axis, at::ScalarType dtype) {
     return at::_ops::quantize_per_channel_out::call(self, scales, zero_points, axis, dtype, out);
 }
-
 // aten::quantize_per_channel.out(Tensor self, Tensor scales, Tensor zero_points, int axis, ScalarType dtype, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & quantize_per_channel_outf(const at::Tensor & self, const at::Tensor & scales, const at::Tensor & zero_points, int64_t axis, at::ScalarType dtype, at::Tensor & out) {
     return at::_ops::quantize_per_channel_out::call(self, scales, zero_points, axis, dtype, out);

@@ -31,7 +31,6 @@ inline at::Tensor _mps_convolution_transpose(const at::Tensor & self, const at::
 inline at::Tensor & _mps_convolution_transpose_out(at::Tensor & out, const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups) {
     return at::_ops::_mps_convolution_transpose_out::call(self, weight, padding, output_padding, stride, dilation, groups, out);
 }
-
 // aten::_mps_convolution_transpose.out(Tensor self, Tensor weight, int[] padding, int[] output_padding, int[] stride, int[] dilation, int groups, *, Tensor(a!) out) -> Tensor(a!)
 inline at::Tensor & _mps_convolution_transpose_outf(const at::Tensor & self, const at::Tensor & weight, at::IntArrayRef padding, at::IntArrayRef output_padding, at::IntArrayRef stride, at::IntArrayRef dilation, int64_t groups, at::Tensor & out) {
     return at::_ops::_mps_convolution_transpose_out::call(self, weight, padding, output_padding, stride, dilation, groups, out);
