@@ -58,23 +58,23 @@ public:
 };
 
 
-template <typename T>
-requires std::is_base_of_v<torch::nn::Module, T>
+template <typename TModule>
+requires std::is_base_of_v<torch::nn::Module, TModule>
 class TAtumLayer
 {
 protected:
-	mutable TUniquePtr<T> Module = nullptr;
+	mutable TUniquePtr<TModule> Module = nullptr;
 
 public:
 	UE_NODISCARD
-	FORCEINLINE const T* GetModule() const noexcept { return Module.Get(); }
+	FORCEINLINE const TModule* GetModule() const noexcept { return Module.Get(); }
 	
 	UE_NODISCARD
-	FORCEINLINE T* GetModule() noexcept { return Module.Get(); }
+	FORCEINLINE TModule* GetModule() noexcept { return Module.Get(); }
 
 	UE_NODISCARD
-	FORCEINLINE const T& GetModuleChecked() const { return *GetModule(); }
+	FORCEINLINE const TModule& GetModuleChecked() const { return *GetModule(); }
 
 	UE_NODISCARD
-	FORCEINLINE T& GetModuleChecked() { return *GetModule(); }
+	FORCEINLINE TModule& GetModuleChecked() { return *GetModule(); }
 };
