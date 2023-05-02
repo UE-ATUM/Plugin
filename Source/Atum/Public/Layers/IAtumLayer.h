@@ -54,6 +54,7 @@ protected:
 	) noexcept;
 	
 public:
+	UE_NODISCARD
 	FORCEINLINE bool IsInitialized() const { return bInitialized; }
 };
 
