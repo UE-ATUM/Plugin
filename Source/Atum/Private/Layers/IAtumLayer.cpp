@@ -33,20 +33,33 @@ bool IAtumLayer::Forward_Implementation(
 		UE_LOG(LogAtum, Error, TEXT("Could not initialize ATUM Layer of type %s!"), LayerClassName)
 		return false;
 	}
-	
-	return Execute_OnForward(LayerObject, Input, Output);
+
+	bool bSuccess;
+	try
+	{
+		bSuccess = Execute_OnForward(LayerObject, Input, Output);
+	}
+	catch (const c10::Error& Error)
+	{
+		UE_LOG(LogAtum, Error, TEXT("LibTorch - %hs"), Error.what_without_backtrace())
+		bSuccess = false;
+	}
+	return bSuccess;
 }
 
 bool IAtumLayer::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
+	UE_LOG(LogAtum, Error, TEXT("OnInitializeData is not implemented on %s!"), *_getUObject()->GetClass()->GetName())
 	return false;
 }
 
 bool IAtumLayer::OnForward_Implementation(
 	const TScriptInterface<IAtumTensor>& Input,
 	TScriptInterface<IAtumTensor>& Output
-) noexcept
+)
 {
+	UE_LOG(LogAtum, Error, TEXT("OnForward is not implemented on %s!"), *_getUObject()->GetClass()->GetName())
+	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
 	return false;
 }

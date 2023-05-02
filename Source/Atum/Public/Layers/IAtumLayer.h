@@ -31,7 +31,7 @@ public:
 		const TScriptInterface<IAtumTensor>& Input,
 		TScriptInterface<IAtumTensor>& Output
 	) noexcept
-	{ return Forward(Input, Output); }
+	{ return Execute_Forward(_getUObject(), Input, Output); }
 
 private:
 	bool InitializeData_Implementation(bool bRetry = false) noexcept;
@@ -51,7 +51,7 @@ protected:
 	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,
 		TScriptInterface<IAtumTensor>& Output
-	) noexcept;
+	);
 	
 public:
 	UE_NODISCARD
