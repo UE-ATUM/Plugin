@@ -5,34 +5,37 @@
 #include "IAtum.h"
 
 
-UAtumLayerLinear::UAtumLayerLinear() noexcept : InFeatures(1), OutFeatures(1), bLearnBias(true)
+FAtumOptionsLinear::FAtumOptionsLinear() noexcept : InFeatures(1), OutFeatures(1), bBias(true)
 {
+}
+
+FAtumOptionsLinear::operator torch::nn::LinearOptions() const noexcept
+{
+	return torch::nn::LinearOptions(InFeatures, OutFeatures).bias(bBias);
 }
 
 bool UAtumLayerLinear::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
-	Module.Reset(new torch::nn::LinearImpl(InFeatures, OutFeatures));
-	Module->options.bias(bLearnBias);
+	Module.Reset(new torch::nn::LinearImpl(static_cast<torch::nn::LinearOptions>(Options)));
 	return true;
 }
 
 bool UAtumLayerLinear::OnForward_Implementation(
 	const TScriptInterface<IAtumTensor>& Input,
 	TScriptInterface<IAtumTensor>& Output
-) noexcept
+)
 {
-	torch::Tensor NewTensorData;
-	try
+	TArray<int64> InputSizes;
+	Input->GetSizes(InputSizes);
+	const int64 GivenFeatures = InputSizes.Last();
+	
+	if (const int64 ExpectedFeatures = Module->options.in_features(); GivenFeatures != ExpectedFeatures)
 	{
-		NewTensorData = Module->forward(Input->GetDataChecked().toType(Module->weight.scalar_type()));
-	}
-	catch (const c10::Error& Error)
-	{
-		UE_LOG(LogAtum, Error, TEXT("%hs"), Error.what_without_backtrace())
+		UE_LOG(LogAtum, Error, TEXT("Linear - Expected %lld features but got %lld!"), ExpectedFeatures, GivenFeatures)
 		return false;
 	}
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
-	Output->SetData(NewTensorData);
+	Output->SetData(Module->forward(Input->GetDataChecked().to(c10::kFloat)));
 	return true;
 }
