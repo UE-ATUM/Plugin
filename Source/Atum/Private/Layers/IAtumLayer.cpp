@@ -41,7 +41,7 @@ bool IAtumLayer::Forward_Implementation(
 	}
 	catch (const c10::Error& Error)
 	{
-		UE_LOG(LogAtum, Error, TEXT("LibTorch - %hs"), Error.what_without_backtrace())
+		UE_LOG(LogAtum, Error, TEXT("Unhandled exception in %s - %hs"), LayerClassName, Error.what_without_backtrace())
 		bSuccess = false;
 	}
 	return bSuccess;
