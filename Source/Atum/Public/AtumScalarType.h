@@ -35,6 +35,7 @@ enum class EAtumScalarType : uint8
 	TypesCount = c10::ScalarType::NumOptions UMETA(Hidden, DisplayName = "Types Count") // Number of types
 };
 
+
 namespace AtumEnums
 {
 	UE_NODISCARD
