@@ -20,17 +20,17 @@ bool IAtumLayer::Forward_Implementation(
 ) noexcept
 {
 	UObject* const LayerObject = _getUObject();
-	const TCHAR* const LayerName = *GetNameSafe(LayerObject);
+	const ANSICHAR* const LayerClassName = TCHAR_TO_UTF8(*GetNameSafe(LayerObject->GetClass()));
 
 	if (const torch::Tensor* const Data = Input ? Input->GetData() : nullptr; Data == nullptr)
 	{
-		UE_LOG(LogAtum, Error, TEXT("Input had no data at ATUM Layer of type `%s`!"), LayerName)
+		UE_LOG(LogAtum, Error, TEXT("Input had no data at ATUM Layer of type `%hs`!"), LayerClassName)
 		return false;
 	}
 	
 	if (!Execute_InitializeData(LayerObject, false))
 	{
-		UE_LOG(LogAtum, Error, TEXT("Could not initialize ATUM Layer of type `%s`!"), LayerName)
+		UE_LOG(LogAtum, Error, TEXT("Could not initialize ATUM Layer of type `%hs`!"), LayerClassName)
 		return false;
 	}
 
@@ -47,8 +47,8 @@ bool IAtumLayer::Forward_Implementation(
 		UE_LOG(
 			LogAtum,
 			Error,
-			TEXT("Unhandled exception in `%s` layer - %hs"),
-			LayerName,
+			TEXT("Unhandled exception in ATUM Layer of type `%hs` - %hs"),
+			LayerClassName,
 			ExceptionString.substr(0, ExceptionString.find("\n")).c_str()
 		)
 	}
@@ -57,7 +57,9 @@ bool IAtumLayer::Forward_Implementation(
 
 bool IAtumLayer::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
-	UE_LOG(LogAtum, Error, TEXT("OnInitializeData is not implemented in `%s`!"), *_getUObject()->GetClass()->GetName())
+	const ANSICHAR* const LayerClassName = TCHAR_TO_UTF8(*GetNameSafe(_getUObject()->GetClass()));
+	UE_LOG(LogAtum, Error, TEXT("OnInitializeData is not implemented in `%hs`!"), LayerClassName)
+	
 	return false;
 }
 
@@ -66,7 +68,8 @@ bool IAtumLayer::OnForward_Implementation(
 	TScriptInterface<IAtumTensor>& Output
 )
 {
-	UE_LOG(LogAtum, Error, TEXT("OnForward is not implemented in `%s`!"), *_getUObject()->GetClass()->GetName())
+	const ANSICHAR* const LayerClassName = TCHAR_TO_UTF8(*GetNameSafe(_getUObject()->GetClass()));
+	UE_LOG(LogAtum, Error, TEXT("OnForward is not implemented in `%hs`!"), LayerClassName)
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
 	return false;
