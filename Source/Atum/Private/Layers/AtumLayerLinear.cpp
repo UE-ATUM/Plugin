@@ -5,7 +5,7 @@
 #include "IAtum.h"
 
 
-FAtumOptionsLinear::FAtumOptionsLinear() noexcept : InFeatures(1), OutFeatures(1), bBias(true)
+FAtumOptionsLinear::FAtumOptionsLinear() noexcept : InFeatures(0), OutFeatures(0), bBias(true)
 {
 }
 
