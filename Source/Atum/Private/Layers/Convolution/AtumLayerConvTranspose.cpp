@@ -10,7 +10,13 @@ CONSTEXPR uint64 UAtumLayerConvTranspose::GetDimensionCount() const noexcept
 
 bool UAtumLayerConvTranspose::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
-	if (const int64 Groups = Options.Groups; Options.InChannels % Groups != 0 || Options.OutChannels % Groups != 0)
+	const int64 Groups = Options.Groups;
+	if (Groups <= 0)
+	{
+		UE_LOG(LogAtum, Error, TEXT("There must exist at least 1 group!"))
+		return false;
+	}
+	if (Options.InChannels % Groups != 0 || Options.OutChannels % Groups != 0)
 	{
 		UE_LOG(LogAtum, Error, TEXT("Input and output channels must both be divisible by the group count!"))
 		return false;
