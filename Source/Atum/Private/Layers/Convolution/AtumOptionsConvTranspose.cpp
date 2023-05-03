@@ -42,6 +42,7 @@ PaddingMode(EAtumConvPaddingMode::Zeros)
 {
 	for (uint64 Index = 0u; Index < Dimensions; ++Index)
 	{
+		KernelSize.Add(0);
 		Stride.Add(1);
 		Padding.Add(0);
 		OutputPadding.Add(0);
