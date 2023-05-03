@@ -10,6 +10,12 @@ CONSTEXPR uint64 UAtumLayerConvTranspose::GetDimensionCount() const noexcept
 
 bool UAtumLayerConvTranspose::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
+	if (const int64 Groups = Options.Groups; Options.InChannels % Groups != 0 || Options.OutChannels % Groups != 0)
+	{
+		UE_LOG(LogAtum, Error, TEXT("Input and output channels must both be divisible by the group count!"))
+		return false;
+	}
+	
 	const TArray<int64>& KernelSize = Options.KernelSize;
 	const TArray<int64>& Stride = Options.Stride;
 	const TArray<int64>& Padding = Options.Padding;
