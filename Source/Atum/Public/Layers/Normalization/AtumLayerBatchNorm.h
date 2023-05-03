@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "IAtumLayer.h"
+#include "Layers/IAtumLayer.h"
 
 #include "AtumLayerBatchNorm.generated.h"
 
@@ -12,19 +12,19 @@ struct ATUM_API FAtumOptionsBatchNorm
 {
 	GENERATED_BODY()
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	int64 NumFeatures;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	double Epsilon;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	double Momentum;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	bool bAffine;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	bool bTrackRunningStats;
 
 	UE_NODISCARD_CTOR
@@ -39,7 +39,8 @@ UCLASS(Abstract, Blueprintable, BlueprintType, DisplayName = "ATUM Batch Norm La
 class ATUM_API UAtumLayerBatchNorm : public UObject, public IAtumLayer
 {
 	GENERATED_BODY()
-	
+
+protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (
 		AllowPrivateAccess,
 		ShowOnlyInnerProperties
@@ -49,7 +50,7 @@ class ATUM_API UAtumLayerBatchNorm : public UObject, public IAtumLayer
 public:
 	UE_NODISCARD
 	FORCEINLINE const FAtumOptionsBatchNorm& GetOptions() const noexcept { return Options; }
-
+	
 	UE_NODISCARD
 	FORCEINLINE FAtumOptionsBatchNorm& GetOptions() noexcept { return Options; }
 };

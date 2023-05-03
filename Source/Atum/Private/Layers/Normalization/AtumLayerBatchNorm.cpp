@@ -1,12 +1,12 @@
 ﻿// © 2023 Kaya Adrian.
 
-#include "Layers/AtumLayerBatchNorm.h"
+#include "Layers/Normalization/AtumLayerBatchNorm.h"
 
 #include "IAtum.h"
 
 
 FAtumOptionsBatchNorm::FAtumOptionsBatchNorm() noexcept :
-NumFeatures(1),
+NumFeatures(0),
 Epsilon(1e-5),
 Momentum(0.1),
 bAffine(true),
@@ -25,7 +25,7 @@ FAtumOptionsBatchNorm::operator torch::nn::BatchNormOptions() const noexcept
 
 bool UAtumLayerBatchNorm1D::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
-	Module.Reset(new torch::nn::BatchNorm1dImpl(static_cast<torch::nn::BatchNormOptions>(GetOptions())));
+	Module.Reset(new torch::nn::BatchNorm1dImpl(static_cast<torch::nn::BatchNormOptions>(Options)));
 	return true;
 }
 
@@ -63,7 +63,7 @@ bool UAtumLayerBatchNorm1D::OnForward_Implementation(
 
 bool UAtumLayerBatchNorm2D::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
-	Module.Reset(new torch::nn::BatchNorm2dImpl(static_cast<torch::nn::BatchNormOptions>(GetOptions())));
+	Module.Reset(new torch::nn::BatchNorm2dImpl(static_cast<torch::nn::BatchNormOptions>(Options)));
 	return true;
 }
 
@@ -101,7 +101,7 @@ bool UAtumLayerBatchNorm2D::OnForward_Implementation(
 
 bool UAtumLayerBatchNorm3D::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
-	Module.Reset(new torch::nn::BatchNorm3dImpl(static_cast<torch::nn::BatchNormOptions>(GetOptions())));
+	Module.Reset(new torch::nn::BatchNorm3dImpl(static_cast<torch::nn::BatchNormOptions>(Options)));
 	return true;
 }
 
