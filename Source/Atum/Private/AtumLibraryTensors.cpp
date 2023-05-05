@@ -5,8 +5,6 @@
 #include "IAtum.h"
 #include "Kismet/KismetArrayLibrary.h"
 
-#include <ranges>
-
 
 void UAtumLibraryTensors::K2_SerializeArray(
 	[[maybe_unused]] const TArray<UProperty*>& Target,
@@ -112,7 +110,7 @@ void UAtumLibraryTensors::GenericArray_Deserialize(
 	const uint8* Source = Bytes.GetData();
 	uint8* Destination = OutTargetArray.GetRawPtr();
 	
-	for ([[maybe_unused]] const int32 Dummy : std::ranges::iota_view(0, ElementCount))
+	for ([[maybe_unused]] int32 Index = 0; Index < ElementCount; ++Index)
 	{
 		OutTargetInnerProperty->CopySingleValueToScriptVM(Destination, Source);
 		Source += ElementSize;
