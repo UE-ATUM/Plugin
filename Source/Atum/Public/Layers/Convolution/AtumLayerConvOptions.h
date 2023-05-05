@@ -2,15 +2,15 @@
 
 #pragma once
 
-#include "AtumConvPaddingMode.h"
+#include "AtumLayerConvPaddingMode.h"
 
-#include "AtumOptionsConvTranspose.generated.h"
+#include "AtumLayerConvOptions.generated.h"
 
-class UAtumLayerConvTranspose;
+class UAtumLayerBaseConv;
 
 
-USTRUCT(BlueprintType, DisplayName = "ATUM Conv Transpose Options")
-struct ATUM_API FAtumOptionsConvTranspose
+USTRUCT(BlueprintType, DisplayName = "ATUM Conv Layer Options")
+struct ATUM_API FAtumLayerConvOptions
 {
 	GENERATED_BODY()
 	
@@ -29,9 +29,6 @@ struct ATUM_API FAtumOptionsConvTranspose
 	UPROPERTY(EditFixedSize, EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	TArray<int64> Padding;
 
-	UPROPERTY(EditFixedSize, EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
-	TArray<int64> OutputPadding;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	int64 Groups;
 
@@ -46,21 +43,45 @@ struct ATUM_API FAtumOptionsConvTranspose
 
 protected:
 	UE_NODISCARD_CTOR
-	FAtumOptionsConvTranspose() noexcept;
+	FAtumLayerConvOptions() noexcept;
 
 public:
 	UE_NODISCARD_CTOR
-	explicit FAtumOptionsConvTranspose(uint64 Dimensions) noexcept;
+	explicit FAtumLayerConvOptions(uint64 Dimensions) noexcept;
+
+protected:
+	template <uint64 Dimensions>
+	requires (1u <= Dimensions && Dimensions <= 3u)
+	UE_NODISCARD
+	torch::nn::ConvOptions<Dimensions> CastConv() const noexcept;
+
+public:
+	UE_NODISCARD
+	FORCEINLINE explicit operator torch::nn::Conv1dOptions() const noexcept { return CastConv<1>(); }
 
 	UE_NODISCARD
-	explicit operator torch::nn::ConvTranspose1dOptions() const noexcept;
-
-	UE_NODISCARD
-	explicit operator torch::nn::ConvTranspose2dOptions() const noexcept;
+	FORCEINLINE explicit operator torch::nn::Conv2dOptions() const noexcept { return CastConv<2>(); }
 	
 	UE_NODISCARD
-	explicit operator torch::nn::ConvTranspose3dOptions() const noexcept;
+	FORCEINLINE explicit operator torch::nn::Conv3dOptions() const noexcept { return CastConv<3>(); }
 
-	friend UAtumLayerConvTranspose;
+	friend UAtumLayerBaseConv;
 	friend UScriptStruct;
 };
+
+
+template <uint64 Dimensions>
+requires (1u <= Dimensions && Dimensions <= 3u)
+torch::nn::ConvOptions<Dimensions> FAtumLayerConvOptions::CastConv() const noexcept
+{
+	return torch::nn::ConvOptions<Dimensions>(
+		InChannels,
+		OutChannels,
+		torch::IntArrayRef(KernelSize.GetData(), Dimensions)
+	).stride(torch::IntArrayRef(Stride.GetData(), Dimensions))
+	.padding(torch::IntArrayRef(Padding.GetData(), Dimensions))
+	.groups(Groups)
+	.bias(bBias)
+	.dilation(torch::IntArrayRef(Dilation.GetData(), Dimensions))
+	.padding_mode(AtumEnums::Cast<Dimensions>(PaddingMode));
+}

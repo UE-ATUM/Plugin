@@ -5,7 +5,7 @@
 #include "IAtum.h"
 #include "LibTorch/LibTorchInclude.h"
 
-#include "AtumConvPaddingMode.generated.h"
+#include "AtumLayerConvPaddingMode.generated.h"
 
 
 UENUM(BlueprintType, Category = "ATUM|Conv", DisplayName = "ATUM Conv Padding Mode", meta = (
@@ -13,10 +13,10 @@ UENUM(BlueprintType, Category = "ATUM|Conv", DisplayName = "ATUM Conv Padding Mo
 ))
 enum class EAtumConvPaddingMode : uint8
 {
-	Zeros UMETA(DisplayName = "Zeros"), // Zeros
-	Reflect UMETA(DisplayName = "Reflect"), // Reflect
-	Replicate UMETA(DisplayName = "Replicate"), // Replicate
-	Circular UMETA(DisplayName = "Circular") // Circular
+	Zeros UMETA(DisplayName = "Zeros"), // kZeros
+	Reflect UMETA(DisplayName = "Reflect"), // kReflect
+	Replicate UMETA(DisplayName = "Replicate"), // kReplicate
+	Circular UMETA(DisplayName = "Circular") // kCircular
 };
 
 
@@ -56,18 +56,18 @@ namespace AtumEnums
 		const typename torch::nn::ConvTransposeOptions<Dimensions>::padding_mode_t ConvPaddingMode
 	) noexcept
 	{
-		switch (const uint64 Index = ConvPaddingMode.index())
+		switch (CONSTEXPR uint64 Index = ConvPaddingMode.index())
 		{
-		case 0:
+		case 0u:
 			return EAtumConvPaddingMode::Zeros;
 			
-		case 1:
+		case 1u:
 			return EAtumConvPaddingMode::Reflect;
 			
-		case 2:
+		case 2u:
 			return EAtumConvPaddingMode::Replicate;
 			
-		case 3:
+		case 3u:
 			return EAtumConvPaddingMode::Circular;
 			
 		default:

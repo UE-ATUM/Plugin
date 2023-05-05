@@ -1,9 +1,9 @@
 ﻿// © 2023 Kaya Adrian.
 
-#include "Layers/Convolution/AtumLayerConvTranspose.h"
+#include "Layers/Convolution/AtumLayerConv.h"
 
 
-bool UAtumLayerBaseConvTranspose::OnInitializeData_Implementation(const bool bRetry) noexcept
+bool UAtumLayerBaseConv::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
 	const int64 Groups = Options.Groups;
 	if (Groups <= 0)
@@ -20,7 +20,6 @@ bool UAtumLayerBaseConvTranspose::OnInitializeData_Implementation(const bool bRe
 	const TArray<int64>& KernelSize = Options.KernelSize;
 	const TArray<int64>& Stride = Options.Stride;
 	const TArray<int64>& Padding = Options.Padding;
-	const TArray<int64>& OutputPadding = Options.OutputPadding;
 	const TArray<int64>& Dilation = Options.Dilation;
 	
 	for (uint64 Index = 0u; Index < DimensionCount; ++Index)
@@ -40,66 +39,68 @@ bool UAtumLayerBaseConvTranspose::OnInitializeData_Implementation(const bool bRe
 			UE_LOG(LogAtum, Error, TEXT("Padding cannot be composed of negative integers!"))
 			return false;
 		}
-		if (OutputPadding[Index] < 0)
-		{
-			UE_LOG(LogAtum, Error, TEXT("Output padding cannot be composed of negative integers!"))
-			return false;
-		}
 		if (Dilation[Index] <= 0)
 		{
 			UE_LOG(LogAtum, Error, TEXT("Dilation must be composed of positive integers!"))
 			return false;
 		}
 	}
-
+	
 	return true;
 }
 
-bool UAtumLayerBaseConvTranspose::OnForward_Implementation(
+bool UAtumLayerBaseConv::OnForward_Implementation(
 	const TScriptInterface<IAtumTensor>& Input,
 	TScriptInterface<IAtumTensor>& Output
 )
 {
 	TArray<int64> InputSizes;
 	Input->GetSizes(InputSizes);
-
+	
 	const int32 SizeCount = InputSizes.Num();
 	const int32 SizeDifference = SizeCount - DimensionCount;
-
+	
 	if (!AreInputSizesValid(SizeCount, InputSizes[SizeDifference - 1], Options.InChannels))
 		return false;
 
 	const TArray<int64>& KernelSize = Options.KernelSize;
-	const TArray<int64>& Stride = Options.Stride;
 	const TArray<int64>& Padding = Options.Padding;
-	const TArray<int64>& OutputPadding = Options.OutputPadding;
 	const TArray<int64>& Dilation = Options.Dilation;
 
-	std::vector<int64> OutputSizes(DimensionCount);
-	bool bOutputHasNegativeSize = false;
+	std::vector<int64> PaddedInput(DimensionCount);
+	std::vector<int64> DilatedKernel(DimensionCount);
+	bool bDilatedKernelTooBig = false;
 	
 	for (uint64 Index = 0u; Index < DimensionCount; ++Index)
 	{
-		OutputSizes[Index] = (InputSizes[SizeDifference + Index] - 1) * Stride[Index]
-		- 2 * Padding[Index] + Dilation[Index] * (KernelSize[Index] - 1) + OutputPadding[Index] + 1;
-		
-		bOutputHasNegativeSize |= OutputSizes[Index] < 0;
+		PaddedInput[Index] = InputSizes[SizeDifference + Index] + 2 * Padding[Index];
+		DilatedKernel[Index] = Dilation[Index] * (KernelSize[Index] - 1) + 1;
+		bDilatedKernelTooBig |= PaddedInput[Index] < DilatedKernel[Index];
 	}
-	if (bOutputHasNegativeSize)
+	if (bDilatedKernelTooBig)
 	{
-		std::ostringstream OutputSizesStream;
+		std::ostringstream PaddedInputStream;
 		std::copy(
-			OutputSizes.begin(),
-			std::prev(OutputSizes.end()),
-			std::ostream_iterator<int64>(OutputSizesStream, " x ")
+			PaddedInput.begin(),
+			std::prev(PaddedInput.end()),
+			std::ostream_iterator<int64>(PaddedInputStream, " x ")
 		);
-		OutputSizesStream << OutputSizes.back();
+		PaddedInputStream << PaddedInput.back();
+
+		std::ostringstream DilatedKernelStream;
+		std::copy(
+			DilatedKernel.begin(),
+			std::prev(DilatedKernel.end()),
+			std::ostream_iterator<int64>(DilatedKernelStream, " x ")
+		);
+		DilatedKernelStream << DilatedKernel.back();
 		
 		UE_LOG(
 			LogAtum,
 			Error,
-			TEXT("Calculated output tensor of size (%hs) is invalid!"),
-			OutputSizesStream.str().c_str()
+			TEXT("Dilated kernel size (%hs) has at least one channel bigger than the padded input (%hs)!"),
+			DilatedKernelStream.str().c_str(),
+			PaddedInputStream.str().c_str()
 		)
 		return false;
 	}
@@ -107,21 +108,21 @@ bool UAtumLayerBaseConvTranspose::OnForward_Implementation(
 	return true;
 }
 
-UAtumLayerConvTranspose1D::UAtumLayerConvTranspose1D() noexcept
+UAtumLayerConv1D::UAtumLayerConv1D() noexcept
 {
 	DimensionCount = 1u;
 }
 
-bool UAtumLayerConvTranspose1D::OnInitializeData_Implementation(const bool bRetry) noexcept
+bool UAtumLayerConv1D::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
 	
-	Module.Reset(new torch::nn::ConvTranspose1dImpl(static_cast<torch::nn::ConvTranspose1dOptions>(Options)));
+	Module.Reset(new torch::nn::Conv1dImpl(static_cast<torch::nn::Conv1dOptions>(Options)));
 	return true;
 }
 
-bool UAtumLayerConvTranspose1D::OnForward_Implementation(
+bool UAtumLayerConv1D::OnForward_Implementation(
 	const TScriptInterface<IAtumTensor>& Input,
 	TScriptInterface<IAtumTensor>& Output
 )
@@ -134,21 +135,21 @@ bool UAtumLayerConvTranspose1D::OnForward_Implementation(
 	return true;
 }
 
-UAtumLayerConvTranspose2D::UAtumLayerConvTranspose2D() noexcept
+UAtumLayerConv2D::UAtumLayerConv2D() noexcept
 {
 	DimensionCount = 2u;
 }
 
-bool UAtumLayerConvTranspose2D::OnInitializeData_Implementation(const bool bRetry) noexcept
+bool UAtumLayerConv2D::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
 	
-	Module.Reset(new torch::nn::ConvTranspose2dImpl(static_cast<torch::nn::ConvTranspose2dOptions>(Options)));
+	Module.Reset(new torch::nn::Conv2dImpl(static_cast<torch::nn::Conv2dOptions>(Options)));
 	return true;
 }
 
-bool UAtumLayerConvTranspose2D::OnForward_Implementation(
+bool UAtumLayerConv2D::OnForward_Implementation(
 	const TScriptInterface<IAtumTensor>& Input,
 	TScriptInterface<IAtumTensor>& Output
 )
@@ -161,21 +162,21 @@ bool UAtumLayerConvTranspose2D::OnForward_Implementation(
 	return true;
 }
 
-UAtumLayerConvTranspose3D::UAtumLayerConvTranspose3D() noexcept
+UAtumLayerConv3D::UAtumLayerConv3D() noexcept
 {
 	DimensionCount = 3u;
 }
 
-bool UAtumLayerConvTranspose3D::OnInitializeData_Implementation(const bool bRetry) noexcept
+bool UAtumLayerConv3D::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
 	
-	Module.Reset(new torch::nn::ConvTranspose3dImpl(static_cast<torch::nn::ConvTranspose3dOptions>(Options)));
+	Module.Reset(new torch::nn::Conv3dImpl(static_cast<torch::nn::Conv3dOptions>(Options)));
 	return true;
 }
 
-bool UAtumLayerConvTranspose3D::OnForward_Implementation(
+bool UAtumLayerConv3D::OnForward_Implementation(
 	const TScriptInterface<IAtumTensor>& Input,
 	TScriptInterface<IAtumTensor>& Output
 )

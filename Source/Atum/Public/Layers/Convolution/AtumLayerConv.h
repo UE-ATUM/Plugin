@@ -2,23 +2,23 @@
 
 #pragma once
 
-#include "AtumLayerConvTransposeOptions.h"
+#include "AtumLayerConvOptions.h"
 #include "IAtumLayerConv.h"
 
-#include "AtumLayerConvTranspose.generated.h"
+#include "AtumLayerConv.generated.h"
 
 
-UCLASS(Abstract, Blueprintable, BlueprintType, DisplayName = "ATUM Base Conv Transpose Layer")
-class ATUM_API UAtumLayerBaseConvTranspose : public UObject, public IAtumLayerConv
+UCLASS(Abstract, Blueprintable, BlueprintType, DisplayName = "ATUM Base Conv Layer")
+class ATUM_API UAtumLayerBaseConv : public UObject, public IAtumLayerConv
 {
 	GENERATED_BODY()
-	
+
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (
 		AllowPrivateAccess,
 		ShowOnlyInnerProperties
 	))
-	FAtumLayerConvTransposeOptions Options;
+	FAtumLayerConvOptions Options;
 	
 	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;
 
@@ -29,22 +29,21 @@ protected:
 
 public:
 	UE_NODISCARD
-	FORCEINLINE const FAtumLayerConvTransposeOptions& GetOptions() const noexcept { return Options; }
+	FORCEINLINE const FAtumLayerConvOptions& GetOptions() const noexcept { return Options; }
 
 	UE_NODISCARD
-	FORCEINLINE FAtumLayerConvTransposeOptions& GetOptions() noexcept { return Options; }
+	FORCEINLINE FAtumLayerConvOptions& GetOptions() noexcept { return Options; }
 };
 
 
-UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Conv Transpose 1D Layer")
-class ATUM_API UAtumLayerConvTranspose1D : public UAtumLayerBaseConvTranspose,
-public TAtumLayer<torch::nn::ConvTranspose1dImpl>
+UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Conv 1D Layer")
+class ATUM_API UAtumLayerConv1D : public UAtumLayerBaseConv, public TAtumLayer<torch::nn::Conv1dImpl>
 {
 	GENERATED_BODY()
 
 public:
 	UE_NODISCARD_CTOR
-	UAtumLayerConvTranspose1D() noexcept;
+	UAtumLayerConv1D() noexcept;
 	
 protected:
 	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;
@@ -56,15 +55,14 @@ protected:
 };
 
 
-UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Conv Transpose 2D Layer")
-class ATUM_API UAtumLayerConvTranspose2D : public UAtumLayerBaseConvTranspose,
-public TAtumLayer<torch::nn::ConvTranspose2dImpl>
+UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Conv 2D Layer")
+class ATUM_API UAtumLayerConv2D : public UAtumLayerBaseConv, public TAtumLayer<torch::nn::Conv2dImpl>
 {
 	GENERATED_BODY()
 
 public:
 	UE_NODISCARD_CTOR
-	UAtumLayerConvTranspose2D() noexcept;
+	UAtumLayerConv2D() noexcept;
 	
 protected:
 	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;
@@ -76,15 +74,14 @@ protected:
 };
 
 
-UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Conv Transpose 3D Layer")
-class ATUM_API UAtumLayerConvTranspose3D : public UAtumLayerBaseConvTranspose,
-public TAtumLayer<torch::nn::ConvTranspose3dImpl>
+UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Conv 3D Layer")
+class ATUM_API UAtumLayerConv3D : public UAtumLayerBaseConv, public TAtumLayer<torch::nn::Conv3dImpl>
 {
 	GENERATED_BODY()
 
 public:
 	UE_NODISCARD_CTOR
-	UAtumLayerConvTranspose3D() noexcept;
+	UAtumLayerConv3D() noexcept;
 	
 protected:
 	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;
