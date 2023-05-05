@@ -20,6 +20,15 @@ protected:
 	))
 	FAtumLayerConvOptions Options;
 	
+	UE_NODISCARD
+	bool IsDilatedKernelGreaterThanPaddedInput(const TArray<int64>& InputSizes) const noexcept;
+
+	UE_NODISCARD
+	bool IsPaddingGreaterThanOrEqualToInput(const TArray<int64>& InputSizes) const noexcept;
+
+	UE_NODISCARD
+	bool DoesPaddingCauseMultipleWrappings(const TArray<int64>& InputSizes) const noexcept;
+	
 	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;
 
 	virtual bool OnForward_Implementation(

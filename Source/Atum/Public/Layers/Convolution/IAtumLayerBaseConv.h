@@ -26,6 +26,12 @@ public:
 
 protected:
 	UE_NODISCARD
+	static bool AreChannelsDivisibleByGroups(int64 InChannels, int64 OutChannels, int64 Groups) noexcept;
+
+	UE_NODISCARD
+	bool AreSizesPositive(const TArray<int64>& Sizes, const FString& Name, bool bAllowZero = false) const noexcept;
+	
+	UE_NODISCARD
 	bool AreInputSizesValid(int64 SizeCount, int64 GivenChannels, int64 ExpectedChannels) const noexcept;
 
 public:

@@ -51,8 +51,7 @@ bool IAtumLayer::Forward_Implementation(
 		UE_LOG(
 			LogAtum,
 			Error,
-			TEXT("Unhandled exception in ATUM Layer of type `%hs` - %hs"),
-			LayerClassName,
+			TEXT("Unhandled exception - %hs"),
 			ExceptionString.substr(0, ExceptionString.find("\n")).c_str()
 		)
 	}

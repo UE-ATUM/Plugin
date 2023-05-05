@@ -16,8 +16,7 @@ Padding(TArray<int64>()),
 OutputPadding(TArray<int64>()),
 Groups(1),
 bBias(true),
-Dilation(TArray<int64>()),
-PaddingMode(EAtumConvPaddingMode::Zeros)
+Dilation(TArray<int64>())
 {
 	for (uint64 Index = 0u; Index < Dimensions; ++Index)
 	{

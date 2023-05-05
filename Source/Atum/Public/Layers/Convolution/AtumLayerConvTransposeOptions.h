@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "AtumLayerConvPaddingMode.h"
+#include "LibTorch.h"
 
 #include "AtumLayerConvTransposeOptions.generated.h"
 
@@ -40,9 +40,6 @@ struct ATUM_API FAtumLayerConvTransposeOptions
 
 	UPROPERTY(EditFixedSize, EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	TArray<int64> Dilation;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
-	EAtumConvPaddingMode PaddingMode;
 	
 protected:
 	UE_NODISCARD_CTOR
@@ -87,5 +84,5 @@ torch::nn::ConvTransposeOptions<Dimensions> FAtumLayerConvTransposeOptions::Cast
 	.groups(Groups)
 	.bias(bBias)
 	.dilation(torch::IntArrayRef(Dilation.GetData(), Dimensions))
-	.padding_mode(AtumEnums::Cast<Dimensions>(PaddingMode));
+	.padding_mode(torch::kZeros);
 }

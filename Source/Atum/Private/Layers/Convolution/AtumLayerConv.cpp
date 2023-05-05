@@ -3,50 +3,157 @@
 #include "Layers/Convolution/AtumLayerConv.h"
 
 
-bool UAtumLayerConv::OnInitializeData_Implementation(const bool bRetry) noexcept
+bool UAtumLayerConv::IsDilatedKernelGreaterThanPaddedInput(const TArray<int64>& InputSizes) const noexcept
 {
-	const int64 Groups = Options.Groups;
-	if (Groups <= 0)
-	{
-		UE_LOG(LogAtum, Error, TEXT("There must exist at least 1 group!"))
-		return false;
-	}
-	if (Options.InChannels % Groups != 0 || Options.OutChannels % Groups != 0)
-	{
-		UE_LOG(LogAtum, Error, TEXT("Input and output channels must both be divisible by the group count!"))
-		return false;
-	}
-	
+	const uint64 SizeDifference = InputSizes.Num() - DimensionCount;
 	const TArray<int64>& KernelSize = Options.KernelSize;
-	const TArray<int64>& Stride = Options.Stride;
 	const TArray<int64>& Padding = Options.Padding;
 	const TArray<int64>& Dilation = Options.Dilation;
+
+	bool bIsBigger = false;
+	std::vector<int64> PaddedInput(DimensionCount);
+	std::vector<int64> DilatedKernel(DimensionCount);
 	
 	for (uint64 Index = 0u; Index < DimensionCount; ++Index)
 	{
-		if (KernelSize[Index] <= 0)
-		{
-			UE_LOG(LogAtum, Error, TEXT("Kernel size must be composed of positive integers!"))
-			return false;
-		}
-		if (Stride[Index] <= 0)
-		{
-			UE_LOG(LogAtum, Error, TEXT("Stride must be composed of positive integers!"))
-			return false;
-		}
-		if (Padding[Index] < 0)
-		{
-			UE_LOG(LogAtum, Error, TEXT("Padding cannot be composed of negative integers!"))
-			return false;
-		}
-		if (Dilation[Index] <= 0)
-		{
-			UE_LOG(LogAtum, Error, TEXT("Dilation must be composed of positive integers!"))
-			return false;
-		}
+		PaddedInput[Index] = InputSizes[SizeDifference + Index] + 2 * Padding[Index];
+		DilatedKernel[Index] = Dilation[Index] * (KernelSize[Index] - 1) + 1;
+		
+		bIsBigger |= PaddedInput[Index] < DilatedKernel[Index];
 	}
-	
+	if (!bIsBigger)
+		return false;
+
+	std::ostringstream PaddedInputStream;
+	std::copy(
+		PaddedInput.begin(),
+		std::prev(PaddedInput.end()),
+		std::ostream_iterator<int64>(PaddedInputStream, " x ")
+	);
+	PaddedInputStream << PaddedInput.back();
+
+	std::ostringstream DilatedKernelStream;
+	std::copy(
+		DilatedKernel.begin(),
+		std::prev(DilatedKernel.end()),
+		std::ostream_iterator<int64>(DilatedKernelStream, " x ")
+	);
+	DilatedKernelStream << DilatedKernel.back();
+		
+	UE_LOG(
+		LogAtum,
+		Error,
+		TEXT("Dilated kernel (%hs) has at least one dimension greater than the padded input (%hs)!"),
+		DilatedKernelStream.str().c_str(),
+		PaddedInputStream.str().c_str()
+	)
 	return true;
+}
+
+bool UAtumLayerConv::IsPaddingGreaterThanOrEqualToInput(const TArray<int64>& InputSizes) const noexcept
+{
+	if (Options.PaddingMode != EAtumConvPaddingMode::Reflect)
+		return false;
+	
+	const uint64 SizeDifference = InputSizes.Num() - DimensionCount;
+	const TArray<int64>& Padding = Options.Padding;
+
+	bool bIsBigger = false;
+	std::vector<int64> UnpaddedInput(DimensionCount);
+	std::vector<int64> PaddingVector(DimensionCount);
+	
+	for (uint64 Index = 0u; Index < DimensionCount; ++Index)
+	{
+		UnpaddedInput[Index] = InputSizes[SizeDifference + Index];
+		PaddingVector[Index] = Padding[Index];
+		
+		bIsBigger |= UnpaddedInput[Index] <= PaddingVector[Index];
+	}
+	if (!bIsBigger)
+		return false;
+
+	std::ostringstream UnpaddedInputStream;
+	std::copy(
+		UnpaddedInput.begin(),
+		std::prev(UnpaddedInput.end()),
+		std::ostream_iterator<int64>(UnpaddedInputStream, " x ")
+	);
+	UnpaddedInputStream << UnpaddedInput.back();
+	
+	std::ostringstream PaddingVectorStream;
+	std::copy(
+		PaddingVector.begin(),
+		std::prev(PaddingVector.end()),
+		std::ostream_iterator<int64>(PaddingVectorStream, " x ")
+	);
+	PaddingVectorStream << PaddingVector.back();
+		
+	UE_LOG(
+		LogAtum,
+		Error,
+		TEXT("Padding (%hs) has at least one dimension greater than or equal to the input (%hs)!"),
+		PaddingVectorStream.str().c_str(),
+		UnpaddedInputStream.str().c_str()
+	)
+	return true;
+}
+
+bool UAtumLayerConv::DoesPaddingCauseMultipleWrappings(const TArray<int64>& InputSizes) const noexcept
+{
+	if (Options.PaddingMode != EAtumConvPaddingMode::Circular)
+		return false;
+	
+	const uint64 SizeDifference = InputSizes.Num() - DimensionCount;
+	const TArray<int64>& Padding = Options.Padding;
+
+	bool bMultipleWrappings = false;
+	std::vector<int64> UnpaddedInput(DimensionCount);
+	std::vector<int64> PaddingVector(DimensionCount);
+	
+	for (uint64 Index = 0u; Index < DimensionCount; ++Index)
+	{
+		UnpaddedInput[Index] = InputSizes[SizeDifference + Index];
+		PaddingVector[Index] = Padding[Index];
+		
+		bMultipleWrappings |= UnpaddedInput[Index] < PaddingVector[Index];
+	}
+	if (!bMultipleWrappings)
+		return false;
+
+	std::ostringstream UnpaddedInputStream;
+	std::copy(
+		UnpaddedInput.begin(),
+		std::prev(UnpaddedInput.end()),
+		std::ostream_iterator<int64>(UnpaddedInputStream, " x ")
+	);
+	UnpaddedInputStream << UnpaddedInput.back();
+	
+	std::ostringstream PaddingVectorStream;
+	std::copy(
+		PaddingVector.begin(),
+		std::prev(PaddingVector.end()),
+		std::ostream_iterator<int64>(PaddingVectorStream, " x ")
+	);
+	PaddingVectorStream << PaddingVector.back();
+		
+	UE_LOG(
+		LogAtum,
+		Error,
+		TEXT("Padding (%hs) has at least one dimension greater than the input (%hs)!"),
+		PaddingVectorStream.str().c_str(),
+		UnpaddedInputStream.str().c_str()
+	)
+	return true;
+}
+
+bool UAtumLayerConv::OnInitializeData_Implementation(const bool bRetry) noexcept
+{
+	bool bSuccess = AreChannelsDivisibleByGroups(Options.InChannels, Options.OutChannels, Options.Groups);
+	bSuccess &= AreSizesPositive(Options.KernelSize, TEXT("Kernel Size"));
+	bSuccess &= AreSizesPositive(Options.Stride, TEXT("Stride"));
+	bSuccess &= AreSizesPositive(Options.Padding, TEXT("Padding"), true);
+	bSuccess &= AreSizesPositive(Options.Dilation, TEXT("Dilation"));
+	return bSuccess;
 }
 
 bool UAtumLayerConv::OnForward_Implementation(
@@ -56,56 +163,17 @@ bool UAtumLayerConv::OnForward_Implementation(
 {
 	TArray<int64> InputSizes;
 	Input->GetSizes(InputSizes);
-	
 	const int32 SizeCount = InputSizes.Num();
-	const int32 SizeDifference = SizeCount - DimensionCount;
-	
-	if (!AreInputSizesValid(SizeCount, InputSizes[SizeDifference - 1], Options.InChannels))
-		return false;
 
-	const TArray<int64>& KernelSize = Options.KernelSize;
-	const TArray<int64>& Padding = Options.Padding;
-	const TArray<int64>& Dilation = Options.Dilation;
-
-	std::vector<int64> PaddedInput(DimensionCount);
-	std::vector<int64> DilatedKernel(DimensionCount);
-	bool bDilatedKernelTooBig = false;
-	
-	for (uint64 Index = 0u; Index < DimensionCount; ++Index)
-	{
-		PaddedInput[Index] = InputSizes[SizeDifference + Index] + 2 * Padding[Index];
-		DilatedKernel[Index] = Dilation[Index] * (KernelSize[Index] - 1) + 1;
-		bDilatedKernelTooBig |= PaddedInput[Index] < DilatedKernel[Index];
-	}
-	if (bDilatedKernelTooBig)
-	{
-		std::ostringstream PaddedInputStream;
-		std::copy(
-			PaddedInput.begin(),
-			std::prev(PaddedInput.end()),
-			std::ostream_iterator<int64>(PaddedInputStream, " x ")
-		);
-		PaddedInputStream << PaddedInput.back();
-
-		std::ostringstream DilatedKernelStream;
-		std::copy(
-			DilatedKernel.begin(),
-			std::prev(DilatedKernel.end()),
-			std::ostream_iterator<int64>(DilatedKernelStream, " x ")
-		);
-		DilatedKernelStream << DilatedKernel.back();
-		
-		UE_LOG(
-			LogAtum,
-			Error,
-			TEXT("Dilated kernel size (%hs) has at least one channel bigger than the padded input (%hs)!"),
-			DilatedKernelStream.str().c_str(),
-			PaddedInputStream.str().c_str()
-		)
-		return false;
-	}
-
-	return true;
+	bool bSuccess = AreInputSizesValid(
+		SizeCount,
+		InputSizes[SizeCount - DimensionCount - 1],
+		Options.InChannels
+	);
+	bSuccess &= !IsDilatedKernelGreaterThanPaddedInput(InputSizes);
+	bSuccess &= !IsPaddingGreaterThanOrEqualToInput(InputSizes);
+	bSuccess &= !DoesPaddingCauseMultipleWrappings(InputSizes);
+	return bSuccess;
 }
 
 UAtumLayerConv1D::UAtumLayerConv1D() noexcept

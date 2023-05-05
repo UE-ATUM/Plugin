@@ -2,57 +2,19 @@
 
 #include "Layers/Convolution/AtumLayerConvTranspose.h"
 
+#include "IAtum.h"
+
 
 bool UAtumLayerConvTranspose::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
-	const int64 Groups = Options.Groups;
-	if (Groups <= 0)
-	{
-		UE_LOG(LogAtum, Error, TEXT("There must exist at least 1 group!"))
-		return false;
-	}
-	if (Options.InChannels % Groups != 0 || Options.OutChannels % Groups != 0)
-	{
-		UE_LOG(LogAtum, Error, TEXT("Input and output channels must both be divisible by the group count!"))
-		return false;
-	}
+	bool bValidData = AreChannelsDivisibleByGroups(Options.InChannels, Options.OutChannels, Options.Groups);
+	bValidData &= AreSizesPositive(Options.KernelSize, TEXT("Kernel Size"));
+	bValidData &= AreSizesPositive(Options.Stride, TEXT("Stride"));
+	bValidData &= AreSizesPositive(Options.Padding, TEXT("Padding"), true);
+	bValidData &= AreSizesPositive(Options.OutputPadding, TEXT("Output Padding"), true);
+	bValidData &= AreSizesPositive(Options.Dilation, TEXT("Dilation"));
 	
-	const TArray<int64>& KernelSize = Options.KernelSize;
-	const TArray<int64>& Stride = Options.Stride;
-	const TArray<int64>& Padding = Options.Padding;
-	const TArray<int64>& OutputPadding = Options.OutputPadding;
-	const TArray<int64>& Dilation = Options.Dilation;
-	
-	for (uint64 Index = 0u; Index < DimensionCount; ++Index)
-	{
-		if (KernelSize[Index] <= 0)
-		{
-			UE_LOG(LogAtum, Error, TEXT("Kernel size must be composed of positive integers!"))
-			return false;
-		}
-		if (Stride[Index] <= 0)
-		{
-			UE_LOG(LogAtum, Error, TEXT("Stride must be composed of positive integers!"))
-			return false;
-		}
-		if (Padding[Index] < 0)
-		{
-			UE_LOG(LogAtum, Error, TEXT("Padding cannot be composed of negative integers!"))
-			return false;
-		}
-		if (OutputPadding[Index] < 0)
-		{
-			UE_LOG(LogAtum, Error, TEXT("Output padding cannot be composed of negative integers!"))
-			return false;
-		}
-		if (Dilation[Index] <= 0)
-		{
-			UE_LOG(LogAtum, Error, TEXT("Dilation must be composed of positive integers!"))
-			return false;
-		}
-	}
-
-	return true;
+	return bValidData;
 }
 
 bool UAtumLayerConvTranspose::OnForward_Implementation(
@@ -64,7 +26,7 @@ bool UAtumLayerConvTranspose::OnForward_Implementation(
 	Input->GetSizes(InputSizes);
 
 	const int32 SizeCount = InputSizes.Num();
-	const int32 SizeDifference = SizeCount - DimensionCount;
+	const uint64 SizeDifference = SizeCount - DimensionCount;
 
 	if (!AreInputSizesValid(SizeCount, InputSizes[SizeDifference - 1], Options.InChannels))
 		return false;
