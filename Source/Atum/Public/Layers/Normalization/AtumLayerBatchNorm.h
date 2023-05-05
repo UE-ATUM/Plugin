@@ -2,37 +2,10 @@
 
 #pragma once
 
+#include "AtumLayerBatchNormOptions.h"
 #include "Layers/IAtumLayer.h"
 
 #include "AtumLayerBatchNorm.generated.h"
-
-
-USTRUCT(BlueprintType, DisplayName = "ATUM Batch Norm Options")
-struct ATUM_API FAtumOptionsBatchNorm
-{
-	GENERATED_BODY()
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
-	int64 NumFeatures;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
-	double Epsilon;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
-	double Momentum;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
-	bool bAffine;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
-	bool bTrackRunningStats;
-
-	UE_NODISCARD_CTOR
-	FAtumOptionsBatchNorm() noexcept;
-	
-	UE_NODISCARD
-	explicit operator torch::nn::BatchNormOptions() const noexcept;
-};
 
 
 UCLASS(Abstract, Blueprintable, BlueprintType, DisplayName = "ATUM Batch Norm Layer")
@@ -45,14 +18,14 @@ protected:
 		AllowPrivateAccess,
 		ShowOnlyInnerProperties
 	))
-	FAtumOptionsBatchNorm Options;
+	FAtumLayerBatchNormOptions Options;
 
 public:
 	UE_NODISCARD
-	FORCEINLINE const FAtumOptionsBatchNorm& GetOptions() const noexcept { return Options; }
+	FORCEINLINE const FAtumLayerBatchNormOptions& GetOptions() const noexcept { return Options; }
 	
 	UE_NODISCARD
-	FORCEINLINE FAtumOptionsBatchNorm& GetOptions() noexcept { return Options; }
+	FORCEINLINE FAtumLayerBatchNormOptions& GetOptions() noexcept { return Options; }
 };
 
 
