@@ -8,6 +8,8 @@
 
 #include "AtumLibraryTensors.generated.h"
 
+class UProperty;
+
 
 UCLASS(Abstract, Blueprintable, BlueprintType, DisplayName = "ATUM Tensor Library")
 class ATUM_API UAtumLibraryTensors : public UBlueprintFunctionLibrary
