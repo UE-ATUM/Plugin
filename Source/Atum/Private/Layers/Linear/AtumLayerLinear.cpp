@@ -1,18 +1,9 @@
 ﻿// © 2023 Kaya Adrian.
 
-#include "Layers/AtumLayerLinear.h"
+#include "Layers/Linear/AtumLayerLinear.h"
 
 #include "IAtum.h"
 
-
-FAtumOptionsLinear::FAtumOptionsLinear() noexcept : InFeatures(0), OutFeatures(0), bBias(true)
-{
-}
-
-FAtumOptionsLinear::operator torch::nn::LinearOptions() const noexcept
-{
-	return torch::nn::LinearOptions(InFeatures, OutFeatures).bias(bBias);
-}
 
 bool UAtumLayerLinear::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
@@ -27,11 +18,24 @@ bool UAtumLayerLinear::OnForward_Implementation(
 {
 	TArray<int64> InputSizes;
 	Input->GetSizes(InputSizes);
-	const int64 GivenFeatures = InputSizes.Last();
-	
-	if (const int64 ExpectedFeatures = Module->options.in_features(); GivenFeatures != ExpectedFeatures)
+
+	if (InputSizes.IsEmpty())
 	{
-		UE_LOG(LogAtum, Error, TEXT("Linear - Expected %lld features but got %lld!"), ExpectedFeatures, GivenFeatures)
+		UE_LOG(LogAtum, Error, TEXT("Cannot use 0D input tensor!"))
+		return false;
+	}
+	
+	const int64 GivenChannels = InputSizes.Last();
+	if (const int64 ExpectedChannels = Options.InFeatures; GivenChannels != ExpectedChannels)
+	{
+		UE_LOG(
+			LogAtum,
+			Error,
+			TEXT("Expected %lld %ls but got %lld!"),
+			ExpectedChannels,
+			ExpectedChannels == 1 ? TEXT("channel") : TEXT("channels"),
+			GivenChannels
+		)
 		return false;
 	}
 	

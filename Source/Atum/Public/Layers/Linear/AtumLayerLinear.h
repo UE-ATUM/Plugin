@@ -2,31 +2,10 @@
 
 #pragma once
 
-#include "IAtumLayer.h"
+#include "AtumLayerLinearOptions.h"
+#include "Layers/IAtumLayer.h"
 
 #include "AtumLayerLinear.generated.h"
-
-
-USTRUCT(BlueprintType, DisplayName = "ATUM Linear Options")
-struct ATUM_API FAtumOptionsLinear
-{
-	GENERATED_BODY()
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options")
-	int64 InFeatures;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options")
-	int64 OutFeatures;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options")
-	bool bBias;
-
-	UE_NODISCARD_CTOR
-	FAtumOptionsLinear() noexcept;
-	
-	UE_NODISCARD
-	explicit operator torch::nn::LinearOptions() const noexcept;
-};
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Linear Layer")
@@ -34,13 +13,13 @@ class ATUM_API UAtumLayerLinear : public UObject, public IAtumLayer, public TAtu
 {
 	GENERATED_BODY()
 
+protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (
 		AllowPrivateAccess,
 		ShowOnlyInnerProperties
 	))
 	FAtumOptionsLinear Options;
-
-protected:
+	
 	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;
 	
 	virtual bool OnForward_Implementation(
