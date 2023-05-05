@@ -39,7 +39,7 @@ bool UAtumLayerConvTranspose::IsCalculatedOutputTensorSizeValid(const TArray<int
 	return true;
 }
 
-bool UAtumLayerConvTranspose::OnInitializeData_Implementation(const bool bRetry) noexcept
+bool UAtumLayerConvTranspose::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
 	bool bValidData = AreChannelsDivisibleByGroups(Options.InChannels, Options.OutChannels, Options.Groups);
 	bValidData &= AreSizesPositive(Options.KernelSize, TEXT("Kernel Size"));
@@ -53,7 +53,7 @@ bool UAtumLayerConvTranspose::OnInitializeData_Implementation(const bool bRetry)
 
 bool UAtumLayerConvTranspose::OnForward_Implementation(
 	const TScriptInterface<IAtumTensor>& Input,
-	TScriptInterface<IAtumTensor>& Output
+	[[maybe_unused]] TScriptInterface<IAtumTensor>& Output
 )
 {
 	TArray<int64> InputSizes;

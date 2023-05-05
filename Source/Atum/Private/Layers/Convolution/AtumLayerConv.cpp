@@ -146,7 +146,7 @@ bool UAtumLayerConv::DoesPaddingCauseMultipleWrappings(const TArray<int64>& Inpu
 	return true;
 }
 
-bool UAtumLayerConv::OnInitializeData_Implementation(const bool bRetry) noexcept
+bool UAtumLayerConv::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
 	bool bSuccess = AreChannelsDivisibleByGroups(Options.InChannels, Options.OutChannels, Options.Groups);
 	bSuccess &= AreSizesPositive(Options.KernelSize, TEXT("Kernel Size"));
@@ -158,7 +158,7 @@ bool UAtumLayerConv::OnInitializeData_Implementation(const bool bRetry) noexcept
 
 bool UAtumLayerConv::OnForward_Implementation(
 	const TScriptInterface<IAtumTensor>& Input,
-	TScriptInterface<IAtumTensor>& Output
+	[[maybe_unused]] TScriptInterface<IAtumTensor>& Output
 )
 {
 	TArray<int64> InputSizes;

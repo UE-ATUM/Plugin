@@ -5,7 +5,7 @@
 
 bool UAtumLayerInstanceNorm::OnForward_Implementation(
 	const TScriptInterface<IAtumTensor>& Input,
-	TScriptInterface<IAtumTensor>& Output
+	[[maybe_unused]] TScriptInterface<IAtumTensor>& Output
 )
 {
 	TArray<int64> InputSizes;
@@ -21,7 +21,7 @@ UAtumLayerInstanceNorm1D::UAtumLayerInstanceNorm1D() noexcept
 	ValidInputSizes.push_back(3);
 }
 
-bool UAtumLayerInstanceNorm1D::OnInitializeData_Implementation(const bool bRetry) noexcept
+bool UAtumLayerInstanceNorm1D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
 	MakeModule<torch::nn::InstanceNormOptions>(Options);
 	return true;
@@ -47,7 +47,7 @@ UAtumLayerInstanceNorm2D::UAtumLayerInstanceNorm2D() noexcept
 	ValidInputSizes.push_back(4);
 }
 
-bool UAtumLayerInstanceNorm2D::OnInitializeData_Implementation(const bool bRetry) noexcept
+bool UAtumLayerInstanceNorm2D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
 	MakeModule<torch::nn::InstanceNormOptions>(Options);
 	return true;
@@ -73,7 +73,7 @@ UAtumLayerInstanceNorm3D::UAtumLayerInstanceNorm3D() noexcept
 	ValidInputSizes.push_back(5);
 }
 
-bool UAtumLayerInstanceNorm3D::OnInitializeData_Implementation(const bool bRetry) noexcept
+bool UAtumLayerInstanceNorm3D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
 	MakeModule<torch::nn::InstanceNormOptions>(Options);
 	return true;
