@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "LibTorch.h"
+#include "Layers/IAtumLayer.h"
 
 #include "AtumLayerConvTransposeOptions.generated.h"
 
@@ -10,7 +10,7 @@ class UAtumLayerConvTranspose;
 
 
 USTRUCT(BlueprintType, DisplayName = "ATUM Conv Transpose Layer Options")
-struct ATUM_API FAtumLayerConvTransposeOptions
+struct ATUM_API FAtumLayerConvTransposeOptions : public FAtumLayerOptions
 {
 	GENERATED_BODY()
 

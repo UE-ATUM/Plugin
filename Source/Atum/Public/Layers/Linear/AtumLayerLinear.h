@@ -3,7 +3,6 @@
 #pragma once
 
 #include "AtumLayerLinearOptions.h"
-#include "Layers/IAtumLayer.h"
 
 #include "AtumLayerLinear.generated.h"
 
@@ -18,7 +17,7 @@ protected:
 		AllowPrivateAccess,
 		ShowOnlyInnerProperties
 	))
-	FAtumOptionsLinear Options;
+	FAtumLayerLinearOptions Options;
 	
 	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;
 	
@@ -29,8 +28,8 @@ protected:
 
 public:
 	UE_NODISCARD
-	FORCEINLINE const FAtumOptionsLinear& GetOptions() const noexcept { return Options; }
+	FORCEINLINE const FAtumLayerLinearOptions& GetOptions() const noexcept { return Options; }
 
 	UE_NODISCARD
-	FORCEINLINE FAtumOptionsLinear& GetOptions() noexcept { return Options; }
+	FORCEINLINE FAtumLayerLinearOptions& GetOptions() noexcept { return Options; }
 };

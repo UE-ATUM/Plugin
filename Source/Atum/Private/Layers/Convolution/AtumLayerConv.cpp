@@ -183,7 +183,7 @@ bool UAtumLayerConv1D::OnInitializeData_Implementation(const bool bRetry) noexce
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
 	
-	Module.Reset(new torch::nn::Conv1dImpl(static_cast<torch::nn::Conv1dOptions>(Options)));
+	MakeModule<torch::nn::Conv1dOptions>(Options);
 	return true;
 }
 
@@ -212,7 +212,7 @@ bool UAtumLayerConv2D::OnInitializeData_Implementation(const bool bRetry) noexce
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
 	
-	Module.Reset(new torch::nn::Conv2dImpl(static_cast<torch::nn::Conv2dOptions>(Options)));
+	MakeModule<torch::nn::Conv2dOptions>(Options);
 	return true;
 }
 
@@ -241,7 +241,7 @@ bool UAtumLayerConv3D::OnInitializeData_Implementation(const bool bRetry) noexce
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
 	
-	Module.Reset(new torch::nn::Conv3dImpl(static_cast<torch::nn::Conv3dOptions>(Options)));
+	MakeModule<torch::nn::Conv3dOptions>(Options);
 	return true;
 }
 

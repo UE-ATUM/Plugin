@@ -74,12 +74,32 @@ public:
 };
 
 
+USTRUCT(BlueprintType, DisplayName = "ATUM Layer Options")
+struct ATUM_API FAtumLayerOptions
+{
+	GENERATED_BODY()
+
+protected:
+	UE_NODISCARD_CTOR
+	FAtumLayerOptions() noexcept = default;
+
+	friend UScriptStruct;
+};
+
+
 template <typename TModule>
 requires (std::is_base_of_v<torch::nn::Module, TModule>)
 class TAtumLayer
 {
 protected:
-	mutable TUniquePtr<TModule> Module = nullptr;
+	TUniquePtr<TModule> Module = nullptr;
+
+	template <typename TOptions, typename TAtumOptions>
+	requires (std::is_base_of_v<FAtumLayerOptions, TAtumOptions>)
+	FORCEINLINE void MakeModule(const TAtumOptions& Options) noexcept
+	{
+		Module.Reset(new TModule(static_cast<TOptions>(Options)));
+	}
 
 public:
 	UE_NODISCARD

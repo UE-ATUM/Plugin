@@ -7,7 +7,7 @@
 
 bool UAtumLayerLinear::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
-	Module.Reset(new torch::nn::LinearImpl(static_cast<torch::nn::LinearOptions>(Options)));
+	MakeModule<torch::nn::LinearOptions>(Options);
 	return true;
 }
 

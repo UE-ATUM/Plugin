@@ -2,13 +2,13 @@
 
 #pragma once
 
-#include "LibTorch.h"
+#include "Layers/IAtumLayer.h"
 
 #include "AtumLayerInstanceNormOptions.generated.h"
 
 
 USTRUCT(BlueprintType, DisplayName = "ATUM Instance Norm Layer Options")
-struct ATUM_API FAtumLayerInstanceNormOptions
+struct ATUM_API FAtumLayerInstanceNormOptions : public FAtumLayerOptions
 {
 	GENERATED_BODY()
 	

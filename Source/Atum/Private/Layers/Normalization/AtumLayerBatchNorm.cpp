@@ -23,7 +23,7 @@ UAtumLayerBatchNorm1D::UAtumLayerBatchNorm1D() noexcept
 
 bool UAtumLayerBatchNorm1D::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
-	Module.Reset(new torch::nn::BatchNorm1dImpl(static_cast<torch::nn::BatchNormOptions>(Options)));
+	MakeModule<torch::nn::BatchNormOptions>(Options);
 	return true;
 }
 
@@ -48,7 +48,7 @@ UAtumLayerBatchNorm2D::UAtumLayerBatchNorm2D() noexcept
 
 bool UAtumLayerBatchNorm2D::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
-	Module.Reset(new torch::nn::BatchNorm2dImpl(static_cast<torch::nn::BatchNormOptions>(Options)));
+	MakeModule<torch::nn::BatchNormOptions>(Options);
 	return true;
 }
 
@@ -73,7 +73,7 @@ UAtumLayerBatchNorm3D::UAtumLayerBatchNorm3D() noexcept
 
 bool UAtumLayerBatchNorm3D::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
-	Module.Reset(new torch::nn::BatchNorm3dImpl(static_cast<torch::nn::BatchNormOptions>(Options)));
+	MakeModule<torch::nn::BatchNormOptions>(Options);
 	return true;
 }
 

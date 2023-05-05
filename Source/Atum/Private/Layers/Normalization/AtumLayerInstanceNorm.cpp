@@ -23,7 +23,7 @@ UAtumLayerInstanceNorm1D::UAtumLayerInstanceNorm1D() noexcept
 
 bool UAtumLayerInstanceNorm1D::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
-	Module.Reset(new torch::nn::InstanceNorm1dImpl(static_cast<torch::nn::InstanceNormOptions>(Options)));
+	MakeModule<torch::nn::InstanceNormOptions>(Options);
 	return true;
 }
 
@@ -49,7 +49,7 @@ UAtumLayerInstanceNorm2D::UAtumLayerInstanceNorm2D() noexcept
 
 bool UAtumLayerInstanceNorm2D::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
-	Module.Reset(new torch::nn::InstanceNorm2dImpl(static_cast<torch::nn::InstanceNormOptions>(Options)));
+	MakeModule<torch::nn::InstanceNormOptions>(Options);
 	return true;
 }
 
@@ -75,7 +75,7 @@ UAtumLayerInstanceNorm3D::UAtumLayerInstanceNorm3D() noexcept
 
 bool UAtumLayerInstanceNorm3D::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
-	Module.Reset(new torch::nn::InstanceNorm3dImpl(static_cast<torch::nn::InstanceNormOptions>(Options)));
+	MakeModule<torch::nn::InstanceNormOptions>(Options);
 	return true;
 }
 

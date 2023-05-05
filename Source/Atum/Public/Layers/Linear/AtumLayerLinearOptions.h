@@ -2,13 +2,13 @@
 
 #pragma once
 
-#include "LibTorch.h"
+#include "Layers/IAtumLayer.h"
 
 #include "AtumLayerLinearOptions.generated.h"
 
 
 USTRUCT(BlueprintType, DisplayName = "ATUM Linear Layer Options")
-struct ATUM_API FAtumOptionsLinear
+struct ATUM_API FAtumLayerLinearOptions : public FAtumLayerOptions
 {
 	GENERATED_BODY()
 	
@@ -22,7 +22,7 @@ struct ATUM_API FAtumOptionsLinear
 	bool bBias;
 
 	UE_NODISCARD_CTOR
-	FAtumOptionsLinear() noexcept;
+	FAtumLayerLinearOptions() noexcept;
 	
 	UE_NODISCARD
 	explicit operator torch::nn::LinearOptions() const noexcept;
