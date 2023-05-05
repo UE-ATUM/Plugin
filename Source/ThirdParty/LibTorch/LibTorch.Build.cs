@@ -4,6 +4,7 @@ using System.IO;
 using UnrealBuildTool;
 
 
+// ReSharper disable once InconsistentNaming
 public class LibTorch : ModuleRules
 {
 	public LibTorch(ReadOnlyTargetRules Target) : base(Target)
@@ -65,7 +66,11 @@ public class LibTorch : ModuleRules
 
 	private void AddIncludeFolders(string IncludePath)
 	{
-		PublicIncludePaths.Add(IncludePath);
+		PublicIncludePaths.AddRange(new []
+		{
+			ModuleDirectory,
+			IncludePath
+		});
 		
 		var FolderPaths = Directory.GetDirectories(IncludePath, "include", SearchOption.AllDirectories);
 		foreach (var FolderPath in FolderPaths)
