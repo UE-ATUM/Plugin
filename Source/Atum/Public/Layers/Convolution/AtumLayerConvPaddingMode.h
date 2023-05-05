@@ -3,7 +3,7 @@
 #pragma once
 
 #include "IAtum.h"
-#include "LibTorch/LibTorchInclude.h"
+#include "LibTorch.h"
 
 #include "AtumLayerConvPaddingMode.generated.h"
 

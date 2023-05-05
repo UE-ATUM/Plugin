@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "LibTorch/LibTorchInclude.h"
+#include "LibTorch.h"
 
 #include "AtumScalarType.generated.h"
 
