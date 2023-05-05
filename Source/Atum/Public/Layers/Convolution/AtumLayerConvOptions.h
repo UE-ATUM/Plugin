@@ -6,7 +6,7 @@
 
 #include "AtumLayerConvOptions.generated.h"
 
-class UAtumLayerBaseConv;
+class UAtumLayerConv;
 
 
 USTRUCT(BlueprintType, DisplayName = "ATUM Conv Layer Options")
@@ -65,7 +65,7 @@ public:
 	UE_NODISCARD
 	FORCEINLINE explicit operator torch::nn::Conv3dOptions() const noexcept { return CastConv<3>(); }
 
-	friend UAtumLayerBaseConv;
+	friend UAtumLayerConv;
 	friend UScriptStruct;
 };
 

@@ -3,13 +3,13 @@
 #pragma once
 
 #include "AtumLayerConvTransposeOptions.h"
-#include "IAtumLayerConv.h"
+#include "IAtumLayerBaseConv.h"
 
 #include "AtumLayerConvTranspose.generated.h"
 
 
-UCLASS(Abstract, Blueprintable, BlueprintType, DisplayName = "ATUM Base Conv Transpose Layer")
-class ATUM_API UAtumLayerBaseConvTranspose : public UObject, public IAtumLayerConv
+UCLASS(Abstract, Blueprintable, BlueprintType, DisplayName = "ATUM Conv Transpose Layer")
+class ATUM_API UAtumLayerConvTranspose : public UObject, public IAtumLayerBaseConv
 {
 	GENERATED_BODY()
 	
@@ -37,7 +37,7 @@ public:
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Conv Transpose 1D Layer")
-class ATUM_API UAtumLayerConvTranspose1D : public UAtumLayerBaseConvTranspose,
+class ATUM_API UAtumLayerConvTranspose1D : public UAtumLayerConvTranspose,
 public TAtumLayer<torch::nn::ConvTranspose1dImpl>
 {
 	GENERATED_BODY()
@@ -57,7 +57,7 @@ protected:
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Conv Transpose 2D Layer")
-class ATUM_API UAtumLayerConvTranspose2D : public UAtumLayerBaseConvTranspose,
+class ATUM_API UAtumLayerConvTranspose2D : public UAtumLayerConvTranspose,
 public TAtumLayer<torch::nn::ConvTranspose2dImpl>
 {
 	GENERATED_BODY()
@@ -77,7 +77,7 @@ protected:
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Conv Transpose 3D Layer")
-class ATUM_API UAtumLayerConvTranspose3D : public UAtumLayerBaseConvTranspose,
+class ATUM_API UAtumLayerConvTranspose3D : public UAtumLayerConvTranspose,
 public TAtumLayer<torch::nn::ConvTranspose3dImpl>
 {
 	GENERATED_BODY()

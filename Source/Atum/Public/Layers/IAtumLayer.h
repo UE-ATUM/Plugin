@@ -8,7 +8,7 @@
 #include "IAtumLayer.generated.h"
 
 
-UINTERFACE(MinimalAPI, Blueprintable, BlueprintType, DisplayName = "ATUM Layer Interface")
+UINTERFACE(MinimalAPI, Blueprintable, BlueprintType, DisplayName = "ATUM Layer")
 class UAtumLayer : public UInterface
 {
 	GENERATED_BODY()

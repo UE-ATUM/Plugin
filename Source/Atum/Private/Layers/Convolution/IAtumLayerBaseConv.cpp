@@ -1,15 +1,15 @@
 ﻿// © 2023 Kaya Adrian.
 
-#include "Layers/Convolution/IAtumLayerConv.h"
+#include "Layers/Convolution/IAtumLayerBaseConv.h"
 
 #include "IAtum.h"
 
 
-IAtumLayerConv::IAtumLayerConv() noexcept : DimensionCount(0u)
+IAtumLayerBaseConv::IAtumLayerBaseConv() noexcept : DimensionCount(0u)
 {
 }
 
-bool IAtumLayerConv::AreInputSizesValid(
+bool IAtumLayerBaseConv::AreInputSizesValid(
 	const int64 SizeCount,
 	const int64 GivenChannels,
 	const int64 ExpectedChannels

@@ -6,7 +6,7 @@
 
 #include "AtumLayerConvTransposeOptions.generated.h"
 
-class UAtumLayerBaseConvTranspose;
+class UAtumLayerConvTranspose;
 
 
 USTRUCT(BlueprintType, DisplayName = "ATUM Conv Transpose Layer Options")
@@ -68,7 +68,7 @@ public:
 	UE_NODISCARD
 	FORCEINLINE explicit operator torch::nn::ConvTranspose3dOptions() const noexcept { return CastConvTranspose<3>(); }
 
-	friend UAtumLayerBaseConvTranspose;
+	friend UAtumLayerConvTranspose;
 	friend UScriptStruct;
 };
 

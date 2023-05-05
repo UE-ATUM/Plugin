@@ -3,7 +3,7 @@
 #include "Layers/Convolution/AtumLayerConv.h"
 
 
-bool UAtumLayerBaseConv::OnInitializeData_Implementation(const bool bRetry) noexcept
+bool UAtumLayerConv::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
 	const int64 Groups = Options.Groups;
 	if (Groups <= 0)
@@ -49,7 +49,7 @@ bool UAtumLayerBaseConv::OnInitializeData_Implementation(const bool bRetry) noex
 	return true;
 }
 
-bool UAtumLayerBaseConv::OnForward_Implementation(
+bool UAtumLayerConv::OnForward_Implementation(
 	const TScriptInterface<IAtumTensor>& Input,
 	TScriptInterface<IAtumTensor>& Output
 )

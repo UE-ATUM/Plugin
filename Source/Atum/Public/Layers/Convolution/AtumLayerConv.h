@@ -3,13 +3,13 @@
 #pragma once
 
 #include "AtumLayerConvOptions.h"
-#include "IAtumLayerConv.h"
+#include "IAtumLayerBaseConv.h"
 
 #include "AtumLayerConv.generated.h"
 
 
-UCLASS(Abstract, Blueprintable, BlueprintType, DisplayName = "ATUM Base Conv Layer")
-class ATUM_API UAtumLayerBaseConv : public UObject, public IAtumLayerConv
+UCLASS(Abstract, Blueprintable, BlueprintType, DisplayName = "ATUM Conv Layer")
+class ATUM_API UAtumLayerConv : public UObject, public IAtumLayerBaseConv
 {
 	GENERATED_BODY()
 
@@ -37,7 +37,7 @@ public:
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Conv 1D Layer")
-class ATUM_API UAtumLayerConv1D : public UAtumLayerBaseConv, public TAtumLayer<torch::nn::Conv1dImpl>
+class ATUM_API UAtumLayerConv1D : public UAtumLayerConv, public TAtumLayer<torch::nn::Conv1dImpl>
 {
 	GENERATED_BODY()
 
@@ -56,7 +56,7 @@ protected:
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Conv 2D Layer")
-class ATUM_API UAtumLayerConv2D : public UAtumLayerBaseConv, public TAtumLayer<torch::nn::Conv2dImpl>
+class ATUM_API UAtumLayerConv2D : public UAtumLayerConv, public TAtumLayer<torch::nn::Conv2dImpl>
 {
 	GENERATED_BODY()
 
@@ -75,7 +75,7 @@ protected:
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Conv 3D Layer")
-class ATUM_API UAtumLayerConv3D : public UAtumLayerBaseConv, public TAtumLayer<torch::nn::Conv3dImpl>
+class ATUM_API UAtumLayerConv3D : public UAtumLayerConv, public TAtumLayer<torch::nn::Conv3dImpl>
 {
 	GENERATED_BODY()
 
