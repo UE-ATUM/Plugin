@@ -5,6 +5,10 @@
 #include "IAtum.h"
 
 
+IAtumLayer::IAtumLayer() noexcept : bInitialized(false)
+{
+}
+
 bool IAtumLayer::InitializeData_Implementation(const bool bRetry) noexcept
 {
 	if (bInitialized && !bRetry)
@@ -51,6 +55,11 @@ bool IAtumLayer::Forward_Implementation(
 			LayerClassName,
 			ExceptionString.substr(0, ExceptionString.find("\n")).c_str()
 		)
+	}
+
+	if (!bSuccess)
+	{
+		UE_LOG(LogAtum, Error, TEXT("Failed to forward in ATUM Layer of type `%hs`!"), LayerClassName)
 	}
 	return bSuccess;
 }

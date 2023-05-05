@@ -8,7 +8,7 @@
 #include "IAtumTensor.generated.h"
 
 
-UINTERFACE(MinimalAPI, NotBlueprintable, BlueprintType, DisplayName = "ATUM Tensor")
+UINTERFACE(MinimalAPI, NotBlueprintable, BlueprintType, DisplayName = "ATUM Tensor Interface")
 class UAtumTensor : public UInterface
 {
 	GENERATED_BODY()

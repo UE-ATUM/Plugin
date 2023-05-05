@@ -8,7 +8,7 @@
 #include "IAtumLayer.generated.h"
 
 
-UINTERFACE(MinimalAPI, Blueprintable, BlueprintType, DisplayName = "ATUM Layer")
+UINTERFACE(MinimalAPI, Blueprintable, BlueprintType, DisplayName = "ATUM Layer Interface")
 class UAtumLayer : public UInterface
 {
 	GENERATED_BODY()
@@ -18,9 +18,12 @@ class ATUM_API IAtumLayer
 {
 	GENERATED_BODY()
 	
-	bool bInitialized = false;
+	bool bInitialized;
 
 public:
+	UE_NODISCARD_CTOR
+	IAtumLayer() noexcept;
+	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
 	bool InitializeData(bool bRetry = false);
 	
@@ -60,7 +63,7 @@ public:
 
 
 template <typename TModule>
-requires std::is_base_of_v<torch::nn::Module, TModule>
+requires (std::is_base_of_v<torch::nn::Module, TModule>)
 class TAtumLayer
 {
 protected:
