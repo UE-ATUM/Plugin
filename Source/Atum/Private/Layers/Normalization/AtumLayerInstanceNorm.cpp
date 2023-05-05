@@ -1,33 +1,33 @@
 ﻿// © 2023 Kaya Adrian.
 
-#include "Layers/Normalization/AtumLayerBatchNorm.h"
+#include "Layers/Normalization/AtumLayerInstanceNorm.h"
 
 
-bool UAtumLayerBatchNorm::OnForward_Implementation(
+bool UAtumLayerInstanceNorm::OnForward_Implementation(
 	const TScriptInterface<IAtumTensor>& Input,
 	TScriptInterface<IAtumTensor>& Output
 )
 {
 	TArray<int64> InputSizes;
 	Input->GetSizes(InputSizes);
-	
+
 	return AreInputSizesValid(InputSizes, Options.NumFeatures);
 }
 
-UAtumLayerBatchNorm1D::UAtumLayerBatchNorm1D() noexcept
+UAtumLayerInstanceNorm1D::UAtumLayerInstanceNorm1D() noexcept
 {
 	DimensionCount = 1u;
 	ValidInputSizes.push_back(2);
 	ValidInputSizes.push_back(3);
 }
 
-bool UAtumLayerBatchNorm1D::OnInitializeData_Implementation(const bool bRetry) noexcept
+bool UAtumLayerInstanceNorm1D::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
-	Module.Reset(new torch::nn::BatchNorm1dImpl(static_cast<torch::nn::BatchNormOptions>(Options)));
+	Module.Reset(new torch::nn::InstanceNorm1dImpl(static_cast<torch::nn::InstanceNormOptions>(Options)));
 	return true;
 }
 
-bool UAtumLayerBatchNorm1D::OnForward_Implementation(
+bool UAtumLayerInstanceNorm1D::OnForward_Implementation(
 	const TScriptInterface<IAtumTensor>& Input,
 	TScriptInterface<IAtumTensor>& Output
 )
@@ -36,23 +36,24 @@ bool UAtumLayerBatchNorm1D::OnForward_Implementation(
 		return false;
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
-	Output->SetData(Module->forward(Input->GetDataChecked().to(c10::kBFloat16)));
+	Output->SetData(Module->forward(Input->GetDataChecked().to(c10::kDouble)));
 	return true;
 }
 
-UAtumLayerBatchNorm2D::UAtumLayerBatchNorm2D() noexcept
+UAtumLayerInstanceNorm2D::UAtumLayerInstanceNorm2D() noexcept
 {
 	DimensionCount = 2u;
+	ValidInputSizes.push_back(3);
 	ValidInputSizes.push_back(4);
 }
 
-bool UAtumLayerBatchNorm2D::OnInitializeData_Implementation(const bool bRetry) noexcept
+bool UAtumLayerInstanceNorm2D::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
-	Module.Reset(new torch::nn::BatchNorm2dImpl(static_cast<torch::nn::BatchNormOptions>(Options)));
+	Module.Reset(new torch::nn::InstanceNorm2dImpl(static_cast<torch::nn::InstanceNormOptions>(Options)));
 	return true;
 }
 
-bool UAtumLayerBatchNorm2D::OnForward_Implementation(
+bool UAtumLayerInstanceNorm2D::OnForward_Implementation(
 	const TScriptInterface<IAtumTensor>& Input,
 	TScriptInterface<IAtumTensor>& Output
 )
@@ -61,23 +62,24 @@ bool UAtumLayerBatchNorm2D::OnForward_Implementation(
 		return false;
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
-	Output->SetData(Module->forward(Input->GetDataChecked().to(c10::kBFloat16)));
+	Output->SetData(Module->forward(Input->GetDataChecked().to(c10::kDouble)));
 	return true;
 }
 
-UAtumLayerBatchNorm3D::UAtumLayerBatchNorm3D() noexcept
+UAtumLayerInstanceNorm3D::UAtumLayerInstanceNorm3D() noexcept
 {
 	DimensionCount = 3u;
+	ValidInputSizes.push_back(4);
 	ValidInputSizes.push_back(5);
 }
 
-bool UAtumLayerBatchNorm3D::OnInitializeData_Implementation(const bool bRetry) noexcept
+bool UAtumLayerInstanceNorm3D::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
-	Module.Reset(new torch::nn::BatchNorm3dImpl(static_cast<torch::nn::BatchNormOptions>(Options)));
+	Module.Reset(new torch::nn::InstanceNorm3dImpl(static_cast<torch::nn::InstanceNormOptions>(Options)));
 	return true;
 }
 
-bool UAtumLayerBatchNorm3D::OnForward_Implementation(
+bool UAtumLayerInstanceNorm3D::OnForward_Implementation(
 	const TScriptInterface<IAtumTensor>& Input,
 	TScriptInterface<IAtumTensor>& Output
 )

@@ -163,13 +163,8 @@ bool UAtumLayerConv::OnForward_Implementation(
 {
 	TArray<int64> InputSizes;
 	Input->GetSizes(InputSizes);
-	const int32 SizeCount = InputSizes.Num();
 
-	bool bSuccess = AreInputSizesValid(
-		SizeCount,
-		InputSizes[SizeCount - DimensionCount - 1],
-		Options.InChannels
-	);
+	bool bSuccess = AreInputSizesValid(InputSizes, Options.InChannels);
 	bSuccess &= !IsDilatedKernelGreaterThanPaddedInput(InputSizes);
 	bSuccess &= !IsPaddingGreaterThanOrEqualToInput(InputSizes);
 	bSuccess &= !DoesPaddingCauseMultipleWrappings(InputSizes);
@@ -179,6 +174,8 @@ bool UAtumLayerConv::OnForward_Implementation(
 UAtumLayerConv1D::UAtumLayerConv1D() noexcept
 {
 	DimensionCount = 1u;
+	ValidInputSizes.push_back(2);
+	ValidInputSizes.push_back(3);
 }
 
 bool UAtumLayerConv1D::OnInitializeData_Implementation(const bool bRetry) noexcept
@@ -206,6 +203,8 @@ bool UAtumLayerConv1D::OnForward_Implementation(
 UAtumLayerConv2D::UAtumLayerConv2D() noexcept
 {
 	DimensionCount = 2u;
+	ValidInputSizes.push_back(3);
+	ValidInputSizes.push_back(4);
 }
 
 bool UAtumLayerConv2D::OnInitializeData_Implementation(const bool bRetry) noexcept
@@ -233,6 +232,8 @@ bool UAtumLayerConv2D::OnForward_Implementation(
 UAtumLayerConv3D::UAtumLayerConv3D() noexcept
 {
 	DimensionCount = 3u;
+	ValidInputSizes.push_back(4);
+	ValidInputSizes.push_back(5);
 }
 
 bool UAtumLayerConv3D::OnInitializeData_Implementation(const bool bRetry) noexcept

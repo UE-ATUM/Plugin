@@ -5,6 +5,40 @@
 #include "IAtum.h"
 
 
+bool UAtumLayerConvTranspose::IsCalculatedOutputTensorSizeValid(const TArray<int64>& InputSizes) const noexcept
+{
+	const uint64 SizeDifference = InputSizes.Num() - DimensionCount;
+	const TArray<int64>& KernelSize = Options.KernelSize;
+	const TArray<int64>& Stride = Options.Stride;
+	const TArray<int64>& Padding = Options.Padding;
+	const TArray<int64>& OutputPadding = Options.OutputPadding;
+	const TArray<int64>& Dilation = Options.Dilation;
+
+	bool bHasNonPositive = false;
+	std::vector<int64> OutputSizes(DimensionCount);
+	
+	for (uint64 Index = 0u; Index < DimensionCount; ++Index)
+	{
+		OutputSizes[Index] = (InputSizes[SizeDifference + Index] - 1) * Stride[Index]
+		- 2 * Padding[Index] + Dilation[Index] * (KernelSize[Index] - 1) + OutputPadding[Index] + 1;
+		
+		bHasNonPositive |= OutputSizes[Index] < 0;
+	}
+	if (!bHasNonPositive)
+		return false;
+
+	std::ostringstream OutputSizesStream;
+	std::copy(
+		OutputSizes.begin(),
+		std::prev(OutputSizes.end()),
+		std::ostream_iterator<int64>(OutputSizesStream, " x ")
+	);
+	OutputSizesStream << OutputSizes.back();
+		
+	UE_LOG(LogAtum, Error, TEXT("Calculated output tensor of size (%hs) is invalid!"), OutputSizesStream.str().c_str())
+	return true;
+}
+
 bool UAtumLayerConvTranspose::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
 	bool bValidData = AreChannelsDivisibleByGroups(Options.InChannels, Options.OutChannels, Options.Groups);
@@ -25,53 +59,16 @@ bool UAtumLayerConvTranspose::OnForward_Implementation(
 	TArray<int64> InputSizes;
 	Input->GetSizes(InputSizes);
 
-	const int32 SizeCount = InputSizes.Num();
-	const uint64 SizeDifference = SizeCount - DimensionCount;
-
-	if (!AreInputSizesValid(SizeCount, InputSizes[SizeDifference - 1], Options.InChannels))
-		return false;
-
-	const TArray<int64>& KernelSize = Options.KernelSize;
-	const TArray<int64>& Stride = Options.Stride;
-	const TArray<int64>& Padding = Options.Padding;
-	const TArray<int64>& OutputPadding = Options.OutputPadding;
-	const TArray<int64>& Dilation = Options.Dilation;
-
-	std::vector<int64> OutputSizes(DimensionCount);
-	bool bOutputHasNegativeSize = false;
-	
-	for (uint64 Index = 0u; Index < DimensionCount; ++Index)
-	{
-		OutputSizes[Index] = (InputSizes[SizeDifference + Index] - 1) * Stride[Index]
-		- 2 * Padding[Index] + Dilation[Index] * (KernelSize[Index] - 1) + OutputPadding[Index] + 1;
-		
-		bOutputHasNegativeSize |= OutputSizes[Index] < 0;
-	}
-	if (bOutputHasNegativeSize)
-	{
-		std::ostringstream OutputSizesStream;
-		std::copy(
-			OutputSizes.begin(),
-			std::prev(OutputSizes.end()),
-			std::ostream_iterator<int64>(OutputSizesStream, " x ")
-		);
-		OutputSizesStream << OutputSizes.back();
-		
-		UE_LOG(
-			LogAtum,
-			Error,
-			TEXT("Calculated output tensor of size (%hs) is invalid!"),
-			OutputSizesStream.str().c_str()
-		)
-		return false;
-	}
-
-	return true;
+	bool bSuccess = AreInputSizesValid(InputSizes, Options.InChannels);
+	bSuccess &= !IsCalculatedOutputTensorSizeValid(InputSizes);
+	return bSuccess;
 }
 
 UAtumLayerConvTranspose1D::UAtumLayerConvTranspose1D() noexcept
 {
 	DimensionCount = 1u;
+	ValidInputSizes.push_back(2);
+	ValidInputSizes.push_back(3);
 }
 
 bool UAtumLayerConvTranspose1D::OnInitializeData_Implementation(const bool bRetry) noexcept
@@ -99,6 +96,8 @@ bool UAtumLayerConvTranspose1D::OnForward_Implementation(
 UAtumLayerConvTranspose2D::UAtumLayerConvTranspose2D() noexcept
 {
 	DimensionCount = 2u;
+	ValidInputSizes.push_back(3);
+	ValidInputSizes.push_back(4);
 }
 
 bool UAtumLayerConvTranspose2D::OnInitializeData_Implementation(const bool bRetry) noexcept
@@ -126,6 +125,8 @@ bool UAtumLayerConvTranspose2D::OnForward_Implementation(
 UAtumLayerConvTranspose3D::UAtumLayerConvTranspose3D() noexcept
 {
 	DimensionCount = 3u;
+	ValidInputSizes.push_back(4);
+	ValidInputSizes.push_back(5);
 }
 
 bool UAtumLayerConvTranspose3D::OnInitializeData_Implementation(const bool bRetry) noexcept

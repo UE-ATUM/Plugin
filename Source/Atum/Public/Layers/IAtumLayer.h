@@ -17,8 +17,11 @@ class UAtumLayer : public UInterface
 class ATUM_API IAtumLayer
 {
 	GENERATED_BODY()
-	
+
+protected:
 	bool bInitialized;
+	uint64 DimensionCount;
+	std::vector<int64> ValidInputSizes;
 
 public:
 	UE_NODISCARD_CTOR
@@ -45,6 +48,9 @@ private:
 	) noexcept;
 
 protected:
+	UE_NODISCARD
+	bool AreInputSizesValid(const TArray<int64>& InputSizes, int64 ExpectedChannels) const noexcept;
+	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
 	bool OnInitializeData(bool bRetry = false);
 	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept;
@@ -58,7 +64,13 @@ protected:
 	
 public:
 	UE_NODISCARD
-	FORCEINLINE bool IsInitialized() const { return bInitialized; }
+	FORCEINLINE bool IsInitialized() const noexcept { return bInitialized; }
+
+	UE_NODISCARD
+	FORCEINLINE uint64 GetDimensionCount() const noexcept { return DimensionCount; }
+
+	UE_NODISCARD
+	FORCEINLINE const std::vector<int64>& GetValidInputSizes() const noexcept { return ValidInputSizes; }
 };
 
 

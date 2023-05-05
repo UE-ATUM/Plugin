@@ -5,8 +5,58 @@
 #include "IAtum.h"
 
 
-IAtumLayer::IAtumLayer() noexcept : bInitialized(false)
+IAtumLayer::IAtumLayer() noexcept : bInitialized(false), DimensionCount(0u), ValidInputSizes(std::vector<int64>())
 {
+}
+
+bool IAtumLayer::AreInputSizesValid(const TArray<int64>& InputSizes, const int64 ExpectedChannels) const noexcept
+{
+	if (UNLIKELY(ValidInputSizes.empty()))
+	{
+		UE_LOG(LogAtum, Error, TEXT("No valid input size has been defined for this layer!"))
+		return false;
+	}
+
+	const int32 SizeCount = InputSizes.Num();
+	if (!std::ranges::binary_search(ValidInputSizes, SizeCount))
+	{
+		std::ostringstream ValidInputSizesStream;
+		if (ValidInputSizes.size() > 1u)
+		{
+			std::copy(
+				ValidInputSizes.begin(),
+				std::prev(ValidInputSizes.end(), 2),
+				std::ostream_iterator<int64>(ValidInputSizesStream, "D, ")
+			);
+
+			ValidInputSizesStream << std::format("{}D or ", ValidInputSizes.end()[-2]);
+		}
+		ValidInputSizesStream << std::format("{}D", ValidInputSizes.back());
+		
+		UE_LOG(
+			LogAtum,
+			Error,
+			TEXT("Expected %hs but got %dD input tensor!"),
+			ValidInputSizesStream.str().c_str(),
+			SizeCount
+		)
+		return false;
+	}
+
+	if (const int64 GivenChannels = InputSizes[SizeCount - DimensionCount - 1]; GivenChannels != ExpectedChannels)
+	{
+		UE_LOG(
+			LogAtum,
+			Error,
+			TEXT("Expected %lld %ls but got %lld!"),
+			ExpectedChannels,
+			ExpectedChannels == 1 ? TEXT("channel") : TEXT("channels"),
+			GivenChannels
+		)
+		return false;
+	}
+
+	return true;
 }
 
 bool IAtumLayer::InitializeData_Implementation(const bool bRetry) noexcept
