@@ -86,6 +86,6 @@ bool UAtumLayerBatchNorm3D::OnForward_Implementation(
 		return false;
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
-	Output->SetData(Module->forward(Input->GetDataChecked().to(c10::kDouble)));
+	Output->SetData(Module->forward(Input->GetDataChecked().to(c10::kBFloat16)));
 	return true;
 }
