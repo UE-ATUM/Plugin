@@ -3,7 +3,7 @@
 #include "Tensors/AtumTensorByte.h"
 
 
-EAtumScalarType UAtumTensorByte::GetScalarType() const noexcept
+UAtumTensorByte::UAtumTensorByte() noexcept
 {
-	return EAtumScalarType::Byte;
+	ScalarType = EAtumScalarType::Byte;
 }

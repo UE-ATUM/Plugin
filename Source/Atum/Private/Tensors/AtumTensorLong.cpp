@@ -3,7 +3,7 @@
 #include "Tensors/AtumTensorLong.h"
 
 
-EAtumScalarType UAtumTensorLong::GetScalarType() const noexcept
+UAtumTensorLong::UAtumTensorLong() noexcept
 {
-	return EAtumScalarType::Long;
+	ScalarType = EAtumScalarType::Long;
 }

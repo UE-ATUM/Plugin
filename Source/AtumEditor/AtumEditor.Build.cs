@@ -14,6 +14,7 @@ public class AtumEditor : ModuleRules
 		
 		bUseRTTI = true;
 		bUseUnity = false;
+		bEnforceIWYU = true;
 		bUsePrecompiled = false;
 		bEnableExceptions = true;
 

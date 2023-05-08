@@ -5,6 +5,10 @@
 #include "AtumLayerConvOptions.h"
 #include "IAtumLayerBaseConv.h"
 
+LIBTORCH_INCLUDES_START
+#include <torch/nn/modules/conv.h>
+LIBTORCH_INCLUDES_END
+
 #include "AtumLayerConv.generated.h"
 
 

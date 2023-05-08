@@ -5,6 +5,10 @@
 #include "AtumLayerBatchNormOptions.h"
 #include "IAtumLayerBaseNorm.h"
 
+LIBTORCH_INCLUDES_START
+#include <torch/nn/modules/batchnorm.h>
+LIBTORCH_INCLUDES_END
+
 #include "AtumLayerBatchNorm.generated.h"
 
 

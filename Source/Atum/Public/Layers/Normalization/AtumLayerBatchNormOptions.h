@@ -4,6 +4,10 @@
 
 #include "Layers/IAtumLayer.h"
 
+LIBTORCH_INCLUDES_START
+#include <torch/nn/options/batchnorm.h>
+LIBTORCH_INCLUDES_END
+
 #include "AtumLayerBatchNormOptions.generated.h"
 
 
@@ -31,5 +35,12 @@ struct ATUM_API FAtumLayerBatchNormOptions : public FAtumLayerOptions
 	FAtumLayerBatchNormOptions() noexcept;
 	
 	UE_NODISCARD
-	explicit operator torch::nn::BatchNormOptions() const noexcept;
+	FORCEINLINE explicit operator torch::nn::BatchNormOptions() const noexcept
+	{
+		return torch::nn::BatchNormOptions(NumFeatures)
+		.eps(Epsilon)
+		.momentum(Momentum == 0.0 ? c10::nullopt : c10::optional<double>(Momentum))
+		.affine(bAffine)
+		.track_running_stats(bTrackRunningStats);
+	}
 };

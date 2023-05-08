@@ -5,6 +5,12 @@
 #include "AtumScalarType.h"
 #include "UObject/Interface.h"
 
+LIBTORCH_INCLUDES_START
+#include <ATen/core/TensorBody.h>
+#include <c10/core/Scalar.h>
+#include <torch/csrc/autograd/generated/variable_factories.h>
+LIBTORCH_INCLUDES_END
+
 #include "IAtumTensor.generated.h"
 
 
@@ -19,9 +25,13 @@ class ATUM_API IAtumTensor
 	GENERATED_BODY()
 	
 protected:
-	TUniquePtr<torch::Tensor> Data = nullptr;
+	TUniquePtr<at::Tensor> Data;
+	EAtumScalarType ScalarType;
 	
 public:
+	UE_NODISCARD_CTOR
+	IAtumTensor() noexcept;
+	
 	UE_NODISCARD
 	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
 	virtual void GetSizes(TArray<int64>& OutSizes) const noexcept;
@@ -58,16 +68,16 @@ public:
 	FORCEINLINE FString ToString() const noexcept { return static_cast<FString>(*this); }
 	
 	UE_NODISCARD
-	FORCEINLINE torch::Tensor operator[](const int64 Index) { return (*Data)[Index]; }
+	FORCEINLINE at::Tensor operator[](const int64 Index) { return (*Data)[Index]; }
 	
 	UE_NODISCARD
-	FORCEINLINE torch::Tensor operator[](const torch::Scalar& Scalar) { return (*Data)[Scalar]; }
+	FORCEINLINE at::Tensor operator[](const c10::Scalar& Scalar) { return (*Data)[Scalar]; }
 	
 	UE_NODISCARD
-	FORCEINLINE torch::Tensor operator[](const torch::Tensor& Tensor) { return (*Data)[Tensor]; }
+	FORCEINLINE at::Tensor operator[](const at::Tensor& Tensor) { return (*Data)[Tensor]; }
 	
 	UE_NODISCARD
-	FORCEINLINE torch::Tensor operator[](const IAtumTensor& Tensor) { return (*Data)[*Tensor.Data]; }
+	FORCEINLINE at::Tensor operator[](const IAtumTensor& Tensor) { return (*Data)[*Tensor.Data]; }
 	
 	template <typename T>
 	void GetValues(TArray<T>& OutValues, TArray<int64>& OutSizes) const noexcept;
@@ -94,13 +104,13 @@ private:
 
 public:
 	UE_NODISCARD
-	FORCEINLINE const torch::Tensor* GetData() const noexcept { return Data.Get(); }
+	FORCEINLINE const at::Tensor* GetData() const noexcept { return Data.Get(); }
 	
 	UE_NODISCARD
-	FORCEINLINE const torch::Tensor& GetDataChecked() const { return *GetData(); }
+	FORCEINLINE const at::Tensor& GetDataChecked() const { return *GetData(); }
 	
-	FORCEINLINE void SetData(const torch::Tensor& Value) noexcept
-	{ Data.Reset(new torch::Tensor(Value.to(GetTorchScalarType()))); }
+	FORCEINLINE void SetData(const at::Tensor& Value) noexcept
+	{ Data.Reset(new at::Tensor(Value.to(GetTorchScalarType()))); }
 };
 
 

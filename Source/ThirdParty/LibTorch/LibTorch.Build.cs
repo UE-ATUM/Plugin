@@ -15,51 +15,23 @@ public class LibTorch : ModuleRules
 		
 		bUseRTTI = true;
 		bUseUnity = false;
+		bEnforceIWYU = true;
 		bUsePrecompiled = false;
 		bEnableExceptions = true;
-		
-		PrivateDependencyModuleNames.AddRange(new []
-		{
-			"Core"
-		});
 
 		if (Target.Platform != UnrealTargetPlatform.Win64)
 		{
-			PublicDefinitions.AddRange(new []
-			{
-				"HAS_LIBTORCH=0",
-				"LIBTORCH_DEBUG=0",
-				"LIBTORCH_RELEASE=0"
-			});
-
 			EpicGames.Core.Log.TraceError("Cannot load LibTorch on {0}!", Target.Platform.ToString());
 			return;
 		}
 		
-		PublicDefinitions.Add("HAS_LIBTORCH=1");
+		PublicDefinitions.AddRange(new []
+		{
+			"NO_EXPORT",
+			"WITH_LIBTORCH"
+		});
+		
 		var PlatformPath = Path.Combine(ModuleDirectory, Target.Platform.ToString());
-
-		if (Target.Configuration == UnrealTargetConfiguration.DebugGame)
-		{
-			PublicDefinitions.AddRange(new []
-			{
-				"LIBTORCH_DEBUG=1",
-				"LIBTORCH_RELEASE=0"
-			});
-			
-			PlatformPath = Path.Combine(PlatformPath, "Debug");
-		}
-		else
-		{
-			PublicDefinitions.AddRange(new []
-			{
-				"LIBTORCH_DEBUG=0",
-				"LIBTORCH_RELEASE=1"
-			});
-
-			PlatformPath = Path.Combine(PlatformPath, "Release");
-		}
-
 		AddIncludeFolders(Path.Combine(PlatformPath, "include"));
 		LinkLibraryFiles(Path.Combine(PlatformPath, "lib"));
 	}
@@ -68,15 +40,9 @@ public class LibTorch : ModuleRules
 	{
 		PublicIncludePaths.AddRange(new []
 		{
-			ModuleDirectory,
-			IncludePath
+			IncludePath,
+			Path.Combine(IncludePath, "torch/csrc/api/include")
 		});
-		
-		var FolderPaths = Directory.GetDirectories(IncludePath, "include", SearchOption.AllDirectories);
-		foreach (var FolderPath in FolderPaths)
-		{
-			PublicIncludePaths.Add(FolderPath);
-		}
 	}
 
 	private void LinkLibraryFiles(string LibraryPath)

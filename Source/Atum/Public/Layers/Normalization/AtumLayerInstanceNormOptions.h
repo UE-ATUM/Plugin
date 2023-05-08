@@ -4,6 +4,10 @@
 
 #include "Layers/IAtumLayer.h"
 
+LIBTORCH_INCLUDES_START
+#include <torch/nn/functional/instancenorm.h>
+LIBTORCH_INCLUDES_END
+
 #include "AtumLayerInstanceNormOptions.generated.h"
 
 
@@ -31,5 +35,12 @@ struct ATUM_API FAtumLayerInstanceNormOptions : public FAtumLayerOptions
 	FAtumLayerInstanceNormOptions() noexcept;
 	
 	UE_NODISCARD
-	explicit operator torch::nn::InstanceNormOptions() const noexcept;
+	FORCEINLINE explicit operator torch::nn::InstanceNormOptions() const noexcept
+	{
+		return torch::nn::InstanceNormOptions(NumFeatures)
+		.eps(Epsilon)
+		.momentum(Momentum)
+		.affine(bAffine)
+		.track_running_stats(bTrackRunningStats);
+	}
 };

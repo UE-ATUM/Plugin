@@ -5,6 +5,10 @@
 #include "Tensors/IAtumTensor.h"
 #include "UObject/Interface.h"
 
+LIBTORCH_INCLUDES_START
+#include <torch/nn/module.h>
+LIBTORCH_INCLUDES_END
+
 #include "IAtumLayer.generated.h"
 
 
@@ -93,14 +97,14 @@ class TAtumLayer
 {
 protected:
 	TUniquePtr<TModule> Module = nullptr;
-
+	
 	template <typename TOptions, typename TAtumOptions>
 	requires (std::is_base_of_v<FAtumLayerOptions, TAtumOptions>)
 	FORCEINLINE void MakeModule(const TAtumOptions& Options) noexcept
 	{
 		Module.Reset(new TModule(static_cast<TOptions>(Options)));
 	}
-
+	
 public:
 	UE_NODISCARD
 	FORCEINLINE const TModule* GetModule() const noexcept { return Module.Get(); }

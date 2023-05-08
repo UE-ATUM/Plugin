@@ -11,12 +11,3 @@ bAffine(false),
 bTrackRunningStats(false)
 {
 }
-
-FAtumLayerInstanceNormOptions::operator torch::nn::InstanceNormOptions() const noexcept
-{
-	return torch::nn::InstanceNormOptions(NumFeatures)
-	.eps(Epsilon)
-	.momentum(Momentum)
-	.affine(bAffine)
-	.track_running_stats(bTrackRunningStats);
-}

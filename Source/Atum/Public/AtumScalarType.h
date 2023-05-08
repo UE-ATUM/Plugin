@@ -2,7 +2,11 @@
 
 #pragma once
 
-#include "LibTorch.h"
+#include "LibTorchPreSetup.h"
+
+LIBTORCH_INCLUDES_START
+#include <c10/core/ScalarType.h>
+LIBTORCH_INCLUDES_END
 
 #include "AtumScalarType.generated.h"
 

@@ -4,6 +4,10 @@
 
 #include "Layers/IAtumLayer.h"
 
+LIBTORCH_INCLUDES_START
+#include <torch/nn/options/conv.h>
+LIBTORCH_INCLUDES_END
+
 #include "AtumLayerConvTransposeOptions.generated.h"
 
 class UAtumLayerConvTranspose;
@@ -53,17 +57,17 @@ protected:
 	template <uint64 Dimensions>
 	requires (1u <= Dimensions && Dimensions <= 3u)
 	UE_NODISCARD
-	torch::nn::ConvTransposeOptions<Dimensions> CastConvTranspose() const noexcept;
+	torch::nn::ConvTransposeOptions<Dimensions> CastOptions() const noexcept;
 	
 public:
 	UE_NODISCARD
-	FORCEINLINE explicit operator torch::nn::ConvTranspose1dOptions() const noexcept { return CastConvTranspose<1>(); }
+	FORCEINLINE explicit operator torch::nn::ConvTranspose1dOptions() const noexcept { return CastOptions<1>(); }
 
 	UE_NODISCARD
-	FORCEINLINE explicit operator torch::nn::ConvTranspose2dOptions() const noexcept { return CastConvTranspose<2>(); }
+	FORCEINLINE explicit operator torch::nn::ConvTranspose2dOptions() const noexcept { return CastOptions<2>(); }
 	
 	UE_NODISCARD
-	FORCEINLINE explicit operator torch::nn::ConvTranspose3dOptions() const noexcept { return CastConvTranspose<3>(); }
+	FORCEINLINE explicit operator torch::nn::ConvTranspose3dOptions() const noexcept { return CastOptions<3>(); }
 
 	friend UAtumLayerConvTranspose;
 	friend UScriptStruct;
@@ -72,7 +76,7 @@ public:
 
 template <uint64 Dimensions>
 requires (1u <= Dimensions && Dimensions <= 3u)
-torch::nn::ConvTransposeOptions<Dimensions> FAtumLayerConvTransposeOptions::CastConvTranspose() const noexcept
+torch::nn::ConvTransposeOptions<Dimensions> FAtumLayerConvTransposeOptions::CastOptions() const noexcept
 {
 	return torch::nn::ConvTransposeOptions<Dimensions>(
 		InChannels,

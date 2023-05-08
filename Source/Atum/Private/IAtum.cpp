@@ -21,12 +21,6 @@ bool IAtumModule::GetLibraryPath(FString& OutPath) noexcept
 	return false;
 #endif
 
-#if LIBTORCH_DEBUG
-	OutPath /= TEXT("Debug");
-#elif LIBTORCH_RELEASE
-	OutPath /= TEXT("Release");
-#endif
-
 	OutPath /= TEXT("lib");
 	return true;
 }

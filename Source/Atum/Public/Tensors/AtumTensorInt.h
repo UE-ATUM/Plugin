@@ -12,16 +12,17 @@ class ATUM_API UAtumTensorInt : public UObject, public IAtumTensor, public TAtum
 {
 	GENERATED_BODY()
 
-protected:
-	UE_NODISCARD
-	virtual EAtumScalarType GetScalarType() const noexcept override final;
+public:
+	UE_NODISCARD_CTOR
+	UAtumTensorInt() noexcept;
 
+protected:
 	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor", DisplayName = "Get Values (Int)", meta = (
 		Keywords = "ATUM Tensor Int int32 Get Out Values Sizes"
 	))
 	FORCEINLINE void K2_GetValues(TArray<int32>& OutValues, TArray<int64>& OutSizes) const noexcept
 	{ GetValues(OutValues, OutSizes); }
-
+	
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor", DisplayName = "Set Values (Int)", meta = (
 		Keywords = "ATUM Tensor Int int32 Set Values Sizes"
 	))

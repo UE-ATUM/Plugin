@@ -3,7 +3,6 @@
 #include "AtumLibraryTensors.h"
 
 #include "IAtum.h"
-#include "Kismet/KismetArrayLibrary.h"
 
 
 void UAtumLibraryTensors::K2_SerializeArray(

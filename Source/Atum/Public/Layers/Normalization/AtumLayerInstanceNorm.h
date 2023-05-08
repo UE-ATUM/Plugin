@@ -5,6 +5,10 @@
 #include "AtumLayerInstanceNormOptions.h"
 #include "IAtumLayerBaseNorm.h"
 
+LIBTORCH_INCLUDES_START
+#include <torch/nn/modules/instancenorm.h>
+LIBTORCH_INCLUDES_END
+
 #include "AtumLayerInstanceNorm.generated.h"
 
 

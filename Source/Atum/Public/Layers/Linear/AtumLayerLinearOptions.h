@@ -4,6 +4,10 @@
 
 #include "Layers/IAtumLayer.h"
 
+LIBTORCH_INCLUDES_START
+#include <torch/nn/options/linear.h>
+LIBTORCH_INCLUDES_END
+
 #include "AtumLayerLinearOptions.generated.h"
 
 
@@ -25,5 +29,6 @@ struct ATUM_API FAtumLayerLinearOptions : public FAtumLayerOptions
 	FAtumLayerLinearOptions() noexcept;
 	
 	UE_NODISCARD
-	explicit operator torch::nn::LinearOptions() const noexcept;
+	FORCEINLINE explicit operator torch::nn::LinearOptions() const noexcept
+	{ return torch::nn::LinearOptions(InFeatures, OutFeatures).bias(bBias); }
 };

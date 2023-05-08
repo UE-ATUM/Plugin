@@ -5,6 +5,10 @@
 #include "AtumLayerConvTransposeOptions.h"
 #include "IAtumLayerBaseConv.h"
 
+LIBTORCH_INCLUDES_START
+#include <torch/nn/modules/conv.h>
+LIBTORCH_INCLUDES_END
+
 #include "AtumLayerConvTranspose.generated.h"
 
 

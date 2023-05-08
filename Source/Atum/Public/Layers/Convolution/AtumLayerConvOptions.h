@@ -54,17 +54,17 @@ protected:
 	template <uint64 Dimensions>
 	requires (1u <= Dimensions && Dimensions <= 3u)
 	UE_NODISCARD
-	torch::nn::ConvOptions<Dimensions> CastConv() const noexcept;
+	torch::nn::ConvOptions<Dimensions> CastOptions() const noexcept;
 
 public:
 	UE_NODISCARD
-	FORCEINLINE explicit operator torch::nn::Conv1dOptions() const noexcept { return CastConv<1>(); }
+	FORCEINLINE explicit operator torch::nn::Conv1dOptions() const noexcept { return CastOptions<1>(); }
 
 	UE_NODISCARD
-	FORCEINLINE explicit operator torch::nn::Conv2dOptions() const noexcept { return CastConv<2>(); }
+	FORCEINLINE explicit operator torch::nn::Conv2dOptions() const noexcept { return CastOptions<2>(); }
 	
 	UE_NODISCARD
-	FORCEINLINE explicit operator torch::nn::Conv3dOptions() const noexcept { return CastConv<3>(); }
+	FORCEINLINE explicit operator torch::nn::Conv3dOptions() const noexcept { return CastOptions<3>(); }
 
 	friend UAtumLayerConv;
 	friend UScriptStruct;
@@ -73,7 +73,7 @@ public:
 
 template <uint64 Dimensions>
 requires (1u <= Dimensions && Dimensions <= 3u)
-torch::nn::ConvOptions<Dimensions> FAtumLayerConvOptions::CastConv() const noexcept
+torch::nn::ConvOptions<Dimensions> FAtumLayerConvOptions::CastOptions() const noexcept
 {
 	return torch::nn::ConvOptions<Dimensions>(
 		InChannels,

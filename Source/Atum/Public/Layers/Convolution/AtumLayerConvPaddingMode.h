@@ -3,7 +3,12 @@
 #pragma once
 
 #include "IAtum.h"
-#include "LibTorch.h"
+#include "LibTorchPreSetup.h"
+
+LIBTORCH_INCLUDES_START
+#include <torch/enum.h>
+#include <torch/nn/options/conv.h>
+LIBTORCH_INCLUDES_END
 
 #include "AtumLayerConvPaddingMode.generated.h"
 

@@ -11,17 +11,18 @@ UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Float Tensor")
 class ATUM_API UAtumTensorFloat : public UObject, public IAtumTensor, public TAtumTensor<float>
 {
 	GENERATED_BODY()
+	
+public:
+	UE_NODISCARD_CTOR
+	UAtumTensorFloat() noexcept;
 
 protected:
-	UE_NODISCARD
-	virtual EAtumScalarType GetScalarType() const noexcept override final;
-
 	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor", DisplayName = "Get Values (Float)", meta = (
 		Keywords = "ATUM Tensor Float Get Out Values Sizes"
 	))
 	FORCEINLINE void K2_GetValues(TArray<float>& OutValues, TArray<int64>& OutSizes) const noexcept
 	{ GetValues(OutValues, OutSizes); }
-
+	
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor", DisplayName = "Set Values (Float)", meta = (
 		Keywords = "ATUM Tensor Float Set Values Sizes"
 	))

@@ -3,6 +3,10 @@
 #include "Tensors/IAtumTensor.h"
 
 
+IAtumTensor::IAtumTensor() noexcept : Data(nullptr), ScalarType(EAtumScalarType::Undefined)
+{
+}
+
 void IAtumTensor::GetSizes(TArray<int64>& OutSizes) const noexcept
 {
 	const c10::IntArrayRef DataSizes = Data->sizes();
@@ -11,7 +15,7 @@ void IAtumTensor::GetSizes(TArray<int64>& OutSizes) const noexcept
 
 EAtumScalarType IAtumTensor::GetScalarType() const noexcept
 {
-	return Data ? AtumEnums::Cast(Data->scalar_type()) : EAtumScalarType::Undefined;
+	return ScalarType == EAtumScalarType::Undefined ? AtumEnums::Cast(Data->scalar_type()) : ScalarType;
 }
 
 int64 IAtumTensor::GetElementCount() const noexcept
@@ -72,7 +76,7 @@ IAtumTensor::operator FString() const noexcept
 
 std::ostream& operator<<(std::ostream& OutStream, const IAtumTensor& AtumTensor) noexcept
 {
-	if (const torch::Tensor* const Tensor = AtumTensor.Data.Get())
+	if (const at::Tensor* const Tensor = AtumTensor.Data.Get())
 	{
 		OutStream << *Tensor;
 	}
