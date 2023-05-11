@@ -6,8 +6,6 @@
 #include "UObject/Interface.h"
 
 LIBTORCH_INCLUDES_START
-#include <ATen/core/TensorBody.h>
-#include <c10/core/Scalar.h>
 #include <torch/csrc/autograd/generated/variable_factories.h>
 LIBTORCH_INCLUDES_END
 
@@ -84,11 +82,13 @@ public:
 	
 	template <typename T>
 	FORCEINLINE void SetValues(T* const Values, const TArray<int64>& Sizes) noexcept
-	{ SetData(torch::from_blob(
-		Values,
-		c10::IntArrayRef(Sizes.GetData(), Sizes.Num()),
-		GetTorchScalarType()
-	)); }
+	{
+		SetData(torch::from_blob(
+			Values,
+			c10::IntArrayRef(Sizes.GetData(), Sizes.Num()),
+			GetTorchScalarType()
+		));
+	}
 
 private:
 	UE_NODISCARD
