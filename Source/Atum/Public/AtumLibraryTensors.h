@@ -37,7 +37,7 @@ class ATUM_API UAtumLibraryTensors : public UBlueprintFunctionLibrary
 
 public:
 	UE_NODISCARD
-	UFUNCTION(BlueprintCallable, Category = "ATUM|Constructor", DisplayName = "Make Empty Tensor", meta = (
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make Empty Tensor", meta = (
 		DeterminesOutputType = "Class",
 		CompactNodeTitle = "Empty Tensor",
 		Keywords = "ATUM Constructor Make Empty Tensor Class Sizes"
@@ -48,7 +48,7 @@ public:
 	) noexcept;
 	
 	UE_NODISCARD
-	UFUNCTION(BlueprintCallable, Category = "ATUM|Constructor", DisplayName = "Make Eye Tensor", meta = (
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make Eye Tensor", meta = (
 		DeterminesOutputType = "Class",
 		CompactNodeTitle = "Eye Tensor",
 		Keywords = "ATUM Constructor Make Eye Tensor Class Size"
@@ -59,7 +59,7 @@ public:
 	) noexcept;
 
 	UE_NODISCARD
-	UFUNCTION(BlueprintCallable, Category = "ATUM|Constructor", DisplayName = "Make Ones Tensor", meta = (
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make Ones Tensor", meta = (
 		DeterminesOutputType = "Class",
 		CompactNodeTitle = "Ones Tensor",
 		Keywords = "ATUM Constructor Make Ones Tensor Class Sizes"
@@ -70,7 +70,7 @@ public:
 	) noexcept;
 
 	UE_NODISCARD
-	UFUNCTION(BlueprintCallable, Category = "ATUM|Constructor", DisplayName = "Make Random Tensor", meta = (
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make Random Tensor", meta = (
 		DeterminesOutputType = "Class",
 		CompactNodeTitle = "Random Tensor",
 		Keywords = "ATUM Constructor Make Random Tensor Class Sizes"
@@ -81,7 +81,7 @@ public:
 	) noexcept;
 
 	UE_NODISCARD
-	UFUNCTION(BlueprintCallable, Category = "ATUM|Constructor", DisplayName = "Make RandN Tensor", meta = (
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make RandN Tensor", meta = (
 		DeterminesOutputType = "Class",
 		CompactNodeTitle = "RandN Tensor",
 		Keywords = "ATUM Constructor Make Normally Distributed Random Tensor Class Sizes"
@@ -97,8 +97,8 @@ public:
 		CompactNodeTitle = "->",
 		Keywords = "ATUM Cast Tensor To String"
 	))
-	static FORCEINLINE FString Conv_TensorToString(const TScriptInterface<const IAtumTensor>& Tensor)
-	{ return Tensor->ToString(); }
+	static FORCEINLINE FString Conv_TensorToString(const TScriptInterface<const IAtumTensor>& Tensor) noexcept
+	{ return Tensor ? Tensor->ToString() : TEXT(""); }
 
 	static void GenericArray_Serialize(
 		const uint8* TargetAddress,
@@ -115,5 +115,5 @@ public:
 private:
 	DECLARE_FUNCTION(execK2_SerializeArray) noexcept;
 	DECLARE_FUNCTION(execK2_DeserializeArray) noexcept;
-	DECLARE_FUNCTION(execConv_TensorToString);
+	DECLARE_FUNCTION(execConv_TensorToString) noexcept;
 };

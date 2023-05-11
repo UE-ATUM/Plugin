@@ -10,7 +10,7 @@ void UAtumLibraryTensors::K2_SerializeArray(
 	[[maybe_unused]] TArray<uint8>& OutBytes
 ) noexcept
 {
-	UE_LOG(LogAtum, Warning, TEXT("Called UAtumUtilities::K2_SerializeArray from native code!"))
+	UE_LOG(LogAtum, Warning, TEXT("Called UAtumLibraryTensors::K2_SerializeArray from native code!"))
 }
 
 void UAtumLibraryTensors::K2_DeserializeArray(
@@ -19,7 +19,7 @@ void UAtumLibraryTensors::K2_DeserializeArray(
 	[[maybe_unused]] TArray<UProperty*>& OutTarget
 ) noexcept
 {
-	UE_LOG(LogAtum, Warning, TEXT("Called UAtumUtilities::K2_DeserializeArray from native code!"))
+	UE_LOG(LogAtum, Warning, TEXT("Called UAtumLibraryTensors::K2_DeserializeArray from native code!"))
 }
 
 UObject* UAtumLibraryTensors::Empty(const TSubclassOf<UObject> Class, const TArray<int64>& Sizes) noexcept
@@ -183,7 +183,7 @@ void UAtumLibraryTensors::execConv_TensorToString(
 	[[maybe_unused]] UObject* const Context,
 	FFrame& Stack,
 	void* const Z_Param__Result
-)
+) noexcept
 {
 	TScriptInterface<const IAtumTensor> TensorTemp;
 	const TScriptInterface<const IAtumTensor>& Tensor = Stack
