@@ -2,6 +2,7 @@
 
 #include "Layers/IAtumLayer.h"
 
+#include "AtumLibraryUtilities.h"
 #include "IAtum.h"
 
 
@@ -20,24 +21,11 @@ bool IAtumLayer::AreInputSizesValid(const TArray<int64>& InputSizes, const int64
 	const int32 SizeCount = InputSizes.Num();
 	if (!std::ranges::binary_search(ValidInputSizes, SizeCount))
 	{
-		std::ostringstream ValidInputSizesStream;
-		if (ValidInputSizes.size() > 1u)
-		{
-			std::copy(
-				ValidInputSizes.begin(),
-				std::prev(ValidInputSizes.end(), 2),
-				std::ostream_iterator<int64>(ValidInputSizesStream, "D, ")
-			);
-
-			ValidInputSizesStream << std::format("{}D or ", ValidInputSizes.end()[-2]);
-		}
-		ValidInputSizesStream << std::format("{}D", ValidInputSizes.back());
-		
 		UE_LOG(
 			LogAtum,
 			Error,
 			TEXT("Expected %hs but got %dD input tensor!"),
-			ValidInputSizesStream.str().c_str(),
+			UAtumLibraryUtilities::FormatWithConjunction(ValidInputSizes, ", ", "", "D", " or ", false).c_str(),
 			SizeCount
 		)
 		return false;

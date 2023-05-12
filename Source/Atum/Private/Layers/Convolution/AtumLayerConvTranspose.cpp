@@ -2,6 +2,7 @@
 
 #include "Layers/Convolution/AtumLayerConvTranspose.h"
 
+#include "AtumLibraryUtilities.h"
 #include "IAtum.h"
 
 
@@ -26,16 +27,13 @@ bool UAtumLayerConvTranspose::IsCalculatedOutputTensorSizeValid(const TArray<int
 	}
 	if (!bHasNonPositive)
 		return false;
-
-	std::ostringstream OutputSizesStream;
-	std::copy(
-		OutputSizes.begin(),
-		std::prev(OutputSizes.end()),
-		std::ostream_iterator<int64>(OutputSizesStream, " x ")
-	);
-	OutputSizesStream << OutputSizes.back();
 		
-	UE_LOG(LogAtum, Error, TEXT("Calculated output tensor of size (%hs) is invalid!"), OutputSizesStream.str().c_str())
+	UE_LOG(
+		LogAtum,
+		Error,
+		TEXT("Calculated output tensor of size (%hs) is invalid!"),
+		UAtumLibraryUtilities::FormatWithConjunction(OutputSizes, " x ").c_str()
+	)
 	return true;
 }
 

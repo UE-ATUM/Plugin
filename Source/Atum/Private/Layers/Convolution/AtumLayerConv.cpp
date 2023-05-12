@@ -2,6 +2,8 @@
 
 #include "Layers/Convolution/AtumLayerConv.h"
 
+#include "AtumLibraryUtilities.h"
+
 
 bool UAtumLayerConv::IsDilatedKernelGreaterThanPaddedInput(const TArray<int64>& InputSizes) const noexcept
 {
@@ -23,29 +25,13 @@ bool UAtumLayerConv::IsDilatedKernelGreaterThanPaddedInput(const TArray<int64>& 
 	}
 	if (!bIsBigger)
 		return false;
-
-	std::ostringstream PaddedInputStream;
-	std::copy(
-		PaddedInput.begin(),
-		std::prev(PaddedInput.end()),
-		std::ostream_iterator<int64>(PaddedInputStream, " x ")
-	);
-	PaddedInputStream << PaddedInput.back();
-
-	std::ostringstream DilatedKernelStream;
-	std::copy(
-		DilatedKernel.begin(),
-		std::prev(DilatedKernel.end()),
-		std::ostream_iterator<int64>(DilatedKernelStream, " x ")
-	);
-	DilatedKernelStream << DilatedKernel.back();
-		
+	
 	UE_LOG(
 		LogAtum,
 		Error,
 		TEXT("Dilated kernel (%hs) has at least one dimension greater than the padded input (%hs)!"),
-		DilatedKernelStream.str().c_str(),
-		PaddedInputStream.str().c_str()
+		UAtumLibraryUtilities::FormatWithConjunction(DilatedKernel, " x ").c_str(),
+		UAtumLibraryUtilities::FormatWithConjunction(PaddedInput, " x ").c_str()
 	)
 	return true;
 }
@@ -71,29 +57,13 @@ bool UAtumLayerConv::IsPaddingGreaterThanOrEqualToInput(const TArray<int64>& Inp
 	}
 	if (!bIsBigger)
 		return false;
-
-	std::ostringstream UnpaddedInputStream;
-	std::copy(
-		UnpaddedInput.begin(),
-		std::prev(UnpaddedInput.end()),
-		std::ostream_iterator<int64>(UnpaddedInputStream, " x ")
-	);
-	UnpaddedInputStream << UnpaddedInput.back();
-	
-	std::ostringstream PaddingVectorStream;
-	std::copy(
-		PaddingVector.begin(),
-		std::prev(PaddingVector.end()),
-		std::ostream_iterator<int64>(PaddingVectorStream, " x ")
-	);
-	PaddingVectorStream << PaddingVector.back();
 		
 	UE_LOG(
 		LogAtum,
 		Error,
 		TEXT("Padding (%hs) has at least one dimension greater than or equal to the input (%hs)!"),
-		PaddingVectorStream.str().c_str(),
-		UnpaddedInputStream.str().c_str()
+		UAtumLibraryUtilities::FormatWithConjunction(PaddingVector, " x ").c_str(),
+		UAtumLibraryUtilities::FormatWithConjunction(UnpaddedInput, " x ").c_str()
 	)
 	return true;
 }
@@ -119,29 +89,13 @@ bool UAtumLayerConv::DoesPaddingCauseMultipleWrappings(const TArray<int64>& Inpu
 	}
 	if (!bMultipleWrappings)
 		return false;
-
-	std::ostringstream UnpaddedInputStream;
-	std::copy(
-		UnpaddedInput.begin(),
-		std::prev(UnpaddedInput.end()),
-		std::ostream_iterator<int64>(UnpaddedInputStream, " x ")
-	);
-	UnpaddedInputStream << UnpaddedInput.back();
-	
-	std::ostringstream PaddingVectorStream;
-	std::copy(
-		PaddingVector.begin(),
-		std::prev(PaddingVector.end()),
-		std::ostream_iterator<int64>(PaddingVectorStream, " x ")
-	);
-	PaddingVectorStream << PaddingVector.back();
 		
 	UE_LOG(
 		LogAtum,
 		Error,
 		TEXT("Padding (%hs) has at least one dimension greater than the input (%hs)!"),
-		PaddingVectorStream.str().c_str(),
-		UnpaddedInputStream.str().c_str()
+		UAtumLibraryUtilities::FormatWithConjunction(PaddingVector, " x ").c_str(),
+		UAtumLibraryUtilities::FormatWithConjunction(UnpaddedInput, " x ").c_str()
 	)
 	return true;
 }
