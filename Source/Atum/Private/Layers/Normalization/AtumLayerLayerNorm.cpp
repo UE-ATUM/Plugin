@@ -2,6 +2,7 @@
 
 #include "Layers/Normalization/AtumLayerLayerNorm.h"
 
+#include "AtumLibraryUtilities.h"
 #include "IAtum.h"
 
 
@@ -50,22 +51,35 @@ bool UAtumLayerLayerNorm::OnForward_Implementation(
 		return false;
 	}
 
-	const TArray<int64>& NormalizedShape = Options.NormalizedShape;
-	const int32 NormalizedShapeSizeCount = NormalizedShape.Num();
+	const int64* const NormalizedShapeData = Options.NormalizedShape.GetData();
+	const int32 NormalizedShapeCount = Options.NormalizedShape.Num();
+	const std::vector NormalizedShapeVector(NormalizedShapeData, NormalizedShapeData + NormalizedShapeCount);
 	
-	if (const int32 GivenShapeSizeCount = SizeCount - 1; GivenShapeSizeCount != NormalizedShapeSizeCount)
+	if (const int32 GivenShapeSizeCount = SizeCount - 1; GivenShapeSizeCount != NormalizedShapeCount)
 	{
-		UE_LOG(LogAtum, Error, TEXT("Expected %dD input, got %dD!"), NormalizedShapeSizeCount, GivenShapeSizeCount)
+		UE_LOG(LogAtum, Error, TEXT("Expected %dD input, got %dD!"), NormalizedShapeCount, GivenShapeSizeCount)
 		return false;
 	}
+
+	bool bMismatchedSizes = false;
+	std::vector<int64> InputSizesVector(NormalizedShapeCount);
 	
-	for (int32 Index = 0; Index < NormalizedShapeSizeCount; ++Index)
+	for (int32 Index = 0; Index < NormalizedShapeCount; ++Index)
 	{
-		if (NormalizedShape[Index] != InputSizes[Index + 1])
-		{
-			UE_LOG(LogAtum, Error, TEXT("Input tensor shape values don't match the expected normalized shape's!"))
-			return false;
-		}
+		InputSizesVector[Index] = InputSizes[Index + 1];
+		
+		bMismatchedSizes |= NormalizedShapeVector[Index] != InputSizesVector[Index];
+	}
+	if (bMismatchedSizes)
+	{
+		UE_LOG(
+			LogAtum,
+			Error,
+			TEXT("Input tensor of shape (%hs) doesn't match the expected (%hs) normalized shape!"),
+			UAtumLibraryUtilities::FormatWithConjunction(InputSizesVector, " x ").c_str(),
+			UAtumLibraryUtilities::FormatWithConjunction(NormalizedShapeVector, " x ").c_str()
+		)
+		return false;
 	}
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
