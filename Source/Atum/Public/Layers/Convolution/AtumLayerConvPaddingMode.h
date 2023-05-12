@@ -6,7 +6,6 @@
 #include "LibTorchPreSetup.h"
 
 LIBTORCH_INCLUDES_START
-#include <torch/enum.h>
 #include <torch/nn/options/conv.h>
 LIBTORCH_INCLUDES_END
 
@@ -27,7 +26,7 @@ enum class EAtumConvPaddingMode : uint8
 
 namespace AtumEnums
 {
-	template <uint64 Dimensions>
+	template <uint64 Dimensions = 1u>
 	requires (1u <= Dimensions && Dimensions <= 3u)
 	UE_NODISCARD
 	static CONSTEXPR typename torch::nn::ConvTransposeOptions<Dimensions>::padding_mode_t Cast(
@@ -54,7 +53,7 @@ namespace AtumEnums
 		}
 	}
 
-	template <uint64 Dimensions>
+	template <uint64 Dimensions = 1u>
 	requires (1u <= Dimensions && Dimensions <= 3u)
 	UE_NODISCARD
 	static CONSTEXPR EAtumConvPaddingMode Cast(

@@ -3,7 +3,7 @@
 #pragma once
 
 #include "Kismet/BlueprintFunctionLibrary.h"
-#include "Templates/SubclassOf.h" // ReSharper disable once CppUnusedIncludeDirective
+#include "Templates/SubclassOf.h"
 #include "Tensors/IAtumTensor.h"
 
 #include "AtumLibraryTensors.generated.h"
