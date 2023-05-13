@@ -72,10 +72,22 @@ bool IAtumLayer::Forward_Implementation(
 	UObject* const LayerObject = _getUObject();
 	const ANSICHAR* const LayerClassName = TCHAR_TO_UTF8(*GetNameSafe(LayerObject->GetClass()));
 
-	if (const torch::Tensor* const Data = Input ? Input->GetData() : nullptr; Data == nullptr)
+	const torch::Tensor* const Data = Input ? Input->GetData() : nullptr;
+	const c10::IntArrayRef& Sizes = Data->sizes();
+	
+	if (Data == nullptr || Sizes.empty())
 	{
 		UE_LOG(LogAtum, Error, TEXT("Input had no data at ATUM Layer of type `%hs`!"), LayerClassName)
 		return false;
+	}
+	
+	for (const int64 Size : Sizes)
+	{
+		if (UNLIKELY(Size == 0u))
+		{
+			UE_LOG(LogAtum, Error, TEXT("Input contains 0D dimension in ATUM Layer of type `%hs`!"), LayerClassName)
+			return false;
+		}
 	}
 	
 	if (!Execute_InitializeData(LayerObject, false))
