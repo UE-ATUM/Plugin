@@ -44,25 +44,18 @@ bool UAtumLayerLayerNorm::OnForward_Implementation(
 	TArray<int64> InputSizes;
 	Input->GetSizes(InputSizes);
 	
-	const int32 SizeCount = InputSizes.Num();
-	if (SizeCount == 0)
-	{
-		UE_LOG(LogAtum, Error, TEXT("Cannot use 0D input tensor!"))
-		return false;
-	}
-
 	const int64* const NormalizedShapeData = Options.NormalizedShape.GetData();
 	const int32 NormalizedShapeCount = Options.NormalizedShape.Num();
-	const std::vector NormalizedShapeVector(NormalizedShapeData, NormalizedShapeData + NormalizedShapeCount);
 	
-	if (const int32 GivenShapeSizeCount = SizeCount - 1; GivenShapeSizeCount != NormalizedShapeCount)
+	if (const int32 GivenShapeSizeCount = InputSizes.Num() - 1; GivenShapeSizeCount != NormalizedShapeCount)
 	{
 		UE_LOG(LogAtum, Error, TEXT("Expected %dD input, got %dD!"), NormalizedShapeCount, GivenShapeSizeCount)
 		return false;
 	}
-
+	
 	bool bMismatchedSizes = false;
 	std::vector<int64> InputSizesVector(NormalizedShapeCount);
+	const std::vector NormalizedShapeVector(NormalizedShapeData, NormalizedShapeData + NormalizedShapeCount);
 	
 	for (int32 Index = 0; Index < NormalizedShapeCount; ++Index)
 	{
