@@ -11,11 +11,25 @@ bool IAtumLayerBaseConv::AreChannelsDivisibleByGroups(
 	const int64 Groups
 ) noexcept
 {
+	bool bPositiveValues = true;
 	if (Groups <= 0)
 	{
 		UE_LOG(LogAtum, Error, TEXT("There must exist at least 1 group!"))
-		return false;
+		bPositiveValues = false;
 	}
+	if (InChannels <= 0)
+	{
+		UE_LOG(LogAtum, Error, TEXT("There must exist at least 1 input channel!"))
+		bPositiveValues = false;
+	}
+	if (OutChannels <= 0)
+	{
+		UE_LOG(LogAtum, Error, TEXT("There must exist at least 1 output channel!"))
+		bPositiveValues = false;
+	}
+	if (!bPositiveValues)
+		return false;
+	
 	if (InChannels % Groups != 0 || OutChannels % Groups != 0)
 	{
 		UE_LOG(LogAtum, Error, TEXT("Input and output channels must both be divisible by the group count!"))
