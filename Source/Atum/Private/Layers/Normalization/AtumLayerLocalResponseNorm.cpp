@@ -22,6 +22,14 @@ bool UAtumLayerLocalResponseNorm::OnForward_Implementation(
 	TScriptInterface<IAtumTensor>& Output
 )
 {
+	TArray<int64> InputSizes;
+	Input->GetSizes(InputSizes);
+	if (const int32 SizeCount = InputSizes.Num(); SizeCount < 3)
+	{
+		UE_LOG(LogAtum, Error, TEXT("Expected 3D or higher dimensionality input but got a %dD tensor!"), SizeCount)
+		return false;
+	}
+	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
 	Output->SetData(Module->forward(Input->GetDataChecked()));
 	return true;
