@@ -34,6 +34,6 @@ bool UAtumLayerCrossMapLrn2D::OnForward_Implementation(
 		return false;
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
-	Output->SetData(Module->forward(Input->GetDataChecked()));
+	Output->SetData(Module->forward(Input->GetDataChecked().to(c10::kFloat)));
 	return true;
 }

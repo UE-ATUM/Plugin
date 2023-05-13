@@ -31,6 +31,6 @@ bool UAtumLayerLocalResponseNorm::OnForward_Implementation(
 	}
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
-	Output->SetData(Module->forward(Input->GetDataChecked()));
+	Output->SetData(Module->forward(Input->GetDataChecked().to(c10::kDouble)));
 	return true;
 }
