@@ -10,26 +10,34 @@ IAtumLayer::IAtumLayer() noexcept : bInitialized(false), DimensionCount(0u), Val
 {
 }
 
-bool IAtumLayer::AreInputSizesValid(const TArray<int64>& InputSizes, const int64 ExpectedChannels) const noexcept
+bool IAtumLayer::AreInputSizesValid(const int32 InputSizeCount) const noexcept
 {
 	if (UNLIKELY(ValidInputSizes.empty()))
 	{
 		UE_LOG(LogAtum, Error, TEXT("No valid input size has been defined for this layer!"))
 		return false;
 	}
-
-	const int32 SizeCount = InputSizes.Num();
-	if (!std::ranges::binary_search(ValidInputSizes, SizeCount))
+	
+	if (!std::ranges::binary_search(ValidInputSizes, InputSizeCount))
 	{
 		UE_LOG(
 			LogAtum,
 			Error,
 			TEXT("Expected %hs but got %dD input tensor!"),
 			UAtumLibraryUtilities::FormatWithConjunction(ValidInputSizes, ", ", "", "D", " or ", false).c_str(),
-			SizeCount
+			InputSizeCount
 		)
 		return false;
 	}
+
+	return true;
+}
+
+bool IAtumLayer::AreInputSizesValid(const TArray<int64>& InputSizes, const int64 ExpectedChannels) const noexcept
+{
+	const int32 SizeCount = InputSizes.Num();
+	if (!AreInputSizesValid(SizeCount))
+		return false;
 
 	if (const int64 GivenChannels = InputSizes[SizeCount - DimensionCount - 1]; GivenChannels != ExpectedChannels)
 	{

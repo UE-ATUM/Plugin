@@ -53,6 +53,9 @@ private:
 
 protected:
 	UE_NODISCARD
+	bool AreInputSizesValid(int32 InputSizeCount) const noexcept;
+	
+	UE_NODISCARD
 	bool AreInputSizesValid(const TArray<int64>& InputSizes, int64 ExpectedChannels) const noexcept;
 	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
