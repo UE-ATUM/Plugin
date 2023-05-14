@@ -2,7 +2,7 @@
 
 #include "Layers/IAtumLayer.h"
 
-#include "AtumLibraryUtilities.h"
+#include "FunctionLibraries/AtumLibraryUtilities.h"
 #include "IAtum.h"
 
 

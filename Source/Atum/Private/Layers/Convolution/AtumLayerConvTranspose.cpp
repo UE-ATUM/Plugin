@@ -2,7 +2,7 @@
 
 #include "Layers/Convolution/AtumLayerConvTranspose.h"
 
-#include "AtumLibraryUtilities.h"
+#include "FunctionLibraries/AtumLibraryUtilities.h"
 #include "IAtum.h"
 
 

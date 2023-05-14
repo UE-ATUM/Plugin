@@ -2,7 +2,7 @@
 
 #include "Layers/Convolution/AtumLayerConv.h"
 
-#include "AtumLibraryUtilities.h"
+#include "FunctionLibraries/AtumLibraryUtilities.h"
 
 
 bool UAtumLayerConv::IsDilatedKernelGreaterThanPaddedInput(const TArray<int64>& InputSizes) const noexcept

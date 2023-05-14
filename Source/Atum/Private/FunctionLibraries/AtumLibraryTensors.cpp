@@ -1,6 +1,6 @@
 ﻿// © 2023 Kaya Adrian.
 
-#include "AtumLibraryTensors.h"
+#include "FunctionLibraries/AtumLibraryTensors.h"
 
 #include "IAtum.h"
 
