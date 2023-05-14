@@ -15,7 +15,7 @@ UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Linear Layer")
 class ATUM_API UAtumLayerLinear : public UObject, public IAtumLayer, public TAtumLayer<torch::nn::LinearImpl>
 {
 	GENERATED_BODY()
-
+	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (
 		AllowPrivateAccess,
@@ -29,11 +29,11 @@ protected:
 		const TScriptInterface<IAtumTensor>& Input,
 		TScriptInterface<IAtumTensor>& Output
 	) override;
-
+	
 public:
 	UE_NODISCARD
 	FORCEINLINE const FAtumLayerLinearOptions& GetOptions() const noexcept { return Options; }
-
+	
 	UE_NODISCARD
 	FORCEINLINE FAtumLayerLinearOptions& GetOptions() noexcept { return Options; }
 };
