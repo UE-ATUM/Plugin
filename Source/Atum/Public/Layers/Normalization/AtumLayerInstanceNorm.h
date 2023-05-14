@@ -3,7 +3,7 @@
 #pragma once
 
 #include "AtumLayerInstanceNormOptions.h"
-#include "IAtumLayerBaseNorm.h"
+#include "IAtumLayerBaseNormalization.h"
 
 LIBTORCH_INCLUDES_START
 #include <torch/nn/modules/instancenorm.h>
@@ -13,7 +13,7 @@ LIBTORCH_INCLUDES_END
 
 
 UCLASS(Abstract, Blueprintable, BlueprintType, DisplayName = "ATUM Instance Norm Layer")
-class ATUM_API UAtumLayerInstanceNorm : public UObject, public IAtumLayerBaseNorm
+class ATUM_API UAtumLayerInstanceNorm : public UObject, public IAtumLayerBaseNormalization
 {
 	GENERATED_BODY()
 

@@ -3,7 +3,7 @@
 #pragma once
 
 #include "AtumLayerCrossMapLrnOptions.h"
-#include "IAtumLayerBaseNorm.h"
+#include "IAtumLayerBaseNormalization.h"
 
 LIBTORCH_INCLUDES_START
 #include <torch/nn/modules/normalization.h>
@@ -13,7 +13,7 @@ LIBTORCH_INCLUDES_END
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Cross Map LRN 2D Layer")
-class ATUM_API UAtumLayerCrossMapLrn2D : public UObject, public IAtumLayerBaseNorm,
+class ATUM_API UAtumLayerCrossMapLrn2D : public UObject, public IAtumLayerBaseNormalization,
 public TAtumLayer<torch::nn::CrossMapLRN2dImpl>
 {
 	GENERATED_BODY()
