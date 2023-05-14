@@ -4,16 +4,16 @@
 
 #include "Layers/IAtumLayer.h"
 
-#include "IAtumLayerBaseConv.generated.h"
+#include "IAtumLayerBaseConvolution.generated.h"
 
 
-UINTERFACE(MinimalAPI, Blueprintable, BlueprintType, DisplayName = "ATUM Conv Layer Base")
-class UAtumLayerBaseConv : public UAtumLayer
+UINTERFACE(MinimalAPI, Blueprintable, BlueprintType, DisplayName = "ATUM Convolution Layer Base")
+class UAtumLayerBaseConvolution : public UAtumLayer
 {
 	GENERATED_BODY()
 };
 
-class ATUM_API IAtumLayerBaseConv : public IAtumLayer
+class ATUM_API IAtumLayerBaseConvolution : public IAtumLayer
 {
 	GENERATED_BODY()
 

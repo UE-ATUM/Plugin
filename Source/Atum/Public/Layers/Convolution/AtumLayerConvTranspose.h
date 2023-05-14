@@ -3,7 +3,7 @@
 #pragma once
 
 #include "AtumLayerConvTransposeOptions.h"
-#include "IAtumLayerBaseConv.h"
+#include "IAtumLayerBaseConvolution.h"
 
 LIBTORCH_INCLUDES_START
 #include <torch/nn/modules/conv.h>
@@ -13,7 +13,7 @@ LIBTORCH_INCLUDES_END
 
 
 UCLASS(Abstract, Blueprintable, BlueprintType, DisplayName = "ATUM Conv Transpose Layer")
-class ATUM_API UAtumLayerConvTranspose : public UObject, public IAtumLayerBaseConv
+class ATUM_API UAtumLayerConvTranspose : public UObject, public IAtumLayerBaseConvolution
 {
 	GENERATED_BODY()
 	

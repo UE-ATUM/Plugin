@@ -1,11 +1,11 @@
 ﻿// © 2023 Kaya Adrian.
 
-#include "Layers/Convolution/IAtumLayerBaseConv.h"
+#include "Layers/Convolution/IAtumLayerBaseConvolution.h"
 
 #include "IAtum.h"
 
 
-bool IAtumLayerBaseConv::AreChannelsDivisibleByGroups(
+bool IAtumLayerBaseConvolution::AreChannelsDivisibleByGroups(
 	const int64 InChannels,
 	const int64 OutChannels,
 	const int64 Groups
@@ -39,7 +39,7 @@ bool IAtumLayerBaseConv::AreChannelsDivisibleByGroups(
 	return true;
 }
 
-bool IAtumLayerBaseConv::AreSizesPositive(
+bool IAtumLayerBaseConvolution::AreSizesPositive(
 	const TArray<int64>& Sizes,
 	const FString& Name,
 	const bool bAllowZero
