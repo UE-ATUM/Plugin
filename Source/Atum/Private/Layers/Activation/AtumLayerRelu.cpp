@@ -2,8 +2,6 @@
 
 #include "Layers/Activation/AtumLayerRelu.h"
 
-#include "IAtum.h"
-
 
 bool UAtumLayerRelu::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
