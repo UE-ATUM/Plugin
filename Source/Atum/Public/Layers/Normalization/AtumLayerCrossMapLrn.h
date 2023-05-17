@@ -13,11 +13,11 @@ LIBTORCH_INCLUDES_END
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Cross Map LRN 2D Layer")
-class ATUM_API UAtumLayerCrossMapLrn2D : public UObject, public IAtumLayerBaseNormalization,
-public TAtumLayer<torch::nn::CrossMapLRN2dImpl>
+class ATUM_API UAtumLayerCrossMapLrn2D : public UObject, public IAtumLayerBaseNormalization
 {
 	GENERATED_BODY()
-
+	GENERATED_ATUM_LAYER(torch::nn::CrossMapLRN2d)
+	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (
 		AllowPrivateAccess,
@@ -36,7 +36,7 @@ protected:
 		const TScriptInterface<IAtumTensor>& Input,
 		TScriptInterface<IAtumTensor>& Output
 	) override;
-	
+
 public:
 	UE_NODISCARD
 	FORCEINLINE const FAtumLayerCrossMapLrnOptions& GetOptions() const noexcept { return Options; }

@@ -16,7 +16,7 @@ UCLASS(Abstract, Blueprintable, BlueprintType, DisplayName = "ATUM Conv Layer")
 class ATUM_API UAtumLayerConv : public UObject, public IAtumLayerBaseConvolution
 {
 	GENERATED_BODY()
-
+	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (
 		AllowPrivateAccess,
@@ -26,15 +26,15 @@ protected:
 	
 	UE_NODISCARD
 	bool IsDilatedKernelGreaterThanPaddedInput(const TArray<int64>& InputSizes) const noexcept;
-
+	
 	UE_NODISCARD
 	bool IsPaddingGreaterThanOrEqualToInput(const TArray<int64>& InputSizes) const noexcept;
-
+	
 	UE_NODISCARD
 	bool DoesPaddingCauseMultipleWrappings(const TArray<int64>& InputSizes) const noexcept;
 	
 	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;
-
+	
 	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,
 		TScriptInterface<IAtumTensor>& Output
@@ -43,16 +43,17 @@ protected:
 public:
 	UE_NODISCARD
 	FORCEINLINE const FAtumLayerConvOptions& GetOptions() const noexcept { return Options; }
-
+	
 	UE_NODISCARD
 	FORCEINLINE FAtumLayerConvOptions& GetOptions() noexcept { return Options; }
 };
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Conv 1D Layer")
-class ATUM_API UAtumLayerConv1D : public UAtumLayerConv, public TAtumLayer<torch::nn::Conv1dImpl>
+class ATUM_API UAtumLayerConv1D : public UAtumLayerConv
 {
 	GENERATED_BODY()
+	GENERATED_ATUM_LAYER(torch::nn::Conv1d)
 
 public:
 	UE_NODISCARD_CTOR
@@ -69,9 +70,10 @@ protected:
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Conv 2D Layer")
-class ATUM_API UAtumLayerConv2D : public UAtumLayerConv, public TAtumLayer<torch::nn::Conv2dImpl>
+class ATUM_API UAtumLayerConv2D : public UAtumLayerConv
 {
 	GENERATED_BODY()
+	GENERATED_ATUM_LAYER(torch::nn::Conv2d)
 
 public:
 	UE_NODISCARD_CTOR
@@ -88,9 +90,10 @@ protected:
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Conv 3D Layer")
-class ATUM_API UAtumLayerConv3D : public UAtumLayerConv, public TAtumLayer<torch::nn::Conv3dImpl>
+class ATUM_API UAtumLayerConv3D : public UAtumLayerConv
 {
 	GENERATED_BODY()
+	GENERATED_ATUM_LAYER(torch::nn::Conv3d)
 
 public:
 	UE_NODISCARD_CTOR

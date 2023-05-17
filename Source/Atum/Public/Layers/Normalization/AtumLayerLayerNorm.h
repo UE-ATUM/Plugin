@@ -13,31 +13,31 @@ LIBTORCH_INCLUDES_END
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Layer Norm Layer")
-class ATUM_API UAtumLayerLayerNorm : public UObject, public IAtumLayerBaseNormalization,
-public TAtumLayer<torch::nn::LayerNormImpl>
+class ATUM_API UAtumLayerLayerNorm : public UObject, public IAtumLayerBaseNormalization
 {
 	GENERATED_BODY()
-
+	GENERATED_ATUM_LAYER(torch::nn::LayerNorm)
+	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (
 		AllowPrivateAccess,
 		ShowOnlyInnerProperties
 	))
 	FAtumLayerLayerNormOptions Options;
-
+	
 public:
 	virtual ~UAtumLayerLayerNorm() noexcept override;
-
+	
 protected:
 	void DestroyNormalizedShape() const noexcept;
 	
 	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;
-
+	
 	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,
 		TScriptInterface<IAtumTensor>& Output
 	) override;
-
+	
 public:
 	UE_NODISCARD
 	FORCEINLINE const FAtumLayerLayerNormOptions& GetOptions() const noexcept { return Options; }

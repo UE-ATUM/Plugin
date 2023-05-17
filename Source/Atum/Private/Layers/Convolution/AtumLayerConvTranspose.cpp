@@ -14,7 +14,7 @@ bool UAtumLayerConvTranspose::IsCalculatedOutputTensorSizeValid(const TArray<int
 	const TArray<int64>& Padding = Options.Padding;
 	const TArray<int64>& OutputPadding = Options.OutputPadding;
 	const TArray<int64>& Dilation = Options.Dilation;
-
+	
 	bool bHasNonPositive = false;
 	std::vector<int64> OutputSizes(DimensionCount);
 	
@@ -27,7 +27,7 @@ bool UAtumLayerConvTranspose::IsCalculatedOutputTensorSizeValid(const TArray<int
 	}
 	if (!bHasNonPositive)
 		return false;
-		
+	
 	UE_LOG(
 		LogAtum,
 		Error,
@@ -39,14 +39,13 @@ bool UAtumLayerConvTranspose::IsCalculatedOutputTensorSizeValid(const TArray<int
 
 bool UAtumLayerConvTranspose::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
-	bool bValidData = AreChannelsDivisibleByGroups(Options.InChannels, Options.OutChannels, Options.Groups);
-	bValidData &= AreSizesPositive(Options.KernelSize, TEXT("Kernel Size"));
-	bValidData &= AreSizesPositive(Options.Stride, TEXT("Stride"));
-	bValidData &= AreSizesPositive(Options.Padding, TEXT("Padding"), true);
-	bValidData &= AreSizesPositive(Options.OutputPadding, TEXT("Output Padding"), true);
-	bValidData &= AreSizesPositive(Options.Dilation, TEXT("Dilation"));
-	
-	return bValidData;
+	bool bSuccess = AreChannelsDivisibleByGroups(Options.InChannels, Options.OutChannels, Options.Groups);
+	bSuccess &= AreSizesPositive(Options.KernelSize, TEXT("Kernel Size"));
+	bSuccess &= AreSizesPositive(Options.Stride, TEXT("Stride"));
+	bSuccess &= AreSizesPositive(Options.Padding, TEXT("Padding"), true);
+	bSuccess &= AreSizesPositive(Options.OutputPadding, TEXT("Output Padding"), true);
+	bSuccess &= AreSizesPositive(Options.Dilation, TEXT("Dilation"));
+	return bSuccess;
 }
 
 bool UAtumLayerConvTranspose::OnForward_Implementation(
@@ -56,7 +55,7 @@ bool UAtumLayerConvTranspose::OnForward_Implementation(
 {
 	TArray<int64> InputSizes;
 	Input->GetSizes(InputSizes);
-
+	
 	bool bSuccess = AreInputSizesValid(InputSizes, Options.InChannels);
 	bSuccess &= !IsCalculatedOutputTensorSizeValid(InputSizes);
 	return bSuccess;
@@ -74,7 +73,7 @@ bool UAtumLayerConvTranspose1D::OnInitializeData_Implementation(const bool bRetr
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
 	
-	MakeModule<torch::nn::ConvTranspose1dOptions>(Options);
+	Module->options = static_cast<torch::nn::detail::ConvNdOptions<1>>(Options);
 	return true;
 }
 
@@ -103,7 +102,7 @@ bool UAtumLayerConvTranspose2D::OnInitializeData_Implementation(const bool bRetr
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
 	
-	MakeModule<torch::nn::ConvTranspose2dOptions>(Options);
+	Module->options = static_cast<torch::nn::detail::ConvNdOptions<2>>(Options);
 	return true;
 }
 
@@ -132,7 +131,7 @@ bool UAtumLayerConvTranspose3D::OnInitializeData_Implementation(const bool bRetr
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
 	
-	MakeModule<torch::nn::ConvTranspose3dOptions>(Options);
+	Module->options = static_cast<torch::nn::detail::ConvNdOptions<3>>(Options);
 	return true;
 }
 

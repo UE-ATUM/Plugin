@@ -59,7 +59,7 @@ bool IAtumLayer::InitializeData_Implementation(const bool bRetry) noexcept
 {
 	if (bInitialized && !bRetry)
 		return true;
-
+	
 	bInitialized = Execute_OnInitializeData(_getUObject(), bRetry);
 	return bInitialized;
 }
@@ -72,7 +72,7 @@ bool IAtumLayer::Forward_Implementation(
 	UObject* const LayerObject = _getUObject();
 	const ANSICHAR* const LayerClassName = TCHAR_TO_UTF8(*GetNameSafe(LayerObject->GetClass()));
 
-	const torch::Tensor* const Data = Input ? Input->GetData() : nullptr;
+	const at::Tensor* const Data = Input ? Input->GetData() : nullptr;
 	const c10::IntArrayRef& Sizes = Data->sizes();
 	
 	if (Data == nullptr || Sizes.empty())

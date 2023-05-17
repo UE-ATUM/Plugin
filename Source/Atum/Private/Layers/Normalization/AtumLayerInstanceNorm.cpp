@@ -10,7 +10,6 @@ bool UAtumLayerInstanceNorm::OnForward_Implementation(
 {
 	TArray<int64> InputSizes;
 	Input->GetSizes(InputSizes);
-
 	return AreInputSizesValid(InputSizes, Options.NumFeatures);
 }
 
@@ -23,7 +22,7 @@ UAtumLayerInstanceNorm1D::UAtumLayerInstanceNorm1D() noexcept
 
 bool UAtumLayerInstanceNorm1D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
-	MakeModule<torch::nn::InstanceNormOptions>(Options);
+	Module->options = static_cast<torch::nn::InstanceNormOptions>(Options);
 	return true;
 }
 
@@ -49,7 +48,7 @@ UAtumLayerInstanceNorm2D::UAtumLayerInstanceNorm2D() noexcept
 
 bool UAtumLayerInstanceNorm2D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
-	MakeModule<torch::nn::InstanceNormOptions>(Options);
+	Module->options = static_cast<torch::nn::InstanceNormOptions>(Options);
 	return true;
 }
 
@@ -75,7 +74,7 @@ UAtumLayerInstanceNorm3D::UAtumLayerInstanceNorm3D() noexcept
 
 bool UAtumLayerInstanceNorm3D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
-	MakeModule<torch::nn::InstanceNormOptions>(Options);
+	Module->options = static_cast<torch::nn::InstanceNormOptions>(Options);
 	return true;
 }
 

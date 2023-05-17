@@ -51,6 +51,11 @@ __pragma(warning(disable: 4324)) \
 __pragma(warning(disable: 4624)) \
 \
 /*
+* 'symbol' is not defined as a preprocessor macro, replacing with '0' for 'directives'
+*/ \
+__pragma(warning(disable: 4668)) \
+\
+/*
  * 'user-defined type' : possible change in behavior, change in UDT return calling convention
  */ \
 __pragma(warning(disable: 4686)) \

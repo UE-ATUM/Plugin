@@ -13,11 +13,11 @@ LIBTORCH_INCLUDES_END
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Local Response Norm Layer")
-class ATUM_API UAtumLayerLocalResponseNorm : public UObject, public IAtumLayerBaseNormalization,
-public TAtumLayer<torch::nn::LocalResponseNormImpl>
+class ATUM_API UAtumLayerLocalResponseNorm : public UObject, public IAtumLayerBaseNormalization
 {
 	GENERATED_BODY()
-
+	GENERATED_ATUM_LAYER(torch::nn::LocalResponseNorm)
+	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (
 		AllowPrivateAccess,
@@ -26,7 +26,7 @@ protected:
 	FAtumLayerLocalResponseNormOptions Options;
 	
 	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;
-
+	
 	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,
 		TScriptInterface<IAtumTensor>& Output

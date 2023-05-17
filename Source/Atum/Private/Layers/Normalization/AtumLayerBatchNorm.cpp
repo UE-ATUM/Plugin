@@ -10,7 +10,6 @@ bool UAtumLayerBatchNorm::OnForward_Implementation(
 {
 	TArray<int64> InputSizes;
 	Input->GetSizes(InputSizes);
-	
 	return AreInputSizesValid(InputSizes, Options.NumFeatures);
 }
 
@@ -23,7 +22,7 @@ UAtumLayerBatchNorm1D::UAtumLayerBatchNorm1D() noexcept
 
 bool UAtumLayerBatchNorm1D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
-	MakeModule<torch::nn::BatchNormOptions>(Options);
+	Module->options = static_cast<torch::nn::BatchNormOptions>(Options);
 	return true;
 }
 
@@ -48,7 +47,7 @@ UAtumLayerBatchNorm2D::UAtumLayerBatchNorm2D() noexcept
 
 bool UAtumLayerBatchNorm2D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
-	MakeModule<torch::nn::BatchNormOptions>(Options);
+	Module->options = static_cast<torch::nn::BatchNormOptions>(Options);
 	return true;
 }
 
@@ -73,7 +72,7 @@ UAtumLayerBatchNorm3D::UAtumLayerBatchNorm3D() noexcept
 
 bool UAtumLayerBatchNorm3D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
-	MakeModule<torch::nn::BatchNormOptions>(Options);
+	Module->options = static_cast<torch::nn::BatchNormOptions>(Options);
 	return true;
 }
 

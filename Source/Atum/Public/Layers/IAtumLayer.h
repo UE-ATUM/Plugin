@@ -5,11 +5,14 @@
 #include "Tensors/IAtumTensor.h"
 #include "UObject/Interface.h"
 
-LIBTORCH_INCLUDES_START
-#include <torch/nn/module.h>
-LIBTORCH_INCLUDES_END
-
 #include "IAtumLayer.generated.h"
+
+// ReSharper disable once CppUE4CodingStandardNamingViolationWarning
+namespace torch::nn
+{
+	// ReSharper disable once CppUE4CodingStandardNamingViolationWarning
+	class Module;
+}
 
 
 UINTERFACE(MinimalAPI, Blueprintable, BlueprintType, DisplayName = "ATUM Layer")
@@ -42,7 +45,10 @@ public:
 		TScriptInterface<IAtumTensor>& Output
 	) noexcept
 	{ return Execute_Forward(_getUObject(), Input, Output); }
-
+	
+	UE_NODISCARD
+	virtual std::shared_ptr<torch::nn::Module> GetSharedModule() const noexcept { return nullptr; }
+	
 private:
 	bool InitializeData_Implementation(bool bRetry = false) noexcept;
 	
@@ -94,30 +100,18 @@ protected:
 };
 
 
-template <typename TModule>
-requires (std::is_base_of_v<torch::nn::Module, TModule>)
-class TAtumLayer
-{
-protected:
-	TUniquePtr<TModule> Module = nullptr;
-	
-	template <typename TOptions, typename TAtumOptions>
-	requires (std::is_base_of_v<FAtumLayerOptions, TAtumOptions>)
-	FORCEINLINE void MakeModule(const TAtumOptions& Options) noexcept
-	{
-		Module.Reset(new TModule(static_cast<TOptions>(Options)));
-	}
-	
-public:
-	UE_NODISCARD
-	FORCEINLINE const TModule* GetModule() const noexcept { return Module.Get(); }
-	
-	UE_NODISCARD
-	FORCEINLINE TModule* GetModule() noexcept { return Module.Get(); }
-
-	UE_NODISCARD
-	FORCEINLINE const TModule& GetModuleChecked() const { return *GetModule(); }
-
-	UE_NODISCARD
-	FORCEINLINE TModule& GetModuleChecked() { return *GetModule(); }
-};
+#define GENERATED_ATUM_LAYER(ModuleClass) \
+protected: \
+	ModuleClass Module = nullptr; \
+	\
+public: \
+	UE_NODISCARD \
+	virtual std::shared_ptr<torch::nn::Module> GetSharedModule() const noexcept override { return Module.ptr(); } \
+	\
+	UE_NODISCARD \
+	FORCEINLINE const ModuleClass& GetModule() const noexcept { return Module; } \
+	\
+	UE_NODISCARD \
+	FORCEINLINE ModuleClass& GetModule() noexcept { return Module; } \
+	\
+private: \

@@ -11,7 +11,7 @@ bool UAtumLayerConv::IsDilatedKernelGreaterThanPaddedInput(const TArray<int64>& 
 	const TArray<int64>& KernelSize = Options.KernelSize;
 	const TArray<int64>& Padding = Options.Padding;
 	const TArray<int64>& Dilation = Options.Dilation;
-
+	
 	bool bIsBigger = false;
 	std::vector<int64> PaddedInput(DimensionCount);
 	std::vector<int64> DilatedKernel(DimensionCount);
@@ -43,7 +43,7 @@ bool UAtumLayerConv::IsPaddingGreaterThanOrEqualToInput(const TArray<int64>& Inp
 	
 	const uint64 SizeDifference = InputSizes.Num() - DimensionCount;
 	const TArray<int64>& Padding = Options.Padding;
-
+	
 	bool bIsBigger = false;
 	std::vector<int64> UnpaddedInput(DimensionCount);
 	std::vector<int64> PaddingVector(DimensionCount);
@@ -57,7 +57,7 @@ bool UAtumLayerConv::IsPaddingGreaterThanOrEqualToInput(const TArray<int64>& Inp
 	}
 	if (!bIsBigger)
 		return false;
-		
+	
 	UE_LOG(
 		LogAtum,
 		Error,
@@ -75,7 +75,7 @@ bool UAtumLayerConv::DoesPaddingCauseMultipleWrappings(const TArray<int64>& Inpu
 	
 	const uint64 SizeDifference = InputSizes.Num() - DimensionCount;
 	const TArray<int64>& Padding = Options.Padding;
-
+	
 	bool bMultipleWrappings = false;
 	std::vector<int64> UnpaddedInput(DimensionCount);
 	std::vector<int64> PaddingVector(DimensionCount);
@@ -89,7 +89,7 @@ bool UAtumLayerConv::DoesPaddingCauseMultipleWrappings(const TArray<int64>& Inpu
 	}
 	if (!bMultipleWrappings)
 		return false;
-		
+	
 	UE_LOG(
 		LogAtum,
 		Error,
@@ -117,7 +117,7 @@ bool UAtumLayerConv::OnForward_Implementation(
 {
 	TArray<int64> InputSizes;
 	Input->GetSizes(InputSizes);
-
+	
 	bool bSuccess = AreInputSizesValid(InputSizes, Options.InChannels);
 	bSuccess &= !IsDilatedKernelGreaterThanPaddedInput(InputSizes);
 	bSuccess &= !IsPaddingGreaterThanOrEqualToInput(InputSizes);
@@ -137,7 +137,7 @@ bool UAtumLayerConv1D::OnInitializeData_Implementation(const bool bRetry) noexce
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
 	
-	MakeModule<torch::nn::Conv1dOptions>(Options);
+	Module->options = static_cast<torch::nn::detail::ConvNdOptions<1>>(Options);
 	return true;
 }
 
@@ -166,7 +166,7 @@ bool UAtumLayerConv2D::OnInitializeData_Implementation(const bool bRetry) noexce
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
 	
-	MakeModule<torch::nn::Conv2dOptions>(Options);
+	Module->options = static_cast<torch::nn::detail::ConvNdOptions<2>>(Options);
 	return true;
 }
 
@@ -194,8 +194,8 @@ bool UAtumLayerConv3D::OnInitializeData_Implementation(const bool bRetry) noexce
 {
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
-	
-	MakeModule<torch::nn::Conv3dOptions>(Options);
+
+	Module->options = static_cast<torch::nn::detail::ConvNdOptions<3>>(Options);
 	return true;
 }
 

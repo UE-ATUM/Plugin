@@ -13,11 +13,11 @@ LIBTORCH_INCLUDES_END
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Group Norm Layer")
-class ATUM_API UAtumLayerGroupNorm : public UObject, public IAtumLayerBaseNormalization,
-public TAtumLayer<torch::nn::GroupNormImpl>
+class ATUM_API UAtumLayerGroupNorm : public UObject, public IAtumLayerBaseNormalization
 {
 	GENERATED_BODY()
-
+	GENERATED_ATUM_LAYER(torch::nn::GroupNorm)
+	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (
 		AllowPrivateAccess,
@@ -26,7 +26,7 @@ protected:
 	FAtumLayerGroupNormOptions Options;
 	
 	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;
-
+	
 	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,
 		TScriptInterface<IAtumTensor>& Output

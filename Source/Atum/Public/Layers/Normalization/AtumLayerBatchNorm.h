@@ -16,19 +16,19 @@ UCLASS(Abstract, Blueprintable, BlueprintType, DisplayName = "ATUM Batch Norm La
 class ATUM_API UAtumLayerBatchNorm : public UObject, public IAtumLayerBaseNormalization
 {
 	GENERATED_BODY()
-
+	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (
 		AllowPrivateAccess,
 		ShowOnlyInnerProperties
 	))
 	FAtumLayerBatchNormOptions Options;
-
+	
 	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,
 		TScriptInterface<IAtumTensor>& Output
 	) override;
-
+	
 public:
 	UE_NODISCARD
 	FORCEINLINE const FAtumLayerBatchNormOptions& GetOptions() const noexcept { return Options; }
@@ -39,10 +39,11 @@ public:
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Batch Norm 1D Layer")
-class ATUM_API UAtumLayerBatchNorm1D : public UAtumLayerBatchNorm, public TAtumLayer<torch::nn::BatchNorm1dImpl>
+class ATUM_API UAtumLayerBatchNorm1D : public UAtumLayerBatchNorm
 {
 	GENERATED_BODY()
-
+	GENERATED_ATUM_LAYER(torch::nn::BatchNorm1d)
+	
 public:
 	UE_NODISCARD_CTOR
 	UAtumLayerBatchNorm1D() noexcept;
@@ -58,10 +59,11 @@ protected:
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Batch Norm 2D Layer")
-class ATUM_API UAtumLayerBatchNorm2D : public UAtumLayerBatchNorm, public TAtumLayer<torch::nn::BatchNorm2dImpl>
+class ATUM_API UAtumLayerBatchNorm2D : public UAtumLayerBatchNorm
 {
 	GENERATED_BODY()
-
+	GENERATED_ATUM_LAYER(torch::nn::BatchNorm2d)
+	
 public:
 	UE_NODISCARD_CTOR
 	UAtumLayerBatchNorm2D() noexcept;
@@ -77,10 +79,11 @@ protected:
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Batch Norm 3D Layer")
-class ATUM_API UAtumLayerBatchNorm3D : public UAtumLayerBatchNorm, public TAtumLayer<torch::nn::BatchNorm3dImpl>
+class ATUM_API UAtumLayerBatchNorm3D : public UAtumLayerBatchNorm
 {
 	GENERATED_BODY()
-
+	GENERATED_ATUM_LAYER(torch::nn::BatchNorm3d)
+	
 public:
 	UE_NODISCARD_CTOR
 	UAtumLayerBatchNorm3D() noexcept;

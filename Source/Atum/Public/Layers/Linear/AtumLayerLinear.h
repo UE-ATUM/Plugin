@@ -12,9 +12,10 @@ LIBTORCH_INCLUDES_END
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Linear Layer")
-class ATUM_API UAtumLayerLinear : public UObject, public IAtumLayer, public TAtumLayer<torch::nn::LinearImpl>
+class ATUM_API UAtumLayerLinear : public UObject, public IAtumLayer
 {
 	GENERATED_BODY()
+	GENERATED_ATUM_LAYER(torch::nn::Linear)
 	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (
@@ -29,7 +30,7 @@ protected:
 		const TScriptInterface<IAtumTensor>& Input,
 		TScriptInterface<IAtumTensor>& Output
 	) override;
-	
+
 public:
 	UE_NODISCARD
 	FORCEINLINE const FAtumLayerLinearOptions& GetOptions() const noexcept { return Options; }

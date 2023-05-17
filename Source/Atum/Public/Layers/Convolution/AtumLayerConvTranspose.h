@@ -28,7 +28,7 @@ protected:
 	bool IsCalculatedOutputTensorSizeValid(const TArray<int64>& InputSizes) const noexcept;
 	
 	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;
-
+	
 	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,
 		TScriptInterface<IAtumTensor>& Output
@@ -37,25 +37,25 @@ protected:
 public:
 	UE_NODISCARD
 	FORCEINLINE const FAtumLayerConvTransposeOptions& GetOptions() const noexcept { return Options; }
-
+	
 	UE_NODISCARD
 	FORCEINLINE FAtumLayerConvTransposeOptions& GetOptions() noexcept { return Options; }
 };
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Conv Transpose 1D Layer")
-class ATUM_API UAtumLayerConvTranspose1D : public UAtumLayerConvTranspose,
-public TAtumLayer<torch::nn::ConvTranspose1dImpl>
+class ATUM_API UAtumLayerConvTranspose1D : public UAtumLayerConvTranspose
 {
 	GENERATED_BODY()
-
+	GENERATED_ATUM_LAYER(torch::nn::ConvTranspose1d)
+	
 public:
 	UE_NODISCARD_CTOR
 	UAtumLayerConvTranspose1D() noexcept;
 	
 protected:
 	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;
-
+	
 	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,
 		TScriptInterface<IAtumTensor>& Output
@@ -64,18 +64,18 @@ protected:
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Conv Transpose 2D Layer")
-class ATUM_API UAtumLayerConvTranspose2D : public UAtumLayerConvTranspose,
-public TAtumLayer<torch::nn::ConvTranspose2dImpl>
+class ATUM_API UAtumLayerConvTranspose2D : public UAtumLayerConvTranspose
 {
 	GENERATED_BODY()
-
+	GENERATED_ATUM_LAYER(torch::nn::ConvTranspose2d)
+	
 public:
 	UE_NODISCARD_CTOR
 	UAtumLayerConvTranspose2D() noexcept;
 	
 protected:
 	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;
-
+	
 	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,
 		TScriptInterface<IAtumTensor>& Output
@@ -84,18 +84,18 @@ protected:
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Conv Transpose 3D Layer")
-class ATUM_API UAtumLayerConvTranspose3D : public UAtumLayerConvTranspose,
-public TAtumLayer<torch::nn::ConvTranspose3dImpl>
+class ATUM_API UAtumLayerConvTranspose3D : public UAtumLayerConvTranspose
 {
 	GENERATED_BODY()
-
+	GENERATED_ATUM_LAYER(torch::nn::ConvTranspose3d)
+	
 public:
 	UE_NODISCARD_CTOR
 	UAtumLayerConvTranspose3D() noexcept;
 	
 protected:
 	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;
-
+	
 	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,
 		TScriptInterface<IAtumTensor>& Output

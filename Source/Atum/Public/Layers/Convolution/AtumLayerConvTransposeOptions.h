@@ -57,17 +57,17 @@ protected:
 	template <uint64 Dimensions>
 	requires (1u <= Dimensions && Dimensions <= 3u)
 	UE_NODISCARD
-	torch::nn::ConvTransposeOptions<Dimensions> CastOptions() const noexcept;
+	torch::nn::detail::ConvNdOptions<Dimensions> CastOptions() const noexcept;
 	
 public:
 	UE_NODISCARD
-	FORCEINLINE explicit operator torch::nn::ConvTranspose1dOptions() const noexcept { return CastOptions<1>(); }
+	FORCEINLINE explicit operator torch::nn::detail::ConvNdOptions<1>() const noexcept { return CastOptions<1>(); }
 
 	UE_NODISCARD
-	FORCEINLINE explicit operator torch::nn::ConvTranspose2dOptions() const noexcept { return CastOptions<2>(); }
+	FORCEINLINE explicit operator torch::nn::detail::ConvNdOptions<2>() const noexcept { return CastOptions<2>(); }
 	
 	UE_NODISCARD
-	FORCEINLINE explicit operator torch::nn::ConvTranspose3dOptions() const noexcept { return CastOptions<3>(); }
+	FORCEINLINE explicit operator torch::nn::detail::ConvNdOptions<3>() const noexcept { return CastOptions<3>(); }
 
 	friend UAtumLayerConvTranspose;
 	friend UScriptStruct;
@@ -76,17 +76,17 @@ public:
 
 template <uint64 Dimensions>
 requires (1u <= Dimensions && Dimensions <= 3u)
-torch::nn::ConvTransposeOptions<Dimensions> FAtumLayerConvTransposeOptions::CastOptions() const noexcept
+torch::nn::detail::ConvNdOptions<Dimensions> FAtumLayerConvTransposeOptions::CastOptions() const noexcept
 {
-	return torch::nn::ConvTransposeOptions<Dimensions>(
+	return torch::nn::detail::ConvNdOptions<Dimensions>(
 		InChannels,
 		OutChannels,
-		torch::IntArrayRef(KernelSize.GetData(), Dimensions)
-	).stride(torch::IntArrayRef(Stride.GetData(), Dimensions))
-	.padding(torch::IntArrayRef(Padding.GetData(), Dimensions))
-	.output_padding(torch::IntArrayRef(OutputPadding.GetData(), Dimensions))
+		at::IntArrayRef(KernelSize.GetData(), Dimensions)
+	).stride(at::IntArrayRef(Stride.GetData(), Dimensions))
+	.padding(at::IntArrayRef(Padding.GetData(), Dimensions))
+	.output_padding(at::IntArrayRef(OutputPadding.GetData(), Dimensions))
 	.groups(Groups)
 	.bias(bBias)
-	.dilation(torch::IntArrayRef(Dilation.GetData(), Dimensions))
+	.dilation(at::IntArrayRef(Dilation.GetData(), Dimensions))
 	.padding_mode(torch::kZeros);
 }

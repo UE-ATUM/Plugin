@@ -13,9 +13,10 @@ LIBTORCH_INCLUDES_END
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM ReLU Layer")
-class ATUM_API UAtumLayerRelu : public UObject, public IAtumLayerBaseActivation, public TAtumLayer<torch::nn::ReLUImpl>
+class ATUM_API UAtumLayerRelu : public UObject, public IAtumLayerBaseActivation
 {
 	GENERATED_BODY()
+	GENERATED_ATUM_LAYER(torch::nn::ReLU)
 	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (
