@@ -72,8 +72,10 @@ bool UAtumLayerConvTranspose1D::OnInitializeData_Implementation(const bool bRetr
 {
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
-	
-	Module->options = static_cast<torch::nn::detail::ConvNdOptions<1>>(Options);
+
+	Module = std::make_shared<torch::nn::ConvTranspose1dImpl>(
+		static_cast<torch::nn::ConvTranspose1dOptions>(Options)
+	);
 	return true;
 }
 
@@ -102,7 +104,9 @@ bool UAtumLayerConvTranspose2D::OnInitializeData_Implementation(const bool bRetr
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
 	
-	Module->options = static_cast<torch::nn::detail::ConvNdOptions<2>>(Options);
+	Module = std::make_shared<torch::nn::ConvTranspose2dImpl>(
+		static_cast<torch::nn::ConvTranspose2dOptions>(Options)
+	);
 	return true;
 }
 
@@ -131,7 +135,9 @@ bool UAtumLayerConvTranspose3D::OnInitializeData_Implementation(const bool bRetr
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
 	
-	Module->options = static_cast<torch::nn::detail::ConvNdOptions<3>>(Options);
+	Module = std::make_shared<torch::nn::ConvTranspose3dImpl>(
+		static_cast<torch::nn::ConvTranspose3dOptions>(Options)
+	);
 	return true;
 }
 

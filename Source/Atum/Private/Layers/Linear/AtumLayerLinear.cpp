@@ -7,7 +7,7 @@
 
 bool UAtumLayerLinear::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
-	Module->options = static_cast<torch::nn::LinearOptions>(Options);
+	Module = std::make_shared<torch::nn::LinearImpl>(static_cast<torch::nn::LinearOptions>(Options));
 	return true;
 }
 

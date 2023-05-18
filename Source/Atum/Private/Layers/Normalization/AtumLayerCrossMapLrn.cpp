@@ -19,7 +19,7 @@ bool UAtumLayerCrossMapLrn2D::OnInitializeData_Implementation([[maybe_unused]] c
 		return false;
 	}
 	
-	Module->options = static_cast<torch::nn::CrossMapLRN2dOptions>(Options);
+	Module = std::make_shared<torch::nn::CrossMapLRN2dImpl>(static_cast<torch::nn::CrossMapLRN2dOptions>(Options));
 	return true;
 }
 

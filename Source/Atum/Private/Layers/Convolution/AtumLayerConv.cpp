@@ -137,7 +137,7 @@ bool UAtumLayerConv1D::OnInitializeData_Implementation(const bool bRetry) noexce
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
 	
-	Module->options = static_cast<torch::nn::detail::ConvNdOptions<1>>(Options);
+	Module = std::make_shared<torch::nn::Conv1dImpl>(static_cast<torch::nn::Conv1dOptions>(Options));
 	return true;
 }
 
@@ -166,7 +166,7 @@ bool UAtumLayerConv2D::OnInitializeData_Implementation(const bool bRetry) noexce
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
 	
-	Module->options = static_cast<torch::nn::detail::ConvNdOptions<2>>(Options);
+	Module = std::make_shared<torch::nn::Conv2dImpl>(static_cast<torch::nn::Conv2dOptions>(Options));
 	return true;
 }
 
@@ -195,7 +195,7 @@ bool UAtumLayerConv3D::OnInitializeData_Implementation(const bool bRetry) noexce
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
 
-	Module->options = static_cast<torch::nn::detail::ConvNdOptions<3>>(Options);
+	Module = std::make_shared<torch::nn::Conv3dImpl>(static_cast<torch::nn::Conv3dOptions>(Options));
 	return true;
 }
 

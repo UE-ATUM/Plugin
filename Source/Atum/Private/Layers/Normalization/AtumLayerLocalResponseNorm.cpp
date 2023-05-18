@@ -13,7 +13,9 @@ bool UAtumLayerLocalResponseNorm::OnInitializeData_Implementation([[maybe_unused
 		return false;
 	}
 	
-	Module->options = static_cast<torch::nn::LocalResponseNormOptions>(Options);
+	Module = std::make_shared<torch::nn::LocalResponseNormImpl>(
+		static_cast<torch::nn::LocalResponseNormOptions>(Options)
+	);
 	return true;
 }
 

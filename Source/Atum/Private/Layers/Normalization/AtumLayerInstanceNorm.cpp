@@ -22,7 +22,7 @@ UAtumLayerInstanceNorm1D::UAtumLayerInstanceNorm1D() noexcept
 
 bool UAtumLayerInstanceNorm1D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
-	Module->options = static_cast<torch::nn::InstanceNormOptions>(Options);
+	Module = std::make_shared<torch::nn::InstanceNorm1dImpl>(static_cast<torch::nn::InstanceNormOptions>(Options));
 	return true;
 }
 
@@ -48,7 +48,7 @@ UAtumLayerInstanceNorm2D::UAtumLayerInstanceNorm2D() noexcept
 
 bool UAtumLayerInstanceNorm2D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
-	Module->options = static_cast<torch::nn::InstanceNormOptions>(Options);
+	Module = std::make_shared<torch::nn::InstanceNorm2dImpl>(static_cast<torch::nn::InstanceNormOptions>(Options));
 	return true;
 }
 
@@ -74,7 +74,7 @@ UAtumLayerInstanceNorm3D::UAtumLayerInstanceNorm3D() noexcept
 
 bool UAtumLayerInstanceNorm3D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
-	Module->options = static_cast<torch::nn::InstanceNormOptions>(Options);
+	Module = std::make_shared<torch::nn::InstanceNorm3dImpl>(static_cast<torch::nn::InstanceNormOptions>(Options));
 	return true;
 }
 

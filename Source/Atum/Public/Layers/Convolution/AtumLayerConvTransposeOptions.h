@@ -17,58 +17,47 @@ USTRUCT(BlueprintType, DisplayName = "ATUM Conv Transpose Layer Options")
 struct ATUM_API FAtumLayerConvTransposeOptions : public FAtumLayerOptions
 {
 	GENERATED_BODY()
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	int64 InChannels;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	int64 OutChannels;
-
+	
 	UPROPERTY(EditFixedSize, EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	TArray<int64> KernelSize;
 	
 	UPROPERTY(EditFixedSize, EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	TArray<int64> Stride;
-
+	
 	UPROPERTY(EditFixedSize, EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	TArray<int64> Padding;
 	
 	UPROPERTY(EditFixedSize, EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	TArray<int64> OutputPadding;
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	int64 Groups;
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	bool bBias;
-
+	
 	UPROPERTY(EditFixedSize, EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	TArray<int64> Dilation;
 	
 protected:
 	UE_NODISCARD_CTOR
 	FAtumLayerConvTransposeOptions() noexcept;
-
+	
 public:
 	UE_NODISCARD_CTOR
 	explicit FAtumLayerConvTransposeOptions(uint64 Dimensions) noexcept;
-
-protected:
+	
 	template <uint64 Dimensions>
 	requires (1u <= Dimensions && Dimensions <= 3u)
 	UE_NODISCARD
-	torch::nn::detail::ConvNdOptions<Dimensions> CastOptions() const noexcept;
+	FORCEINLINE explicit operator torch::nn::ConvTransposeOptions<Dimensions>() const noexcept;
 	
-public:
-	UE_NODISCARD
-	FORCEINLINE explicit operator torch::nn::detail::ConvNdOptions<1>() const noexcept { return CastOptions<1>(); }
-
-	UE_NODISCARD
-	FORCEINLINE explicit operator torch::nn::detail::ConvNdOptions<2>() const noexcept { return CastOptions<2>(); }
-	
-	UE_NODISCARD
-	FORCEINLINE explicit operator torch::nn::detail::ConvNdOptions<3>() const noexcept { return CastOptions<3>(); }
-
 	friend UAtumLayerConvTranspose;
 	friend UScriptStruct;
 };
@@ -76,9 +65,9 @@ public:
 
 template <uint64 Dimensions>
 requires (1u <= Dimensions && Dimensions <= 3u)
-torch::nn::detail::ConvNdOptions<Dimensions> FAtumLayerConvTransposeOptions::CastOptions() const noexcept
+FAtumLayerConvTransposeOptions::operator torch::nn::ConvTransposeOptions<Dimensions>() const noexcept
 {
-	return torch::nn::detail::ConvNdOptions<Dimensions>(
+	return torch::nn::ConvTransposeOptions<Dimensions>(
 		InChannels,
 		OutChannels,
 		at::IntArrayRef(KernelSize.GetData(), Dimensions)

@@ -20,52 +20,41 @@ struct ATUM_API FAtumLayerConvOptions : public FAtumLayerOptions
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	int64 OutChannels;
-
+	
 	UPROPERTY(EditFixedSize, EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	TArray<int64> KernelSize;
 	
 	UPROPERTY(EditFixedSize, EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	TArray<int64> Stride;
-
+	
 	UPROPERTY(EditFixedSize, EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	TArray<int64> Padding;
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	int64 Groups;
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	bool bBias;
-
+	
 	UPROPERTY(EditFixedSize, EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	TArray<int64> Dilation;
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	EAtumConvPaddingMode PaddingMode;
-
+	
 protected:
 	UE_NODISCARD_CTOR
 	FAtumLayerConvOptions() noexcept;
-
+	
 public:
 	UE_NODISCARD_CTOR
 	explicit FAtumLayerConvOptions(uint64 Dimensions) noexcept;
-
-protected:
+	
 	template <uint64 Dimensions>
 	requires (1u <= Dimensions && Dimensions <= 3u)
 	UE_NODISCARD
-	torch::nn::detail::ConvNdOptions<Dimensions> CastOptions() const noexcept;
-
-public:
-	UE_NODISCARD
-	FORCEINLINE explicit operator torch::nn::detail::ConvNdOptions<1>() const noexcept { return CastOptions<1>(); }
-
-	UE_NODISCARD
-	FORCEINLINE explicit operator torch::nn::detail::ConvNdOptions<2>() const noexcept { return CastOptions<2>(); }
+	FORCEINLINE explicit operator torch::nn::ConvOptions<Dimensions>() const noexcept;
 	
-	UE_NODISCARD
-	FORCEINLINE explicit operator torch::nn::detail::ConvNdOptions<3>() const noexcept { return CastOptions<3>(); }
-
 	friend UAtumLayerConv;
 	friend UScriptStruct;
 };
@@ -73,9 +62,9 @@ public:
 
 template <uint64 Dimensions>
 requires (1u <= Dimensions && Dimensions <= 3u)
-torch::nn::detail::ConvNdOptions<Dimensions> FAtumLayerConvOptions::CastOptions() const noexcept
+FAtumLayerConvOptions::operator torch::nn::ConvOptions<Dimensions>() const noexcept
 {
-	return torch::nn::detail::ConvNdOptions<Dimensions>(
+	return torch::nn::ConvOptions<Dimensions>(
 		InChannels,
 		OutChannels,
 		at::IntArrayRef(KernelSize.GetData(), Dimensions)

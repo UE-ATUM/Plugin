@@ -5,7 +5,7 @@
 
 bool UAtumLayerRelu::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
-	Module->options = static_cast<torch::nn::ReLUOptions>(Options);
+	Module = std::make_shared<torch::nn::ReLUImpl>(static_cast<torch::nn::ReLUOptions>(Options));
 	return true;
 }
 

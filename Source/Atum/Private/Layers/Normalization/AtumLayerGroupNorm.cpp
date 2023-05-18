@@ -30,7 +30,7 @@ bool UAtumLayerGroupNorm::OnInitializeData_Implementation([[maybe_unused]] const
 		return false;
 	}
 	
-	Module->options = static_cast<torch::nn::GroupNormOptions>(Options);
+	Module = std::make_shared<torch::nn::GroupNormImpl>(static_cast<torch::nn::GroupNormOptions>(Options));
 	return true;
 }
 
