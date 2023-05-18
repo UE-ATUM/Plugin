@@ -7,12 +7,12 @@
 
 #include "IAtumLayer.generated.h"
 
-// ReSharper disable once CppUE4CodingStandardNamingViolationWarning
+// ReSharper disable CppUE4CodingStandardNamingViolationWarning
 namespace torch::nn
 {
-	// ReSharper disable once CppUE4CodingStandardNamingViolationWarning
 	class Module;
 }
+// ReSharper restore CppUE4CodingStandardNamingViolationWarning
 
 
 UINTERFACE(MinimalAPI, Blueprintable, BlueprintType, DisplayName = "ATUM Layer")
