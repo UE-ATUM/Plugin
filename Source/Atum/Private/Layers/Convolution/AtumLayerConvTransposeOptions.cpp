@@ -10,13 +10,8 @@ FAtumLayerConvTransposeOptions::FAtumLayerConvTransposeOptions() noexcept : FAtu
 FAtumLayerConvTransposeOptions::FAtumLayerConvTransposeOptions(const uint64 Dimensions) noexcept :
 InChannels(0),
 OutChannels(0),
-KernelSize(TArray<int64>()),
-Stride(TArray<int64>()),
-Padding(TArray<int64>()),
-OutputPadding(TArray<int64>()),
 Groups(1),
-bBias(true),
-Dilation(TArray<int64>())
+bBias(true)
 {
 	for (uint64 Index = 0u; Index < Dimensions; ++Index)
 	{

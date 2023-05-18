@@ -13,9 +13,9 @@ bool UAtumLayerLocalResponseNorm::OnInitializeData_Implementation([[maybe_unused
 		return false;
 	}
 	
-	Module = std::make_shared<torch::nn::LocalResponseNormImpl>(
+	Module.Reset(new torch::nn::LocalResponseNorm(std::make_shared<torch::nn::LocalResponseNormImpl>(
 		static_cast<torch::nn::LocalResponseNormOptions>(Options)
-	);
+	)));
 	return true;
 }
 
@@ -33,6 +33,6 @@ bool UAtumLayerLocalResponseNorm::OnForward_Implementation(
 	}
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
-	Output->SetData(Module->forward(Input->GetDataChecked().to(c10::kDouble)));
+	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kDouble)));
 	return true;
 }
