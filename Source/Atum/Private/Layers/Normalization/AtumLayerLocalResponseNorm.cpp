@@ -2,14 +2,12 @@
 
 #include "Layers/Normalization/AtumLayerLocalResponseNorm.h"
 
-#include "IAtum.h"
-
 
 bool UAtumLayerLocalResponseNorm::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
 	if (const int64 Size = Options.Size; Size <= 0)
 	{
-		UE_LOG(LogAtum, Error, TEXT("Got size %lld, which is not positive!"), Size)
+		ATUM_LOG(Error, TEXT("Got size %lld, which is not positive!"), Size)
 		return false;
 	}
 	
@@ -28,7 +26,7 @@ bool UAtumLayerLocalResponseNorm::OnForward_Implementation(
 	Input->GetSizes(InputSizes);
 	if (const int32 SizeCount = InputSizes.Num(); SizeCount < 3)
 	{
-		UE_LOG(LogAtum, Error, TEXT("Expected 3D or higher dimensionality input but got a %dD tensor!"), SizeCount)
+		ATUM_LOG(Error, TEXT("Expected 3D or higher dimensionality input but got a %dD tensor!"), SizeCount)
 		return false;
 	}
 	

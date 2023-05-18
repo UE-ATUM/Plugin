@@ -2,7 +2,7 @@
 
 #include "Layers/Convolution/IAtumLayerBaseConvolution.h"
 
-#include "IAtum.h"
+#include "AtumMacros.h"
 
 
 bool IAtumLayerBaseConvolution::AreChannelsDivisibleByGroups(
@@ -14,17 +14,17 @@ bool IAtumLayerBaseConvolution::AreChannelsDivisibleByGroups(
 	bool bPositiveValues = true;
 	if (Groups <= 0)
 	{
-		UE_LOG(LogAtum, Error, TEXT("There must exist at least 1 group!"))
+		ATUM_LOG(Error, TEXT("There must exist at least 1 group!"))
 		bPositiveValues = false;
 	}
 	if (InChannels <= 0)
 	{
-		UE_LOG(LogAtum, Error, TEXT("There must exist at least 1 input channel!"))
+		ATUM_LOG(Error, TEXT("There must exist at least 1 input channel!"))
 		bPositiveValues = false;
 	}
 	if (OutChannels <= 0)
 	{
-		UE_LOG(LogAtum, Error, TEXT("There must exist at least 1 output channel!"))
+		ATUM_LOG(Error, TEXT("There must exist at least 1 output channel!"))
 		bPositiveValues = false;
 	}
 	if (!bPositiveValues)
@@ -32,7 +32,7 @@ bool IAtumLayerBaseConvolution::AreChannelsDivisibleByGroups(
 	
 	if (InChannels % Groups != 0 || OutChannels % Groups != 0)
 	{
-		UE_LOG(LogAtum, Error, TEXT("Input and output channels must both be divisible by the group count!"))
+		ATUM_LOG(Error, TEXT("Input and output channels must both be divisible by the group count!"))
 		return false;
 	}
 
@@ -51,7 +51,7 @@ bool IAtumLayerBaseConvolution::AreSizesPositive(
 		{
 			if (Sizes[Index] < 0)
 			{
-				UE_LOG(LogAtum, Error, TEXT("%ls cannot be composed of negative integers!"), *Name)
+				ATUM_LOG(Error, TEXT("%ls cannot be composed of negative integers!"), *Name)
 				return false;
 			}
 		}
@@ -62,7 +62,7 @@ bool IAtumLayerBaseConvolution::AreSizesPositive(
 		{
 			if (Sizes[Index] <= 0)
 			{
-				UE_LOG(LogAtum, Error, TEXT("%ls must be composed of positive integers!"), *Name)
+				ATUM_LOG(Error, TEXT("%ls must be composed of positive integers!"), *Name)
 				return false;
 			}
 		}

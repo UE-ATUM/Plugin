@@ -2,8 +2,6 @@
 
 #include "Layers/Normalization/AtumLayerCrossMapLrn.h"
 
-#include "IAtum.h"
-
 
 UAtumLayerCrossMapLrn2D::UAtumLayerCrossMapLrn2D() noexcept
 {
@@ -15,7 +13,7 @@ bool UAtumLayerCrossMapLrn2D::OnInitializeData_Implementation([[maybe_unused]] c
 {
 	if (const int64 Size = Options.Size; Size <= 0)
 	{
-		UE_LOG(LogAtum, Error, TEXT("Got size %lld, which is not positive!"), Size)
+		ATUM_LOG(Error, TEXT("Got size %lld, which is not positive!"), Size)
 		return false;
 	}
 	

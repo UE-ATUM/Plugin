@@ -2,9 +2,6 @@
 
 #include "AtumNeuralNetwork.h"
 
-#include "AtumMacros.h"
-#include "IAtum.h"
-
 
 // ReSharper disable CppUE4CodingStandardNamingViolationWarning
 namespace torch::nn
@@ -41,14 +38,6 @@ void UAtumNeuralNetwork::RegisterLayer(const FName Name, const TScriptInterface<
 	}
 	
 	NamedLayers.Add(Name, Layer);
-
-	for (const TTuple<FName, TScriptInterface<IAtumLayer>>& NamedLayer : NamedLayers)
-	{
-		std::ostringstream Stream;
-		NamedLayer.Value->GetSharedModule()->pretty_print(Stream);
-		UE_LOG(LogTemp, Warning, TEXT("%hs"), Stream.str().c_str())
-	}
-	UE_LOG(LogTemp, Warning, TEXT("DONE!\n\n"))
 }
 
 bool UAtumNeuralNetwork::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept

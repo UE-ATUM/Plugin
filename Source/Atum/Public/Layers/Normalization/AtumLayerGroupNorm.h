@@ -3,6 +3,7 @@
 #pragma once
 
 #include "AtumLayerGroupNormOptions.h"
+#include "AtumMacros.h"
 #include "IAtumLayerBaseNormalization.h"
 
 LIBTORCH_INCLUDES_START

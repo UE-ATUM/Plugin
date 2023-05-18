@@ -5,8 +5,6 @@
 #include "Interfaces/IPluginManager.h"
 
 
-DEFINE_LOG_CATEGORY(LogAtum)
-
 bool IAtumModule::GetLibraryPath(FString& OutPath) noexcept
 {
 	const IPlugin* const AtumPlugin = IPluginManager::Get().FindPlugin(ModuleName.ToString()).Get();

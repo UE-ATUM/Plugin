@@ -3,6 +3,7 @@
 #pragma once
 
 #include "AtumLayerConvOptions.h"
+#include "AtumMacros.h"
 #include "IAtumLayerBaseConvolution.h"
 
 LIBTORCH_INCLUDES_START

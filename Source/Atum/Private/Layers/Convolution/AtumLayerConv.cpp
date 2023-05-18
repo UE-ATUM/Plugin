@@ -26,8 +26,7 @@ bool UAtumLayerConv::IsDilatedKernelGreaterThanPaddedInput(const TArray<int64>& 
 	if (!bIsBigger)
 		return false;
 	
-	UE_LOG(
-		LogAtum,
+	ATUM_LOG(
 		Error,
 		TEXT("Dilated kernel (%hs) has at least one dimension greater than the padded input (%hs)!"),
 		UAtumLibraryUtilities::FormatWithConjunction(DilatedKernel, " x ").c_str(),
@@ -58,8 +57,7 @@ bool UAtumLayerConv::IsPaddingGreaterThanOrEqualToInput(const TArray<int64>& Inp
 	if (!bIsBigger)
 		return false;
 	
-	UE_LOG(
-		LogAtum,
+	ATUM_LOG(
 		Error,
 		TEXT("Padding (%hs) has at least one dimension greater than or equal to the input (%hs)!"),
 		UAtumLibraryUtilities::FormatWithConjunction(PaddingVector, " x ").c_str(),
@@ -90,8 +88,7 @@ bool UAtumLayerConv::DoesPaddingCauseMultipleWrappings(const TArray<int64>& Inpu
 	if (!bMultipleWrappings)
 		return false;
 	
-	UE_LOG(
-		LogAtum,
+	ATUM_LOG(
 		Error,
 		TEXT("Padding (%hs) has at least one dimension greater than the input (%hs)!"),
 		UAtumLibraryUtilities::FormatWithConjunction(PaddingVector, " x ").c_str(),

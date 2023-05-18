@@ -7,12 +7,10 @@
 #include <vector>
 
 
-DECLARE_LOG_CATEGORY_EXTERN(LogAtum, Log, All)
-
 class ATUM_API IAtumModule : public IModuleInterface
 {
 protected:
-	static inline std::vector<void*> DllHandles = std::vector<void*>();
+	static inline std::vector<void*> DllHandles;
 	
 public:
 	static inline const FName ModuleName = TEXT("Atum");

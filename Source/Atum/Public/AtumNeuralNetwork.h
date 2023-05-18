@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "AtumMacros.h"
 #include "Layers/IAtumLayer.h"
 
 LIBTORCH_INCLUDES_START
@@ -24,6 +25,7 @@ namespace torch::nn
 		virtual void reset() override;
 		virtual void pretty_print(std::ostream& stream) const override;
 	};
+	
 	TORCH_MODULE(AtumNetwork);
 }
 // ReSharper restore CppUE4CodingStandardNamingViolationWarning

@@ -2,18 +2,19 @@
 
 #include "Atum.h"
 
+#include "AtumMacros.h"
 #include "HAL/FileManager.h"
 #include "Kismet/GameplayStatics.h"
 #include "LibTorchPreSetup.h"
+
+#if PLATFORM_WINDOWS
+#include "Windows/WindowsPlatformProcess.h"
+#endif
 
 LIBTORCH_INCLUDES_START
 #include <torch/custom_class.h>
 #include <torch/version.h>
 LIBTORCH_INCLUDES_END
-
-#if PLATFORM_WINDOWS
-#include "Windows/WindowsPlatformProcess.h"
-#endif
 
 
 #define LOCTEXT_NAMESPACE "FAtumModule"
@@ -27,12 +28,12 @@ void FAtumModule::StartupModule()
 	FString LibraryPath;
 	if (!GetLibraryPath(LibraryPath))
 	{
-		UE_LOG(LogAtum, Fatal, TEXT("Cannot load LibTorch on platform: %s"), *UGameplayStatics::GetPlatformName())
+		ATUM_LOG(Fatal, TEXT("Cannot load LibTorch on platform: %s"), *UGameplayStatics::GetPlatformName())
 		return;
 	}
 
 	const TCHAR* const LibraryPathPointer = *LibraryPath;
-	UE_LOG(LogAtum, Warning, TEXT("Loading LibTorch libraries from path: %s"), LibraryPathPointer)
+	ATUM_LOG(Warning, TEXT("Loading LibTorch libraries from path: %s"), LibraryPathPointer)
 
 #if PLATFORM_WINDOWS
 	FPlatformProcess::AddDllDirectory(LibraryPathPointer);
@@ -55,7 +56,7 @@ void FAtumModule::StartupModule()
 #endif
 
 	torch::init();
-	UE_LOG(LogAtum, Warning, TEXT("Loaded LibTorch %s!"), TEXT(TORCH_VERSION));
+	ATUM_LOG(Warning, TEXT("Loaded LibTorch %s!"), TEXT(TORCH_VERSION));
 }
 
 void FAtumModule::ShutdownModule()

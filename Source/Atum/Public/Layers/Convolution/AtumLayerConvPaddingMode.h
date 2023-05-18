@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "IAtum.h"
+#include "AtumMacros.h"
 #include "LibTorchPreSetup.h"
 
 LIBTORCH_INCLUDES_START
@@ -48,7 +48,7 @@ namespace AtumEnums
 			return torch::kCircular;
 			
 		default:
-			UE_LOG(LogAtum, Error, TEXT("Unknown ConvPaddingMode: %hhd"), ConvPaddingMode)
+			ATUM_LOG(Error, TEXT("Unknown ConvPaddingMode: %hhd"), ConvPaddingMode)
 			return torch::kZeros;
 		}
 	}
@@ -69,12 +69,7 @@ namespace AtumEnums
 		else if CONSTEXPR (c10::get_if<torch::enumtype::kCircular>(ConvPaddingMode))
 			return EAtumConvPaddingMode::Circular;
 		
-		UE_LOG(
-			LogAtum,
-			Error,
-			TEXT("Unknown ConvPaddingMode: %hs"),
-			torch::enumtype::get_enum_name(ConvPaddingMode).c_str()
-		)
+		ATUM_LOG(Error, TEXT("Unknown ConvPaddingMode: %hs"), torch::enumtype::get_enum_name(ConvPaddingMode).c_str())
 		return EAtumConvPaddingMode::Zeros;
 	}
 }

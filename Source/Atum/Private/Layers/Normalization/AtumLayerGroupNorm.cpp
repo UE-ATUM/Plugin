@@ -2,8 +2,6 @@
 
 #include "Layers/Normalization/AtumLayerGroupNorm.h"
 
-#include "IAtum.h"
-
 
 bool UAtumLayerGroupNorm::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
@@ -13,12 +11,12 @@ bool UAtumLayerGroupNorm::OnInitializeData_Implementation([[maybe_unused]] const
 	bool bPositiveValues = true;
 	if (Groups <= 0)
 	{
-		UE_LOG(LogAtum, Error, TEXT("There must exist at least 1 group!"))
+		ATUM_LOG(Error, TEXT("There must exist at least 1 group!"))
 		bPositiveValues = false;
 	}
 	if (Channels <= 0)
 	{
-		UE_LOG(LogAtum, Error, TEXT("There must exist at least 1 channel!"))
+		ATUM_LOG(Error, TEXT("There must exist at least 1 channel!"))
 		bPositiveValues = false;
 	}
 	if (!bPositiveValues)
@@ -26,7 +24,7 @@ bool UAtumLayerGroupNorm::OnInitializeData_Implementation([[maybe_unused]] const
 	
 	if (Channels % Groups != 0)
 	{
-		UE_LOG(LogAtum, Error, TEXT("The number of channels must be divisible by the number of groups!"))
+		ATUM_LOG(Error, TEXT("The number of channels must be divisible by the number of groups!"))
 		return false;
 	}
 	
@@ -45,15 +43,14 @@ bool UAtumLayerGroupNorm::OnForward_Implementation(
 	Input->GetSizes(InputSizes);
 	if (const int32 SizeCount = InputSizes.Num(); SizeCount < 2)
 	{
-		UE_LOG(LogAtum, Error, TEXT("Expected 2D or higher dimensionality input but got a %dD tensor!"), SizeCount)
+		ATUM_LOG(Error, TEXT("Expected 2D or higher dimensionality input but got a %dD tensor!"), SizeCount)
 		return false;
 	}
 
 	const int64 ExpectedChannels = Options.NumChannels;
 	if (const int64 GivenChannels = InputSizes[1]; GivenChannels != ExpectedChannels)
 	{
-		UE_LOG(
-			LogAtum,
+		ATUM_LOG(
 			Error,
 			TEXT("Expected %lld %ls but got %lld!"),
 			ExpectedChannels,

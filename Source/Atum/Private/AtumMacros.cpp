@@ -3,4 +3,4 @@
 #include "AtumMacros.h"
 
 
-//DEFINE_LOG_CATEGORY(LogAtum)
+DEFINE_LOG_CATEGORY(LogAtum)

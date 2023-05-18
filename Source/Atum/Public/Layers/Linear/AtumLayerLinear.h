@@ -3,6 +3,7 @@
 #pragma once
 
 #include "AtumLayerLinearOptions.h"
+#include "AtumMacros.h"
 
 LIBTORCH_INCLUDES_START
 #include <torch/nn/modules/linear.h>

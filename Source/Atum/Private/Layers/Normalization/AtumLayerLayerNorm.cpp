@@ -3,7 +3,6 @@
 #include "Layers/Normalization/AtumLayerLayerNorm.h"
 
 #include "FunctionLibraries/AtumLibraryUtilities.h"
-#include "IAtum.h"
 
 
 UAtumLayerLayerNorm::~UAtumLayerLayerNorm() noexcept
@@ -28,7 +27,7 @@ bool UAtumLayerLayerNorm::OnInitializeData_Implementation([[maybe_unused]] const
 	
 	if (Options.NormalizedShape.IsEmpty())
 	{
-		UE_LOG(LogAtum, Error, TEXT("Normalized Shape must contain at least 1 dimension!"))
+		ATUM_LOG(Error, TEXT("Normalized Shape must contain at least 1 dimension!"))
 		return false;
 	}
 	
@@ -51,7 +50,7 @@ bool UAtumLayerLayerNorm::OnForward_Implementation(
 	
 	if (const int32 GivenShapeSizeCount = InputSizes.Num() - 1; GivenShapeSizeCount != NormalizedShapeCount)
 	{
-		UE_LOG(LogAtum, Error, TEXT("Expected %dD input, got %dD!"), NormalizedShapeCount, GivenShapeSizeCount)
+		ATUM_LOG(Error, TEXT("Expected %dD input, got %dD!"), NormalizedShapeCount, GivenShapeSizeCount)
 		return false;
 	}
 	
@@ -67,8 +66,7 @@ bool UAtumLayerLayerNorm::OnForward_Implementation(
 	}
 	if (bMismatchedSizes)
 	{
-		UE_LOG(
-			LogAtum,
+		ATUM_LOG(
 			Error,
 			TEXT("Input tensor of shape (%hs) doesn't match the expected (%hs) normalized shape!"),
 			UAtumLibraryUtilities::FormatWithConjunction(InputSizesVector, " x ").c_str(),

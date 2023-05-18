@@ -2,7 +2,7 @@
 
 #include "FunctionLibraries/AtumLibraryTensors.h"
 
-#include "IAtum.h"
+#include "AtumMacros.h"
 
 
 void UAtumLibraryTensors::K2_SerializeArray(
@@ -10,7 +10,7 @@ void UAtumLibraryTensors::K2_SerializeArray(
 	[[maybe_unused]] TArray<uint8>& OutBytes
 ) noexcept
 {
-	UE_LOG(LogAtum, Warning, TEXT("Called UAtumLibraryTensors::K2_SerializeArray from native code!"))
+	ATUM_LOG(Warning, TEXT("Called UAtumLibraryTensors::K2_SerializeArray from native code!"))
 }
 
 void UAtumLibraryTensors::K2_DeserializeArray(
@@ -19,7 +19,7 @@ void UAtumLibraryTensors::K2_DeserializeArray(
 	[[maybe_unused]] TArray<UProperty*>& OutTarget
 ) noexcept
 {
-	UE_LOG(LogAtum, Warning, TEXT("Called UAtumLibraryTensors::K2_DeserializeArray from native code!"))
+	ATUM_LOG(Warning, TEXT("Called UAtumLibraryTensors::K2_DeserializeArray from native code!"))
 }
 
 UObject* UAtumLibraryTensors::Empty(const TSubclassOf<UObject> Class, const TArray<int64>& Sizes) noexcept

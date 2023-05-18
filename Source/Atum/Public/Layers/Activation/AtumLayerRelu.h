@@ -3,6 +3,7 @@
 #pragma once
 
 #include "AtumLayerReluOptions.h"
+#include "AtumMacros.h"
 #include "IAtumLayerBaseActivation.h"
 
 LIBTORCH_INCLUDES_START

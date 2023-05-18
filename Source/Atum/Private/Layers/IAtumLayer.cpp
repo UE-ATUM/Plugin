@@ -2,11 +2,11 @@
 
 #include "Layers/IAtumLayer.h"
 
+#include "AtumMacros.h"
 #include "FunctionLibraries/AtumLibraryUtilities.h"
-#include "IAtum.h"
 
 
-IAtumLayer::IAtumLayer() noexcept : bInitialized(false), DimensionCount(0u), ValidInputSizes(std::vector<int64>())
+IAtumLayer::IAtumLayer() noexcept : bInitialized(false), DimensionCount(0u)
 {
 }
 
@@ -14,14 +14,13 @@ bool IAtumLayer::AreInputSizesValid(const int32 InputSizeCount) const noexcept
 {
 	if (UNLIKELY(ValidInputSizes.empty()))
 	{
-		UE_LOG(LogAtum, Error, TEXT("No valid input size has been defined for this layer!"))
+		ATUM_LOG(Error, TEXT("No valid input size has been defined for this layer!"))
 		return false;
 	}
 	
 	if (!std::ranges::binary_search(ValidInputSizes, InputSizeCount))
 	{
-		UE_LOG(
-			LogAtum,
+		ATUM_LOG(
 			Error,
 			TEXT("Expected %hs but got %dD input tensor!"),
 			UAtumLibraryUtilities::FormatWithConjunction(ValidInputSizes, ", ", "", "D", " or ", false).c_str(),
@@ -41,8 +40,7 @@ bool IAtumLayer::AreInputSizesValid(const TArray<int64>& InputSizes, const int64
 
 	if (const int64 GivenChannels = InputSizes[SizeCount - DimensionCount - 1]; GivenChannels != ExpectedChannels)
 	{
-		UE_LOG(
-			LogAtum,
+		ATUM_LOG(
 			Error,
 			TEXT("Expected %lld %ls but got %lld!"),
 			ExpectedChannels,
@@ -77,7 +75,7 @@ bool IAtumLayer::Forward_Implementation(
 	
 	if (Data == nullptr || Sizes.empty())
 	{
-		UE_LOG(LogAtum, Error, TEXT("Input had no data at ATUM Layer of type `%hs`!"), LayerClassName)
+		ATUM_LOG(Error, TEXT("Input had no data at ATUM Layer of type `%hs`!"), LayerClassName)
 		return false;
 	}
 	
@@ -85,14 +83,14 @@ bool IAtumLayer::Forward_Implementation(
 	{
 		if (UNLIKELY(Size == 0u))
 		{
-			UE_LOG(LogAtum, Error, TEXT("Input contains 0D dimension in ATUM Layer of type `%hs`!"), LayerClassName)
+			ATUM_LOG(Error, TEXT("Input contains 0D dimension in ATUM Layer of type `%hs`!"), LayerClassName)
 			return false;
 		}
 	}
 	
 	if (!Execute_InitializeData(LayerObject, false))
 	{
-		UE_LOG(LogAtum, Error, TEXT("Could not initialize ATUM Layer of type `%hs`!"), LayerClassName)
+		ATUM_LOG(Error, TEXT("Could not initialize ATUM Layer of type `%hs`!"), LayerClassName)
 		return false;
 	}
 
@@ -106,8 +104,7 @@ bool IAtumLayer::Forward_Implementation(
 		bSuccess = false;
 
 		const std::string& ExceptionString = Exception.what();
-		UE_LOG(
-			LogAtum,
+		ATUM_LOG(
 			Error,
 			TEXT("Unhandled exception - %hs"),
 			ExceptionString.substr(0, ExceptionString.find("\n")).c_str()
@@ -116,7 +113,7 @@ bool IAtumLayer::Forward_Implementation(
 
 	if (!bSuccess)
 	{
-		UE_LOG(LogAtum, Error, TEXT("Failed to forward in ATUM Layer of type `%hs`!"), LayerClassName)
+		ATUM_LOG(Error, TEXT("Failed to forward in ATUM Layer of type `%hs`!"), LayerClassName)
 	}
 	return bSuccess;
 }
@@ -124,7 +121,7 @@ bool IAtumLayer::Forward_Implementation(
 bool IAtumLayer::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
 	const ANSICHAR* const LayerClassName = TCHAR_TO_UTF8(*GetNameSafe(_getUObject()->GetClass()));
-	UE_LOG(LogAtum, Error, TEXT("OnInitializeData is not implemented in `%hs`!"), LayerClassName)
+	ATUM_LOG(Error, TEXT("OnInitializeData is not implemented in `%hs`!"), LayerClassName)
 	
 	return false;
 }
@@ -135,7 +132,7 @@ bool IAtumLayer::OnForward_Implementation(
 )
 {
 	const ANSICHAR* const LayerClassName = TCHAR_TO_UTF8(*GetNameSafe(_getUObject()->GetClass()));
-	UE_LOG(LogAtum, Error, TEXT("OnForward is not implemented in `%hs`!"), LayerClassName)
+	ATUM_LOG(Error, TEXT("OnForward is not implemented in `%hs`!"), LayerClassName)
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
 	return false;
