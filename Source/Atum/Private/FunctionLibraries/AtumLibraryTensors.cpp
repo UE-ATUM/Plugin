@@ -28,7 +28,7 @@ UObject* UAtumLibraryTensors::Empty(const TSubclassOf<UObject> Class, const TArr
 	
 	auto* const Tensor = NewObject<UObject>(GetTransientPackage(), Class);
 	CastChecked<IAtumTensor>(Tensor)->SetData(
-		torch::empty(c10::IntArrayRef(Sizes.GetData(), Sizes.Num()))
+		torch::empty(at::IntArrayRef(Sizes.GetData(), Sizes.Num()))
 	);
 	return Tensor;
 }
@@ -47,9 +47,7 @@ UObject* UAtumLibraryTensors::Ones(const TSubclassOf<UObject> Class, const TArra
 	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
 	auto* const Tensor = NewObject<UObject>(GetTransientPackage(), Class);
-	CastChecked<IAtumTensor>(Tensor)->SetData(
-		torch::ones(c10::IntArrayRef(Sizes.GetData(), Sizes.Num()))
-	);
+	CastChecked<IAtumTensor>(Tensor)->SetData(torch::ones(at::IntArrayRef(Sizes.GetData(), Sizes.Num())));
 	return Tensor;
 }
 
@@ -58,9 +56,7 @@ UObject* UAtumLibraryTensors::Random(const TSubclassOf<UObject> Class, const TAr
 	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
 	auto* const Tensor = NewObject<UObject>(GetTransientPackage(), Class);
-	CastChecked<IAtumTensor>(Tensor)->SetData(
-		torch::rand(c10::IntArrayRef(Sizes.GetData(), Sizes.Num()))
-	);
+	CastChecked<IAtumTensor>(Tensor)->SetData(torch::rand(at::IntArrayRef(Sizes.GetData(), Sizes.Num())));
 	return Tensor;
 }
 
@@ -70,7 +66,7 @@ UObject* UAtumLibraryTensors::RandN(const TSubclassOf<UObject> Class, const TArr
 	
 	auto* const Tensor = NewObject<UObject>(GetTransientPackage(), Class);
 	CastChecked<IAtumTensor>(Tensor)->SetData(
-		torch::randn(c10::IntArrayRef(Sizes.GetData(), Sizes.Num()))
+		torch::randn(at::IntArrayRef(Sizes.GetData(), Sizes.Num()))
 	);
 	return Tensor;
 }

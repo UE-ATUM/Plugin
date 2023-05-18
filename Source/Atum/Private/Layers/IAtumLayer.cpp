@@ -73,7 +73,7 @@ bool IAtumLayer::Forward_Implementation(
 	const ANSICHAR* const LayerClassName = TCHAR_TO_UTF8(*GetNameSafe(LayerObject->GetClass()));
 
 	const at::Tensor* const Data = Input ? Input->GetData() : nullptr;
-	const c10::IntArrayRef& Sizes = Data->sizes();
+	const at::IntArrayRef& Sizes = Data->sizes();
 	
 	if (Data == nullptr || Sizes.empty())
 	{
