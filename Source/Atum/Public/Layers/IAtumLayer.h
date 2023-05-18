@@ -102,16 +102,17 @@ protected:
 
 #define GENERATED_ATUM_LAYER(ModuleClass) \
 protected: \
-	ModuleClass Module = nullptr; \
+	TUniquePtr<ModuleClass> Module = nullptr; \
 	\
 public: \
 	UE_NODISCARD \
-	virtual std::shared_ptr<torch::nn::Module> GetSharedModule() const noexcept override { return Module.ptr(); } \
+	virtual std::shared_ptr<torch::nn::Module> GetSharedModule() const noexcept override \
+	{ return Module ? Module->ptr() : nullptr; } \
 	\
 	UE_NODISCARD \
-	FORCEINLINE const ModuleClass& GetModule() const noexcept { return Module; } \
+	FORCEINLINE const ModuleClass* GetModule() const noexcept { return Module.Get(); } \
 	\
 	UE_NODISCARD \
-	FORCEINLINE ModuleClass& GetModule() noexcept { return Module; } \
+	FORCEINLINE ModuleClass* GetModule() noexcept { return Module.Get(); } \
 	\
 private: \
