@@ -22,7 +22,9 @@ UAtumLayerInstanceNorm1D::UAtumLayerInstanceNorm1D() noexcept
 
 bool UAtumLayerInstanceNorm1D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
-	Module = std::make_shared<torch::nn::InstanceNorm1dImpl>(static_cast<torch::nn::InstanceNormOptions>(Options));
+	Module.Reset(new torch::nn::InstanceNorm1d(std::make_shared<torch::nn::InstanceNorm1dImpl>(
+		static_cast<torch::nn::InstanceNormOptions>(Options)
+	)));
 	return true;
 }
 
@@ -35,7 +37,7 @@ bool UAtumLayerInstanceNorm1D::OnForward_Implementation(
 		return false;
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
-	Output->SetData(Module->forward(Input->GetDataChecked().to(c10::kDouble)));
+	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kDouble)));
 	return true;
 }
 
@@ -48,7 +50,9 @@ UAtumLayerInstanceNorm2D::UAtumLayerInstanceNorm2D() noexcept
 
 bool UAtumLayerInstanceNorm2D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
-	Module = std::make_shared<torch::nn::InstanceNorm2dImpl>(static_cast<torch::nn::InstanceNormOptions>(Options));
+	Module.Reset(new torch::nn::InstanceNorm2d(std::make_shared<torch::nn::InstanceNorm2dImpl>(
+		static_cast<torch::nn::InstanceNormOptions>(Options)
+	)));
 	return true;
 }
 
@@ -61,7 +65,7 @@ bool UAtumLayerInstanceNorm2D::OnForward_Implementation(
 		return false;
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
-	Output->SetData(Module->forward(Input->GetDataChecked().to(c10::kDouble)));
+	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kDouble)));
 	return true;
 }
 
@@ -74,7 +78,9 @@ UAtumLayerInstanceNorm3D::UAtumLayerInstanceNorm3D() noexcept
 
 bool UAtumLayerInstanceNorm3D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
-	Module = std::make_shared<torch::nn::InstanceNorm3dImpl>(static_cast<torch::nn::InstanceNormOptions>(Options));
+	Module.Reset(new torch::nn::InstanceNorm3d(std::make_shared<torch::nn::InstanceNorm3dImpl>(
+		static_cast<torch::nn::InstanceNormOptions>(Options)
+	)));
 	return true;
 }
 
@@ -87,6 +93,6 @@ bool UAtumLayerInstanceNorm3D::OnForward_Implementation(
 		return false;
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
-	Output->SetData(Module->forward(Input->GetDataChecked().to(c10::kDouble)));
+	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kDouble)));
 	return true;
 }

@@ -19,7 +19,9 @@ bool UAtumLayerCrossMapLrn2D::OnInitializeData_Implementation([[maybe_unused]] c
 		return false;
 	}
 	
-	Module = std::make_shared<torch::nn::CrossMapLRN2dImpl>(static_cast<torch::nn::CrossMapLRN2dOptions>(Options));
+	Module.Reset(new torch::nn::CrossMapLRN2d(std::make_shared<torch::nn::CrossMapLRN2dImpl>(
+		static_cast<torch::nn::CrossMapLRN2dOptions>(Options)
+	)));
 	return true;
 }
 
@@ -34,6 +36,6 @@ bool UAtumLayerCrossMapLrn2D::OnForward_Implementation(
 		return false;
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
-	Output->SetData(Module->forward(Input->GetDataChecked().to(c10::kFloat)));
+	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kFloat)));
 	return true;
 }

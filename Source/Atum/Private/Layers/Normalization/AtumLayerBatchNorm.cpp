@@ -22,7 +22,9 @@ UAtumLayerBatchNorm1D::UAtumLayerBatchNorm1D() noexcept
 
 bool UAtumLayerBatchNorm1D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
-	Module = std::make_shared<torch::nn::BatchNorm1dImpl>(static_cast<torch::nn::BatchNormOptions>(Options));
+	Module.Reset(new torch::nn::BatchNorm1d(std::make_shared<torch::nn::BatchNorm1dImpl>(
+		static_cast<torch::nn::BatchNormOptions>(Options)
+	)));
 	return true;
 }
 
@@ -35,7 +37,7 @@ bool UAtumLayerBatchNorm1D::OnForward_Implementation(
 		return false;
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
-	Output->SetData(Module->forward(Input->GetDataChecked().to(c10::kBFloat16)));
+	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kBFloat16)));
 	return true;
 }
 
@@ -47,7 +49,9 @@ UAtumLayerBatchNorm2D::UAtumLayerBatchNorm2D() noexcept
 
 bool UAtumLayerBatchNorm2D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
-	Module = std::make_shared<torch::nn::BatchNorm2dImpl>(static_cast<torch::nn::BatchNormOptions>(Options));
+	Module.Reset(new torch::nn::BatchNorm2d(std::make_shared<torch::nn::BatchNorm2dImpl>(
+		static_cast<torch::nn::BatchNormOptions>(Options)
+	)));
 	return true;
 }
 
@@ -60,7 +64,7 @@ bool UAtumLayerBatchNorm2D::OnForward_Implementation(
 		return false;
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
-	Output->SetData(Module->forward(Input->GetDataChecked().to(c10::kBFloat16)));
+	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kBFloat16)));
 	return true;
 }
 
@@ -72,7 +76,9 @@ UAtumLayerBatchNorm3D::UAtumLayerBatchNorm3D() noexcept
 
 bool UAtumLayerBatchNorm3D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
-	Module = std::make_shared<torch::nn::BatchNorm3dImpl>(static_cast<torch::nn::BatchNormOptions>(Options));
+	Module.Reset(new torch::nn::BatchNorm3d(std::make_shared<torch::nn::BatchNorm3dImpl>(
+		static_cast<torch::nn::BatchNormOptions>(Options)
+	)));
 	return true;
 }
 
@@ -85,6 +91,6 @@ bool UAtumLayerBatchNorm3D::OnForward_Implementation(
 		return false;
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
-	Output->SetData(Module->forward(Input->GetDataChecked().to(c10::kBFloat16)));
+	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kBFloat16)));
 	return true;
 }

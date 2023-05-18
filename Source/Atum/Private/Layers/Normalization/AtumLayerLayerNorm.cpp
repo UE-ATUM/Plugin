@@ -18,7 +18,7 @@ void UAtumLayerLayerNorm::DestroyNormalizedShape() const noexcept
 {
 	if (bInitialized)
 	{
-		Module->options.normalized_shape().~vector();
+		(*Module)->options.normalized_shape().~vector();
 	}
 }
 
@@ -32,7 +32,9 @@ bool UAtumLayerLayerNorm::OnInitializeData_Implementation([[maybe_unused]] const
 		return false;
 	}
 	
-	Module = std::make_shared<torch::nn::LayerNormImpl>(static_cast<torch::nn::LayerNormOptions>(Options));
+	Module.Reset(new torch::nn::LayerNorm(std::make_shared<torch::nn::LayerNormImpl>(
+		static_cast<torch::nn::LayerNormOptions>(Options)
+	)));
 	return true;
 }
 
@@ -76,6 +78,6 @@ bool UAtumLayerLayerNorm::OnForward_Implementation(
 	}
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
-	Output->SetData(Module->forward(Input->GetDataChecked().to(c10::kBFloat16)));
+	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kBFloat16)));
 	return true;
 }

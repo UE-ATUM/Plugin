@@ -30,7 +30,9 @@ bool UAtumLayerGroupNorm::OnInitializeData_Implementation([[maybe_unused]] const
 		return false;
 	}
 	
-	Module = std::make_shared<torch::nn::GroupNormImpl>(static_cast<torch::nn::GroupNormOptions>(Options));
+	Module.Reset(new torch::nn::GroupNorm(std::make_shared<torch::nn::GroupNormImpl>(
+		static_cast<torch::nn::GroupNormOptions>(Options)
+	)));
 	return true;
 }
 
@@ -62,6 +64,6 @@ bool UAtumLayerGroupNorm::OnForward_Implementation(
 	}
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
-	Output->SetData(Module->forward(Input->GetDataChecked().to(c10::kBFloat16)));
+	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kBFloat16)));
 	return true;
 }

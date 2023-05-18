@@ -7,7 +7,9 @@
 
 bool UAtumLayerLinear::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
-	Module = std::make_shared<torch::nn::LinearImpl>(static_cast<torch::nn::LinearOptions>(Options));
+	Module.Reset(new torch::nn::Linear(std::make_shared<torch::nn::LinearImpl>(
+		static_cast<torch::nn::LinearOptions>(Options)
+	)));
 	return true;
 }
 
@@ -40,6 +42,6 @@ bool UAtumLayerLinear::OnForward_Implementation(
 	}
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
-	Output->SetData(Module->forward(Input->GetDataChecked().to(c10::kFloat)));
+	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kFloat)));
 	return true;
 }

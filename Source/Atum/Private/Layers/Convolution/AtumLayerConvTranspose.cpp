@@ -72,10 +72,10 @@ bool UAtumLayerConvTranspose1D::OnInitializeData_Implementation(const bool bRetr
 {
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
-
-	Module = std::make_shared<torch::nn::ConvTranspose1dImpl>(
+	
+	Module.Reset(new torch::nn::ConvTranspose1d(std::make_shared<torch::nn::ConvTranspose1dImpl>(
 		static_cast<torch::nn::ConvTranspose1dOptions>(Options)
-	);
+	)));
 	return true;
 }
 
@@ -88,7 +88,7 @@ bool UAtumLayerConvTranspose1D::OnForward_Implementation(
 		return false;
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
-	Output->SetData(Module->forward(Input->GetDataChecked().to(c10::kFloat)));
+	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kFloat)));
 	return true;
 }
 
@@ -104,9 +104,9 @@ bool UAtumLayerConvTranspose2D::OnInitializeData_Implementation(const bool bRetr
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
 	
-	Module = std::make_shared<torch::nn::ConvTranspose2dImpl>(
+	Module.Reset(new torch::nn::ConvTranspose2d(std::make_shared<torch::nn::ConvTranspose2dImpl>(
 		static_cast<torch::nn::ConvTranspose2dOptions>(Options)
-	);
+	)));
 	return true;
 }
 
@@ -119,7 +119,7 @@ bool UAtumLayerConvTranspose2D::OnForward_Implementation(
 		return false;
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
-	Output->SetData(Module->forward(Input->GetDataChecked().to(c10::kFloat)));
+	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kFloat)));
 	return true;
 }
 
@@ -135,9 +135,9 @@ bool UAtumLayerConvTranspose3D::OnInitializeData_Implementation(const bool bRetr
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
 	
-	Module = std::make_shared<torch::nn::ConvTranspose3dImpl>(
+	Module.Reset(new torch::nn::ConvTranspose3d(std::make_shared<torch::nn::ConvTranspose3dImpl>(
 		static_cast<torch::nn::ConvTranspose3dOptions>(Options)
-	);
+	)));
 	return true;
 }
 
@@ -150,6 +150,6 @@ bool UAtumLayerConvTranspose3D::OnForward_Implementation(
 		return false;
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
-	Output->SetData(Module->forward(Input->GetDataChecked().to(c10::kFloat)));
+	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kFloat)));
 	return true;
 }
