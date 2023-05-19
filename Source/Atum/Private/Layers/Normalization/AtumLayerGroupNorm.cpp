@@ -2,6 +2,8 @@
 
 #include "Layers/Normalization/AtumLayerGroupNorm.h"
 
+#include "AtumSettings.h"
+
 
 bool UAtumLayerGroupNorm::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {

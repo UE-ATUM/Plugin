@@ -3,6 +3,7 @@
 #pragma once
 
 #include "AtumMacros.h"
+#include "AtumSettings.h"
 #include "LibTorchPreSetup.h"
 
 LIBTORCH_INCLUDES_START

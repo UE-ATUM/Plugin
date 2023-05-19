@@ -2,6 +2,8 @@
 
 #include "Layers/Normalization/AtumLayerCrossMapLrn.h"
 
+#include "AtumSettings.h"
+
 
 UAtumLayerCrossMapLrn2D::UAtumLayerCrossMapLrn2D() noexcept
 {

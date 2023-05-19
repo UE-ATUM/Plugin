@@ -3,6 +3,7 @@
 #include "Layers/Convolution/IAtumLayerBaseConvolution.h"
 
 #include "AtumMacros.h"
+#include "AtumSettings.h"
 
 
 bool IAtumLayerBaseConvolution::AreChannelsDivisibleByGroups(

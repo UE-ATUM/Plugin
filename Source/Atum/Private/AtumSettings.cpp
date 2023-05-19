@@ -2,34 +2,22 @@
 
 #include "AtumSettings.h"
 
+#include "HAL/IConsoleManager.h"
+
 
 #define LOCTEXT_NAMESPACE "UAtumSettings"
 
-UAtumSettings::UAtumSettings()
+UAtumSettings::UAtumSettings() noexcept : bLogging(true)
 {
 	CategoryName = TEXT("Plugins");
 	SectionName = TEXT("LibTorch");
+	LoadConfig();
+	
+	static const FAutoConsoleVariableRef CVarLogging(
+		TEXT("atum.Settings.Logging"),
+		bLogging,
+		TEXT("Controls whether or not ATUM is able to print messages to LogAtum.")
+	);
 }
-
-void UAtumSettings::PostInitProperties()
-{
-	Super::PostInitProperties();
-
-#if WITH_EDITOR
-	if (IsTemplate())
-	{
-		ImportConsoleVariableValues();
-	}
-#endif
-}
-
-#if WITH_EDITOR
-void UAtumSettings::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
-{
-	Super::PostEditChangeProperty(PropertyChangedEvent);
-
-	ExportValuesToConsoleVariables(PropertyChangedEvent.Property);
-}
-#endif
 
 #undef LOCTEXT_NAMESPACE

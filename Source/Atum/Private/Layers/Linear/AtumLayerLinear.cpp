@@ -2,6 +2,8 @@
 
 #include "Layers/Linear/AtumLayerLinear.h"
 
+#include "AtumSettings.h"
+
 
 bool UAtumLayerLinear::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {

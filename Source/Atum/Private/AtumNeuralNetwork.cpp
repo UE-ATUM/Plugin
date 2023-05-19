@@ -2,6 +2,8 @@
 
 #include "AtumNeuralNetwork.h"
 
+#include "AtumSettings.h"
+
 
 // ReSharper disable CppUE4CodingStandardNamingViolationWarning
 namespace torch::nn
@@ -51,17 +53,21 @@ bool UAtumNeuralNetwork::OnForward_Implementation(
 	TScriptInterface<IAtumTensor>& Output
 )
 {
+	bool bHasActualLayers = false;
 	TScriptInterface<IAtumTensor> Subinput = Input;
+	
 	for (const TTuple<FName, TScriptInterface<IAtumLayer>>& NamedLayer : NamedLayers)
 	{
 		const TScriptInterface<IAtumLayer>& Layer = NamedLayer.Value;
 		if (Layer == this)
 			continue;
-		
+
+		bHasActualLayers = true;
 		if (!Execute_Forward(Layer ? Layer->_getUObject() : nullptr, Subinput, Output))
 			return false;
 		
 		Subinput = Output;
 	}
-	return true;
+	
+	return bHasActualLayers;
 }

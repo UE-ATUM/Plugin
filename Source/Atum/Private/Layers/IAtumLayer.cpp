@@ -3,6 +3,7 @@
 #include "Layers/IAtumLayer.h"
 
 #include "AtumMacros.h"
+#include "AtumSettings.h"
 #include "FunctionLibraries/AtumLibraryUtilities.h"
 
 

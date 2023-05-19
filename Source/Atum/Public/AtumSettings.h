@@ -2,22 +2,30 @@
 
 #pragma once
 
-#include "Engine/DeveloperSettings.h"
+#include "Engine/DeveloperSettingsBackedByCVars.h"
 
 #include "AtumSettings.generated.h"
 
 
-UCLASS(Config = "Atum", Blueprintable, BlueprintType, DisplayName = "ATUM Settings")
-class ATUM_API UAtumSettings : public UDeveloperSettings
+UCLASS(MinimalAPI, Config = "Atum", Blueprintable, BlueprintType, DisplayName = "ATUM Settings")
+class UAtumSettings : public UDeveloperSettingsBackedByCVars
 {
 	GENERATED_BODY()
-
-public:
-	UAtumSettings();
 	
-	virtual void PostInitProperties() override;
-
-#if WITH_EDITOR
-	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
-#endif
+protected:
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "ATUM|Settings", meta = (
+		AllowPrivateAccess,
+		ConsoleVariable = "atum.Settings.Logging"
+	))
+	bool bLogging;
+	
+public:
+	UE_NODISCARD_CTOR
+	UAtumSettings() noexcept;
+	
+	UE_NODISCARD
+	FORCEINLINE bool IsLogging() const noexcept { return bLogging; }
+	
+	UE_NODISCARD
+	FORCEINLINE void SetLogging(const bool bValue) noexcept { bLogging = bValue; }
 };

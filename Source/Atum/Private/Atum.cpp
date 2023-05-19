@@ -3,13 +3,10 @@
 #include "Atum.h"
 
 #include "AtumMacros.h"
+#include "AtumSettings.h"
 #include "HAL/FileManager.h"
 #include "Kismet/GameplayStatics.h"
 #include "LibTorchPreSetup.h"
-
-#if PLATFORM_WINDOWS
-#include "Windows/WindowsPlatformProcess.h"
-#endif
 
 LIBTORCH_INCLUDES_START
 #include <torch/custom_class.h>
@@ -22,7 +19,7 @@ LIBTORCH_INCLUDES_END
 void FAtumModule::StartupModule()
 {
 #ifndef WITH_LIBTORCH
-	UE_LOG(LogAtum, Fatal, TEXT("Could not start ATUM module because LibTorch is missing!"))
+	ATUM_LOG(Fatal, TEXT("Could not start ATUM module because LibTorch is missing!"))
 #endif
 	
 	FString LibraryPath;
@@ -31,13 +28,13 @@ void FAtumModule::StartupModule()
 		ATUM_LOG(Fatal, TEXT("Cannot load LibTorch on platform: %s"), *UGameplayStatics::GetPlatformName())
 		return;
 	}
-
+	
 	const TCHAR* const LibraryPathPointer = *LibraryPath;
 	ATUM_LOG(Warning, TEXT("Loading LibTorch libraries from path: %s"), LibraryPathPointer)
 
 #if PLATFORM_WINDOWS
 	FPlatformProcess::AddDllDirectory(LibraryPathPointer);
-		
+	
 	TArray<FString> DllNames;
 	IFileManager::Get().FindFilesRecursive(
 		DllNames,
@@ -47,14 +44,14 @@ void FAtumModule::StartupModule()
 		false,
 		false
 	);
-		
+	
 	DllHandles.reserve(DllNames.Num());
 	for (const FString& DllName : DllNames)
 	{
 		DllHandles.push_back(FPlatformProcess::GetDllHandle(*DllName));
 	}
 #endif
-
+	
 	torch::init();
 	ATUM_LOG(Warning, TEXT("Loaded LibTorch %s!"), TEXT(TORCH_VERSION));
 }

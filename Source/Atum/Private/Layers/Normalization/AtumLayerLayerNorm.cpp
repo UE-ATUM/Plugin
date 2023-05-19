@@ -2,6 +2,7 @@
 
 #include "Layers/Normalization/AtumLayerLayerNorm.h"
 
+#include "AtumSettings.h"
 #include "FunctionLibraries/AtumLibraryUtilities.h"
 
 

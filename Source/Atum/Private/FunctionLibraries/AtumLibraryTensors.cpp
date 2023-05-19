@@ -3,6 +3,7 @@
 #include "FunctionLibraries/AtumLibraryTensors.h"
 
 #include "AtumMacros.h"
+#include "AtumSettings.h"
 
 
 void UAtumLibraryTensors::K2_SerializeArray(
