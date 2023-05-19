@@ -2,6 +2,8 @@
 
 #include "Layers/Activation/AtumLayerRelu.h"
 
+#include "Tensors/IAtumTensor.h"
+
 
 bool UAtumLayerRelu::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {

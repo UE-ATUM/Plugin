@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "AtumScalarType.h"
+#include "AtumTensorScalarType.h"
 #include "UObject/Interface.h"
 
 LIBTORCH_INCLUDES_START
@@ -24,7 +24,7 @@ class ATUM_API IAtumTensor
 	
 protected:
 	TUniquePtr<at::Tensor> Data;
-	EAtumScalarType ScalarType;
+	EAtumTensorScalarType ScalarType;
 	
 public:
 	UE_NODISCARD_CTOR
@@ -36,7 +36,7 @@ public:
 	
 	UE_NODISCARD
 	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
-	virtual EAtumScalarType GetScalarType() const noexcept;
+	virtual EAtumTensorScalarType GetScalarType() const noexcept;
 	
 	UE_NODISCARD
 	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
@@ -96,7 +96,7 @@ private:
 	{ return Data ? Data->to(Type).data_ptr() : nullptr; }
 	
 	UE_NODISCARD
-	FORCEINLINE void* GetUncastedValues(const EAtumScalarType Type) const noexcept
+	FORCEINLINE void* GetUncastedValues(const EAtumTensorScalarType Type) const noexcept
 	{ return GetUncastedValues(AtumEnums::Cast(Type)); }
 
 	friend std::ostream& operator<<(std::ostream& OutStream, const IAtumTensor& AtumTensor) noexcept;

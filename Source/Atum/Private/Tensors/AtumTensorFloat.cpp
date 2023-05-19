@@ -5,5 +5,5 @@
 
 UAtumTensorFloat::UAtumTensorFloat() noexcept
 {
-	ScalarType = EAtumScalarType::Float;
+	ScalarType = EAtumTensorScalarType::Float;
 }

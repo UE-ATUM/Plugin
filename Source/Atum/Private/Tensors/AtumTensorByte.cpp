@@ -5,5 +5,5 @@
 
 UAtumTensorByte::UAtumTensorByte() noexcept
 {
-	ScalarType = EAtumScalarType::Byte;
+	ScalarType = EAtumTensorScalarType::Byte;
 }

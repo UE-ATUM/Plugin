@@ -11,6 +11,8 @@ LIBTORCH_INCLUDES_END
 
 #include "AtumLayerConv.generated.h"
 
+class IAtumTensor;
+
 
 UCLASS(Abstract, Blueprintable, BlueprintType, DisplayName = "ATUM Conv Layer")
 class ATUM_API UAtumLayerConv : public UObject, public IAtumLayerBaseConvolution

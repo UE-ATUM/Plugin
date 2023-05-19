@@ -3,7 +3,6 @@
 #pragma once
 
 #include "AtumLayerCrossMapLrnOptions.h"
-#include "AtumMacros.h"
 #include "IAtumLayerBaseNormalization.h"
 
 LIBTORCH_INCLUDES_START
@@ -11,6 +10,8 @@ LIBTORCH_INCLUDES_START
 LIBTORCH_INCLUDES_END
 
 #include "AtumLayerCrossMapLrn.generated.h"
+
+class IAtumTensor;
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Cross Map LRN 2D Layer")

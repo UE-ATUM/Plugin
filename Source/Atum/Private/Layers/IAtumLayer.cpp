@@ -2,9 +2,9 @@
 
 #include "Layers/IAtumLayer.h"
 
-#include "AtumMacros.h"
 #include "AtumSettings.h"
 #include "FunctionLibraries/AtumLibraryUtilities.h"
+#include "Tensors/IAtumTensor.h"
 
 
 IAtumLayer::IAtumLayer() noexcept : bInitialized(false), DimensionCount(0u)

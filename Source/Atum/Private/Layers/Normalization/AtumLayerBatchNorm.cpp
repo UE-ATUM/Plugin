@@ -2,6 +2,8 @@
 
 #include "Layers/Normalization/AtumLayerBatchNorm.h"
 
+#include "Tensors/IAtumTensor.h"
+
 
 bool UAtumLayerBatchNorm::OnForward_Implementation(
 	const TScriptInterface<IAtumTensor>& Input,

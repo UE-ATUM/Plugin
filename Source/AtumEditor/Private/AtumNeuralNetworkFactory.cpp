@@ -2,10 +2,10 @@
 
 #include "AtumNeuralNetworkFactory.h"
 
-#include "AtumNeuralNetwork.h"
+#include "Layers/AtumNeuralNetwork.h"
 
 
-UAtumNeuralNetworkFactory::UAtumNeuralNetworkFactory()
+UAtumNeuralNetworkFactory::UAtumNeuralNetworkFactory() noexcept
 {
 	SupportedClass = UAtumNeuralNetwork::StaticClass();
 	bCreateNew = true;

@@ -3,6 +3,7 @@
 #include "Layers/Normalization/AtumLayerCrossMapLrn.h"
 
 #include "AtumSettings.h"
+#include "Tensors/IAtumTensor.h"
 
 
 UAtumLayerCrossMapLrn2D::UAtumLayerCrossMapLrn2D() noexcept

@@ -3,13 +3,15 @@
 #pragma once
 
 #include "AtumLayerLinearOptions.h"
-#include "AtumMacros.h"
+#include "Layers/IAtumLayer.h"
 
 LIBTORCH_INCLUDES_START
 #include <torch/nn/modules/linear.h>
 LIBTORCH_INCLUDES_END
 
 #include "AtumLayerLinear.generated.h"
+
+class IAtumTensor;
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Linear Layer")

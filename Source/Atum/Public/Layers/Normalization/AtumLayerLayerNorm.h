@@ -3,7 +3,6 @@
 #pragma once
 
 #include "AtumLayerLayerNormOptions.h"
-#include "AtumMacros.h"
 #include "IAtumLayerBaseNormalization.h"
 
 LIBTORCH_INCLUDES_START
@@ -11,6 +10,8 @@ LIBTORCH_INCLUDES_START
 LIBTORCH_INCLUDES_END
 
 #include "AtumLayerLayerNorm.generated.h"
+
+class IAtumTensor;
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Layer Norm Layer")

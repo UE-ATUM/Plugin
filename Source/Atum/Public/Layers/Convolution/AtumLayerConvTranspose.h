@@ -3,7 +3,6 @@
 #pragma once
 
 #include "AtumLayerConvTransposeOptions.h"
-#include "AtumMacros.h"
 #include "IAtumLayerBaseConvolution.h"
 
 LIBTORCH_INCLUDES_START
@@ -11,6 +10,8 @@ LIBTORCH_INCLUDES_START
 LIBTORCH_INCLUDES_END
 
 #include "AtumLayerConvTranspose.generated.h"
+
+class IAtumTensor;
 
 
 UCLASS(Abstract, Blueprintable, BlueprintType, DisplayName = "ATUM Conv Transpose Layer")

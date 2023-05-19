@@ -4,6 +4,7 @@
 
 #include "AtumSettings.h"
 #include "FunctionLibraries/AtumLibraryUtilities.h"
+#include "Tensors/IAtumTensor.h"
 
 
 UAtumLayerLayerNorm::~UAtumLayerLayerNorm() noexcept

@@ -3,7 +3,7 @@
 #pragma once
 
 #include "AtumLayerConvPaddingMode.h"
-#include "Layers/IAtumLayer.h"
+#include "Layers/IAtumLayerOptions.h"
 
 #include "AtumLayerConvOptions.generated.h"
 

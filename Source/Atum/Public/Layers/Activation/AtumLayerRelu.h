@@ -3,7 +3,6 @@
 #pragma once
 
 #include "AtumLayerReluOptions.h"
-#include "AtumMacros.h"
 #include "IAtumLayerBaseActivation.h"
 
 LIBTORCH_INCLUDES_START
@@ -11,6 +10,8 @@ LIBTORCH_INCLUDES_START
 LIBTORCH_INCLUDES_END
 
 #include "AtumLayerRelu.generated.h"
+
+class IAtumTensor;
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM ReLU Layer")

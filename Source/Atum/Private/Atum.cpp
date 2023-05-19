@@ -6,7 +6,6 @@
 #include "AtumSettings.h"
 #include "HAL/FileManager.h"
 #include "Kismet/GameplayStatics.h"
-#include "LibTorchPreSetup.h"
 
 LIBTORCH_INCLUDES_START
 #include <torch/custom_class.h>

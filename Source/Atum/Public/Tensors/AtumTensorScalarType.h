@@ -2,20 +2,20 @@
 
 #pragma once
 
-#include "LibTorchPreSetup.h"
+#include "AtumMacros.h"
 
 LIBTORCH_INCLUDES_START
 #include <c10/core/ScalarType.h>
 LIBTORCH_INCLUDES_END
 
-#include "AtumScalarType.generated.h"
+#include "AtumTensorScalarType.generated.h"
 
 
 // Represents every type of scalar that can be used within tensors
-UENUM(BlueprintType, Category = "ATUM|Tensor", DisplayName = "ATUM Scalar Type", meta = (
-	Keywords = "ATUM Scalar Type Tensor"
+UENUM(BlueprintType, Category = "ATUM|Tensor", DisplayName = "ATUM Tensor Scalar Type", meta = (
+	Keywords = "ATUM Tensor Scalar Type"
 ))
-enum class EAtumScalarType : uint8
+enum class EAtumTensorScalarType : uint8
 {
 	Byte = c10::ScalarType::Byte UMETA(DisplayName = "Byte"), // uint8
 	Char = c10::ScalarType::Char UMETA(DisplayName = "Char"), // int8
@@ -43,10 +43,10 @@ enum class EAtumScalarType : uint8
 namespace AtumEnums
 {
 	UE_NODISCARD
-	static FORCEINLINE CONSTEXPR c10::ScalarType Cast(const EAtumScalarType ScalarType) noexcept
+	static FORCEINLINE CONSTEXPR c10::ScalarType Cast(const EAtumTensorScalarType ScalarType) noexcept
 	{ return static_cast<c10::ScalarType>(ScalarType); }
 
 	UE_NODISCARD
-	static FORCEINLINE CONSTEXPR EAtumScalarType Cast(const c10::ScalarType ScalarType) noexcept
-	{ return static_cast<EAtumScalarType>(ScalarType); }
+	static FORCEINLINE CONSTEXPR EAtumTensorScalarType Cast(const c10::ScalarType ScalarType) noexcept
+	{ return static_cast<EAtumTensorScalarType>(ScalarType); }
 }

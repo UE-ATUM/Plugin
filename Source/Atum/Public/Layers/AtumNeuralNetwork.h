@@ -3,13 +3,15 @@
 #pragma once
 
 #include "AtumMacros.h"
-#include "Layers/IAtumLayer.h"
+#include "IAtumLayer.h"
 
 LIBTORCH_INCLUDES_START
 #include "torch/nn/cloneable.h"
 LIBTORCH_INCLUDES_END
 
 #include "AtumNeuralNetwork.generated.h"
+
+class IAtumTensor;
 
 
 // ReSharper disable CppUE4CodingStandardNamingViolationWarning

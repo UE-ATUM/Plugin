@@ -5,5 +5,5 @@
 
 UAtumTensorLong::UAtumTensorLong() noexcept
 {
-	ScalarType = EAtumScalarType::Long;
+	ScalarType = EAtumTensorScalarType::Long;
 }

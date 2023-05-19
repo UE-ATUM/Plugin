@@ -2,9 +2,14 @@
 
 #pragma once
 
-#include "Tensors/IAtumTensor.h"
+#include "UObject/Interface.h"
+
+#include <memory>
+#include <vector>
 
 #include "IAtumLayer.generated.h"
+
+class IAtumTensor;
 
 // ReSharper disable CppUE4CodingStandardNamingViolationWarning
 namespace torch::nn
@@ -83,17 +88,4 @@ public:
 
 	UE_NODISCARD
 	FORCEINLINE const std::vector<int64>& GetValidInputSizes() const noexcept { return ValidInputSizes; }
-};
-
-
-USTRUCT(BlueprintType, DisplayName = "ATUM Layer Options")
-struct ATUM_API FAtumLayerOptions
-{
-	GENERATED_BODY()
-
-protected:
-	UE_NODISCARD_CTOR
-	FAtumLayerOptions() noexcept = default;
-
-	friend UScriptStruct;
 };

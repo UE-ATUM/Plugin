@@ -2,7 +2,6 @@
 
 #include "FunctionLibraries/AtumLibraryTensors.h"
 
-#include "AtumMacros.h"
 #include "AtumSettings.h"
 
 

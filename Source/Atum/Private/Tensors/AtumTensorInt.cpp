@@ -5,5 +5,5 @@
 
 UAtumTensorInt::UAtumTensorInt() noexcept
 {
-	ScalarType = EAtumScalarType::Int;
+	ScalarType = EAtumTensorScalarType::Int;
 }

@@ -1,6 +1,6 @@
 ﻿// © 2023 Kaya Adrian.
 
-#include "AtumNeuralNetwork.h"
+#include "Layers/AtumNeuralNetwork.h"
 
 #include "AtumSettings.h"
 

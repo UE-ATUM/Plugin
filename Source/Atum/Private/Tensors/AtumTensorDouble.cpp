@@ -5,5 +5,5 @@
 
 UAtumTensorDouble::UAtumTensorDouble() noexcept
 {
-	ScalarType = EAtumScalarType::Double;
+	ScalarType = EAtumTensorScalarType::Double;
 }

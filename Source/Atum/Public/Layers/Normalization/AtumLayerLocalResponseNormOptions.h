@@ -2,7 +2,8 @@
 
 #pragma once
 
-#include "Layers/IAtumLayer.h"
+#include "AtumMacros.h"
+#include "Layers/IAtumLayerOptions.h"
 
 LIBTORCH_INCLUDES_START
 #include <torch/nn/options/normalization.h>

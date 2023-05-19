@@ -3,7 +3,7 @@
 #include "Tensors/IAtumTensor.h"
 
 
-IAtumTensor::IAtumTensor() noexcept : Data(nullptr), ScalarType(EAtumScalarType::Undefined)
+IAtumTensor::IAtumTensor() noexcept : Data(nullptr), ScalarType(EAtumTensorScalarType::Undefined)
 {
 }
 
@@ -13,9 +13,9 @@ void IAtumTensor::GetSizes(TArray<int64>& OutSizes) const noexcept
 	OutSizes = TArray(DataSizes.data(), DataSizes.size());
 }
 
-EAtumScalarType IAtumTensor::GetScalarType() const noexcept
+EAtumTensorScalarType IAtumTensor::GetScalarType() const noexcept
 {
-	return ScalarType == EAtumScalarType::Undefined ? AtumEnums::Cast(Data->scalar_type()) : ScalarType;
+	return ScalarType == EAtumTensorScalarType::Undefined ? AtumEnums::Cast(Data->scalar_type()) : ScalarType;
 }
 
 int64 IAtumTensor::GetElementCount() const noexcept

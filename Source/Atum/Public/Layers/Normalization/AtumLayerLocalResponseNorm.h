@@ -3,7 +3,6 @@
 #pragma once
 
 #include "AtumLayerLocalResponseNormOptions.h"
-#include "AtumMacros.h"
 #include "IAtumLayerBaseNormalization.h"
 
 LIBTORCH_INCLUDES_START
@@ -11,6 +10,8 @@ LIBTORCH_INCLUDES_START
 LIBTORCH_INCLUDES_END
 
 #include "AtumLayerLocalResponseNorm.generated.h"
+
+class IAtumTensor;
 
 
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Local Response Norm Layer")

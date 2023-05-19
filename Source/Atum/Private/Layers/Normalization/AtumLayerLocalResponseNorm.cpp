@@ -3,6 +3,7 @@
 #include "Layers/Normalization/AtumLayerLocalResponseNorm.h"
 
 #include "AtumSettings.h"
+#include "Tensors/IAtumTensor.h"
 
 
 bool UAtumLayerLocalResponseNorm::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept

@@ -7,14 +7,14 @@
 #include "AtumNeuralNetworkFactory.generated.h"
 
 
-UCLASS()
+UCLASS(DisplayName = "ATUM Neural Network Factory")
 class ATUMEDITOR_API UAtumNeuralNetworkFactory : public UFactory
 {
 	GENERATED_BODY()
 
 public:
 	UE_NODISCARD_CTOR
-	UAtumNeuralNetworkFactory();
+	UAtumNeuralNetworkFactory() noexcept;
 
 	UE_NODISCARD
 	virtual UObject* FactoryCreateNew(
