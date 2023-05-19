@@ -4,7 +4,6 @@
 
 #include "Kismet/BlueprintFunctionLibrary.h"
 
-#include <format>
 #include <sstream>
 #include <vector>
 
@@ -21,10 +20,10 @@ public:
 	UE_NODISCARD
 	static std::string FormatWithConjunction(
 		const std::vector<T>& Values,
-		std::string_view Separator,
-		std::string_view Prefix = "",
-		std::string_view Suffix = "",
-		std::string_view Conjunction = "",
+		const std::string& Separator,
+		const std::string& Prefix = "",
+		const std::string& Suffix = "",
+		const std::string& Conjunction = "",
 		bool bSerialSeparator = true
 	) noexcept;
 };
@@ -33,10 +32,10 @@ public:
 template <typename T>
 std::string UAtumLibraryUtilities::FormatWithConjunction(
 	const std::vector<T>& Values,
-	const std::string_view Separator,
-	const std::string_view Prefix,
-	const std::string_view Suffix,
-	const std::string_view Conjunction,
+	const std::string& Separator,
+	const std::string& Prefix,
+	const std::string& Suffix,
+	const std::string& Conjunction,
 	const bool bSerialSeparator
 ) noexcept
 {
@@ -54,7 +53,7 @@ std::string UAtumLibraryUtilities::FormatWithConjunction(
 			std::copy(
 				Values.begin(),
 				Values.end() - 2u,
-				std::ostream_iterator<T>(Stream, std::format("{}{}{}", Suffix, Separator, Prefix).c_str())
+				std::ostream_iterator<T>(Stream, (Suffix + Separator + Prefix).c_str())
 			);
 		}
 		Stream << Values[ValueCount - 2u] << Suffix << (bSerialSeparator ? Separator : "") << Conjunction << Prefix;
