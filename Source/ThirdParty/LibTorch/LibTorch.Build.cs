@@ -4,10 +4,9 @@ using System.IO;
 using UnrealBuildTool;
 
 
-// ReSharper disable once InconsistentNaming
 public class LibTorch : ModuleRules
 {
-	public LibTorch(ReadOnlyTargetRules Target) : base(Target)
+	public LibTorch(ReadOnlyTargetRules target) : base(target)
 	{
 		Type = ModuleType.External;
 		PCHUsage = PCHUsageMode.NoPCHs;
@@ -19,35 +18,35 @@ public class LibTorch : ModuleRules
 		bUsePrecompiled = false;
 		bEnableExceptions = true;
 
-		if (Target.Platform != UnrealTargetPlatform.Win64)
+		if (target.Platform != UnrealTargetPlatform.Win64)
 		{
-			EpicGames.Core.Log.TraceError("Cannot load LibTorch on {0}!", Target.Platform.ToString());
+			EpicGames.Core.Log.TraceError("Cannot load LibTorch on {0}!", target.Platform.ToString());
 			return;
 		}
 		
-		PublicDefinitions.AddRange(new []
+		PublicDefinitions.AddRange(new[]
 		{
 			"NO_EXPORT",
 			"WITH_LIBTORCH"
 		});
 		
-		var PlatformPath = Path.Combine(ModuleDirectory, Target.Platform.ToString());
+		var PlatformPath = Path.Combine(ModuleDirectory, target.Platform.ToString());
 		AddIncludeFolders(Path.Combine(PlatformPath, "include"));
 		LinkLibraryFiles(Path.Combine(PlatformPath, "lib"));
 	}
 
-	private void AddIncludeFolders(string IncludePath)
+	private void AddIncludeFolders(string includePath)
 	{
-		PublicIncludePaths.AddRange(new []
+		PublicIncludePaths.AddRange(new[]
 		{
-			IncludePath,
-			Path.Combine(IncludePath, "torch/csrc/api/include")
+			includePath,
+			Path.Combine(includePath, "torch/csrc/api/include")
 		});
 	}
 
-	private void LinkLibraryFiles(string LibraryPath)
+	private void LinkLibraryFiles(string libraryPath)
 	{
-		var FilePaths = Directory.GetFiles(LibraryPath, "*", SearchOption.AllDirectories);
+		var FilePaths = Directory.GetFiles(libraryPath, "*", SearchOption.AllDirectories);
 		foreach (var FilePath in FilePaths)
 		{
 			var FileName = Path.GetFileName(FilePath);
