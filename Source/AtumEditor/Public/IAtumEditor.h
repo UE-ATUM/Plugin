@@ -2,11 +2,8 @@
 
 #pragma once
 
-#include "AssetTypeCategories.h"
 #include "AtumNeuralNetworkActions.h"
 
-
-DECLARE_LOG_CATEGORY_EXTERN(LogAtumEditor, Log, All)
 
 class ATUMEDITOR_API IAtumEditorModule : public IModuleInterface
 {
