@@ -39,10 +39,6 @@ public:
 	
 	UE_NODISCARD
 	FORCEINLINE FColor GetNeuralNetworkAssetTypeColor() const noexcept { return NeuralNetworkAssetTypeColor; }
-	
-	UE_NODISCARD
-	FORCEINLINE void SetNeuralNetworkAssetTypeColor(const FColor Value) noexcept
-	{ NeuralNetworkAssetTypeColor = Value; }
 };
 
 #undef LOCTEXT_NAMESPACE
