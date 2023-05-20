@@ -15,11 +15,17 @@ class UAtumSettings : public UDeveloperSettingsBackedByCVars
 	GENERATED_BODY()
 	
 protected:
-	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "ATUM|Settings", meta = (
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "Developer", meta = (
 		AllowPrivateAccess,
 		ConsoleVariable = "atum.Settings.Logging"
 	))
 	bool bLogging;
+
+	UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Category = "Editor", meta = (
+		AllowPrivateAccess,
+		ConfigRestartRequired = "true"
+	))
+	FColor NeuralNetworkAssetTypeColor;
 	
 public:
 	UE_NODISCARD_CTOR
@@ -30,6 +36,13 @@ public:
 	
 	UE_NODISCARD
 	FORCEINLINE void SetLogging(const bool bValue) noexcept { bLogging = bValue; }
+	
+	UE_NODISCARD
+	FORCEINLINE FColor GetNeuralNetworkAssetTypeColor() const noexcept { return NeuralNetworkAssetTypeColor; }
+	
+	UE_NODISCARD
+	FORCEINLINE void SetNeuralNetworkAssetTypeColor(const FColor Value) noexcept
+	{ NeuralNetworkAssetTypeColor = Value; }
 };
 
 #undef LOCTEXT_NAMESPACE

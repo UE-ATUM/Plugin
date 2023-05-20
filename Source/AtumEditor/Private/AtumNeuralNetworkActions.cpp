@@ -4,6 +4,7 @@
 
 #include "AtumEditor.h"
 #include "AtumNeuralNetworkEditorToolkit.h"
+#include "AtumSettings.h"
 #include "Layers/AtumNeuralNetwork.h"
 
 
@@ -21,7 +22,7 @@ FText FAtumNeuralNetworkAssetTypeActions::GetName() const
 
 FColor FAtumNeuralNetworkAssetTypeActions::GetTypeColor() const
 {
-	return FColor(243U, 156U, 18U);
+	return GetDefault<UAtumSettings>()->GetNeuralNetworkAssetTypeColor();
 }
 
 uint32 FAtumNeuralNetworkAssetTypeActions::GetCategories()

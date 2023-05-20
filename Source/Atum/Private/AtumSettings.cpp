@@ -7,10 +7,12 @@
 
 #define LOCTEXT_NAMESPACE "AtumSettings"
 
-UAtumSettings::UAtumSettings() noexcept : bLogging(true)
+UAtumSettings::UAtumSettings() noexcept :
+bLogging(true),
+NeuralNetworkAssetTypeColor(213U, 100U, 35U, 200U)
 {
 	CategoryName = TEXT("Plugins");
-	SectionName = TEXT("LibTorch");
+	SectionName = TEXT("ATUM");
 	LoadConfig();
 	
 	static const FAutoConsoleVariableRef CVarLogging(
