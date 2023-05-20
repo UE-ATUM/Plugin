@@ -19,12 +19,12 @@ bool UAtumLayerConvTranspose::IsCalculatedOutputTensorSizeValid(const TArray<int
 	bool bHasNonPositive = false;
 	std::vector<int64> OutputSizes(DimensionCount);
 	
-	for (uint64 Index = 0u; Index < DimensionCount; ++Index)
+	for (uint64 Index = 0ULL; Index < DimensionCount; ++Index)
 	{
-		OutputSizes[Index] = (InputSizes[SizeDifference + Index] - 1) * Stride[Index]
-		- 2 * Padding[Index] + Dilation[Index] * (KernelSize[Index] - 1) + OutputPadding[Index] + 1;
+		OutputSizes[Index] = (InputSizes[SizeDifference + Index] - 1LL) * Stride[Index]
+		- 2LL * Padding[Index] + Dilation[Index] * (KernelSize[Index] - 1LL) + OutputPadding[Index] + 1LL;
 		
-		bHasNonPositive |= OutputSizes[Index] < 0;
+		bHasNonPositive |= OutputSizes[Index] < 0LL;
 	}
 	if (!bHasNonPositive)
 		return false;
@@ -63,9 +63,9 @@ bool UAtumLayerConvTranspose::OnForward_Implementation(
 
 UAtumLayerConvTranspose1D::UAtumLayerConvTranspose1D() noexcept
 {
-	DimensionCount = 1u;
-	ValidInputSizes.push_back(2);
-	ValidInputSizes.push_back(3);
+	DimensionCount = 1ULL;
+	ValidInputSizes.push_back(2LL);
+	ValidInputSizes.push_back(3LL);
 }
 
 bool UAtumLayerConvTranspose1D::OnInitializeData_Implementation(const bool bRetry) noexcept
@@ -94,9 +94,9 @@ bool UAtumLayerConvTranspose1D::OnForward_Implementation(
 
 UAtumLayerConvTranspose2D::UAtumLayerConvTranspose2D() noexcept
 {
-	DimensionCount = 2u;
-	ValidInputSizes.push_back(3);
-	ValidInputSizes.push_back(4);
+	DimensionCount = 2ULL;
+	ValidInputSizes.push_back(3LL);
+	ValidInputSizes.push_back(4LL);
 }
 
 bool UAtumLayerConvTranspose2D::OnInitializeData_Implementation(const bool bRetry) noexcept
@@ -125,9 +125,9 @@ bool UAtumLayerConvTranspose2D::OnForward_Implementation(
 
 UAtumLayerConvTranspose3D::UAtumLayerConvTranspose3D() noexcept
 {
-	DimensionCount = 3u;
-	ValidInputSizes.push_back(4);
-	ValidInputSizes.push_back(5);
+	DimensionCount = 3ULL;
+	ValidInputSizes.push_back(4LL);
+	ValidInputSizes.push_back(5LL);
 }
 
 bool UAtumLayerConvTranspose3D::OnInitializeData_Implementation(const bool bRetry) noexcept

@@ -32,5 +32,5 @@ int32 SAtumNeuralNetworkWidget::OnPaint(
 
 FVector2D SAtumNeuralNetworkWidget::ComputeDesiredSize([[maybe_unused]] const float LayoutScaleMultiplier) const
 {
-	return FVector2D(200.0f, 200.0f);
+	return FVector2D(200.0F, 200.0F);
 }

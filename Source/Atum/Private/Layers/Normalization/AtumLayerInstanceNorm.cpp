@@ -17,9 +17,9 @@ bool UAtumLayerInstanceNorm::OnForward_Implementation(
 
 UAtumLayerInstanceNorm1D::UAtumLayerInstanceNorm1D() noexcept
 {
-	DimensionCount = 1u;
-	ValidInputSizes.push_back(2);
-	ValidInputSizes.push_back(3);
+	DimensionCount = 1ULL;
+	ValidInputSizes.push_back(2LL);
+	ValidInputSizes.push_back(3LL);
 }
 
 bool UAtumLayerInstanceNorm1D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
@@ -45,9 +45,9 @@ bool UAtumLayerInstanceNorm1D::OnForward_Implementation(
 
 UAtumLayerInstanceNorm2D::UAtumLayerInstanceNorm2D() noexcept
 {
-	DimensionCount = 2u;
-	ValidInputSizes.push_back(3);
-	ValidInputSizes.push_back(4);
+	DimensionCount = 2ULL;
+	ValidInputSizes.push_back(3LL);
+	ValidInputSizes.push_back(4LL);
 }
 
 bool UAtumLayerInstanceNorm2D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
@@ -73,9 +73,9 @@ bool UAtumLayerInstanceNorm2D::OnForward_Implementation(
 
 UAtumLayerInstanceNorm3D::UAtumLayerInstanceNorm3D() noexcept
 {
-	DimensionCount = 3u;
-	ValidInputSizes.push_back(4);
-	ValidInputSizes.push_back(5);
+	DimensionCount = 3ULL;
+	ValidInputSizes.push_back(4LL);
+	ValidInputSizes.push_back(5LL);
 }
 
 bool UAtumLayerInstanceNorm3D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept

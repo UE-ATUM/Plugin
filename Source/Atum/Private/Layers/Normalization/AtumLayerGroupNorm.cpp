@@ -12,12 +12,12 @@ bool UAtumLayerGroupNorm::OnInitializeData_Implementation([[maybe_unused]] const
 	const int64 Channels = Options.NumChannels;
 
 	bool bPositiveValues = true;
-	if (Groups <= 0)
+	if (Groups <= 0LL)
 	{
 		ATUM_LOG(Error, TEXT("There must exist at least 1 group!"))
 		bPositiveValues = false;
 	}
-	if (Channels <= 0)
+	if (Channels <= 0LL)
 	{
 		ATUM_LOG(Error, TEXT("There must exist at least 1 channel!"))
 		bPositiveValues = false;
@@ -25,7 +25,7 @@ bool UAtumLayerGroupNorm::OnInitializeData_Implementation([[maybe_unused]] const
 	if (!bPositiveValues)
 		return false;
 	
-	if (Channels % Groups != 0)
+	if (Channels % Groups != 0LL)
 	{
 		ATUM_LOG(Error, TEXT("The number of channels must be divisible by the number of groups!"))
 		return false;
@@ -57,7 +57,7 @@ bool UAtumLayerGroupNorm::OnForward_Implementation(
 			Error,
 			TEXT("Expected %lld %ls but got %lld!"),
 			ExpectedChannels,
-			ExpectedChannels == 1 ? TEXT("channel") : TEXT("channels"),
+			ExpectedChannels == 1LL ? TEXT("channel") : TEXT("channels"),
 			GivenChannels
 		)
 		return false;

@@ -7,7 +7,7 @@
 #include "Tensors/IAtumTensor.h"
 
 
-IAtumLayer::IAtumLayer() noexcept : bInitialized(false), DimensionCount(0u)
+IAtumLayer::IAtumLayer() noexcept : bInitialized(false), DimensionCount(0ULL)
 {
 }
 
@@ -45,7 +45,7 @@ bool IAtumLayer::AreInputSizesValid(const TArray<int64>& InputSizes, const int64
 			Error,
 			TEXT("Expected %lld %ls but got %lld!"),
 			ExpectedChannels,
-			ExpectedChannels == 1 ? TEXT("channel") : TEXT("channels"),
+			ExpectedChannels == 1LL ? TEXT("channel") : TEXT("channels"),
 			GivenChannels
 		)
 		return false;
@@ -82,7 +82,7 @@ bool IAtumLayer::Forward_Implementation(
 	
 	for (const int64 Size : Sizes)
 	{
-		if (UNLIKELY(Size == 0u))
+		if (UNLIKELY(Size == 0LL))
 		{
 			ATUM_LOG(Error, TEXT("Input contains 0D dimension in ATUM Layer of type `%hs`!"), LayerClassName)
 			return false;

@@ -13,17 +13,17 @@ bool IAtumLayerBaseConvolution::AreChannelsDivisibleByGroups(
 ) noexcept
 {
 	bool bPositiveValues = true;
-	if (Groups <= 0)
+	if (Groups <= 0LL)
 	{
 		ATUM_LOG(Error, TEXT("There must exist at least 1 group!"))
 		bPositiveValues = false;
 	}
-	if (InChannels <= 0)
+	if (InChannels <= 0LL)
 	{
 		ATUM_LOG(Error, TEXT("There must exist at least 1 input channel!"))
 		bPositiveValues = false;
 	}
-	if (OutChannels <= 0)
+	if (OutChannels <= 0LL)
 	{
 		ATUM_LOG(Error, TEXT("There must exist at least 1 output channel!"))
 		bPositiveValues = false;
@@ -31,7 +31,7 @@ bool IAtumLayerBaseConvolution::AreChannelsDivisibleByGroups(
 	if (!bPositiveValues)
 		return false;
 	
-	if (InChannels % Groups != 0 || OutChannels % Groups != 0)
+	if (InChannels % Groups != 0LL || OutChannels % Groups != 0LL)
 	{
 		ATUM_LOG(Error, TEXT("Input and output channels must both be divisible by the group count!"))
 		return false;
@@ -48,9 +48,9 @@ bool IAtumLayerBaseConvolution::AreSizesPositive(
 {
 	if (bAllowZero)
 	{
-		for (uint64 Index = 0u; Index < DimensionCount; ++Index)
+		for (uint64 Index = 0ULL; Index < DimensionCount; ++Index)
 		{
-			if (Sizes[Index] < 0)
+			if (Sizes[Index] < 0LL)
 			{
 				ATUM_LOG(Error, TEXT("%ls cannot be composed of negative integers!"), *Name)
 				return false;
@@ -59,9 +59,9 @@ bool IAtumLayerBaseConvolution::AreSizesPositive(
 	}
 	else
 	{
-		for (uint64 Index = 0u; Index < DimensionCount; ++Index)
+		for (uint64 Index = 0ULL; Index < DimensionCount; ++Index)
 		{
-			if (Sizes[Index] <= 0)
+			if (Sizes[Index] <= 0LL)
 			{
 				ATUM_LOG(Error, TEXT("%ls must be composed of positive integers!"), *Name)
 				return false;

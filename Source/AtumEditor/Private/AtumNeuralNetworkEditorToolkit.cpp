@@ -24,22 +24,22 @@ void FAtumNeuralNetworkEditorToolkit::InitEditor(
 		->SetOrientation(Orient_Vertical)
 		->Split(
 			FTabManager::NewSplitter()
-			->SetSizeCoefficient(0.6f)
+			->SetSizeCoefficient(0.6F)
 			->SetOrientation(Orient_Horizontal)
 			->Split(
 				FTabManager::NewStack()
-				->SetSizeCoefficient(0.8f)
+				->SetSizeCoefficient(0.8F)
 				->AddTab(TEXT("AtumNeuralNetworkTestTab"), ETabState::OpenedTab)
 			)
 			->Split(
 				FTabManager::NewStack()
-				->SetSizeCoefficient(0.2f)
+				->SetSizeCoefficient(0.2F)
 				->AddTab(TEXT("AtumNeuralNetworkDetailsTab"), ETabState::OpenedTab)
 			)
 		)
 		->Split(
 			FTabManager::NewStack()
-			->SetSizeCoefficient(0.4f)
+			->SetSizeCoefficient(0.4F)
 			->AddTab(TEXT("OutputLog"), ETabState::OpenedTab)
 		)
 	);
@@ -118,7 +118,7 @@ FString FAtumNeuralNetworkEditorToolkit::GetWorldCentricTabPrefix() const
 
 FLinearColor FAtumNeuralNetworkEditorToolkit::GetWorldCentricTabColorScale() const
 {
-	return FLinearColor();
+	return FLinearColor(0.0F, 0.0F, 0.0F, 0.0F);
 }
 
 #undef LOCTEXT_NAMESPACE

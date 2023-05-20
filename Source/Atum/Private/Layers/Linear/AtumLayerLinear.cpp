@@ -35,7 +35,7 @@ bool UAtumLayerLinear::OnForward_Implementation(
 			Error,
 			TEXT("Expected %lld %ls but got %lld!"),
 			ExpectedChannels,
-			ExpectedChannels == 1 ? TEXT("channel") : TEXT("channels"),
+			ExpectedChannels == 1LL ? TEXT("channel") : TEXT("channels"),
 			GivenChannels
 		)
 		return false;

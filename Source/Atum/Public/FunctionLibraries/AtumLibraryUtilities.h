@@ -40,23 +40,23 @@ std::string UAtumLibraryUtilities::FormatWithConjunction(
 ) noexcept
 {
 	const size_t ValueCount = Values.size();
-	if (UNLIKELY(ValueCount == 0u))
+	if (UNLIKELY(ValueCount == 0ULL))
 		return "";
 	
 	std::ostringstream Stream;
 	
 	Stream << Prefix;
-	if (ValueCount > 1u)
+	if (ValueCount > 1ULL)
 	{
-		if (ValueCount > 2u)
+		if (ValueCount > 2ULL)
 		{
 			std::copy(
 				Values.begin(),
-				Values.end() - 2u,
+				Values.end() - 2,
 				std::ostream_iterator<T>(Stream, (Suffix + Separator + Prefix).c_str())
 			);
 		}
-		Stream << Values[ValueCount - 2u] << Suffix << (bSerialSeparator ? Separator : "") << Conjunction << Prefix;
+		Stream << Values[ValueCount - 2ULL] << Suffix << (bSerialSeparator ? Separator : "") << Conjunction << Prefix;
 	}
 	Stream << Values.back() << Suffix;
 	

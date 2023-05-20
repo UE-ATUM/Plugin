@@ -17,10 +17,10 @@ bool UAtumLayerConv::IsDilatedKernelGreaterThanPaddedInput(const TArray<int64>& 
 	std::vector<int64> PaddedInput(DimensionCount);
 	std::vector<int64> DilatedKernel(DimensionCount);
 	
-	for (uint64 Index = 0u; Index < DimensionCount; ++Index)
+	for (uint64 Index = 0ULL; Index < DimensionCount; ++Index)
 	{
-		PaddedInput[Index] = InputSizes[SizeDifference + Index] + 2 * Padding[Index];
-		DilatedKernel[Index] = Dilation[Index] * (KernelSize[Index] - 1) + 1;
+		PaddedInput[Index] = InputSizes[SizeDifference + Index] + 2LL * Padding[Index];
+		DilatedKernel[Index] = Dilation[Index] * (KernelSize[Index] - 1LL) + 1LL;
 		
 		bIsBigger |= PaddedInput[Index] < DilatedKernel[Index];
 	}
@@ -48,7 +48,7 @@ bool UAtumLayerConv::IsPaddingGreaterThanOrEqualToInput(const TArray<int64>& Inp
 	std::vector<int64> UnpaddedInput(DimensionCount);
 	std::vector<int64> PaddingVector(DimensionCount);
 	
-	for (uint64 Index = 0u; Index < DimensionCount; ++Index)
+	for (uint64 Index = 0ULL; Index < DimensionCount; ++Index)
 	{
 		UnpaddedInput[Index] = InputSizes[SizeDifference + Index];
 		PaddingVector[Index] = Padding[Index];
@@ -79,7 +79,7 @@ bool UAtumLayerConv::DoesPaddingCauseMultipleWrappings(const TArray<int64>& Inpu
 	std::vector<int64> UnpaddedInput(DimensionCount);
 	std::vector<int64> PaddingVector(DimensionCount);
 	
-	for (uint64 Index = 0u; Index < DimensionCount; ++Index)
+	for (uint64 Index = 0ULL; Index < DimensionCount; ++Index)
 	{
 		UnpaddedInput[Index] = InputSizes[SizeDifference + Index];
 		PaddingVector[Index] = Padding[Index];
@@ -125,9 +125,9 @@ bool UAtumLayerConv::OnForward_Implementation(
 
 UAtumLayerConv1D::UAtumLayerConv1D() noexcept
 {
-	DimensionCount = 1u;
-	ValidInputSizes.push_back(2);
-	ValidInputSizes.push_back(3);
+	DimensionCount = 1ULL;
+	ValidInputSizes.push_back(2LL);
+	ValidInputSizes.push_back(3LL);
 }
 
 bool UAtumLayerConv1D::OnInitializeData_Implementation(const bool bRetry) noexcept
@@ -156,9 +156,9 @@ bool UAtumLayerConv1D::OnForward_Implementation(
 
 UAtumLayerConv2D::UAtumLayerConv2D() noexcept
 {
-	DimensionCount = 2u;
-	ValidInputSizes.push_back(3);
-	ValidInputSizes.push_back(4);
+	DimensionCount = 2ULL;
+	ValidInputSizes.push_back(3LL);
+	ValidInputSizes.push_back(4LL);
 }
 
 bool UAtumLayerConv2D::OnInitializeData_Implementation(const bool bRetry) noexcept
@@ -187,9 +187,9 @@ bool UAtumLayerConv2D::OnForward_Implementation(
 
 UAtumLayerConv3D::UAtumLayerConv3D() noexcept
 {
-	DimensionCount = 3u;
-	ValidInputSizes.push_back(4);
-	ValidInputSizes.push_back(5);
+	DimensionCount = 3ULL;
+	ValidInputSizes.push_back(4LL);
+	ValidInputSizes.push_back(5LL);
 }
 
 bool UAtumLayerConv3D::OnInitializeData_Implementation(const bool bRetry) noexcept

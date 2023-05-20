@@ -17,9 +17,9 @@ bool UAtumLayerBatchNorm::OnForward_Implementation(
 
 UAtumLayerBatchNorm1D::UAtumLayerBatchNorm1D() noexcept
 {
-	DimensionCount = 1u;
-	ValidInputSizes.push_back(2);
-	ValidInputSizes.push_back(3);
+	DimensionCount = 1ULL;
+	ValidInputSizes.push_back(2LL);
+	ValidInputSizes.push_back(3LL);
 }
 
 bool UAtumLayerBatchNorm1D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
@@ -45,8 +45,8 @@ bool UAtumLayerBatchNorm1D::OnForward_Implementation(
 
 UAtumLayerBatchNorm2D::UAtumLayerBatchNorm2D() noexcept
 {
-	DimensionCount = 2u;
-	ValidInputSizes.push_back(4);
+	DimensionCount = 2ULL;
+	ValidInputSizes.push_back(4LL);
 }
 
 bool UAtumLayerBatchNorm2D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
@@ -72,8 +72,8 @@ bool UAtumLayerBatchNorm2D::OnForward_Implementation(
 
 UAtumLayerBatchNorm3D::UAtumLayerBatchNorm3D() noexcept
 {
-	DimensionCount = 3u;
-	ValidInputSizes.push_back(5);
+	DimensionCount = 3ULL;
+	ValidInputSizes.push_back(5LL);
 }
 
 bool UAtumLayerBatchNorm3D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept

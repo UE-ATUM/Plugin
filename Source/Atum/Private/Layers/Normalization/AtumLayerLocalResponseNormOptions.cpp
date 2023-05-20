@@ -4,8 +4,8 @@
 
 
 FAtumLayerLocalResponseNormOptions::FAtumLayerLocalResponseNormOptions() noexcept :
-Size(0),
-Alpha(1e-4),
+Size(0LL),
+Alpha(1E-4),
 Beta(0.75),
 K(1.0)
 {

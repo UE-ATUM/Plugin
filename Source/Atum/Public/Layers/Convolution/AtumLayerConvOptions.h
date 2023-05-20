@@ -51,7 +51,7 @@ public:
 	explicit FAtumLayerConvOptions(uint64 Dimensions) noexcept;
 	
 	template <uint64 Dimensions>
-	requires (1u <= Dimensions && Dimensions <= 3u)
+	requires (1ULL <= Dimensions && Dimensions <= 3ULL)
 	UE_NODISCARD
 	FORCEINLINE explicit operator torch::nn::ConvOptions<Dimensions>() const noexcept;
 	
@@ -61,7 +61,7 @@ public:
 
 
 template <uint64 Dimensions>
-requires (1u <= Dimensions && Dimensions <= 3u)
+requires (1ULL <= Dimensions && Dimensions <= 3ULL)
 FAtumLayerConvOptions::operator torch::nn::ConvOptions<Dimensions>() const noexcept
 {
 	return torch::nn::ConvOptions<Dimensions>(

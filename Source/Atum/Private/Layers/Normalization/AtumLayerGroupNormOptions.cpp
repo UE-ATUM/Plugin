@@ -4,9 +4,9 @@
 
 
 FAtumLayerGroupNormOptions::FAtumLayerGroupNormOptions() noexcept :
-NumGroups(0),
-NumChannels(0),
-Eps(1e-5),
+NumGroups(0LL),
+NumChannels(0LL),
+Eps(1E-5),
 bAffine(true)
 {
 }

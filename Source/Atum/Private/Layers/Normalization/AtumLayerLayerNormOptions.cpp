@@ -3,7 +3,7 @@
 #include "Layers/Normalization/AtumLayerLayerNormOptions.h"
 
 
-FAtumLayerLayerNormOptions::FAtumLayerLayerNormOptions() noexcept : Epsilon(1e-5), bElementwiseAffine(true)
+FAtumLayerLayerNormOptions::FAtumLayerLayerNormOptions() noexcept : Epsilon(1E-5), bElementwiseAffine(true)
 {
 }
 

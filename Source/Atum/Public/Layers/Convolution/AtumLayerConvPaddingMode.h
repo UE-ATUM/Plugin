@@ -26,8 +26,8 @@ enum class EAtumConvPaddingMode : uint8
 
 namespace AtumEnums
 {
-	template <uint64 Dimensions = 1u>
-	requires (1u <= Dimensions && Dimensions <= 3u)
+	template <uint64 Dimensions = 1ULL>
+	requires (1ULL <= Dimensions && Dimensions <= 3ULL)
 	UE_NODISCARD
 	static typename torch::nn::ConvTransposeOptions<Dimensions>::padding_mode_t Cast(
 		const EAtumConvPaddingMode ConvPaddingMode
@@ -53,8 +53,8 @@ namespace AtumEnums
 		}
 	}
 
-	template <uint64 Dimensions = 1u>
-	requires (1u <= Dimensions && Dimensions <= 3u)
+	template <uint64 Dimensions = 1ULL>
+	requires (1ULL <= Dimensions && Dimensions <= 3ULL)
 	UE_NODISCARD
 	static EAtumConvPaddingMode Cast(
 		const typename torch::nn::ConvTransposeOptions<Dimensions>::padding_mode_t ConvPaddingMode

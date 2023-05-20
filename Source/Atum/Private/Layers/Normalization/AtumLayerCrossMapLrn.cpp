@@ -8,13 +8,13 @@
 
 UAtumLayerCrossMapLrn2D::UAtumLayerCrossMapLrn2D() noexcept
 {
-	DimensionCount = 2u;
-	ValidInputSizes.push_back(4);
+	DimensionCount = 2ULL;
+	ValidInputSizes.push_back(4LL);
 }
 
 bool UAtumLayerCrossMapLrn2D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
-	if (const int64 Size = Options.Size; Size <= 0)
+	if (const int64 Size = Options.Size; Size <= 0LL)
 	{
 		ATUM_LOG(Error, TEXT("Got size %lld, which is not positive!"), Size)
 		return false;

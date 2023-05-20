@@ -20,18 +20,18 @@ EAtumTensorScalarType IAtumTensor::GetScalarType() const noexcept
 
 int64 IAtumTensor::GetElementCount() const noexcept
 {
-	return Data ? Data->numel() : 0;
+	return Data ? Data->numel() : 0LL;
 }
 
 int64 IAtumTensor::GetElementSize() const noexcept
 {
-	return Data ? Data->element_size() : 0;
+	return Data ? Data->element_size() : 0LL;
 }
 
 void IAtumTensor::GetSerializedValues(TArray<uint8>& OutValues, TArray<int64>& OutSizes) const noexcept
 {
-	const uint64 ByteCount = Data ? Data->numel() * Data->element_size() : 0u;
-	if (ByteCount == 0u)
+	const uint64 ByteCount = Data ? Data->numel() * Data->element_size() : 0ULL;
+	if (ByteCount == 0ULL)
 	{
 		OutSizes.AddZeroed();
 		return;

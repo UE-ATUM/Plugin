@@ -8,7 +8,7 @@
 
 bool UAtumLayerLocalResponseNorm::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
-	if (const int64 Size = Options.Size; Size <= 0)
+	if (const int64 Size = Options.Size; Size <= 0LL)
 	{
 		ATUM_LOG(Error, TEXT("Got size %lld, which is not positive!"), Size)
 		return false;

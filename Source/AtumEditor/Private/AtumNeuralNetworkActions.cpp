@@ -21,7 +21,7 @@ FText FAtumNeuralNetworkAssetTypeActions::GetName() const
 
 FColor FAtumNeuralNetworkAssetTypeActions::GetTypeColor() const
 {
-	return FColor::Orange;
+	return FColor(243U, 156U, 18U);
 }
 
 uint32 FAtumNeuralNetworkAssetTypeActions::GetCategories()
