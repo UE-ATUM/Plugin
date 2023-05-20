@@ -14,6 +14,8 @@ LIBTORCH_INCLUDES_END
 class IAtumTensor;
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerConv"
+
 UCLASS(Abstract, Blueprintable, BlueprintType, DisplayName = "ATUM Conv Layer")
 class ATUM_API UAtumLayerConv : public UObject, public IAtumLayerBaseConvolution
 {
@@ -109,3 +111,5 @@ protected:
 		TScriptInterface<IAtumTensor>& Output
 	) override;
 };
+
+#undef LOCTEXT_NAMESPACE

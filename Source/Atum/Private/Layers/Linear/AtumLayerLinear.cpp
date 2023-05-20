@@ -6,6 +6,8 @@
 #include "Tensors/IAtumTensor.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerLinear"
+
 bool UAtumLayerLinear::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
 	Module.Reset(new torch::nn::Linear(std::make_shared<torch::nn::LinearImpl>(
@@ -45,3 +47,5 @@ bool UAtumLayerLinear::OnForward_Implementation(
 	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kFloat)));
 	return true;
 }
+
+#undef LOCTEXT_NAMESPACE

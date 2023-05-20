@@ -5,6 +5,8 @@
 #include "Layers/AtumNeuralNetwork.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumNeuralNetworkFactory"
+
 UAtumNeuralNetworkFactory::UAtumNeuralNetworkFactory() noexcept
 {
 	SupportedClass = UAtumNeuralNetwork::StaticClass();
@@ -22,3 +24,5 @@ UObject* UAtumNeuralNetworkFactory::FactoryCreateNew(
 {
 	return NewObject<UAtumNeuralNetwork>(InParent, InClass, InName, Flags, Context);
 }
+
+#undef LOCTEXT_NAMESPACE

@@ -6,6 +6,8 @@
 #include "AtumSettings.h"
 
 
+#define LOCTEXT_NAMESPACE "IAtumLayerBaseConvolution"
+
 bool IAtumLayerBaseConvolution::AreChannelsDivisibleByGroups(
 	const int64 InChannels,
 	const int64 OutChannels,
@@ -71,3 +73,5 @@ bool IAtumLayerBaseConvolution::AreSizesPositive(
 	
 	return true;
 }
+
+#undef LOCTEXT_NAMESPACE

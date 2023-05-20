@@ -19,6 +19,8 @@ namespace torch::nn
 // ReSharper restore CppUE4CodingStandardNamingViolationWarning
 
 
+#define LOCTEXT_NAMESPACE "IAtumLayer"
+
 UINTERFACE(MinimalAPI, Blueprintable, BlueprintType, DisplayName = "ATUM Layer")
 class UAtumLayer : public UInterface
 {
@@ -89,3 +91,5 @@ public:
 	UE_NODISCARD
 	FORCEINLINE const std::vector<int64>& GetValidInputSizes() const noexcept { return ValidInputSizes; }
 };
+
+#undef LOCTEXT_NAMESPACE

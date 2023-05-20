@@ -14,6 +14,8 @@ LIBTORCH_INCLUDES_END
 class IAtumTensor;
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerCrossMapLrn"
+
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Cross Map LRN 2D Layer")
 class ATUM_API UAtumLayerCrossMapLrn2D : public UObject, public IAtumLayerBaseNormalization
 {
@@ -46,3 +48,5 @@ public:
 	UE_NODISCARD
 	FORCEINLINE FAtumLayerCrossMapLrnOptions& GetOptions() noexcept { return Options; }
 };
+
+#undef LOCTEXT_NAMESPACE

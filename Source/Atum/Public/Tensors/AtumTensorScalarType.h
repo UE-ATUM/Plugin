@@ -11,6 +11,8 @@ LIBTORCH_INCLUDES_END
 #include "AtumTensorScalarType.generated.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumTensorScalarType"
+
 // Represents every type of scalar that can be used within tensors
 UENUM(BlueprintType, Category = "ATUM|Tensor", DisplayName = "ATUM Tensor Scalar Type", meta = (
 	Keywords = "ATUM Tensor Scalar Type"
@@ -50,3 +52,5 @@ namespace AtumEnums
 	static FORCEINLINE CONSTEXPR EAtumTensorScalarType Cast(const c10::ScalarType ScalarType) noexcept
 	{ return static_cast<EAtumTensorScalarType>(ScalarType); }
 }
+
+#undef LOCTEXT_NAMESPACE

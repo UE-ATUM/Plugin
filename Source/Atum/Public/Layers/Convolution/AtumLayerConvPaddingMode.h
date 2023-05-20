@@ -12,6 +12,8 @@ LIBTORCH_INCLUDES_END
 #include "AtumLayerConvPaddingMode.generated.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerConvPaddingMode"
+
 UENUM(BlueprintType, Category = "ATUM|Conv", DisplayName = "ATUM Conv Padding Mode", meta = (
 	Keywords = "ATUM Conv Padding Mode"
 ))
@@ -73,3 +75,5 @@ namespace AtumEnums
 		return EAtumConvPaddingMode::Zeros;
 	}
 }
+
+#undef LOCTEXT_NAMESPACE

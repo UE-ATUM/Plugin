@@ -11,6 +11,8 @@
 class UProperty;
 
 
+#define LOCTEXT_NAMESPACE "AtumLibraryTensors"
+
 UCLASS(Abstract, Blueprintable, BlueprintType, DisplayName = "ATUM Tensor Library")
 class ATUM_API UAtumLibraryTensors : public UBlueprintFunctionLibrary
 {
@@ -117,3 +119,5 @@ private:
 	DECLARE_FUNCTION(execK2_DeserializeArray) noexcept;
 	DECLARE_FUNCTION(execConv_TensorToString) noexcept;
 };
+
+#undef LOCTEXT_NAMESPACE

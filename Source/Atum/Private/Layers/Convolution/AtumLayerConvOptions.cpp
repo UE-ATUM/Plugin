@@ -3,6 +3,8 @@
 #include "Layers/Convolution/AtumLayerConvOptions.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerConvOptions"
+
 FAtumLayerConvOptions::FAtumLayerConvOptions() noexcept : FAtumLayerConvOptions(3ULL)
 {
 }
@@ -22,3 +24,5 @@ PaddingMode(EAtumConvPaddingMode::Zeros)
 		Dilation.Add(1LL);
 	}
 }
+
+#undef LOCTEXT_NAMESPACE

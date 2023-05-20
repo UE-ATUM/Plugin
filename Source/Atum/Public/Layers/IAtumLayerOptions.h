@@ -5,6 +5,8 @@
 #include "IAtumLayerOptions.generated.h"
 
 
+#define LOCTEXT_NAMESPACE "IAtumLayerOptions"
+
 USTRUCT(BlueprintType, DisplayName = "ATUM Layer Options")
 struct ATUM_API FAtumLayerOptions
 {
@@ -16,3 +18,5 @@ protected:
 	
 	friend UScriptStruct;
 };
+
+#undef LOCTEXT_NAMESPACE

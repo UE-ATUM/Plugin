@@ -6,6 +6,8 @@
 #include "Tensors/IAtumTensor.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerCrossMapLrn"
+
 UAtumLayerCrossMapLrn2D::UAtumLayerCrossMapLrn2D() noexcept
 {
 	DimensionCount = 2ULL;
@@ -40,3 +42,5 @@ bool UAtumLayerCrossMapLrn2D::OnForward_Implementation(
 	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kFloat)));
 	return true;
 }
+
+#undef LOCTEXT_NAMESPACE

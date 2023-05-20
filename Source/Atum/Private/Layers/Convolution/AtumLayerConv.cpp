@@ -6,6 +6,8 @@
 #include "Tensors/IAtumTensor.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerConv"
+
 bool UAtumLayerConv::IsDilatedKernelGreaterThanPaddedInput(const TArray<int64>& InputSizes) const noexcept
 {
 	const uint64 SizeDifference = InputSizes.Num() - DimensionCount;
@@ -215,3 +217,5 @@ bool UAtumLayerConv3D::OnForward_Implementation(
 	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kFloat)));
 	return true;
 }
+
+#undef LOCTEXT_NAMESPACE

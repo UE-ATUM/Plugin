@@ -5,6 +5,8 @@
 #include "Interfaces/IPluginManager.h"
 
 
+#define LOCTEXT_NAMESPACE "IAtum"
+
 bool IAtumModule::GetLibraryPath(FString& OutPath) noexcept
 {
 	const IPlugin* const AtumPlugin = IPluginManager::Get().FindPlugin(ModuleName.ToString()).Get();
@@ -22,3 +24,5 @@ bool IAtumModule::GetLibraryPath(FString& OutPath) noexcept
 	OutPath /= TEXT("lib");
 	return true;
 }
+
+#undef LOCTEXT_NAMESPACE

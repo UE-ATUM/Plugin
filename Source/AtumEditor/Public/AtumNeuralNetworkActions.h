@@ -5,6 +5,8 @@
 #include "AssetTypeActions_Base.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumNeuralNetworkActions"
+
 class ATUMEDITOR_API FAtumNeuralNetworkAssetTypeActions : public FAssetTypeActions_Base
 {
 public:
@@ -25,3 +27,5 @@ public:
 		TSharedPtr<IToolkitHost> EditWithinLevelEditor
 	) override;
 };
+
+#undef LOCTEXT_NAMESPACE

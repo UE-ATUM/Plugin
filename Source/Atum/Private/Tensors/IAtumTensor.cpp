@@ -3,6 +3,8 @@
 #include "Tensors/IAtumTensor.h"
 
 
+#define LOCTEXT_NAMESPACE "IAtumTensor"
+
 IAtumTensor::IAtumTensor() noexcept : Data(nullptr), ScalarType(EAtumTensorScalarType::Undefined)
 {
 }
@@ -91,3 +93,5 @@ std::ostream& operator<<(std::ostream& OutStream, const TScriptInterface<IAtumTe
 	}
 	return OutStream;
 }
+
+#undef LOCTEXT_NAMESPACE

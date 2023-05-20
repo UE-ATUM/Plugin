@@ -3,6 +3,8 @@
 #include "Layers/Convolution/AtumLayerConvTransposeOptions.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerConvTransposeOptions"
+
 FAtumLayerConvTransposeOptions::FAtumLayerConvTransposeOptions() noexcept :
 FAtumLayerConvTransposeOptions(3ULL)
 {
@@ -23,3 +25,5 @@ bBias(true)
 		Dilation.Add(1LL);
 	}
 }
+
+#undef LOCTEXT_NAMESPACE

@@ -13,7 +13,7 @@ LIBTORCH_INCLUDES_START
 LIBTORCH_INCLUDES_END
 
 
-#define LOCTEXT_NAMESPACE "FAtumModule"
+#define LOCTEXT_NAMESPACE "Atum"
 
 void FAtumModule::StartupModule()
 {
@@ -68,6 +68,6 @@ void FAtumModule::ShutdownModule()
 #endif
 }
 
-#undef LOCTEXT_NAMESPACE
-
 IMPLEMENT_MODULE(FAtumModule, Atum)
+
+#undef LOCTEXT_NAMESPACE

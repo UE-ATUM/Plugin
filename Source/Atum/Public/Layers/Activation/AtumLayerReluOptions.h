@@ -12,6 +12,8 @@ LIBTORCH_INCLUDES_END
 #include "AtumLayerReluOptions.generated.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerReluOptions"
+
 USTRUCT(BlueprintType, DisplayName = "ATUM ReLU Layer Options")
 struct ATUM_API FAtumLayerReluOptions : public FAtumLayerOptions
 {
@@ -26,3 +28,5 @@ struct ATUM_API FAtumLayerReluOptions : public FAtumLayerOptions
 	UE_NODISCARD
 	FORCEINLINE explicit operator torch::nn::ReLUOptions() const noexcept { return torch::nn::ReLUOptions(bInplace); }
 };
+
+#undef LOCTEXT_NAMESPACE

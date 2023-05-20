@@ -5,6 +5,8 @@
 #include "Tensors/IAtumTensor.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerRelu"
+
 bool UAtumLayerRelu::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
 	Module.Reset(new torch::nn::ReLU(std::make_shared<torch::nn::ReLUImpl>(
@@ -22,3 +24,5 @@ bool UAtumLayerRelu::OnForward_Implementation(
 	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kDouble)));
 	return true;
 }
+
+#undef LOCTEXT_NAMESPACE

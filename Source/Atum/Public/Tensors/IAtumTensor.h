@@ -12,6 +12,8 @@ LIBTORCH_INCLUDES_END
 #include "IAtumTensor.generated.h"
 
 
+#define LOCTEXT_NAMESPACE "IAtumTensor"
+
 UINTERFACE(MinimalAPI, NotBlueprintable, BlueprintType, DisplayName = "ATUM Tensor")
 class UAtumTensor : public UInterface
 {
@@ -152,3 +154,5 @@ void TAtumTensor<T>::SetInternalValues(
 	InternalValues = Values;
 	AtumTensor.SetValues<T>(InternalValues.GetData(), Sizes);
 }
+
+#undef LOCTEXT_NAMESPACE

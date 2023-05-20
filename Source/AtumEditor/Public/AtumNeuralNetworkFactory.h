@@ -7,6 +7,8 @@
 #include "AtumNeuralNetworkFactory.generated.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumNeuralNetworkFactory"
+
 UCLASS(DisplayName = "ATUM Neural Network Factory")
 class ATUMEDITOR_API UAtumNeuralNetworkFactory : public UFactory
 {
@@ -26,3 +28,5 @@ public:
 		FFeedbackContext* Warn
 	) override;
 };
+
+#undef LOCTEXT_NAMESPACE

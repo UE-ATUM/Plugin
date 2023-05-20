@@ -14,6 +14,8 @@ LIBTORCH_INCLUDES_END
 class UAtumLayerConvTranspose;
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerConvTransposeOptions"
+
 USTRUCT(BlueprintType, DisplayName = "ATUM Conv Transpose Layer Options")
 struct ATUM_API FAtumLayerConvTransposeOptions : public FAtumLayerOptions
 {
@@ -80,3 +82,5 @@ FAtumLayerConvTransposeOptions::operator torch::nn::ConvTransposeOptions<Dimensi
 	.dilation(at::IntArrayRef(Dilation.GetData(), Dimensions))
 	.padding_mode(torch::kZeros);
 }
+
+#undef LOCTEXT_NAMESPACE

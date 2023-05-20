@@ -12,6 +12,8 @@ LIBTORCH_INCLUDES_END
 #include "AtumLayerCrossMapLrnOptions.generated.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerCrossMapLrnOptions"
+
 USTRUCT(BlueprintType, DisplayName = "ATUM Cross Map LRN Layer Options")
 struct ATUM_API FAtumLayerCrossMapLrnOptions : public FAtumLayerOptions
 {
@@ -36,3 +38,5 @@ struct ATUM_API FAtumLayerCrossMapLrnOptions : public FAtumLayerOptions
 	FORCEINLINE explicit operator torch::nn::CrossMapLRN2dOptions() const noexcept
 	{ return torch::nn::CrossMapLRN2dOptions(Size).alpha(Alpha).beta(Beta).k(K); }
 };
+
+#undef LOCTEXT_NAMESPACE

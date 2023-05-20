@@ -5,6 +5,8 @@
 #include "AtumSettings.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumNeuralNetwork"
+
 // ReSharper disable CppUE4CodingStandardNamingViolationWarning
 namespace torch::nn
 {
@@ -71,3 +73,5 @@ bool UAtumNeuralNetwork::OnForward_Implementation(
 	
 	return bHasActualLayers;
 }
+
+#undef LOCTEXT_NAMESPACE

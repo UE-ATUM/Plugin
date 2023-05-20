@@ -7,6 +7,8 @@
 #include "AtumSettings.generated.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumSettings"
+
 UCLASS(MinimalAPI, Config = "Atum", Blueprintable, BlueprintType, DisplayName = "ATUM Settings")
 class UAtumSettings : public UDeveloperSettingsBackedByCVars
 {
@@ -29,3 +31,5 @@ public:
 	UE_NODISCARD
 	FORCEINLINE void SetLogging(const bool bValue) noexcept { bLogging = bValue; }
 };
+
+#undef LOCTEXT_NAMESPACE

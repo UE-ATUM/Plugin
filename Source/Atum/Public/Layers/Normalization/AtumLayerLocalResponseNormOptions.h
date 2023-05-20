@@ -12,6 +12,8 @@ LIBTORCH_INCLUDES_END
 #include "AtumLayerLocalResponseNormOptions.generated.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerLocalResponseNormOptions"
+
 USTRUCT(BlueprintType, DisplayName = "ATUM Local Response Norm Layer Options")
 struct ATUM_API FAtumLayerLocalResponseNormOptions : public FAtumLayerOptions
 {
@@ -36,3 +38,5 @@ struct ATUM_API FAtumLayerLocalResponseNormOptions : public FAtumLayerOptions
 	FORCEINLINE explicit operator torch::nn::LocalResponseNormOptions() const noexcept
 	{ return torch::nn::LocalResponseNormOptions(Size).alpha(Alpha).beta(Beta).k(K); }
 };
+
+#undef LOCTEXT_NAMESPACE

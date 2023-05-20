@@ -5,6 +5,8 @@
 #include "AtumSettings.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumLibraryTensors"
+
 void UAtumLibraryTensors::K2_SerializeArray(
 	[[maybe_unused]] const TArray<UProperty*>& Target,
 	[[maybe_unused]] TArray<uint8>& OutBytes
@@ -192,3 +194,5 @@ void UAtumLibraryTensors::execConv_TensorToString(
 	P_NATIVE_END
 }
 // ReSharper restore CppUE4CodingStandardNamingViolationWarning
+
+#undef LOCTEXT_NAMESPACE

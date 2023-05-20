@@ -3,7 +3,7 @@
 #include "AtumEditor.h"
 
 
-#define LOCTEXT_NAMESPACE "FAtumEditorModule"
+#define LOCTEXT_NAMESPACE "AtumEditor"
 
 void FAtumEditorModule::StartupModule()
 {
@@ -22,7 +22,7 @@ void FAtumEditorModule::ShutdownModule()
 		FAssetToolsModule::GetModule().Get().UnregisterAssetTypeActions(AtumNeuralNetworkAssetTypeActions);
 	}
 }
-
-#undef LOCTEXT_NAMESPACE
 	
 IMPLEMENT_MODULE(FAtumEditorModule, AtumEditor)
+
+#undef LOCTEXT_NAMESPACE

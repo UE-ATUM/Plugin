@@ -7,6 +7,8 @@
 #include <vector>
 
 
+#define LOCTEXT_NAMESPACE "IAtum"
+
 class ATUM_API IAtumModule : public IModuleInterface
 {
 protected:
@@ -26,3 +28,5 @@ public:
 	UE_NODISCARD
 	static FORCEINLINE const std::vector<void*>& GetDllHandles() noexcept { return DllHandles; }
 };
+
+#undef LOCTEXT_NAMESPACE

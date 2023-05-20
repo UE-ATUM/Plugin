@@ -7,6 +7,8 @@
 #include "IAtumLayerBaseConvolution.generated.h"
 
 
+#define LOCTEXT_NAMESPACE "IAtumLayerBaseConvolution"
+
 UINTERFACE(MinimalAPI, Blueprintable, BlueprintType, DisplayName = "ATUM Convolution Layer Base")
 class UAtumLayerBaseConvolution : public UAtumLayer
 {
@@ -24,3 +26,5 @@ protected:
 	UE_NODISCARD
 	bool AreSizesPositive(const TArray<int64>& Sizes, const FString& Name, bool bAllowZero = false) const noexcept;
 };
+
+#undef LOCTEXT_NAMESPACE

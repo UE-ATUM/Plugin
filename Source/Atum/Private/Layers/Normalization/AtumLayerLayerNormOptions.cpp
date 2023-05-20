@@ -3,6 +3,8 @@
 #include "Layers/Normalization/AtumLayerLayerNormOptions.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerLayerNormOptions"
+
 FAtumLayerLayerNormOptions::FAtumLayerLayerNormOptions() noexcept : Epsilon(1E-5), bElementwiseAffine(true)
 {
 }
@@ -16,3 +18,5 @@ FAtumLayerLayerNormOptions::operator torch::nn::LayerNormOptions() const noexcep
 		.elementwise_affine(bElementwiseAffine)
 	);
 }
+
+#undef LOCTEXT_NAMESPACE

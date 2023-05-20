@@ -12,6 +12,8 @@ LIBTORCH_INCLUDES_END
 #include "AtumLayerGroupNormOptions.generated.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerGroupNormOptions"
+
 USTRUCT(BlueprintType, DisplayName = "ATUM Group Norm Layer Options")
 struct ATUM_API FAtumLayerGroupNormOptions : public FAtumLayerOptions
 {
@@ -36,3 +38,5 @@ struct ATUM_API FAtumLayerGroupNormOptions : public FAtumLayerOptions
 	FORCEINLINE explicit operator torch::nn::GroupNormOptions() const noexcept
 	{ return torch::nn::GroupNormOptions(NumGroups, NumChannels).eps(Eps).affine(bAffine); }
 };
+
+#undef LOCTEXT_NAMESPACE

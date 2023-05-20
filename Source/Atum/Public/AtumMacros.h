@@ -5,6 +5,8 @@
 #include "Logging/LogMacros.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumMacros"
+
 #define ATUM_LOG(Verbosity, Format, ...) \
 if (GetDefault<UAtumSettings>()->IsLogging()) \
 { \
@@ -103,3 +105,5 @@ __pragma(warning(pop))
 #endif
 
 DECLARE_LOG_CATEGORY_EXTERN(LogAtum, Log, All)
+
+#undef LOCTEXT_NAMESPACE

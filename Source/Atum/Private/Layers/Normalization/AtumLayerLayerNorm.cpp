@@ -7,6 +7,8 @@
 #include "Tensors/IAtumTensor.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerLayerNorm"
+
 UAtumLayerLayerNorm::~UAtumLayerLayerNorm() noexcept
 {
 	if (Module)
@@ -81,3 +83,5 @@ bool UAtumLayerLayerNorm::OnForward_Implementation(
 	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kBFloat16)));
 	return true;
 }
+
+#undef LOCTEXT_NAMESPACE

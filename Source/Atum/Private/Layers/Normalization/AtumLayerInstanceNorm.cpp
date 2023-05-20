@@ -5,6 +5,8 @@
 #include "Tensors/IAtumTensor.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerInstanceNorm"
+
 bool UAtumLayerInstanceNorm::OnForward_Implementation(
 	const TScriptInterface<IAtumTensor>& Input,
 	[[maybe_unused]] TScriptInterface<IAtumTensor>& Output
@@ -98,3 +100,5 @@ bool UAtumLayerInstanceNorm3D::OnForward_Implementation(
 	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kDouble)));
 	return true;
 }
+
+#undef LOCTEXT_NAMESPACE

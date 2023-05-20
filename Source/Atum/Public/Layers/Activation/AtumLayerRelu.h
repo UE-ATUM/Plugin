@@ -14,6 +14,8 @@ LIBTORCH_INCLUDES_END
 class IAtumTensor;
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerRelu"
+
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM ReLU Layer")
 class ATUM_API UAtumLayerRelu : public UObject, public IAtumLayerBaseActivation
 {
@@ -41,3 +43,5 @@ public:
 	UE_NODISCARD
 	FORCEINLINE FAtumLayerReluOptions& GetOptions() noexcept { return Options; }
 };
+
+#undef LOCTEXT_NAMESPACE

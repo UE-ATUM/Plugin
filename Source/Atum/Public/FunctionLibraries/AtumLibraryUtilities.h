@@ -10,6 +10,8 @@
 #include "AtumLibraryUtilities.generated.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumLibraryUtilities"
+
 UCLASS(Abstract, Blueprintable, BlueprintType, DisplayName = "ATUM Utility Library")
 class ATUM_API UAtumLibraryUtilities : public UBlueprintFunctionLibrary
 {
@@ -62,3 +64,5 @@ std::string UAtumLibraryUtilities::FormatWithConjunction(
 	
 	return Stream.str();
 }
+
+#undef LOCTEXT_NAMESPACE

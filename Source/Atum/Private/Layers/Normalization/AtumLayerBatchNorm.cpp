@@ -5,6 +5,8 @@
 #include "Tensors/IAtumTensor.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerBatchNorm"
+
 bool UAtumLayerBatchNorm::OnForward_Implementation(
 	const TScriptInterface<IAtumTensor>& Input,
 	[[maybe_unused]] TScriptInterface<IAtumTensor>& Output
@@ -96,3 +98,5 @@ bool UAtumLayerBatchNorm3D::OnForward_Implementation(
 	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kBFloat16)));
 	return true;
 }
+
+#undef LOCTEXT_NAMESPACE

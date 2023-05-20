@@ -14,6 +14,8 @@ LIBTORCH_INCLUDES_END
 class IAtumTensor;
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerGroupNorm"
+
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Group Norm Layer")
 class ATUM_API UAtumLayerGroupNorm : public UObject, public IAtumLayerBaseNormalization
 {
@@ -41,3 +43,5 @@ public:
 	UE_NODISCARD
 	FORCEINLINE FAtumLayerGroupNormOptions& GetOptions() noexcept { return Options; }
 };
+
+#undef LOCTEXT_NAMESPACE

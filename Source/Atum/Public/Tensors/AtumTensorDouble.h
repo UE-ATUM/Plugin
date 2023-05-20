@@ -7,6 +7,8 @@
 #include "AtumTensorDouble.generated.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumTensorDouble"
+
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Double Tensor")
 class ATUM_API UAtumTensorDouble : public UObject, public IAtumTensor, public TAtumTensor<double>
 {
@@ -29,3 +31,5 @@ protected:
 	FORCEINLINE void K2_SetValues(const TArray<double>& Values, const TArray<int64>& Sizes) noexcept
 	{ SetInternalValues(*this, Values, Sizes); }
 };
+
+#undef LOCTEXT_NAMESPACE

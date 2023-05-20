@@ -7,6 +7,8 @@
 #include "Tensors/IAtumTensor.h"
 
 
+#define LOCTEXT_NAMESPACE "IAtumLayer"
+
 IAtumLayer::IAtumLayer() noexcept : bInitialized(false), DimensionCount(0ULL)
 {
 }
@@ -138,3 +140,5 @@ bool IAtumLayer::OnForward_Implementation(
 	Output = DuplicateObject(Input.GetObject(), nullptr);
 	return false;
 }
+
+#undef LOCTEXT_NAMESPACE

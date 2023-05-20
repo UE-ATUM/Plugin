@@ -5,6 +5,8 @@
 #include "Logging/LogMacros.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumEditorMacros"
+
 #define ATUMEDITOR_LOG(Verbosity, Format, ...) \
 if (GetDefault<UAtumSettings>()->IsLogging()) \
 { \
@@ -12,3 +14,5 @@ if (GetDefault<UAtumSettings>()->IsLogging()) \
 }
 
 DECLARE_LOG_CATEGORY_EXTERN(LogAtumEditor, Log, All)
+
+#undef LOCTEXT_NAMESPACE

@@ -14,6 +14,8 @@ LIBTORCH_INCLUDES_END
 class IAtumTensor;
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerLinear"
+
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Linear Layer")
 class ATUM_API UAtumLayerLinear : public UObject, public IAtumLayer
 {
@@ -41,3 +43,5 @@ public:
 	UE_NODISCARD
 	FORCEINLINE FAtumLayerLinearOptions& GetOptions() noexcept { return Options; }
 };
+
+#undef LOCTEXT_NAMESPACE

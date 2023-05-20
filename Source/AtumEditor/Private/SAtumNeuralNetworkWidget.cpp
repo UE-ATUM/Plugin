@@ -5,6 +5,8 @@
 #include "SlateOptMacros.h"
 
 
+#define LOCTEXT_NAMESPACE "SAtumNeuralNetworkWidget"
+
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 void SAtumNeuralNetworkWidget::Construct([[maybe_unused]] const FArguments& Arguments) noexcept
 {
@@ -34,3 +36,5 @@ FVector2D SAtumNeuralNetworkWidget::ComputeDesiredSize([[maybe_unused]] const fl
 {
 	return FVector2D(200.0F, 200.0F);
 }
+
+#undef LOCTEXT_NAMESPACE

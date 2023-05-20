@@ -14,6 +14,8 @@ LIBTORCH_INCLUDES_END
 class IAtumTensor;
 
 
+#define LOCTEXT_NAMESPACE "AtumNeuralNetwork"
+
 // ReSharper disable CppUE4CodingStandardNamingViolationWarning
 namespace torch::nn
 {
@@ -65,3 +67,5 @@ public:
 	UE_NODISCARD
 	FORCEINLINE TMap<FName, TScriptInterface<IAtumLayer>>& GetNamedLayers() noexcept { return NamedLayers; }
 };
+
+#undef LOCTEXT_NAMESPACE

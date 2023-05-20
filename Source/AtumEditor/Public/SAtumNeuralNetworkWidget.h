@@ -5,6 +5,8 @@
 #include "Widgets/SLeafWidget.h"
 
 
+#define LOCTEXT_NAMESPACE "SAtumNeuralNetworkWidget"
+
 class ATUMEDITOR_API SAtumNeuralNetworkWidget : public SLeafWidget
 {
 public:
@@ -27,3 +29,5 @@ public:
 	UE_NODISCARD
 	virtual FVector2D ComputeDesiredSize(float LayoutScaleMultiplier) const override;
 };
+
+#undef LOCTEXT_NAMESPACE

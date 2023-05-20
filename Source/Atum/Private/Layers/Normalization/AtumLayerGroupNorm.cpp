@@ -6,6 +6,8 @@
 #include "Tensors/IAtumTensor.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerGroupNorm"
+
 bool UAtumLayerGroupNorm::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
 	const int64 Groups = Options.NumGroups;
@@ -67,3 +69,5 @@ bool UAtumLayerGroupNorm::OnForward_Implementation(
 	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kBFloat16)));
 	return true;
 }
+
+#undef LOCTEXT_NAMESPACE

@@ -7,6 +7,8 @@
 #include "Tensors/IAtumTensor.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerConvTranspose"
+
 bool UAtumLayerConvTranspose::IsCalculatedOutputTensorSizeValid(const TArray<int64>& InputSizes) const noexcept
 {
 	const uint64 SizeDifference = InputSizes.Num() - DimensionCount;
@@ -153,3 +155,5 @@ bool UAtumLayerConvTranspose3D::OnForward_Implementation(
 	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kFloat)));
 	return true;
 }
+
+#undef LOCTEXT_NAMESPACE

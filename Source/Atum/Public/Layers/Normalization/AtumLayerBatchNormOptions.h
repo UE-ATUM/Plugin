@@ -12,6 +12,8 @@ LIBTORCH_INCLUDES_END
 #include "AtumLayerBatchNormOptions.generated.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerBatchNormOptions"
+
 USTRUCT(BlueprintType, DisplayName = "ATUM Batch Norm Layer Options")
 struct ATUM_API FAtumLayerBatchNormOptions : public FAtumLayerOptions
 {
@@ -45,3 +47,5 @@ struct ATUM_API FAtumLayerBatchNormOptions : public FAtumLayerOptions
 		.track_running_stats(bTrackRunningStats);
 	}
 };
+
+#undef LOCTEXT_NAMESPACE

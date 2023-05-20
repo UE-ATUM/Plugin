@@ -5,6 +5,8 @@
 #include "AtumNeuralNetworkActions.h"
 
 
+#define LOCTEXT_NAMESPACE "IAtumEditor"
+
 class ATUMEDITOR_API IAtumEditorModule : public IModuleInterface
 {
 protected:
@@ -29,3 +31,5 @@ public:
 	FORCEINLINE TSharedRef<const FAtumNeuralNetworkAssetTypeActions>
 	GetAtumNeuralNetworkAssetTypeActions() const noexcept { return AtumNeuralNetworkAssetTypeActions; }
 };
+
+#undef LOCTEXT_NAMESPACE

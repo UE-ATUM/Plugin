@@ -14,6 +14,8 @@ LIBTORCH_INCLUDES_END
 class IAtumTensor;
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerLocalResponseNorm"
+
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Local Response Norm Layer")
 class ATUM_API UAtumLayerLocalResponseNorm : public UObject, public IAtumLayerBaseNormalization
 {
@@ -41,3 +43,5 @@ public:
 	UE_NODISCARD
 	FORCEINLINE FAtumLayerLocalResponseNormOptions& GetOptions() noexcept { return Options; }
 };
+
+#undef LOCTEXT_NAMESPACE

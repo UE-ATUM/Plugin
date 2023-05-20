@@ -10,6 +10,8 @@
 class UAtumLayerConv;
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerConvOptions"
+
 USTRUCT(BlueprintType, DisplayName = "ATUM Conv Layer Options")
 struct ATUM_API FAtumLayerConvOptions : public FAtumLayerOptions
 {
@@ -75,3 +77,5 @@ FAtumLayerConvOptions::operator torch::nn::ConvOptions<Dimensions>() const noexc
 	.dilation(at::IntArrayRef(Dilation.GetData(), Dimensions))
 	.padding_mode(AtumEnums::Cast<Dimensions>(PaddingMode));
 }
+
+#undef LOCTEXT_NAMESPACE

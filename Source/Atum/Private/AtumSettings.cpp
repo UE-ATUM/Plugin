@@ -5,7 +5,7 @@
 #include "HAL/IConsoleManager.h"
 
 
-#define LOCTEXT_NAMESPACE "UAtumSettings"
+#define LOCTEXT_NAMESPACE "AtumSettings"
 
 UAtumSettings::UAtumSettings() noexcept : bLogging(true)
 {

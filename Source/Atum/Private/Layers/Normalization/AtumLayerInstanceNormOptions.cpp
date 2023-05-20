@@ -3,6 +3,8 @@
 #include "Layers/Normalization/AtumLayerInstanceNormOptions.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerInstanceNormOptions"
+
 FAtumLayerInstanceNormOptions::FAtumLayerInstanceNormOptions() noexcept :
 NumFeatures(0LL),
 Epsilon(1E-5),
@@ -11,3 +13,5 @@ bAffine(false),
 bTrackRunningStats(false)
 {
 }
+
+#undef LOCTEXT_NAMESPACE

@@ -7,6 +7,8 @@
 #include "IAtumLayerBaseNormalization.generated.h"
 
 
+#define LOCTEXT_NAMESPACE "IAtumLayerBaseNormalization"
+
 UINTERFACE(MinimalAPI, Blueprintable, BlueprintType, DisplayName = "ATUM Normalization Layer Base")
 class UAtumLayerBaseNormalization : public UAtumLayer
 {
@@ -17,3 +19,5 @@ class ATUM_API IAtumLayerBaseNormalization : public IAtumLayer
 {
 	GENERATED_BODY()
 };
+
+#undef LOCTEXT_NAMESPACE

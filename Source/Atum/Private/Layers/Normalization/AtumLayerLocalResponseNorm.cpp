@@ -6,6 +6,8 @@
 #include "Tensors/IAtumTensor.h"
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerLocalResponseNorm"
+
 bool UAtumLayerLocalResponseNorm::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
 	if (const int64 Size = Options.Size; Size <= 0LL)
@@ -37,3 +39,5 @@ bool UAtumLayerLocalResponseNorm::OnForward_Implementation(
 	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kDouble)));
 	return true;
 }
+
+#undef LOCTEXT_NAMESPACE

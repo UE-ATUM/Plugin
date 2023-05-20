@@ -7,6 +7,8 @@
 class UAtumNeuralNetwork;
 
 
+#define LOCTEXT_NAMESPACE "AtumNeuralNetworkEditorToolkit"
+
 class ATUMEDITOR_API FAtumNeuralNetworkEditorToolkit : public FAssetEditorToolkit
 {
 	UAtumNeuralNetwork* NeuralNetwork = nullptr;
@@ -33,3 +35,5 @@ public:
 	UE_NODISCARD
 	virtual FLinearColor GetWorldCentricTabColorScale() const override;
 };
+
+#undef LOCTEXT_NAMESPACE

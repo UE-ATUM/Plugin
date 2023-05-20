@@ -14,6 +14,8 @@ LIBTORCH_INCLUDES_END
 class IAtumTensor;
 
 
+#define LOCTEXT_NAMESPACE "AtumLayerInstanceNorm"
+
 UCLASS(Abstract, Blueprintable, BlueprintType, DisplayName = "ATUM Instance Norm Layer")
 class ATUM_API UAtumLayerInstanceNorm : public UObject, public IAtumLayerBaseNormalization
 {
@@ -98,3 +100,5 @@ protected:
 		TScriptInterface<IAtumTensor>& Output
 	) override;
 };
+
+#undef LOCTEXT_NAMESPACE
