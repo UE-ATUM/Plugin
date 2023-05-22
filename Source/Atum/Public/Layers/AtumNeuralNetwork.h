@@ -41,9 +41,22 @@ class ATUM_API UAtumNeuralNetwork : public UObject, public IAtumLayer
 	GENERATED_BODY()
 	GENERATED_ATUM_LAYER(torch::nn::AtumNetwork)
 	
+	std::vector<TTuple<FName, UClass*>> OldLayerTypes;
+	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Network", meta = (AllowPrivateAccess))
-	TMap<FName, TScriptInterface<IAtumLayer>> NamedLayers;
+	FName NetworkLayerName;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Network", meta = (
+		AllowPrivateAccess,
+		MustImplement = "/Script/Atum.AtumLayer"
+	))
+	TMap<FName, UClass*> LayerTypes;
+	
+	UPROPERTY(Instanced, EditFixedSize, VisibleAnywhere, BlueprintReadOnly, Category = "ATUM|Network", meta = (
+		AllowPrivateAccess
+	))
+	TArray<UObject*> LayerObjects;
 	
 public:
 	UE_NODISCARD_CTOR
@@ -60,12 +73,18 @@ protected:
 		TScriptInterface<IAtumTensor>& Output
 	) override;
 	
+	virtual void PreEditChange(FProperty* PropertyAboutToChange) override;
+	virtual void PostEditChangeChainProperty(FPropertyChangedChainEvent& PropertyChangedEvent) override;
+	
+private:
+	void OnLayerTypesPropertyChange_ValueSet(int32 ChangedIndex) noexcept;
+	
 public:
 	UE_NODISCARD
-	FORCEINLINE const TMap<FName, TScriptInterface<IAtumLayer>>& GetNamedLayers() const noexcept { return NamedLayers; }
+	FORCEINLINE const TMap<FName, UClass*>& GetLayerTypes() const noexcept { return LayerTypes; }
 	
 	UE_NODISCARD
-	FORCEINLINE TMap<FName, TScriptInterface<IAtumLayer>>& GetNamedLayers() noexcept { return NamedLayers; }
+	FORCEINLINE const TArray<UObject*>& GetLayerObjects() const noexcept { return LayerObjects; }
 };
 
 #undef LOCTEXT_NAMESPACE

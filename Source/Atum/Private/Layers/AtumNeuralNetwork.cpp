@@ -21,9 +21,8 @@ namespace torch::nn
 }
 // ReSharper restore CppUE4CodingStandardNamingViolationWarning
 
-UAtumNeuralNetwork::UAtumNeuralNetwork() noexcept
+UAtumNeuralNetwork::UAtumNeuralNetwork() noexcept : NetworkLayerName(TEXT("ATUM Network"))
 {
-	NamedLayers.Add(TEXT("Network Input"), this);
 }
 
 void UAtumNeuralNetwork::RegisterLayer(const FName Name, const TScriptInterface<IAtumLayer>& Layer) noexcept
@@ -35,13 +34,15 @@ void UAtumNeuralNetwork::RegisterLayer(const FName Name, const TScriptInterface<
 		return;
 	}
 	
-	if (Layer == nullptr || !Layer->IsInitialized())
+	UObject* const LayerObject = Layer.GetObject();
+	if (LayerObject == nullptr || !Layer->IsInitialized())
 	{
 		ATUM_LOG(Error, TEXT("Could not register uninitialized layer in `%hs` ATUM Neural Network!"), NetworkName)
 		return;
 	}
 	
-	NamedLayers.Add(Name, Layer);
+	LayerTypes.Add(Name, LayerObject->StaticClass());
+	LayerObjects.Add(LayerObject);
 }
 
 bool UAtumNeuralNetwork::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
@@ -58,20 +59,79 @@ bool UAtumNeuralNetwork::OnForward_Implementation(
 	bool bHasActualLayers = false;
 	TScriptInterface<IAtumTensor> Subinput = Input;
 	
-	for (const TTuple<FName, TScriptInterface<IAtumLayer>>& NamedLayer : NamedLayers)
+	for (UObject* const LayerObject : LayerObjects)
 	{
-		const TScriptInterface<IAtumLayer>& Layer = NamedLayer.Value;
-		if (Layer == this)
-			continue;
-
 		bHasActualLayers = true;
-		if (!Execute_Forward(Layer ? Layer->_getUObject() : nullptr, Subinput, Output))
+		if (!Execute_Forward(LayerObject, Subinput, Output))
 			return false;
 		
 		Subinput = Output;
 	}
 	
 	return bHasActualLayers;
+}
+
+void UAtumNeuralNetwork::PreEditChange(FProperty* const PropertyAboutToChange)
+{
+	if (
+		PropertyAboutToChange &&
+		PropertyAboutToChange->GetFName() == GET_MEMBER_NAME_CHECKED(UAtumNeuralNetwork, LayerTypes)
+	)
+	{
+	    OldLayerTypes.clear();
+	    OldLayerTypes.reserve(LayerTypes.Num());
+	    for (const TTuple<FName, UClass*>& LayerType : LayerTypes)
+	    {
+		    OldLayerTypes.push_back(LayerType);
+	    }
+	}
+	
+	Super::PreEditChange(PropertyAboutToChange);
+}
+
+void UAtumNeuralNetwork::PostEditChangeChainProperty(FPropertyChangedChainEvent& PropertyChangedEvent)
+{
+	if (
+		const FProperty* const Property = PropertyChangedEvent.Property;
+		Property && Property->GetFName() == GET_MEMBER_NAME_CHECKED(UAtumNeuralNetwork, LayerTypes)
+	)
+	{
+		const int32 ChangedIndex = PropertyChangedEvent.GetArrayIndex(TEXT("LayerTypes"));
+		LayerObjects.Reserve(ChangedIndex + 1);
+		
+		switch (const EPropertyChangeType::Type PropertyChangeType = PropertyChangedEvent.ChangeType)
+		{
+		case EPropertyChangeType::ArrayAdd:
+			LayerObjects.Insert(nullptr, ChangedIndex);
+			break;
+			
+		case EPropertyChangeType::ArrayRemove:
+			LayerObjects.RemoveAt(ChangedIndex);
+			break;
+			
+		case EPropertyChangeType::ArrayClear:
+			LayerObjects.Empty();
+			break;
+			
+		case EPropertyChangeType::ValueSet:
+			OnLayerTypesPropertyChange_ValueSet(ChangedIndex);
+			break;
+			
+		default:
+			UE_LOG(LogTemp, Error, TEXT("Property change type %u unaccounted for!"), PropertyChangeType)
+		}
+	}
+	
+	Super::PostEditChangeChainProperty(PropertyChangedEvent);
+}
+
+void UAtumNeuralNetwork::OnLayerTypesPropertyChange_ValueSet(const int32 ChangedIndex) noexcept
+{
+	const TTuple<FName, UClass*>& OldLayerType = OldLayerTypes[ChangedIndex];
+	if (const UClass* const LayerType = LayerTypes[OldLayerType.Key]; LayerType != OldLayerType.Value)
+	{
+		LayerObjects[ChangedIndex] = LayerType ? NewObject<UObject>(this, LayerType) : nullptr;
+	}
 }
 
 #undef LOCTEXT_NAMESPACE
