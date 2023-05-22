@@ -11,8 +11,6 @@ LIBTORCH_INCLUDES_END
 
 #include "AtumLayerGroupNorm.generated.h"
 
-class IAtumTensor;
-
 
 #define LOCTEXT_NAMESPACE "AtumLayerGroupNorm"
 
