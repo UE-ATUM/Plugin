@@ -11,8 +11,6 @@ LIBTORCH_INCLUDES_END
 
 #include "AtumNeuralNetwork.generated.h"
 
-class IAtumTensor;
-
 
 #define LOCTEXT_NAMESPACE "AtumNeuralNetwork"
 
@@ -41,7 +39,11 @@ class ATUM_API UAtumNeuralNetwork : public UObject, public IAtumLayer
 	GENERATED_BODY()
 	GENERATED_ATUM_LAYER(torch::nn::AtumNetwork)
 	
-	std::vector<TTuple<FName, UClass*>> OldLayerTypes;
+	UPROPERTY(Transient, NonTransactional)
+	TArray<UClass*> OldLayerTypes;
+	
+	UPROPERTY(Transient, NonTransactional)
+	TArray<UObject*> OldLayerObjects;
 	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Network", meta = (AllowPrivateAccess))
@@ -51,7 +53,7 @@ protected:
 		AllowPrivateAccess,
 		MustImplement = "/Script/Atum.AtumLayer"
 	))
-	TMap<FName, UClass*> LayerTypes;
+	TArray<UClass*> LayerTypes;
 	
 	UPROPERTY(Instanced, EditFixedSize, VisibleAnywhere, BlueprintReadOnly, Category = "ATUM|Network", meta = (
 		AllowPrivateAccess
@@ -63,7 +65,7 @@ public:
 	UAtumNeuralNetwork() noexcept;
 	
 	UFUNCTION(BlueprintCallable)
-	void RegisterLayer(FName Name, const TScriptInterface<IAtumLayer>& Layer) noexcept;
+	void RegisterLayer(const TScriptInterface<IAtumLayer>& Layer) noexcept;
 	
 protected:
 	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;
@@ -77,11 +79,13 @@ protected:
 	virtual void PostEditChangeChainProperty(FPropertyChangedChainEvent& PropertyChangedEvent) override;
 	
 private:
-	void OnLayerTypesPropertyChange_ValueSet(int32 ChangedIndex) noexcept;
+	void OnLayerTypesPropertyChange_ValueSet(int32 Index) noexcept;
+	void OnLayerTypesPropertyChange_ArrayMove() noexcept;
+	void OnLayerTypesPropertyChange_SetCachedNetworkIndices() noexcept;
 	
 public:
 	UE_NODISCARD
-	FORCEINLINE const TMap<FName, UClass*>& GetLayerTypes() const noexcept { return LayerTypes; }
+	FORCEINLINE const TArray<UClass*>& GetLayerTypes() const noexcept { return LayerTypes; }
 	
 	UE_NODISCARD
 	FORCEINLINE const TArray<UObject*>& GetLayerObjects() const noexcept { return LayerObjects; }

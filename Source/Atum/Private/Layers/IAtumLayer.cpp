@@ -13,47 +13,9 @@ IAtumLayer::IAtumLayer() noexcept : bInitialized(false), DimensionCount(0ULL)
 {
 }
 
-bool IAtumLayer::AreInputSizesValid(const int32 InputSizeCount) const noexcept
+std::shared_ptr<torch::nn::Module> IAtumLayer::GetSharedModule() const noexcept
 {
-	if (UNLIKELY(ValidInputSizes.empty()))
-	{
-		ATUM_LOG(Error, TEXT("No valid input size has been defined for this layer!"))
-		return false;
-	}
-	
-	if (!std::ranges::binary_search(ValidInputSizes, InputSizeCount))
-	{
-		ATUM_LOG(
-			Error,
-			TEXT("Expected %hs but got %dD input tensor!"),
-			UAtumLibraryUtilities::FormatWithConjunction(ValidInputSizes, ", ", "", "D", " or ", false).c_str(),
-			InputSizeCount
-		)
-		return false;
-	}
-
-	return true;
-}
-
-bool IAtumLayer::AreInputSizesValid(const TArray<int64>& InputSizes, const int64 ExpectedChannels) const noexcept
-{
-	const int32 SizeCount = InputSizes.Num();
-	if (!AreInputSizesValid(SizeCount))
-		return false;
-
-	if (const int64 GivenChannels = InputSizes[SizeCount - DimensionCount - 1]; GivenChannels != ExpectedChannels)
-	{
-		ATUM_LOG(
-			Error,
-			TEXT("Expected %lld %ls but got %lld!"),
-			ExpectedChannels,
-			ExpectedChannels == 1LL ? TEXT("channel") : TEXT("channels"),
-			GivenChannels
-		)
-		return false;
-	}
-
-	return true;
+	return nullptr;
 }
 
 bool IAtumLayer::InitializeData_Implementation(const bool bRetry) noexcept
@@ -119,6 +81,49 @@ bool IAtumLayer::Forward_Implementation(
 		ATUM_LOG(Error, TEXT("Failed to forward in ATUM Layer of type `%hs`!"), LayerClassName)
 	}
 	return bSuccess;
+}
+
+bool IAtumLayer::AreInputSizesValid(const int32 InputSizeCount) const noexcept
+{
+	if (UNLIKELY(ValidInputSizes.empty()))
+	{
+		ATUM_LOG(Error, TEXT("No valid input size has been defined for this layer!"))
+		return false;
+	}
+	
+	if (!std::ranges::binary_search(ValidInputSizes, InputSizeCount))
+	{
+		ATUM_LOG(
+			Error,
+			TEXT("Expected %hs but got %dD input tensor!"),
+			UAtumLibraryUtilities::FormatWithConjunction(ValidInputSizes, ", ", "", "D", " or ", false).c_str(),
+			InputSizeCount
+		)
+		return false;
+	}
+
+	return true;
+}
+
+bool IAtumLayer::AreInputSizesValid(const TArray<int64>& InputSizes, const int64 ExpectedChannels) const noexcept
+{
+	const int32 SizeCount = InputSizes.Num();
+	if (!AreInputSizesValid(SizeCount))
+		return false;
+
+	if (const int64 GivenChannels = InputSizes[SizeCount - DimensionCount - 1]; GivenChannels != ExpectedChannels)
+	{
+		ATUM_LOG(
+			Error,
+			TEXT("Expected %lld %ls but got %lld!"),
+			ExpectedChannels,
+			ExpectedChannels == 1LL ? TEXT("channel") : TEXT("channels"),
+			GivenChannels
+		)
+		return false;
+	}
+
+	return true;
 }
 
 bool IAtumLayer::OnInitializeData_Implementation(const bool bRetry) noexcept

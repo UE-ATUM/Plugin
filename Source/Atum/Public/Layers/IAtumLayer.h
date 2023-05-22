@@ -30,12 +30,12 @@ class UAtumLayer : public UInterface
 class ATUM_API IAtumLayer
 {
 	GENERATED_BODY()
-
+	
 protected:
 	bool bInitialized;
 	uint64 DimensionCount;
 	std::vector<int64> ValidInputSizes;
-
+	
 public:
 	UE_NODISCARD_CTOR
 	IAtumLayer() noexcept;
@@ -53,7 +53,7 @@ public:
 	{ return Execute_Forward(_getUObject(), Input, Output); }
 	
 	UE_NODISCARD
-	virtual std::shared_ptr<torch::nn::Module> GetSharedModule() const noexcept { return nullptr; }
+	virtual std::shared_ptr<torch::nn::Module> GetSharedModule() const noexcept;
 	
 private:
 	bool InitializeData_Implementation(bool bRetry = false) noexcept;
@@ -62,7 +62,7 @@ private:
 		const TScriptInterface<IAtumTensor>& Input,
 		TScriptInterface<IAtumTensor>& Output
 	) noexcept;
-
+	
 protected:
 	UE_NODISCARD
 	bool AreInputSizesValid(int32 InputSizeCount) const noexcept;
@@ -73,7 +73,7 @@ protected:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
 	bool OnInitializeData(bool bRetry = false);
 	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept;
-
+	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
 	bool OnForward(const TScriptInterface<IAtumTensor>& Input, TScriptInterface<IAtumTensor>& Output);
 	virtual bool OnForward_Implementation(
@@ -84,10 +84,10 @@ protected:
 public:
 	UE_NODISCARD
 	FORCEINLINE bool IsInitialized() const noexcept { return bInitialized; }
-
+	
 	UE_NODISCARD
 	FORCEINLINE uint64 GetDimensionCount() const noexcept { return DimensionCount; }
-
+	
 	UE_NODISCARD
 	FORCEINLINE const std::vector<int64>& GetValidInputSizes() const noexcept { return ValidInputSizes; }
 };
