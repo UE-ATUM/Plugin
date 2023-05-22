@@ -12,6 +12,9 @@ struct ATUM_API FAtumLayerOptions
 {
 	GENERATED_BODY()
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
+	FName LayerName;
+	
 protected:
 	UE_NODISCARD_CTOR
 	FAtumLayerOptions() noexcept;

@@ -5,7 +5,7 @@
 
 #define LOCTEXT_NAMESPACE "IAtumLayerOptions"
 
-FAtumLayerOptions::FAtumLayerOptions() noexcept
+FAtumLayerOptions::FAtumLayerOptions() noexcept : LayerName(TEXT("UNNAMED_LAYER"))
 {
 }
 
