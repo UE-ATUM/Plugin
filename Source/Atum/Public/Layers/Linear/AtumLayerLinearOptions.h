@@ -19,13 +19,13 @@ struct ATUM_API FAtumLayerLinearOptions : public FAtumLayerOptions
 {
 	GENERATED_BODY()
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	int64 InFeatures;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	int64 OutFeatures;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	bool bBias;
 
 	UE_NODISCARD_CTOR

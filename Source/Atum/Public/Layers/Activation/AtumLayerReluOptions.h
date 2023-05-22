@@ -19,7 +19,7 @@ struct ATUM_API FAtumLayerReluOptions : public FAtumLayerOptions
 {
 	GENERATED_BODY()
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (AllowPrivateAccess))
 	bool bInplace;
 
 	UE_NODISCARD_CTOR
