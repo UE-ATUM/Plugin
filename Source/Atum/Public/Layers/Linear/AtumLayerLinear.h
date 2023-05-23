@@ -21,10 +21,7 @@ class ATUM_API UAtumLayerLinear : public UObject, public IAtumLayer
 	GENERATED_ATUM_LAYER(torch::nn::Linear)
 	
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (
-		AllowPrivateAccess,
-		ShowOnlyInnerProperties
-	))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties))
 	FAtumLayerLinearOptions Options;
 	
 	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;

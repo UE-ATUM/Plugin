@@ -46,18 +46,13 @@ class ATUM_API UAtumNeuralNetwork : public UObject, public IAtumLayer
 	TArray<UObject*> OldLayerObjects;
 	
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Network", meta = (AllowPrivateAccess))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess))
 	FName NetworkLayerName;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Network", meta = (
-		AllowPrivateAccess,
-		MustImplement = "/Script/Atum.AtumLayer"
-	))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, MustImplement = "/Script/Atum.AtumLayer"))
 	TArray<UClass*> LayerTypes;
 	
-	UPROPERTY(Instanced, EditFixedSize, VisibleAnywhere, BlueprintReadOnly, Category = "ATUM|Network", meta = (
-		AllowPrivateAccess
-	))
+	UPROPERTY(Instanced, EditFixedSize, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess))
 	TArray<UObject*> LayerObjects;
 	
 public:

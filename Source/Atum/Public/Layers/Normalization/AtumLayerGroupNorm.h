@@ -21,10 +21,7 @@ class ATUM_API UAtumLayerGroupNorm : public UObject, public IAtumLayerBaseNormal
 	GENERATED_ATUM_LAYER(torch::nn::GroupNorm)
 	
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (
-		AllowPrivateAccess,
-		ShowOnlyInnerProperties
-	))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties))
 	FAtumLayerGroupNormOptions Options;
 	
 	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;

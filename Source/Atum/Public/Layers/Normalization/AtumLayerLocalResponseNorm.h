@@ -21,10 +21,7 @@ class ATUM_API UAtumLayerLocalResponseNorm : public UObject, public IAtumLayerBa
 	GENERATED_ATUM_LAYER(torch::nn::LocalResponseNorm)
 	
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (
-		AllowPrivateAccess,
-		ShowOnlyInnerProperties
-	))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties))
 	FAtumLayerLocalResponseNormOptions Options;
 	
 	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;

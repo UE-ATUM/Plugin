@@ -21,10 +21,7 @@ class ATUM_API UAtumLayerCrossMapLrn2D : public UObject, public IAtumLayerBaseNo
 	GENERATED_ATUM_LAYER(torch::nn::CrossMapLRN2d)
 	
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ATUM|Options", meta = (
-		AllowPrivateAccess,
-		ShowOnlyInnerProperties
-	))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties))
 	FAtumLayerCrossMapLrnOptions Options;
 	
 public:
