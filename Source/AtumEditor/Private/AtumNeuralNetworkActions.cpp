@@ -2,9 +2,9 @@
 
 #include "AtumNeuralNetworkActions.h"
 
+#include "AtumEditorModule.h"
 #include "AtumNeuralNetworkEditorToolkit.h"
 #include "AtumSettings.h"
-#include "IAtumEditorModule.h"
 #include "Layers/AtumNeuralNetwork.h"
 
 
@@ -27,7 +27,7 @@ FColor FAtumNeuralNetworkAssetTypeActions::GetTypeColor() const
 
 uint32 FAtumNeuralNetworkAssetTypeActions::GetCategories()
 {
-	return IAtumEditorModule::GetModule().GetAtumAssetCategoryBit();
+	return FAtumEditorModule::GetModule().GetAtumAssetCategoryBit();
 }
 
 void FAtumNeuralNetworkAssetTypeActions::OpenAssetEditor(
