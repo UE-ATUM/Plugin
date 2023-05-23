@@ -70,6 +70,7 @@ protected:
 		TScriptInterface<IAtumTensor>& Output
 	) override;
 	
+#if WITH_EDITOR
 	virtual void PreEditChange(FProperty* PropertyAboutToChange) override;
 	virtual void PostEditChangeChainProperty(FPropertyChangedChainEvent& PropertyChangedEvent) override;
 	
@@ -77,6 +78,7 @@ private:
 	void OnLayerTypesPropertyChange_ValueSet(int32 Index) noexcept;
 	void OnLayerTypesPropertyChange_ArrayMove() noexcept;
 	void OnLayerTypesPropertyChange_SetCachedNetworkIndices() noexcept;
+#endif
 	
 public:
 	UE_NODISCARD

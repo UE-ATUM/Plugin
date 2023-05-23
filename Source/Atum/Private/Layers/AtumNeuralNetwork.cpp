@@ -81,6 +81,7 @@ bool UAtumNeuralNetwork::OnForward_Implementation(
 	return bHasActualLayers;
 }
 
+#if WITH_EDITOR
 void UAtumNeuralNetwork::PreEditChange(FProperty* const PropertyAboutToChange)
 {
 	do
@@ -207,5 +208,6 @@ void UAtumNeuralNetwork::OnLayerTypesPropertyChange_SetCachedNetworkIndices() no
 		}
 	}
 }
+#endif
 
 #undef LOCTEXT_NAMESPACE
