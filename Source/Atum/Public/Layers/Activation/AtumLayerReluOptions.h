@@ -15,7 +15,7 @@ LIBTORCH_INCLUDES_END
 #define LOCTEXT_NAMESPACE "AtumLayerReluOptions"
 
 USTRUCT(BlueprintType, DisplayName = "ATUM ReLU Layer Options")
-struct ATUM_API FAtumLayerReluOptions : public FAtumLayerOptions
+struct ATUM_API FAtumLayerReluOptions : public FIAtumLayerOptions
 {
 	GENERATED_BODY()
 	

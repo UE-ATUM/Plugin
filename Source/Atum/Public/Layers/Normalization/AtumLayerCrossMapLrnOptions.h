@@ -15,7 +15,7 @@ LIBTORCH_INCLUDES_END
 #define LOCTEXT_NAMESPACE "AtumLayerCrossMapLrnOptions"
 
 USTRUCT(BlueprintType, DisplayName = "ATUM Cross Map LRN Layer Options")
-struct ATUM_API FAtumLayerCrossMapLrnOptions : public FAtumLayerOptions
+struct ATUM_API FAtumLayerCrossMapLrnOptions : public FIAtumLayerOptions
 {
 	GENERATED_BODY()
 	

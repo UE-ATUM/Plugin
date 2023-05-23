@@ -15,7 +15,7 @@ LIBTORCH_INCLUDES_END
 #define LOCTEXT_NAMESPACE "AtumLayerBatchNormOptions"
 
 USTRUCT(BlueprintType, DisplayName = "ATUM Batch Norm Layer Options")
-struct ATUM_API FAtumLayerBatchNormOptions : public FAtumLayerOptions
+struct ATUM_API FAtumLayerBatchNormOptions : public FIAtumLayerOptions
 {
 	GENERATED_BODY()
 	

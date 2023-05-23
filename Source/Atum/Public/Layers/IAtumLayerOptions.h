@@ -8,7 +8,7 @@
 #define LOCTEXT_NAMESPACE "IAtumLayerOptions"
 
 USTRUCT(BlueprintType, DisplayName = "ATUM Layer Options")
-struct ATUM_API FAtumLayerOptions
+struct ATUM_API FIAtumLayerOptions
 {
 	GENERATED_BODY()
 	
@@ -17,7 +17,7 @@ struct ATUM_API FAtumLayerOptions
 	
 protected:
 	UE_NODISCARD_CTOR
-	FAtumLayerOptions() noexcept;
+	FIAtumLayerOptions() noexcept;
 	
 	friend UScriptStruct;
 };

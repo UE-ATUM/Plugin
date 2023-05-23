@@ -15,7 +15,7 @@ LIBTORCH_INCLUDES_END
 #define LOCTEXT_NAMESPACE "AtumLayerLocalResponseNormOptions"
 
 USTRUCT(BlueprintType, DisplayName = "ATUM Local Response Norm Layer Options")
-struct ATUM_API FAtumLayerLocalResponseNormOptions : public FAtumLayerOptions
+struct ATUM_API FAtumLayerLocalResponseNormOptions : public FIAtumLayerOptions
 {
 	GENERATED_BODY()
 	

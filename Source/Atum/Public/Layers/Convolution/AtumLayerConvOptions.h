@@ -13,7 +13,7 @@ class UAtumLayerConv;
 #define LOCTEXT_NAMESPACE "AtumLayerConvOptions"
 
 USTRUCT(BlueprintType, DisplayName = "ATUM Conv Layer Options")
-struct ATUM_API FAtumLayerConvOptions : public FAtumLayerOptions
+struct ATUM_API FAtumLayerConvOptions : public FIAtumLayerOptions
 {
 	GENERATED_BODY()
 	
