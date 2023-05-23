@@ -1,9 +1,9 @@
 // © 2023 Kaya Adrian.
 
-#include "IAtumEditor.h"
+#include "IAtumEditorModule.h"
 
 
-#define LOCTEXT_NAMESPACE "IAtumEditor"
+#define LOCTEXT_NAMESPACE "IAtumEditorModule"
 
 const FName IAtumEditorModule::ModuleName = TEXT("AtumEditor");
 

@@ -5,7 +5,7 @@
 #include "AtumNeuralNetworkActions.h"
 
 
-#define LOCTEXT_NAMESPACE "IAtumEditor"
+#define LOCTEXT_NAMESPACE "IAtumEditorModule"
 
 class ATUMEDITOR_API IAtumEditorModule : public IModuleInterface
 {
@@ -21,14 +21,14 @@ public:
 	
 	UE_NODISCARD
 	static FORCEINLINE bool IsModuleLoaded() noexcept { return FModuleManager::Get().IsModuleLoaded(ModuleName); }
-
+	
 	UE_NODISCARD
 	static FORCEINLINE IAtumEditorModule& GetModule()
 	{ return FModuleManager::LoadModuleChecked<IAtumEditorModule>(ModuleName); }
-
+	
 	UE_NODISCARD
 	FORCEINLINE EAssetTypeCategories::Type GetAtumAssetCategoryBit() const noexcept { return AtumAssetCategoryBit; }
-
+	
 	UE_NODISCARD
 	FORCEINLINE TSharedRef<const FAtumNeuralNetworkAssetTypeActions>
 	GetAtumNeuralNetworkAssetTypeActions() const noexcept { return AtumNeuralNetworkAssetTypeActions; }

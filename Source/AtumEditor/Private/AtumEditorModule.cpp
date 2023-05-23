@@ -1,9 +1,9 @@
 // © 2023 Kaya Adrian.
 
-#include "AtumEditor.h"
+#include "AtumEditorModule.h"
 
 
-#define LOCTEXT_NAMESPACE "AtumEditor"
+#define LOCTEXT_NAMESPACE "AtumEditorModule"
 
 void FAtumEditorModule::StartupModule()
 {
