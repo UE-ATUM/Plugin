@@ -40,20 +40,20 @@ class ATUM_API UAtumNeuralNetwork : public UObject, public IAtumLayer
 	GENERATED_ATUM_LAYER(torch::nn::AtumNetwork)
 	
 	UPROPERTY(Transient, NonTransactional)
-	TArray<UClass*> OldLayerTypes;
+	TArray<TObjectPtr<UClass>> OldLayerTypes;
 	
 	UPROPERTY(Transient, NonTransactional)
-	TArray<UObject*> OldLayerObjects;
+	TArray<TObjectPtr<UObject>> OldLayerObjects;
 	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess))
 	FName NetworkLayerName;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, MustImplement = "/Script/Atum.AtumLayer"))
-	TArray<UClass*> LayerTypes;
+	TArray<TObjectPtr<UClass>> LayerTypes;
 	
 	UPROPERTY(Instanced, EditFixedSize, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess))
-	TArray<UObject*> LayerObjects;
+	TArray<TObjectPtr<UObject>> LayerObjects;
 	
 public:
 	UE_NODISCARD_CTOR
@@ -74,7 +74,6 @@ protected:
 	virtual void PreEditChange(FProperty* PropertyAboutToChange) override;
 	virtual void PostEditChangeChainProperty(FPropertyChangedChainEvent& PropertyChangedEvent) override;
 	
-private:
 	void OnLayerTypesPropertyChange_ValueSet(int32 Index) noexcept;
 	void OnLayerTypesPropertyChange_ArrayMove() noexcept;
 	void OnLayerTypesPropertyChange_SetCachedNetworkIndices() noexcept;
@@ -82,10 +81,10 @@ private:
 	
 public:
 	UE_NODISCARD
-	FORCEINLINE const TArray<UClass*>& GetLayerTypes() const noexcept { return LayerTypes; }
+	FORCEINLINE const TArray<TObjectPtr<UClass>>& GetLayerTypes() const noexcept { return LayerTypes; }
 	
 	UE_NODISCARD
-	FORCEINLINE const TArray<UObject*>& GetLayerObjects() const noexcept { return LayerObjects; }
+	FORCEINLINE const TArray<TObjectPtr<UObject>>& GetLayerObjects() const noexcept { return LayerObjects; }
 };
 
 #undef LOCTEXT_NAMESPACE

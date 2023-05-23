@@ -4,11 +4,28 @@
 
 #include "Interfaces/IPluginManager.h"
 
+#if PLATFORM_WINDOWS
+#include "Windows/WindowsPlatformProcess.h"
+#endif
+
 
 #define LOCTEXT_NAMESPACE "IAtumModule"
 
-std::vector<void*> IAtumModule::DllHandles;
+#if PLATFORM_WINDOWS
+TArray<TUniquePtr<uint8, FDllDeleter>> IAtumModule::DllHandles;
+#endif
 const FName IAtumModule::ModuleName = TEXT("Atum");
+
+
+#if PLATFORM_WINDOWS
+void FDllDeleter::operator()(uint8* const DllHandle) const noexcept
+{
+	if (DllHandle)
+	{
+		FPlatformProcess::FreeDllHandle(DllHandle);
+	}
+}
+#endif
 
 bool IAtumModule::GetLibraryPath(FString& OutPath) noexcept
 {

@@ -4,15 +4,23 @@
 
 #include "Modules/ModuleManager.h"
 
-#include <vector>
-
 
 #define LOCTEXT_NAMESPACE "IAtumModule"
+
+#if PLATFORM_WINDOWS
+struct FDllDeleter
+{
+	void operator()(uint8* DllHandle) const noexcept;
+};
+#endif
+
 
 class ATUM_API IAtumModule : public IModuleInterface
 {
 protected:
-	static std::vector<void*> DllHandles;
+#if PLATFORM_WINDOWS
+	static TArray<TUniquePtr<uint8, FDllDeleter>> DllHandles;
+#endif
 	
 public:
 	static const FName ModuleName;
@@ -25,8 +33,10 @@ public:
 	UE_NODISCARD
 	static FORCEINLINE IAtumModule& GetModule() { return FModuleManager::LoadModuleChecked<IAtumModule>(ModuleName); }
 	
+#if PLATFORM_WINDOWS
 	UE_NODISCARD
-	static FORCEINLINE const std::vector<void*>& GetDllHandles() noexcept { return DllHandles; }
+	static FORCEINLINE const TArray<TUniquePtr<uint8, FDllDeleter>>& GetDllHandles() noexcept { return DllHandles; }
+#endif
 };
 
 #undef LOCTEXT_NAMESPACE

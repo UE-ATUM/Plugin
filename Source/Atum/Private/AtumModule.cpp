@@ -44,28 +44,20 @@ void FAtumModule::StartupModule()
 		false
 	);
 	
-	DllHandles.reserve(DllNames.Num());
+	DllHandles.Reserve(DllNames.Num());
 	for (const FString& DllName : DllNames)
 	{
-		DllHandles.push_back(FPlatformProcess::GetDllHandle(*DllName));
+		DllHandles.Emplace(static_cast<uint8*>(FPlatformProcess::GetDllHandle(*DllName)));
 	}
 #endif
 	
 	torch::init();
-	ATUM_LOG(Warning, TEXT("Loaded LibTorch %s!"), TEXT(TORCH_VERSION));
+	UE_LOG(LogAtum, Warning, TEXT("Loaded LibTorch %s!"), TEXT(TORCH_VERSION));
 }
 
 void FAtumModule::ShutdownModule()
 {
-#if PLATFORM_WINDOWS
-	for (void* const DllHandle : DllHandles)
-	{
-		if (DllHandle)
-		{
-			FPlatformProcess::FreeDllHandle(DllHandle);
-		}
-	}
-#endif
+	UE_LOG(LogAtum, Warning, TEXT("Unloaded LibTorch %s!"), TEXT(TORCH_VERSION))
 }
 
 IMPLEMENT_MODULE(FAtumModule, Atum)

@@ -69,10 +69,10 @@ bool UAtumNeuralNetwork::OnForward_Implementation(
 	bool bHasActualLayers = false;
 	TScriptInterface<IAtumTensor> Subinput = Input;
 	
-	for (UObject* const LayerObject : LayerObjects)
+	for (const TObjectPtr<UObject> LayerObject : LayerObjects)
 	{
 		bHasActualLayers = true;
-		if (!Execute_Forward(LayerObject, Subinput, Output))
+		if (!Execute_Forward(LayerObject.Get(), Subinput, Output))
 			return false;
 		
 		Subinput = Output;
