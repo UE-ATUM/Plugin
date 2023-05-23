@@ -10,6 +10,10 @@
 
 #define LOCTEXT_NAMESPACE "AtumNeuralNetworkEditorToolkit"
 
+FAtumNeuralNetworkEditorToolkit::FAtumNeuralNetworkEditorToolkit() noexcept : NeuralNetwork(nullptr)
+{
+}
+
 void FAtumNeuralNetworkEditorToolkit::InitEditor(
 	const EToolkitMode::Type Mode,
 	const TSharedPtr<IToolkitHost>& InitToolkitHost,

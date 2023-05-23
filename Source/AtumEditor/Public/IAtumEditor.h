@@ -10,13 +10,15 @@
 class ATUMEDITOR_API IAtumEditorModule : public IModuleInterface
 {
 protected:
-	EAssetTypeCategories::Type AtumAssetCategoryBit = EAssetTypeCategories::None;
-	TSharedRef<FAtumNeuralNetworkAssetTypeActions> AtumNeuralNetworkAssetTypeActions =
-		MakeShared<FAtumNeuralNetworkAssetTypeActions>();
+	EAssetTypeCategories::Type AtumAssetCategoryBit;
+	TSharedRef<FAtumNeuralNetworkAssetTypeActions> AtumNeuralNetworkAssetTypeActions;
 	
 public:
-	static inline const FName ModuleName = TEXT("AtumEditor");
-
+	static const FName ModuleName;
+	
+	UE_NODISCARD_CTOR
+	IAtumEditorModule() noexcept;
+	
 	UE_NODISCARD
 	static FORCEINLINE bool IsModuleLoaded() noexcept { return FModuleManager::Get().IsModuleLoaded(ModuleName); }
 

@@ -7,6 +7,9 @@
 
 #define LOCTEXT_NAMESPACE "IAtum"
 
+std::vector<void*> IAtumModule::DllHandles;
+const FName IAtumModule::ModuleName = TEXT("Atum");
+
 bool IAtumModule::GetLibraryPath(FString& OutPath) noexcept
 {
 	const IPlugin* const AtumPlugin = IPluginManager::Get().FindPlugin(ModuleName.ToString()).Get();

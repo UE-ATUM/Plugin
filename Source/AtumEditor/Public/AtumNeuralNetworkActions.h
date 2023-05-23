@@ -12,13 +12,13 @@ class ATUMEDITOR_API FAtumNeuralNetworkAssetTypeActions : public FAssetTypeActio
 public:
 	UE_NODISCARD
 	virtual UClass* GetSupportedClass() const override;
-
+	
 	UE_NODISCARD
 	virtual FText GetName() const override;
-
+	
 	UE_NODISCARD
 	virtual FColor GetTypeColor() const override;
-
+	
 	UE_NODISCARD
 	virtual uint32 GetCategories() override;
 	
