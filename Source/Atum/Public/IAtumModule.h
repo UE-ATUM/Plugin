@@ -7,7 +7,7 @@
 #include <vector>
 
 
-#define LOCTEXT_NAMESPACE "IAtum"
+#define LOCTEXT_NAMESPACE "IAtumModule"
 
 class ATUM_API IAtumModule : public IModuleInterface
 {

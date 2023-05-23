@@ -2,10 +2,10 @@
 
 #pragma once
 
-#include "IAtum.h"
+#include "IAtumModule.h"
 
 
-#define LOCTEXT_NAMESPACE "Atum"
+#define LOCTEXT_NAMESPACE "AtumModule"
 
 class FAtumModule : public IAtumModule
 {

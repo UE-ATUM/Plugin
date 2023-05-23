@@ -1,6 +1,6 @@
 // © 2023 Kaya Adrian.
 
-#include "Atum.h"
+#include "AtumModule.h"
 
 #include "AtumMacros.h"
 #include "AtumSettings.h"
@@ -13,7 +13,7 @@ LIBTORCH_INCLUDES_START
 LIBTORCH_INCLUDES_END
 
 
-#define LOCTEXT_NAMESPACE "Atum"
+#define LOCTEXT_NAMESPACE "AtumModule"
 
 void FAtumModule::StartupModule()
 {

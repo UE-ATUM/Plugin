@@ -1,11 +1,11 @@
 ﻿// © 2023 Kaya Adrian.
 
-#include "IAtum.h"
+#include "IAtumModule.h"
 
 #include "Interfaces/IPluginManager.h"
 
 
-#define LOCTEXT_NAMESPACE "IAtum"
+#define LOCTEXT_NAMESPACE "IAtumModule"
 
 std::vector<void*> IAtumModule::DllHandles;
 const FName IAtumModule::ModuleName = TEXT("Atum");
