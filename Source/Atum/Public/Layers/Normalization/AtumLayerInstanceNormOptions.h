@@ -3,7 +3,7 @@
 #pragma once
 
 #include "AtumMacros.h"
-#include "Layers/IAtumLayerOptions.h"
+#include "Layers/AtumLayerBaseOptions.h"
 
 LIBTORCH_INCLUDES_START
 #include <torch/nn/functional/instancenorm.h>
@@ -15,7 +15,7 @@ LIBTORCH_INCLUDES_END
 #define LOCTEXT_NAMESPACE "AtumLayerInstanceNormOptions"
 
 USTRUCT(BlueprintType, DisplayName = "ATUM Instance Norm Layer Options")
-struct ATUM_API FAtumLayerInstanceNormOptions : public FIAtumLayerOptions
+struct ATUM_API FAtumLayerInstanceNormOptions : public FAtumLayerBaseOptions
 {
 	GENERATED_BODY()
 	

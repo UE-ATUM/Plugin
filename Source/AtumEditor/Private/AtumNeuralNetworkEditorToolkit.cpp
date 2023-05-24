@@ -2,6 +2,7 @@
 
 #include "AtumNeuralNetworkEditorToolkit.h"
 
+#include "GraphEditorActions.h"
 #include "Layers/AtumNeuralNetwork.h"
 #include "Modules/ModuleManager.h"
 #include "SAtumNeuralNetworkWidget.h"
@@ -9,6 +10,9 @@
 
 
 #define LOCTEXT_NAMESPACE "AtumNeuralNetworkEditorToolkit"
+
+const FName FAtumNeuralNetworkEditorToolkit::AtumNeuralNetworkAppIdentifier = TEXT("AtumNeuralNetworkEditor");
+
 
 FAtumNeuralNetworkEditorToolkit::FAtumNeuralNetworkEditorToolkit() noexcept : NeuralNetwork(nullptr)
 {
@@ -22,41 +26,50 @@ void FAtumNeuralNetworkEditorToolkit::InitEditor(
 {
 	NeuralNetwork = ObjectToEdit;
 
+	FGraphEditorCommands::Register();
+
 	const TSharedRef<FTabManager::FLayout> Layout = FTabManager::NewLayout(TEXT("AtumNeuralNetworkEditorLayout"))
 	->AddArea(
 		FTabManager::NewPrimaryArea()
 		->SetOrientation(Orient_Vertical)
 		->Split(
 			FTabManager::NewSplitter()
-			->SetSizeCoefficient(0.6F)
+			->SetSizeCoefficient(0.8F)
 			->SetOrientation(Orient_Horizontal)
 			->Split(
 				FTabManager::NewStack()
-				->SetSizeCoefficient(0.8F)
+				->SetSizeCoefficient(0.6F)
 				->AddTab(TEXT("AtumNeuralNetworkTestTab"), ETabState::OpenedTab)
 			)
 			->Split(
 				FTabManager::NewStack()
-				->SetSizeCoefficient(0.2F)
+				->SetSizeCoefficient(0.4F)
 				->AddTab(TEXT("AtumNeuralNetworkDetailsTab"), ETabState::OpenedTab)
 			)
 		)
 		->Split(
 			FTabManager::NewStack()
-			->SetSizeCoefficient(0.4F)
+			->SetSizeCoefficient(0.2F)
 			->AddTab(TEXT("OutputLog"), ETabState::OpenedTab)
 		)
 	);
 	
+	static CONSTEXPR bool bCreateDefaultStandaloneMenu = true;
+	static CONSTEXPR bool bCreateDefaultToolbar = true;
+	static CONSTEXPR bool bInIsToolbarFocusable = false;
+	static CONSTEXPR bool bInUseSmallToolbarIcons = false;
 	InitAssetEditor(
 		Mode,
 		InitToolkitHost, 
-		TEXT("AtumNeuralNetworkEditor"),
+		AtumNeuralNetworkAppIdentifier,
 		Layout,
-		true,
-		true,
-		NeuralNetwork
+		bCreateDefaultStandaloneMenu,
+		bCreateDefaultToolbar,
+		NeuralNetwork,
+		bInIsToolbarFocusable,
+		bInUseSmallToolbarIcons
 	);
+	RegenerateMenusAndToolbars();
 }
 
 void FAtumNeuralNetworkEditorToolkit::RegisterTabSpawners(const TSharedRef<FTabManager>& InTabManager)
@@ -115,6 +128,11 @@ FText FAtumNeuralNetworkEditorToolkit::GetBaseToolkitName() const
 	return LOCTEXT("BaseToolkitName", "ATUM Neural Network Editor");
 }
 
+FText FAtumNeuralNetworkEditorToolkit::GetToolkitName() const
+{
+	return GetToolTipTextForObject(NeuralNetwork);
+}
+
 FString FAtumNeuralNetworkEditorToolkit::GetWorldCentricTabPrefix() const
 {
 	return TEXT("ATUM Neural Network");
@@ -122,7 +140,17 @@ FString FAtumNeuralNetworkEditorToolkit::GetWorldCentricTabPrefix() const
 
 FLinearColor FAtumNeuralNetworkEditorToolkit::GetWorldCentricTabColorScale() const
 {
-	return FLinearColor(0.0F, 0.0F, 0.0F, 0.0F);
+	return FLinearColor(1.0F, 1.0F, 1.0F, 1.0F);
+}
+
+void FAtumNeuralNetworkEditorToolkit::AddReferencedObjects(FReferenceCollector& Collector)
+{
+	Collector.AddReferencedObject(NeuralNetwork);
+}
+
+FString FAtumNeuralNetworkEditorToolkit::GetReferencerName() const
+{
+	return GetNameSafe(NeuralNetwork);
 }
 
 #undef LOCTEXT_NAMESPACE

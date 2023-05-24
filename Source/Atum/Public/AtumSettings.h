@@ -20,17 +20,27 @@ protected:
 		ConsoleVariable = "atum.Settings.Logging"
 	))
 	bool bLogging;
-
+	
 	UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Category = "Editor", meta = (
 		AllowPrivateAccess,
 		ConfigRestartRequired = "true"
 	))
 	FColor NeuralNetworkAssetTypeColor;
 	
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category = "Editor", meta = (
+		AllowPrivateAccess,
+		ConsoleVariable = "atum.Settings.AllowBlueprintableClasses"
+	))
+	bool bAllowBlueprintableClasses;
+	
 public:
 	UE_NODISCARD_CTOR
 	UAtumSettings() noexcept;
 	
+protected:
+	void RegisterConsoleVariables() noexcept;
+	
+public:
 	UE_NODISCARD
 	FORCEINLINE bool IsLogging() const noexcept { return bLogging; }
 	
@@ -39,6 +49,12 @@ public:
 	
 	UE_NODISCARD
 	FORCEINLINE FColor GetNeuralNetworkAssetTypeColor() const noexcept { return NeuralNetworkAssetTypeColor; }
+	
+	UE_NODISCARD
+	FORCEINLINE bool CanAllowBlueprintableClasses() const noexcept { return bAllowBlueprintableClasses; }
+	
+	UE_NODISCARD
+	FORCEINLINE void SetAllowBlueprintableClasses(const bool bValue) noexcept { bAllowBlueprintableClasses = bValue; }
 };
 
 #undef LOCTEXT_NAMESPACE

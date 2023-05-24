@@ -3,7 +3,7 @@
 #pragma once
 
 #include "AtumMacros.h"
-#include "Layers/IAtumLayerOptions.h"
+#include "Layers/AtumLayerBaseOptions.h"
 
 LIBTORCH_INCLUDES_START
 #include <torch/nn/options/linear.h>
@@ -15,7 +15,7 @@ LIBTORCH_INCLUDES_END
 #define LOCTEXT_NAMESPACE "AtumLayerLinearOptions"
 
 USTRUCT(BlueprintType, DisplayName = "ATUM Linear Layer Options")
-struct ATUM_API FAtumLayerLinearOptions : public FIAtumLayerOptions
+struct ATUM_API FAtumLayerLinearOptions : public FAtumLayerBaseOptions
 {
 	GENERATED_BODY()
 	

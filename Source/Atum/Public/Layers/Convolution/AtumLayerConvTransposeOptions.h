@@ -3,7 +3,7 @@
 #pragma once
 
 #include "AtumMacros.h"
-#include "Layers/IAtumLayerOptions.h"
+#include "Layers/AtumLayerBaseOptions.h"
 
 LIBTORCH_INCLUDES_START
 #include <torch/nn/options/conv.h>
@@ -17,7 +17,7 @@ class UAtumLayerConvTranspose;
 #define LOCTEXT_NAMESPACE "AtumLayerConvTransposeOptions"
 
 USTRUCT(BlueprintType, DisplayName = "ATUM Conv Transpose Layer Options")
-struct ATUM_API FAtumLayerConvTransposeOptions : public FIAtumLayerOptions
+struct ATUM_API FAtumLayerConvTransposeOptions : public FAtumLayerBaseOptions
 {
 	GENERATED_BODY()
 	

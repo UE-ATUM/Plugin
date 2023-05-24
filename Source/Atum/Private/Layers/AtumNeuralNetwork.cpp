@@ -7,33 +7,23 @@
 
 #define LOCTEXT_NAMESPACE "AtumNeuralNetwork"
 
-namespace
-{
-	class UAtumLayerClass : public UClass
-	{
-	public:
-		mutable int32 CurrentIndex = 0;
-		std::vector<int32> CachedNetworkIndices;
-	};
-}
-
 // ReSharper disable CppUE4CodingStandardNamingViolationWarning
 namespace torch::nn
 {
+	AtumNetworkImpl::AtumNetworkImpl(const AtumNetworkOptions& options_) noexcept : options(options_)
+	{
+	}
+	
 	void AtumNetworkImpl::reset()
 	{
 	}
-
+	
 	void AtumNetworkImpl::pretty_print(std::ostream& stream) const
 	{
 		stream << "torch::nn::AtumNetwork";
 	}
 }
 // ReSharper restore CppUE4CodingStandardNamingViolationWarning
-
-UAtumNeuralNetwork::UAtumNeuralNetwork() noexcept : NetworkLayerName(TEXT("ATUM Network"))
-{
-}
 
 void UAtumNeuralNetwork::RegisterLayer(const TScriptInterface<IAtumLayer>& Layer) noexcept
 {
@@ -55,9 +45,21 @@ void UAtumNeuralNetwork::RegisterLayer(const TScriptInterface<IAtumLayer>& Layer
 	LayerObjects.Add(LayerObject);
 }
 
+UAtumNeuralNetwork* UAtumNeuralNetwork::CloneData(UObject* const Outer, const FName Name) const noexcept
+{
+	auto* const NeuralNetwork = NewObject<UAtumNeuralNetwork>(Outer, GetClass(), Name);
+	for (TObjectPtr<UObject>& LayerObject : NeuralNetwork->LayerObjects)
+	{
+		LayerObject = DuplicateObject<UObject>(LayerObject, NeuralNetwork);
+	}
+	return NeuralNetwork;
+}
+
 bool UAtumNeuralNetwork::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
-	Module.Reset(new torch::nn::AtumNetwork(std::make_shared<torch::nn::AtumNetworkImpl>()));
+	Module.Reset(new torch::nn::AtumNetwork(std::make_shared<torch::nn::AtumNetworkImpl>(
+		static_cast<torch::nn::AtumNetworkOptions>(Options)
+	)));
 	return true;
 }
 
@@ -95,11 +97,11 @@ void UAtumNeuralNetwork::PreEditChange(FProperty* const PropertyAboutToChange)
 		)
 		{
 			OnLayerTypesPropertyChange_SetCachedNetworkIndices();
-			OldLayerTypes = LayerTypes;
+			PreEditLayerTypes = LayerTypes;
 		}
 		else if (PropertyName == GET_MEMBER_NAME_CHECKED(UAtumNeuralNetwork, LayerObjects))
 		{
-			OldLayerObjects = LayerObjects;
+			PreEditLayerObjects = LayerObjects;
 		}
 	} while (false);
 	
@@ -151,21 +153,23 @@ void UAtumNeuralNetwork::PostEditChangeChainProperty(FPropertyChangedChainEvent&
 			default:
 				ATUM_LOG(Error, TEXT("Property change type %u unaccounted for!"), PropertyChangeType)
 			}
-
-			OnLayerTypesPropertyChange_SetCachedNetworkIndices();
 		}
 		else if (PropertyName == GET_MEMBER_NAME_CHECKED(UAtumNeuralNetwork, LayerObjects))
 		{
-			LayerObjects = OldLayerObjects;
+			LayerObjects = PreEditLayerObjects;
 		}
 	} while (false);
+	
+	PreEditLayerTypes.Empty();
+	PreEditLayerObjects.Empty();
+	CachedNetworkIndices.Empty();
 	
 	Super::PostEditChangeChainProperty(PropertyChangedEvent);
 }
 
 void UAtumNeuralNetwork::OnLayerTypesPropertyChange_ValueSet(const int32 Index) noexcept
 {
-	if (const UClass* const LayerType = LayerTypes[Index]; LIKELY(LayerType != OldLayerTypes[Index]))
+	if (const TObjectPtr<const UClass> LayerType = LayerTypes[Index]; LIKELY(LayerType != PreEditLayerTypes[Index]))
 	{
 		LayerObjects[Index] = LayerType ? NewObject<UObject>(this, LayerType) : nullptr;
 	}
@@ -173,38 +177,35 @@ void UAtumNeuralNetwork::OnLayerTypesPropertyChange_ValueSet(const int32 Index) 
 
 void UAtumNeuralNetwork::OnLayerTypesPropertyChange_ArrayMove() noexcept
 {
-	OldLayerObjects = LayerObjects;
+	PreEditLayerObjects = LayerObjects;
 	
 	const int32 LayerTypeCount = LayerTypes.Num();
 	for (int32 Index = 0; Index < LayerTypeCount; ++Index)
 	{
-		auto* const LayerType = static_cast<const UAtumLayerClass*>(LayerTypes[Index]);
+		const TObjectPtr<const UClass> LayerType = LayerTypes[Index];
 		if (LayerType == nullptr)
 		{
 			LayerObjects[Index] = nullptr;
 			continue;
 		}
 		
-		LayerObjects[Index] = OldLayerObjects[LayerType->CachedNetworkIndices[LayerType->CurrentIndex++]];
+		TTuple<TArray<int32>, int32>& CachedIndices = CachedNetworkIndices.FindChecked(LayerType);
+		LayerObjects[Index] = PreEditLayerObjects[CachedIndices.Key[CachedIndices.Value++]];
 	}
 }
 
 void UAtumNeuralNetwork::OnLayerTypesPropertyChange_SetCachedNetworkIndices() noexcept
 {
 	const int32 LayerTypeCount = LayerTypes.Num();
+	CachedNetworkIndices.Empty(LayerTypeCount);
+	
 	for (int32 Index = 0; Index < LayerTypeCount; ++Index)
 	{
-		if (auto* const LayerType = static_cast<UAtumLayerClass*>(LayerTypes[Index]); LayerType)
+		if (const TObjectPtr<const UClass> LayerType = LayerTypes[Index]; LayerType)
 		{
-			LayerType->CurrentIndex = 0;
-			LayerType->CachedNetworkIndices.clear();
-		}
-	}
-	for (int32 Index = 0; Index < LayerTypeCount; ++Index)
-	{
-		if (UClass* const LayerType = LayerTypes[Index]; LayerType)
-		{
-			static_cast<UAtumLayerClass*>(LayerType)->CachedNetworkIndices.push_back(Index);
+			TTuple<TArray<int32>, int32>& CachedIndices = CachedNetworkIndices.FindOrAdd(LayerType);
+			CachedIndices.Key.Add(Index);
+			CachedIndices.Value = 0;
 		}
 	}
 }

@@ -2,15 +2,18 @@
 
 #include "AtumNeuralNetworkFactory.h"
 
+#include "AtumNeuralNetworkClassFilter.h"
+#include "Kismet2/SClassPickerDialog.h"
 #include "Layers/AtumNeuralNetwork.h"
 
 
 #define LOCTEXT_NAMESPACE "AtumNeuralNetworkFactory"
 
-UAtumNeuralNetworkFactory::UAtumNeuralNetworkFactory() noexcept
+UAtumNeuralNetworkFactory::UAtumNeuralNetworkFactory() noexcept : NeuralNetworkClass(nullptr)
 {
-	SupportedClass = UAtumNeuralNetwork::StaticClass();
 	bCreateNew = true;
+	bEditAfterNew = true;
+	SupportedClass = UAtumNeuralNetwork::StaticClass();
 }
 
 UObject* UAtumNeuralNetworkFactory::FactoryCreateNew(
@@ -18,11 +21,36 @@ UObject* UAtumNeuralNetworkFactory::FactoryCreateNew(
 	UObject* const InParent,
 	const FName InName,
 	const EObjectFlags Flags,
-	UObject* const Context,
+	[[maybe_unused]] UObject* const Context,
 	[[maybe_unused]] FFeedbackContext* const Warn
 )
 {
-	return NewObject<UAtumNeuralNetwork>(InParent, InClass, InName, Flags, Context);
+	auto* const NeuralNetwork = GetDefault<UAtumNeuralNetwork>(
+		NeuralNetworkClass ? NeuralNetworkClass.Get() : InClass
+	)->CloneData(InParent, InName);
+	NeuralNetwork->SetFlags(Flags | RF_Transactional);
+	return NeuralNetwork;
+}
+
+bool UAtumNeuralNetworkFactory::ConfigureProperties()
+{
+	FClassViewerInitializationOptions Options;
+	Options.ClassFilters.Add(MakeShared<FAtumNeuralNetworkClassFilter>());
+	Options.Mode = EClassViewerMode::ClassPicker;
+	Options.DisplayMode = EClassViewerDisplayMode::TreeView;
+	Options.bShowNoneOption = false;
+	Options.NameTypeToDisplay = EClassViewerNameTypeToDisplay::Dynamic;
+	
+	UClass* PickedClass = nullptr;
+	const bool bPicked = SClassPickerDialog::PickClass(
+		LOCTEXT("CreateAtumNeuralNetworkAssetOptions", "Pick Neural Network Class"),
+		Options,
+		PickedClass,
+		UAtumNeuralNetwork::StaticClass()
+	);
+	
+	NeuralNetworkClass = PickedClass;
+	return bPicked;
 }
 
 #undef LOCTEXT_NAMESPACE

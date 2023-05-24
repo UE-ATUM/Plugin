@@ -3,7 +3,7 @@
 #pragma once
 
 #include "AtumMacros.h"
-#include "Layers/IAtumLayerOptions.h"
+#include "Layers/AtumLayerBaseOptions.h"
 
 LIBTORCH_INCLUDES_START
 #include <torch/nn/options/normalization.h>
@@ -15,7 +15,7 @@ LIBTORCH_INCLUDES_END
 #define LOCTEXT_NAMESPACE "AtumLayerCrossMapLrnOptions"
 
 USTRUCT(BlueprintType, DisplayName = "ATUM Cross Map LRN Layer Options")
-struct ATUM_API FAtumLayerCrossMapLrnOptions : public FIAtumLayerOptions
+struct ATUM_API FAtumLayerCrossMapLrnOptions : public FAtumLayerBaseOptions
 {
 	GENERATED_BODY()
 	

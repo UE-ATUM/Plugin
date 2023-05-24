@@ -13,6 +13,16 @@ IAtumLayer::IAtumLayer() noexcept : bInitialized(false), DimensionCount(0ULL)
 {
 }
 
+const FAtumLayerBaseOptions* IAtumLayer::GetBaseOptions() const noexcept
+{
+	return nullptr;
+}
+
+FAtumLayerBaseOptions* IAtumLayer::GetBaseOptions() noexcept
+{
+	return nullptr;
+}
+
 std::shared_ptr<torch::nn::Module> IAtumLayer::GetSharedModule() const noexcept
 {
 	return nullptr;

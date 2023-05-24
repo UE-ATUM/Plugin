@@ -19,6 +19,12 @@ protected: \
 	\
 public: \
 	UE_NODISCARD \
+	virtual const FAtumLayerBaseOptions* GetBaseOptions() const noexcept { return &Options; } \
+	\
+	UE_NODISCARD \
+	virtual FAtumLayerBaseOptions* GetBaseOptions() noexcept { return &Options; } \
+	\
+	UE_NODISCARD \
 	virtual std::shared_ptr<torch::nn::Module> GetSharedModule() const noexcept override \
 	{ return Module ? Module->ptr() : nullptr; } \
 	\

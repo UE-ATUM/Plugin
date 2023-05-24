@@ -3,10 +3,11 @@
 #pragma once
 
 #include "AtumMacros.h"
+#include "AtumNeuralNetworkOptions.h"
 #include "IAtumLayer.h"
 
 LIBTORCH_INCLUDES_START
-#include "torch/nn/cloneable.h"
+#include <torch/nn/cloneable.h>
 LIBTORCH_INCLUDES_END
 
 #include "AtumNeuralNetwork.generated.h"
@@ -20,10 +21,15 @@ namespace torch::nn
 	class AtumNetworkImpl : public Cloneable<AtumNetworkImpl>
 	{
 	public:
+		AtumNetworkOptions options;
+		
+		UE_NODISCARD_CTOR
+		explicit AtumNetworkImpl(const AtumNetworkOptions& options_) noexcept;
+		
 		UE_NODISCARD
 		// ReSharper disable once CppMemberFunctionMayBeStatic
-		FORCEINLINE Tensor forward(const Tensor& Input) { return Input; }
-
+		FORCEINLINE Tensor forward(const Tensor& input) { return input; }
+		
 		virtual void reset() override;
 		virtual void pretty_print(std::ostream& stream) const override;
 	};
@@ -33,34 +39,38 @@ namespace torch::nn
 // ReSharper restore CppUE4CodingStandardNamingViolationWarning
 
 
-UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Neural Network")
+UCLASS(BlueprintType, DisplayName = "ATUM Neural Network")
 class ATUM_API UAtumNeuralNetwork : public UObject, public IAtumLayer
 {
 	GENERATED_BODY()
 	GENERATED_ATUM_LAYER(torch::nn::AtumNetwork)
 	
-	UPROPERTY(Transient, NonTransactional)
-	TArray<TObjectPtr<UClass>> OldLayerTypes;
+#if WITH_EDITORONLY_DATA
+	mutable TMap<TObjectPtr<const UClass>, TTuple<TArray<int32>, int32>> CachedNetworkIndices;
 	
 	UPROPERTY(Transient, NonTransactional)
-	TArray<TObjectPtr<UObject>> OldLayerObjects;
+	mutable TArray<TObjectPtr<const UClass>> PreEditLayerTypes;
+	
+	UPROPERTY(Transient, NonTransactional)
+	mutable TArray<TObjectPtr<UObject>> PreEditLayerObjects;
+#endif
 	
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess))
-	FName NetworkLayerName;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties))
+	FAtumNeuralNetworkOptions Options;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, MustImplement = "/Script/Atum.AtumLayer"))
-	TArray<TObjectPtr<UClass>> LayerTypes;
+	TArray<TObjectPtr<const UClass>> LayerTypes;
 	
 	UPROPERTY(Instanced, EditFixedSize, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess))
 	TArray<TObjectPtr<UObject>> LayerObjects;
 	
 public:
-	UE_NODISCARD_CTOR
-	UAtumNeuralNetwork() noexcept;
-	
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Network")
 	void RegisterLayer(const TScriptInterface<IAtumLayer>& Layer) noexcept;
+	
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Network")
+	UAtumNeuralNetwork* CloneData(UObject* Outer = nullptr, FName Name = NAME_None) const noexcept;
 	
 protected:
 	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;
@@ -81,10 +91,11 @@ protected:
 	
 public:
 	UE_NODISCARD
-	FORCEINLINE const TArray<TObjectPtr<UClass>>& GetLayerTypes() const noexcept { return LayerTypes; }
+	FORCEINLINE const TArray<TObjectPtr<const UClass>>& GetLayerTypes() const noexcept { return LayerTypes; }
 	
 	UE_NODISCARD
-	FORCEINLINE const TArray<TObjectPtr<UObject>>& GetLayerObjects() const noexcept { return LayerObjects; }
+	FORCEINLINE void GetLayerObjects(TArray<TObjectPtr<const UObject>>& OutValue) const noexcept
+	{ OutValue = TArray<TObjectPtr<const UObject>>(LayerObjects); }
 };
 
 #undef LOCTEXT_NAMESPACE

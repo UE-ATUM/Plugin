@@ -3,7 +3,7 @@
 #pragma once
 
 #include "AtumLayerConvPaddingMode.h"
-#include "Layers/IAtumLayerOptions.h"
+#include "Layers/AtumLayerBaseOptions.h"
 
 #include "AtumLayerConvOptions.generated.h"
 
@@ -13,7 +13,7 @@ class UAtumLayerConv;
 #define LOCTEXT_NAMESPACE "AtumLayerConvOptions"
 
 USTRUCT(BlueprintType, DisplayName = "ATUM Conv Layer Options")
-struct ATUM_API FAtumLayerConvOptions : public FIAtumLayerOptions
+struct ATUM_API FAtumLayerConvOptions : public FAtumLayerBaseOptions
 {
 	GENERATED_BODY()
 	

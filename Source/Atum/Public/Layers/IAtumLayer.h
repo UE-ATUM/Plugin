@@ -10,6 +10,7 @@
 #include "IAtumLayer.generated.h"
 
 class IAtumTensor;
+struct FAtumLayerBaseOptions;
 
 // ReSharper disable CppUE4CodingStandardNamingViolationWarning
 namespace torch::nn
@@ -51,6 +52,12 @@ public:
 		TScriptInterface<IAtumTensor>& Output
 	) noexcept
 	{ return Execute_Forward(_getUObject(), Input, Output); }
+	
+	UE_NODISCARD
+	virtual const FAtumLayerBaseOptions* GetBaseOptions() const noexcept;
+	
+	UE_NODISCARD
+	virtual FAtumLayerBaseOptions* GetBaseOptions() noexcept;
 	
 	UE_NODISCARD
 	virtual std::shared_ptr<torch::nn::Module> GetSharedModule() const noexcept;

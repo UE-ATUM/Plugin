@@ -27,6 +27,7 @@ public class AtumEditor : ModuleRules
 		PrivateDependencyModuleNames.AddRange(new[]
 		{
 			"AssetTools",
+			"GraphEditor",
 			"Slate",
 			"SlateCore",
 			"UnrealEd"

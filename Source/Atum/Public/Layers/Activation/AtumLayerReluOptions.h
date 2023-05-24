@@ -3,7 +3,7 @@
 #pragma once
 
 #include "AtumMacros.h"
-#include "Layers/IAtumLayerOptions.h"
+#include "Layers/AtumLayerBaseOptions.h"
 
 LIBTORCH_INCLUDES_START
 #include <torch/nn/options/activation.h>
@@ -15,7 +15,7 @@ LIBTORCH_INCLUDES_END
 #define LOCTEXT_NAMESPACE "AtumLayerReluOptions"
 
 USTRUCT(BlueprintType, DisplayName = "ATUM ReLU Layer Options")
-struct ATUM_API FAtumLayerReluOptions : public FIAtumLayerOptions
+struct ATUM_API FAtumLayerReluOptions : public FAtumLayerBaseOptions
 {
 	GENERATED_BODY()
 	

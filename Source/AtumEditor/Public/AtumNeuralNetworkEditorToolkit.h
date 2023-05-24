@@ -9,11 +9,13 @@ class UAtumNeuralNetwork;
 
 #define LOCTEXT_NAMESPACE "AtumNeuralNetworkEditorToolkit"
 
-class ATUMEDITOR_API FAtumNeuralNetworkEditorToolkit : public FAssetEditorToolkit
+class ATUMEDITOR_API FAtumNeuralNetworkEditorToolkit : public FAssetEditorToolkit, public FGCObject
 {
 	UAtumNeuralNetwork* NeuralNetwork;
 	
 public:
+	static const FName AtumNeuralNetworkAppIdentifier;
+	
 	UE_NODISCARD_CTOR
 	FAtumNeuralNetworkEditorToolkit() noexcept;
 	
@@ -33,10 +35,18 @@ public:
 	virtual FText GetBaseToolkitName() const override;
 	
 	UE_NODISCARD
+	virtual FText GetToolkitName() const override;
+	
+	UE_NODISCARD
 	virtual FString GetWorldCentricTabPrefix() const override;
 	
 	UE_NODISCARD
 	virtual FLinearColor GetWorldCentricTabColorScale() const override;
+	
+	virtual void AddReferencedObjects(FReferenceCollector& Collector) override;
+	
+	UE_NODISCARD
+	virtual FString GetReferencerName() const override;
 };
 
 #undef LOCTEXT_NAMESPACE
