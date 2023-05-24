@@ -21,16 +21,17 @@ bool FAtumNeuralNetworkClassFilter::IsClassAllowed(
 	const TSharedRef<FClassViewerFilterFuncs> InFilterFuncs
 )
 {
-	const bool bAllowed = !InClass->HasAnyClassFlags(BannedClassFlags) &&
-		InFilterFuncs->IfInChildOfClassesSet(AllowedClasses, InClass) != EFilterReturn::Failed;
+	if (InClass == UAtumNeuralNetwork::StaticClass())
+		return true;
 	
 	if (
-		bAllowed && !GetDefault<UAtumSettings>()->CanAllowBlueprintableClasses()
-		&& FKismetEditorUtilities::CanCreateBlueprintOfClass(InClass)
+		InFilterFuncs->IfInChildOfClassesSet(AllowedClasses, InClass) == EFilterReturn::Failed
+		|| InClass->HasAnyClassFlags(BannedClassFlags)
 	)
 		return false;
 	
-	return bAllowed;
+	return !FKismetEditorUtilities::CanCreateBlueprintOfClass(InClass)
+	|| GetDefault<UAtumSettings>()->CanAllowBlueprintableClasses();
 }
 
 bool FAtumNeuralNetworkClassFilter::IsUnloadedClassAllowed(
@@ -51,7 +52,7 @@ void FAtumNeuralNetworkClassFilter::GetFilterOptions(TArray<TSharedRef<FClassVie
 	BlueprintableClassFilter->LabelText = LOCTEXT("BlueprintableClassFilterLabel", "Show Blueprintable Classes");
 	BlueprintableClassFilter->ToolTipText = LOCTEXT(
 		"BlueprintableClassFilterToolTip",
-		"Shows classes marked as Blueprintable in the view."
+		"Shows derived classes marked as Blueprintable in the view."
 	);
 	BlueprintableClassFilter->OnOptionChanged = FOnClassViewerFilterOptionChanged::CreateLambda(
 		[](const bool bEnabled)

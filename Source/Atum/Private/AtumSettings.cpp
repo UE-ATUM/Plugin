@@ -31,7 +31,7 @@ void UAtumSettings::RegisterConsoleVariables() noexcept
 		TEXT("atum.Settings.AllowBlueprintableClasses"),
 		bAllowBlueprintableClasses,
 		TEXT("Filter option which makes it possible whether or not to ") \
-		TEXT("create ATUM Neural Networks using Blueprintable classes.")
+		TEXT("create ATUM Neural Networks using derived Blueprintable classes.")
 	);
 }
 
