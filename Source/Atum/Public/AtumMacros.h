@@ -7,11 +7,13 @@
 
 #define LOCTEXT_NAMESPACE "AtumMacros"
 
-#define ATUM_LOG(Verbosity, Format, ...) \
-if (GetDefault<UAtumSettings>()->IsLogging()) \
-{ \
-	UE_LOG(LogAtum, Verbosity, Format, ##__VA_ARGS__) \
-}
+#define ATUM_LOG(Verbosity, Format, ...) UE_CLOG( \
+	GetDefault<UAtumSettings>()->IsLogging(), \
+	LogAtum, \
+	Verbosity, \
+	Format, \
+	##__VA_ARGS__ \
+)
 
 #define GENERATED_ATUM_LAYER(ModuleClass) \
 protected: \
