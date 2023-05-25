@@ -130,7 +130,7 @@ FText FAtumNeuralNetworkEditorToolkit::GetBaseToolkitName() const
 
 FText FAtumNeuralNetworkEditorToolkit::GetToolkitName() const
 {
-	return GetToolTipTextForObject(NeuralNetwork);
+	return NeuralNetwork ? GetToolTipTextForObject(NeuralNetwork) : INVTEXT("");
 }
 
 FString FAtumNeuralNetworkEditorToolkit::GetWorldCentricTabPrefix() const
