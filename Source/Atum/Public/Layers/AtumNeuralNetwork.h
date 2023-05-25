@@ -59,7 +59,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties))
 	FAtumNeuralNetworkOptions Options;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, MustImplement = "/Script/Atum.AtumLayer"))
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess, MustImplement = "/Script/Atum.AtumLayer"))
 	TArray<TObjectPtr<const UClass>> LayerTypes;
 	
 	UPROPERTY(Instanced, EditFixedSize, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess))
@@ -84,9 +84,9 @@ protected:
 	virtual void PreEditChange(FProperty* PropertyAboutToChange) override;
 	virtual void PostEditChangeChainProperty(FPropertyChangedChainEvent& PropertyChangedEvent) override;
 	
+	void OnLayerTypesPropertyChange_SetCachedNetworkIndices() noexcept;
 	void OnLayerTypesPropertyChange_ValueSet(int32 Index) noexcept;
 	void OnLayerTypesPropertyChange_ArrayMove() noexcept;
-	void OnLayerTypesPropertyChange_SetCachedNetworkIndices() noexcept;
 #endif
 	
 public:
