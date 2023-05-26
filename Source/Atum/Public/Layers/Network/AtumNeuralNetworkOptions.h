@@ -2,9 +2,11 @@
 
 #pragma once
 
-#include "AtumLayerBaseOptions.h"
+#include "Layers/AtumLayerBaseOptions.h"
 
 #include "AtumNeuralNetworkOptions.generated.h"
+
+class UAtumNeuralNetworkLayers;
 
 
 #define LOCTEXT_NAMESPACE "AtumNeuralNetworkOptions"
@@ -23,6 +25,12 @@ USTRUCT(BlueprintType, DisplayName = "ATUM Neural Network Options")
 struct ATUM_API FAtumNeuralNetworkOptions : public FAtumLayerBaseOptions
 {
 	GENERATED_BODY()
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess))
+	TObjectPtr<UAtumNeuralNetworkLayers> LayersData;
+	
+	UE_NODISCARD_CTOR
+	FAtumNeuralNetworkOptions() noexcept;
 	
 	UE_NODISCARD
 	FORCEINLINE explicit operator torch::nn::AtumNetworkOptions() const noexcept
