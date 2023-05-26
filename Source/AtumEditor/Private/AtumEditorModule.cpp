@@ -9,8 +9,8 @@ void FAtumEditorModule::StartupModule()
 {
 	IAssetTools& AssetTools = FAssetToolsModule::GetModule().Get();
 	AtumAssetCategoryBit = AssetTools.RegisterAdvancedAssetCategory(
-		TEXT("AI"),
-		LOCTEXT("AtumAssetCategory", "Artificial Intelligence")
+		TEXT("ATUM"),
+		LOCTEXT("AtumAssetCategory", "Machine Learning")
 	);
 	AssetTools.RegisterAssetTypeActions(AtumNeuralNetworkAssetTypeActions);
 }
