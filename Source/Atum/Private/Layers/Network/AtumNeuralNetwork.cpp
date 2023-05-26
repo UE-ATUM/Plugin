@@ -41,7 +41,7 @@ bool UAtumNeuralNetwork::RegisterLayerAt(const TScriptInterface<IAtumLayer>& Lay
 		return false;
 	}
 	
-	if (Layer == nullptr || !Execute_InitializeData(Layer.GetObject(), false))
+	if (Layer == nullptr || !Execute_InitializeData(Layer.GetObject(), true))
 	{
 		ATUM_LOG(Error, TEXT("Could not register uninitialized layer in `%ls` ATUM Neural Network!"), *GetName())
 		return false;
