@@ -25,11 +25,12 @@ UObject* UAtumNeuralNetworkFactory::FactoryCreateNew(
 	[[maybe_unused]] FFeedbackContext* const Warn
 )
 {
-	auto* const NeuralNetwork = GetDefault<UAtumNeuralNetwork>(
-		NeuralNetworkClass ? NeuralNetworkClass.Get() : InClass
-	)->CloneData(InParent, InName);
-	NeuralNetwork->SetFlags(Flags | RF_Transactional);
-	return NeuralNetwork;
+	return NewObject<UAtumNeuralNetwork>(
+		InParent,
+		NeuralNetworkClass ? NeuralNetworkClass.Get() : InClass,
+		InName,
+		Flags | RF_Transactional
+	);
 }
 
 bool UAtumNeuralNetworkFactory::ConfigureProperties()
