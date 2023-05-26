@@ -8,6 +8,12 @@
 
 #define LOCTEXT_NAMESPACE "AtumNeuralNetwork"
 
+#if WITH_EDITOR
+const TUniquePtr<UAtumNeuralNetwork::FOnPostCDOCompiled> UAtumNeuralNetwork::OnPostCDOCompiled =
+	MakeUnique<FOnPostCDOCompiled>();
+#endif
+
+
 // ReSharper disable CppUE4CodingStandardNamingViolationWarning
 namespace torch::nn
 {
@@ -95,5 +101,14 @@ bool UAtumNeuralNetwork::OnForward_Implementation(
 	
 	return true;
 }
+
+#if WITH_EDITOR
+void UAtumNeuralNetwork::PostCDOCompiled(const FPostCDOCompiledContext& Context)
+{
+	Super::PostCDOCompiled(Context);
+	
+	OnPostCDOCompiled->Broadcast();
+}
+#endif
 
 #undef LOCTEXT_NAMESPACE

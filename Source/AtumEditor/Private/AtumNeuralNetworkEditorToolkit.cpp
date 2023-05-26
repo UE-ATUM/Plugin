@@ -21,13 +21,14 @@ FAtumNeuralNetworkEditorToolkit::FAtumNeuralNetworkEditorToolkit() noexcept : Ne
 void FAtumNeuralNetworkEditorToolkit::InitEditor(
 	const EToolkitMode::Type Mode,
 	const TSharedPtr<IToolkitHost>& InitToolkitHost,
-	UAtumNeuralNetwork* const ObjectToEdit
+	UAtumNeuralNetwork* const NetworkToEdit
 ) noexcept
 {
-	NeuralNetwork = ObjectToEdit;
-
+	NeuralNetwork = NetworkToEdit;
+	OnPostCDOCompiledHandle = UAtumNeuralNetwork::OnPostCDOCompiled->AddLambda([this] { CloseWindow(); });
+	
 	FGraphEditorCommands::Register();
-
+	
 	const TSharedRef<FTabManager::FLayout> Layout = FTabManager::NewLayout(TEXT("AtumNeuralNetworkEditorLayout"))
 	->AddArea(
 		FTabManager::NewPrimaryArea()
@@ -78,7 +79,7 @@ void FAtumNeuralNetworkEditorToolkit::RegisterTabSpawners(const TSharedRef<FTabM
 	WorkspaceMenuCategory = InTabManager->AddLocalWorkspaceMenuCategory(
 		LOCTEXT("WorkspaceMenuCategory", "ATUM Neural Network Editor")
 	);
-
+	
 	InTabManager->RegisterTabSpawner(
 		TEXT("AtumNeuralNetworkTestTab"),
 		FOnSpawnTab::CreateLambda([=](const FSpawnTabArgs&)
@@ -90,7 +91,7 @@ void FAtumNeuralNetworkEditorToolkit::RegisterTabSpawners(const TSharedRef<FTabM
 	)
 	.SetDisplayName(LOCTEXT("TestTab", "Test"))
 	.SetGroup(WorkspaceMenuCategory.ToSharedRef());
-
+	
 	FDetailsViewArgs DetailsViewArguments;
 	DetailsViewArguments.NameAreaSettings = FDetailsViewArgs::HideNameArea;
 	
@@ -98,7 +99,7 @@ void FAtumNeuralNetworkEditorToolkit::RegisterTabSpawners(const TSharedRef<FTabM
 		TEXT("PropertyEditor")
 	).CreateDetailView(DetailsViewArguments);
 	DetailsView->SetObject(NeuralNetwork);
-
+	
 	InTabManager->RegisterTabSpawner(
 		TEXT("AtumNeuralNetworkDetailsTab"),
 		FOnSpawnTab::CreateLambda([=](const FSpawnTabArgs&)
@@ -151,6 +152,12 @@ void FAtumNeuralNetworkEditorToolkit::AddReferencedObjects(FReferenceCollector& 
 FString FAtumNeuralNetworkEditorToolkit::GetReferencerName() const
 {
 	return GetNameSafe(NeuralNetwork);
+}
+
+bool FAtumNeuralNetworkEditorToolkit::CloseWindow()
+{
+	UAtumNeuralNetwork::OnPostCDOCompiled->Remove(OnPostCDOCompiledHandle);
+	return FAssetEditorToolkit::CloseWindow();
 }
 
 #undef LOCTEXT_NAMESPACE

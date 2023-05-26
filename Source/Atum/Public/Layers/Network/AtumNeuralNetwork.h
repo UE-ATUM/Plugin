@@ -45,6 +45,10 @@ class ATUM_API UAtumNeuralNetwork : public UObject, public IAtumLayer
 	GENERATED_BODY()
 	GENERATED_ATUM_LAYER(torch::nn::AtumNetwork)
 	
+#if WITH_EDITOR
+	DECLARE_MULTICAST_DELEGATE(FOnPostCDOCompiled);
+#endif
+	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties))
 	FAtumNeuralNetworkOptions Options;
@@ -53,6 +57,10 @@ protected:
 	TArray<TScriptInterface<IAtumLayer>> RegisteredLayers;
 	
 public:
+#if WITH_EDITOR
+	static const TUniquePtr<FOnPostCDOCompiled> OnPostCDOCompiled;
+#endif
+	
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Network", meta = (Keywords = "ATUM Register Layer"))
 	FORCEINLINE bool RegisterLayer(const TScriptInterface<IAtumLayer>& Layer) noexcept
 	{ return RegisterLayerAt(Layer, RegisteredLayers.Num()); }
@@ -67,6 +75,10 @@ protected:
 		const TScriptInterface<IAtumTensor>& Input,
 		TScriptInterface<IAtumTensor>& Output
 	) override;
+	
+#if WITH_EDITOR
+	virtual void PostCDOCompiled(const FPostCDOCompiledContext& Context) override;
+#endif
 };
 
 #undef LOCTEXT_NAMESPACE

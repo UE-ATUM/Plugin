@@ -12,6 +12,7 @@ class UAtumNeuralNetwork;
 class ATUMEDITOR_API FAtumNeuralNetworkEditorToolkit : public FAssetEditorToolkit, public FGCObject
 {
 	UAtumNeuralNetwork* NeuralNetwork;
+	FDelegateHandle OnPostCDOCompiledHandle;
 	
 public:
 	static const FName AtumNeuralNetworkAppIdentifier;
@@ -22,7 +23,7 @@ public:
 	void InitEditor(
 		EToolkitMode::Type Mode,
 		const TSharedPtr<IToolkitHost>& InitToolkitHost,
-		UAtumNeuralNetwork* ObjectToEdit
+		UAtumNeuralNetwork* NetworkToEdit
 	) noexcept;
 	
 	virtual void RegisterTabSpawners(const TSharedRef<FTabManager>& InTabManager) override;
@@ -47,6 +48,8 @@ public:
 	
 	UE_NODISCARD
 	virtual FString GetReferencerName() const override;
+	
+	virtual bool CloseWindow() override;
 };
 
 #undef LOCTEXT_NAMESPACE
