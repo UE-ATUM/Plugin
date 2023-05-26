@@ -5,6 +5,10 @@
 #include "AtumSettings.h"
 #include "Layers/Network/AtumNeuralNetworkLayers.h"
 
+LIBTORCH_INCLUDES_START
+#include <torch/torch.h>
+LIBTORCH_INCLUDES_END
+
 
 #define LOCTEXT_NAMESPACE "AtumNeuralNetwork"
 
@@ -86,7 +90,7 @@ bool UAtumNeuralNetwork::OnInitializeData_Implementation([[maybe_unused]] const 
 		}
 	}
 	
-	Module.Reset(new torch::nn::AtumNetwork(std::make_shared<torch::nn::AtumNetworkImpl>(
+	Module = MakeShareable(new torch::nn::AtumNetwork(std::make_shared<torch::nn::AtumNetworkImpl>(
 		static_cast<torch::nn::AtumNetworkOptions>(Options)
 	)));
 	return true;

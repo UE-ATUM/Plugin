@@ -16,7 +16,7 @@ bool UAtumLayerLocalResponseNorm::OnInitializeData_Implementation([[maybe_unused
 		return false;
 	}
 	
-	Module.Reset(new torch::nn::LocalResponseNorm(std::make_shared<torch::nn::LocalResponseNormImpl>(
+	Module = MakeShareable(new torch::nn::LocalResponseNorm(std::make_shared<torch::nn::LocalResponseNormImpl>(
 		static_cast<torch::nn::LocalResponseNormOptions>(Options)
 	)));
 	return true;

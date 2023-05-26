@@ -4,7 +4,6 @@
 
 #include "UObject/Interface.h"
 
-#include <memory>
 #include <vector>
 
 #include "IAtumLayer.generated.h"
@@ -58,9 +57,6 @@ public:
 	
 	UE_NODISCARD
 	virtual FAtumLayerBaseOptions* GetBaseOptions() noexcept;
-	
-	UE_NODISCARD
-	virtual std::shared_ptr<torch::nn::Module> GetSharedModule() const noexcept;
 	
 private:
 	bool InitializeData_Implementation(bool bRetry = true) noexcept;

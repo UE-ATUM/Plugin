@@ -9,7 +9,7 @@
 
 bool UAtumLayerLeakyRelu::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry)
 {
-	Module.Reset(new torch::nn::LeakyReLU(std::make_shared<torch::nn::LeakyReLUImpl>(
+	Module = MakeShareable(new torch::nn::LeakyReLU(std::make_shared<torch::nn::LeakyReLUImpl>(
 		static_cast<torch::nn::LeakyReLUOptions>(Options)
 	)));
 	return true;

@@ -23,11 +23,6 @@ FAtumLayerBaseOptions* IAtumLayer::GetBaseOptions() noexcept
 	return nullptr;
 }
 
-std::shared_ptr<torch::nn::Module> IAtumLayer::GetSharedModule() const noexcept
-{
-	return nullptr;
-}
-
 bool IAtumLayer::InitializeData_Implementation(const bool bRetry) noexcept
 {
 	if (bInitialized && !bRetry)
@@ -62,7 +57,7 @@ bool IAtumLayer::Forward_Implementation(
 	const ANSICHAR* const LayerClassName = TCHAR_TO_UTF8(*GetNameSafe(LayerObject->GetClass()));
 	
 	const at::Tensor* const Data = Input ? Input->GetData() : nullptr;
-	const at::IntArrayRef& Sizes = Data->sizes();
+	const at::IntArrayRef& Sizes = Data ? Data->sizes() : at::IntArrayRef();
 	
 	if (Data == nullptr || Sizes.empty())
 	{

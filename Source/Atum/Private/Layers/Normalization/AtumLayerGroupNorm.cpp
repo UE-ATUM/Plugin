@@ -33,7 +33,7 @@ bool UAtumLayerGroupNorm::OnInitializeData_Implementation([[maybe_unused]] const
 		return false;
 	}
 	
-	Module.Reset(new torch::nn::GroupNorm(std::make_shared<torch::nn::GroupNormImpl>(
+	Module = MakeShareable(new torch::nn::GroupNorm(std::make_shared<torch::nn::GroupNormImpl>(
 		static_cast<torch::nn::GroupNormOptions>(Options)
 	)));
 	return true;

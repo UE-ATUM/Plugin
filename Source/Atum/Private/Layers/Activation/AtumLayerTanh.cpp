@@ -9,7 +9,7 @@
 
 bool UAtumLayerTanh::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry)
 {
-	Module.Reset(new torch::nn::Tanh(std::make_shared<torch::nn::TanhImpl>()));
+	Module = MakeShareable(new torch::nn::Tanh(std::make_shared<torch::nn::TanhImpl>()));
 	return true;
 }
 

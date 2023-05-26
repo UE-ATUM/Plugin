@@ -17,24 +17,20 @@
 
 #define GENERATED_ATUM_LAYER(ModuleClass) \
 protected: \
-	TUniquePtr<ModuleClass> Module = nullptr; \
+	TSharedPtr<ModuleClass> Module = nullptr; \
 	\
 public: \
 	UE_NODISCARD \
-	virtual const FAtumLayerBaseOptions* GetBaseOptions() const noexcept { return &Options; } \
+	virtual const FAtumLayerBaseOptions* GetBaseOptions() const noexcept override { return &Options; } \
 	\
 	UE_NODISCARD \
-	virtual FAtumLayerBaseOptions* GetBaseOptions() noexcept { return &Options; } \
+	virtual FAtumLayerBaseOptions* GetBaseOptions() noexcept override { return &Options; } \
 	\
 	UE_NODISCARD \
-	virtual std::shared_ptr<torch::nn::Module> GetSharedModule() const noexcept override \
-	{ return Module ? Module->ptr() : nullptr; } \
+	FORCEINLINE TSharedPtr<const ModuleClass> GetModule() const noexcept { return Module; } \
 	\
 	UE_NODISCARD \
-	FORCEINLINE const ModuleClass* GetModule() const noexcept { return Module.Get(); } \
-	\
-	UE_NODISCARD \
-	FORCEINLINE ModuleClass* GetModule() noexcept { return Module.Get(); } \
+	FORCEINLINE TSharedPtr<ModuleClass> GetModule() noexcept { return Module; } \
 	\
 private:
 
