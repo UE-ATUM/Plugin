@@ -49,12 +49,18 @@ class ATUM_API UAtumNeuralNetwork : public UObject, public IAtumLayer
 	DECLARE_MULTICAST_DELEGATE(FOnPostCDOCompiled);
 #endif
 	
+	UPROPERTY(Transient, NonTransactional, meta = (MustImplement = "/Script/Atum.AtumLayer"))
+	mutable TArray<const UObject*> RegisteredLayersConst;
+	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties))
 	FAtumNeuralNetworkOptions Options;
 	
-	UPROPERTY(Transient, NonTransactional, VisibleAnywhere)
-	TArray<TScriptInterface<IAtumLayer>> RegisteredLayers;
+	UPROPERTY(Transient, NonTransactional, VisibleAnywhere, BlueprintGetter = "GetRegisteredLayers", meta = (
+		AllowPrivateAccess,
+		MustImplement = "/Script/Atum.AtumLayer"
+	))
+	TArray<TObjectPtr<UObject>> RegisteredLayers;
 	
 public:
 #if WITH_EDITOR
@@ -68,6 +74,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Network", meta = (Keywords = "ATUM Register Layer At Index"))
 	bool RegisterLayerAt(const TScriptInterface<IAtumLayer>& Layer, int32 Index = 0) noexcept;
 	
+	UFUNCTION(BlueprintGetter, Category = "ATUM|Network", CustomThunk, meta = (Keywords = "ATUM Get Registered Layers"))
+	UPARAM(meta = (MustImplement = "/Script/Atum.AtumLayer")) const TArray<const UObject*>&
+		GetRegisteredLayers() const noexcept;
+	
 protected:
 	virtual bool OnInitializeData_Implementation(bool bRetry = true) noexcept override;
 	
@@ -79,6 +89,9 @@ protected:
 #if WITH_EDITOR
 	virtual void PostCDOCompiled(const FPostCDOCompiledContext& Context) override;
 #endif
+	
+private:
+	DECLARE_FUNCTION(execGetRegisteredLayers) noexcept;
 };
 
 #undef LOCTEXT_NAMESPACE

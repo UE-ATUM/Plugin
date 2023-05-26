@@ -8,6 +8,26 @@
 
 #define LOCTEXT_NAMESPACE "AtumNeuralNetworkLayers"
 
+const TArray<const UClass*>& UAtumNeuralNetworkLayers::GetLayerTypes() const noexcept
+{
+	LayerTypesConst.Empty(LayerTypes.Num());
+	for (const TObjectPtr<const UClass> LayerType : LayerTypes)
+	{
+		LayerTypesConst.Add(DuplicateObject<const UClass>(LayerType, GetTransientPackage()));
+	}
+	return LayerTypesConst;
+}
+
+const TArray<const UObject*>& UAtumNeuralNetworkLayers::GetLayerObjects() const noexcept
+{
+	LayerObjectsConst.Empty(LayerObjects.Num());
+	for (const TObjectPtr<const UObject> LayerObject : LayerObjects)
+	{
+		LayerObjectsConst.Add(DuplicateObject<const UObject>(LayerObject, GetTransientPackage()));
+	}
+	return LayerObjectsConst;
+}
+
 #if WITH_EDITOR
 void UAtumNeuralNetworkLayers::PreEditChange(FProperty* const PropertyAboutToChange)
 {
@@ -131,5 +151,33 @@ void UAtumNeuralNetworkLayers::OnLayerTypesPropertyChange_ArrayMove() noexcept
 	}
 }
 #endif
+
+// ReSharper disable CppUE4CodingStandardNamingViolationWarning
+void UAtumNeuralNetworkLayers::execGetLayerTypes(
+	UObject* const Context,
+	FFrame& Stack,
+	void* const Z_Param__Result
+) noexcept
+{
+	P_FINISH
+	
+	P_NATIVE_BEGIN
+	*static_cast<TArray<const UClass*>*>(Z_Param__Result) = P_THIS->GetLayerTypes();
+	P_NATIVE_END
+}
+
+void UAtumNeuralNetworkLayers::execGetLayerObjects(
+	UObject* const Context,
+	FFrame& Stack,
+	void* const Z_Param__Result
+) noexcept
+{
+	P_FINISH
+	
+	P_NATIVE_BEGIN
+	*static_cast<TArray<const UObject*>*>(Z_Param__Result) = P_THIS->GetLayerObjects();
+	P_NATIVE_END
+}
+// ReSharper restore CppUE4CodingStandardNamingViolationWarning
 
 #undef LOCTEXT_NAMESPACE

@@ -40,37 +40,39 @@ bool UAtumNeuralNetwork::RegisterLayerAt(const TScriptInterface<IAtumLayer>& Lay
 		ATUM_LOG(Error, TEXT("The number %d is not a valid index!"), Index)
 		return false;
 	}
-	
-	if (Layer == nullptr || !Execute_InitializeData(Layer.GetObject(), true))
+
+	UObject* const LayerObject = Layer.GetObject();
+	if (LayerObject == nullptr || !Execute_InitializeData(LayerObject, true))
 	{
 		ATUM_LOG(Error, TEXT("Could not register uninitialized layer in `%ls` ATUM Neural Network!"), *GetName())
 		return false;
 	}
 	
-	RegisteredLayers.Insert(Layer, Index);
+	RegisteredLayers.Insert(LayerObject, Index);
 	return true;
 }
 
-bool UAtumNeuralNetwork::OnInitializeData_Implementation(const bool bRetry) noexcept
+const TArray<const UObject*>& UAtumNeuralNetwork::GetRegisteredLayers() const noexcept
 {
-	if (bRetry)
+	RegisteredLayersConst.Empty(RegisteredLayers.Num());
+	for (const TObjectPtr<const UObject> RegisteredLayer : RegisteredLayers)
 	{
-		RegisteredLayers.Empty();
+		RegisteredLayersConst.Add(DuplicateObject<const UObject>(RegisteredLayer, GetTransientPackage()));
 	}
-	
-	const TObjectPtr<UAtumNeuralNetworkLayers> Data = Options.LayersData;
-	const TArray<TScriptInterface<IAtumLayer>> PriorLayers = RegisteredLayers;
-	
-	TArray<TObjectPtr<const UObject>> Layers;
-	if (Data)
-	{
-		Data->GetLayerObjects(Layers);
-	}
+	return RegisteredLayersConst;
+}
 
+bool UAtumNeuralNetwork::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
+{
+	RegisteredLayers.Empty();
+	const TObjectPtr<UAtumNeuralNetworkLayers> Data = Options.LayersData;
+	
+	const TArray<const UObject*>& Layers = Data ? Data->GetLayerObjects() : TArray<const UObject*>();
 	const int32 LayerCount = Layers.Num();
+	
 	for (int32 Index = 0; Index < LayerCount; ++Index)
 	{
-		if (!RegisterLayer(DuplicateObject<UObject>(Layers[Index].Get(), this)))
+		if (!RegisterLayer(DuplicateObject<UObject>(Layers[Index], this)))
 		{
 			ATUM_LOG(
 				Error,
@@ -79,7 +81,7 @@ bool UAtumNeuralNetwork::OnInitializeData_Implementation(const bool bRetry) noex
 				*Data->GetName(),
 				Index
 			)
-			RegisteredLayers = PriorLayers;
+			RegisteredLayers.Empty();
 			return false;
 		}
 	}
@@ -96,16 +98,16 @@ bool UAtumNeuralNetwork::OnForward_Implementation(
 )
 {
 	TScriptInterface<IAtumTensor> Subinput = Input;
-	for (const TScriptInterface<IAtumLayer>& RegisteredLayer : RegisteredLayers)
+	for (const TObjectPtr<UObject> RegisteredLayer : RegisteredLayers)
 	{
-		UObject* const Layer = RegisteredLayer.GetObject();
-		if (Layer == this)
+		UObject* const LayerObject = RegisteredLayer.Get();
+		if (LayerObject == this)
 		{
 			ATUM_LOG(Warning, TEXT("Neural network `%ls` contains itself as a layer!"), *GetName())
 			continue;
 		}
 		
-		if (Layer == nullptr || !Execute_Forward(Layer, Subinput, Output))
+		if (LayerObject == nullptr || !Execute_Forward(LayerObject, Subinput, Output))
 			return false;
 		
 		Subinput = Output;
@@ -122,5 +124,20 @@ void UAtumNeuralNetwork::PostCDOCompiled(const FPostCDOCompiledContext& Context)
 	OnPostCDOCompiled->Broadcast();
 }
 #endif
+
+// ReSharper disable CppUE4CodingStandardNamingViolationWarning
+void UAtumNeuralNetwork::execGetRegisteredLayers(
+	UObject* const Context,
+	FFrame& Stack,
+	void* const Z_Param__Result
+) noexcept
+{
+	P_FINISH
+	
+	P_NATIVE_BEGIN
+	*static_cast<TArray<const UObject*>*>(Z_Param__Result) = P_THIS->GetRegisteredLayers();
+	P_NATIVE_END
+}
+// ReSharper restore CppUE4CodingStandardNamingViolationWarning
 
 #undef LOCTEXT_NAMESPACE
