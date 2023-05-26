@@ -5,11 +5,6 @@
 
 #define LOCTEXT_NAMESPACE "AtumLayerConvTransposeOptions"
 
-FAtumLayerConvTransposeOptions::FAtumLayerConvTransposeOptions() noexcept :
-FAtumLayerConvTransposeOptions(3ULL)
-{
-}
-
 FAtumLayerConvTransposeOptions::FAtumLayerConvTransposeOptions(const uint64 Dimensions) noexcept :
 InChannels(0LL),
 OutChannels(0LL),

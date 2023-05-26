@@ -7,8 +7,6 @@
 
 #include "AtumLayerConvOptions.generated.h"
 
-class UAtumLayerConv;
-
 
 #define LOCTEXT_NAMESPACE "AtumLayerConvOptions"
 
@@ -44,21 +42,13 @@ struct ATUM_API FAtumLayerConvOptions : public FAtumLayerBaseOptions
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess))
 	EAtumConvPaddingMode PaddingMode;
 	
-protected:
 	UE_NODISCARD_CTOR
-	FAtumLayerConvOptions() noexcept;
-	
-public:
-	UE_NODISCARD_CTOR
-	explicit FAtumLayerConvOptions(uint64 Dimensions) noexcept;
+	explicit FAtumLayerConvOptions(uint64 Dimensions = 0ULL) noexcept;
 	
 	template <uint64 Dimensions>
 	requires (1ULL <= Dimensions && Dimensions <= 3ULL)
 	UE_NODISCARD
 	FORCEINLINE explicit operator torch::nn::ConvOptions<Dimensions>() const noexcept;
-	
-	friend UAtumLayerConv;
-	friend UScriptStruct;
 };
 
 

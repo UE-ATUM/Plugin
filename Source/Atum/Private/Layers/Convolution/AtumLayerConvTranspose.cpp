@@ -68,6 +68,7 @@ UAtumLayerConvTranspose1D::UAtumLayerConvTranspose1D() noexcept
 	DimensionCount = 1ULL;
 	ValidInputSizes.push_back(2LL);
 	ValidInputSizes.push_back(3LL);
+	Options = FAtumLayerConvTransposeOptions(DimensionCount);
 }
 
 bool UAtumLayerConvTranspose1D::OnInitializeData_Implementation(const bool bRetry) noexcept
@@ -99,6 +100,7 @@ UAtumLayerConvTranspose2D::UAtumLayerConvTranspose2D() noexcept
 	DimensionCount = 2ULL;
 	ValidInputSizes.push_back(3LL);
 	ValidInputSizes.push_back(4LL);
+	Options = FAtumLayerConvTransposeOptions(DimensionCount);
 }
 
 bool UAtumLayerConvTranspose2D::OnInitializeData_Implementation(const bool bRetry) noexcept
@@ -130,6 +132,7 @@ UAtumLayerConvTranspose3D::UAtumLayerConvTranspose3D() noexcept
 	DimensionCount = 3ULL;
 	ValidInputSizes.push_back(4LL);
 	ValidInputSizes.push_back(5LL);
+	Options = FAtumLayerConvTransposeOptions(DimensionCount);
 }
 
 bool UAtumLayerConvTranspose3D::OnInitializeData_Implementation(const bool bRetry) noexcept

@@ -11,8 +11,6 @@ LIBTORCH_INCLUDES_END
 
 #include "AtumLayerConvTransposeOptions.generated.h"
 
-class UAtumLayerConvTranspose;
-
 
 #define LOCTEXT_NAMESPACE "AtumLayerConvTransposeOptions"
 
@@ -48,21 +46,13 @@ struct ATUM_API FAtumLayerConvTransposeOptions : public FAtumLayerBaseOptions
 	UPROPERTY(EditFixedSize, EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess))
 	TArray<int64> Dilation;
 	
-protected:
 	UE_NODISCARD_CTOR
-	FAtumLayerConvTransposeOptions() noexcept;
-	
-public:
-	UE_NODISCARD_CTOR
-	explicit FAtumLayerConvTransposeOptions(uint64 Dimensions) noexcept;
+	explicit FAtumLayerConvTransposeOptions(uint64 Dimensions = 0ULL) noexcept;
 	
 	template <uint64 Dimensions>
 	requires (1ULL <= Dimensions && Dimensions <= 3ULL)
 	UE_NODISCARD
 	FORCEINLINE explicit operator torch::nn::ConvTransposeOptions<Dimensions>() const noexcept;
-	
-	friend UAtumLayerConvTranspose;
-	friend UScriptStruct;
 };
 
 

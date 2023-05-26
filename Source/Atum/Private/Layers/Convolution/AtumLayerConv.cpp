@@ -130,6 +130,7 @@ UAtumLayerConv1D::UAtumLayerConv1D() noexcept
 	DimensionCount = 1ULL;
 	ValidInputSizes.push_back(2LL);
 	ValidInputSizes.push_back(3LL);
+	Options = FAtumLayerConvOptions(DimensionCount);
 }
 
 bool UAtumLayerConv1D::OnInitializeData_Implementation(const bool bRetry) noexcept
@@ -161,6 +162,7 @@ UAtumLayerConv2D::UAtumLayerConv2D() noexcept
 	DimensionCount = 2ULL;
 	ValidInputSizes.push_back(3LL);
 	ValidInputSizes.push_back(4LL);
+	Options = FAtumLayerConvOptions(DimensionCount);
 }
 
 bool UAtumLayerConv2D::OnInitializeData_Implementation(const bool bRetry) noexcept
@@ -192,6 +194,7 @@ UAtumLayerConv3D::UAtumLayerConv3D() noexcept
 	DimensionCount = 3ULL;
 	ValidInputSizes.push_back(4LL);
 	ValidInputSizes.push_back(5LL);
+	Options = FAtumLayerConvOptions(DimensionCount);
 }
 
 bool UAtumLayerConv3D::OnInitializeData_Implementation(const bool bRetry) noexcept
