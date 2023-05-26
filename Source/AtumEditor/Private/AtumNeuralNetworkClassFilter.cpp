@@ -4,7 +4,7 @@
 
 #include "AtumSettings.h"
 #include "Kismet2/KismetEditorUtilities.h"
-#include "Layers/AtumNeuralNetwork.h"
+#include "Layers/Network/AtumNeuralNetwork.h"
 
 
 #define LOCTEXT_NAMESPACE "AtumNeuralNetworkClassFilter"

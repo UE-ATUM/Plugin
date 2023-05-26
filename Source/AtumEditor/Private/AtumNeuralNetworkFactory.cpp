@@ -4,7 +4,7 @@
 
 #include "AtumNeuralNetworkClassFilter.h"
 #include "Kismet2/SClassPickerDialog.h"
-#include "Layers/AtumNeuralNetwork.h"
+#include "Layers/Network/AtumNeuralNetwork.h"
 
 
 #define LOCTEXT_NAMESPACE "AtumNeuralNetworkFactory"

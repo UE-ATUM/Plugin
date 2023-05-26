@@ -3,7 +3,7 @@
 #include "AtumNeuralNetworkEditorToolkit.h"
 
 #include "GraphEditorActions.h"
-#include "Layers/AtumNeuralNetwork.h"
+#include "Layers/Network/AtumNeuralNetwork.h"
 #include "Modules/ModuleManager.h"
 #include "SAtumNeuralNetworkWidget.h"
 #include "Widgets/Docking/SDockTab.h"

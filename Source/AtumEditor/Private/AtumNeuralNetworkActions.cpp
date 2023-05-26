@@ -5,7 +5,7 @@
 #include "AtumEditorModule.h"
 #include "AtumNeuralNetworkEditorToolkit.h"
 #include "AtumSettings.h"
-#include "Layers/AtumNeuralNetwork.h"
+#include "Layers/Network/AtumNeuralNetwork.h"
 
 
 #define LOCTEXT_NAMESPACE "AtumNeuralNetworkActions"
@@ -37,12 +37,12 @@ void FAtumNeuralNetworkAssetTypeActions::OpenAssetEditor(
 {
 	const EToolkitMode::Type Mode = EditWithinLevelEditor.IsValid() ?
 		EToolkitMode::WorldCentric : EToolkitMode::Standalone;
-
+	
 	for (TArray<UObject*>::TConstIterator Iterator = InObjects.CreateConstIterator(); Iterator; ++Iterator)
 	{
-		if (auto* const AtumNeuralNetwork = Cast<UAtumNeuralNetwork>(*Iterator); AtumNeuralNetwork)
+		if (auto* const NeuralNetwork = Cast<UAtumNeuralNetwork>(*Iterator); NeuralNetwork)
 		{
-			MakeShared<FAtumNeuralNetworkEditorToolkit>()->InitEditor(Mode, EditWithinLevelEditor, AtumNeuralNetwork);
+			MakeShared<FAtumNeuralNetworkEditorToolkit>()->InitEditor(Mode, EditWithinLevelEditor, NeuralNetwork);
 		}
 	}
 }
