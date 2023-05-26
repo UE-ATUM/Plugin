@@ -10,6 +10,17 @@
 
 bool UAtumLayerLinear::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
 {
+	if (Options.InFeatures <= 0LL)
+	{
+		ATUM_LOG(Error, TEXT("There must exist at least 1 input feature!"))
+		return false;
+	}
+	if (Options.OutFeatures <= 0LL)
+	{
+		ATUM_LOG(Error, TEXT("There must exist at least 1 output feature!"))
+		return false;
+	}
+	
 	Module.Reset(new torch::nn::Linear(std::make_shared<torch::nn::LinearImpl>(
 		static_cast<torch::nn::LinearOptions>(Options)
 	)));
