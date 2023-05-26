@@ -79,10 +79,12 @@ protected:
 	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
 	bool OnInitializeData(bool bRetry = true);
-	virtual bool OnInitializeData_Implementation(bool bRetry = true) noexcept;
+	
+	virtual bool OnInitializeData_Implementation(bool bRetry = true);
 	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
 	bool OnForward(const TScriptInterface<IAtumTensor>& Input, TScriptInterface<IAtumTensor>& Output);
+	
 	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,
 		TScriptInterface<IAtumTensor>& Output

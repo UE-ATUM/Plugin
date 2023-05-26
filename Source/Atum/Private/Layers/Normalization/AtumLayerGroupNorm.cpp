@@ -8,7 +8,7 @@
 
 #define LOCTEXT_NAMESPACE "AtumLayerGroupNorm"
 
-bool UAtumLayerGroupNorm::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
+bool UAtumLayerGroupNorm::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry)
 {
 	const int64 Groups = Options.NumGroups;
 	const int64 Channels = Options.NumChannels;

@@ -147,10 +147,12 @@ bool IAtumLayer::AreInputSizesValid(const TArray<int64>& InputSizes, const int64
 	return true;
 }
 
-bool IAtumLayer::OnInitializeData_Implementation(const bool bRetry) noexcept
+bool IAtumLayer::OnInitializeData_Implementation(const bool bRetry)
 {
-	ATUM_LOG(Error, TEXT("OnInitializeData is not implemented in `%ls`!"), *GetNameSafe(_getUObject()->GetClass()))
-	return false;
+	throw std::logic_error(TCHAR_TO_UTF8(*FString::Printf(
+		TEXT("OnInitializeData is not implemented in `%ls`!"),
+		*GetNameSafe(_getUObject()->GetClass())
+	)));
 }
 
 bool IAtumLayer::OnForward_Implementation(
@@ -158,9 +160,11 @@ bool IAtumLayer::OnForward_Implementation(
 	TScriptInterface<IAtumTensor>& Output
 )
 {
-	ATUM_LOG(Error, TEXT("OnForward is not implemented in `%ls`!"), *GetNameSafe(_getUObject()->GetClass()))
 	Output = DuplicateObject(Input.GetObject(), nullptr);
-	return false;
+	throw std::logic_error(TCHAR_TO_UTF8(*FString::Printf(
+		TEXT("OnForward is not implemented in `%ls`!"),
+		*GetNameSafe(_getUObject()->GetClass())
+	)));
 }
 
 #undef LOCTEXT_NAMESPACE

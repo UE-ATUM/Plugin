@@ -24,7 +24,7 @@ UAtumLayerInstanceNorm1D::UAtumLayerInstanceNorm1D() noexcept
 	ValidInputSizes.push_back(3LL);
 }
 
-bool UAtumLayerInstanceNorm1D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
+bool UAtumLayerInstanceNorm1D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry)
 {
 	Module.Reset(new torch::nn::InstanceNorm1d(std::make_shared<torch::nn::InstanceNorm1dImpl>(
 		static_cast<torch::nn::InstanceNormOptions>(Options)
@@ -52,7 +52,7 @@ UAtumLayerInstanceNorm2D::UAtumLayerInstanceNorm2D() noexcept
 	ValidInputSizes.push_back(4LL);
 }
 
-bool UAtumLayerInstanceNorm2D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
+bool UAtumLayerInstanceNorm2D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry)
 {
 	Module.Reset(new torch::nn::InstanceNorm2d(std::make_shared<torch::nn::InstanceNorm2dImpl>(
 		static_cast<torch::nn::InstanceNormOptions>(Options)
@@ -80,7 +80,7 @@ UAtumLayerInstanceNorm3D::UAtumLayerInstanceNorm3D() noexcept
 	ValidInputSizes.push_back(5LL);
 }
 
-bool UAtumLayerInstanceNorm3D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
+bool UAtumLayerInstanceNorm3D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry)
 {
 	Module.Reset(new torch::nn::InstanceNorm3d(std::make_shared<torch::nn::InstanceNorm3dImpl>(
 		static_cast<torch::nn::InstanceNormOptions>(Options)

@@ -100,7 +100,7 @@ bool UAtumLayerConv::DoesPaddingCauseMultipleWrappings(const TArray<int64>& Inpu
 	return true;
 }
 
-bool UAtumLayerConv::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
+bool UAtumLayerConv::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry)
 {
 	bool bSuccess = AreChannelsDivisibleByGroups(Options.InChannels, Options.OutChannels, Options.Groups);
 	bSuccess &= AreSizesPositive(Options.KernelSize, TEXT("Kernel Size"));
@@ -133,7 +133,7 @@ UAtumLayerConv1D::UAtumLayerConv1D() noexcept
 	Options = FAtumLayerConvOptions(DimensionCount);
 }
 
-bool UAtumLayerConv1D::OnInitializeData_Implementation(const bool bRetry) noexcept
+bool UAtumLayerConv1D::OnInitializeData_Implementation(const bool bRetry)
 {
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
@@ -165,7 +165,7 @@ UAtumLayerConv2D::UAtumLayerConv2D() noexcept
 	Options = FAtumLayerConvOptions(DimensionCount);
 }
 
-bool UAtumLayerConv2D::OnInitializeData_Implementation(const bool bRetry) noexcept
+bool UAtumLayerConv2D::OnInitializeData_Implementation(const bool bRetry)
 {
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
@@ -197,7 +197,7 @@ UAtumLayerConv3D::UAtumLayerConv3D() noexcept
 	Options = FAtumLayerConvOptions(DimensionCount);
 }
 
-bool UAtumLayerConv3D::OnInitializeData_Implementation(const bool bRetry) noexcept
+bool UAtumLayerConv3D::OnInitializeData_Implementation(const bool bRetry)
 {
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;

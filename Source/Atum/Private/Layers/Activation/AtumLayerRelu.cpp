@@ -7,7 +7,7 @@
 
 #define LOCTEXT_NAMESPACE "AtumLayerRelu"
 
-bool UAtumLayerRelu::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
+bool UAtumLayerRelu::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry)
 {
 	Module.Reset(new torch::nn::ReLU(std::make_shared<torch::nn::ReLUImpl>(
 		static_cast<torch::nn::ReLUOptions>(Options)

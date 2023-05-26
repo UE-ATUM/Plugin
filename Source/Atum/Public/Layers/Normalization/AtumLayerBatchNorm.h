@@ -48,7 +48,7 @@ public:
 	UAtumLayerBatchNorm1D() noexcept;
 
 protected:
-	virtual bool OnInitializeData_Implementation(bool bRetry = true) noexcept override;
+	virtual bool OnInitializeData_Implementation(bool bRetry = true) override;
 
 	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,
@@ -68,7 +68,7 @@ public:
 	UAtumLayerBatchNorm2D() noexcept;
 
 protected:
-	virtual bool OnInitializeData_Implementation(bool bRetry = true) noexcept override;
+	virtual bool OnInitializeData_Implementation(bool bRetry = true) override;
 
 	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,
@@ -88,7 +88,7 @@ public:
 	UAtumLayerBatchNorm3D() noexcept;
 
 protected:
-	virtual bool OnInitializeData_Implementation(bool bRetry = true) noexcept override;
+	virtual bool OnInitializeData_Implementation(bool bRetry = true) override;
 
 	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,

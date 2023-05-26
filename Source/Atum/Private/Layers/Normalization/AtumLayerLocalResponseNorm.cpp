@@ -8,7 +8,7 @@
 
 #define LOCTEXT_NAMESPACE "AtumLayerLocalResponseNorm"
 
-bool UAtumLayerLocalResponseNorm::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
+bool UAtumLayerLocalResponseNorm::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry)
 {
 	if (const int64 Size = Options.Size; Size <= 0LL)
 	{

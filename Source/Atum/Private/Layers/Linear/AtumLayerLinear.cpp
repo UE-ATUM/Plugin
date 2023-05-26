@@ -8,7 +8,7 @@
 
 #define LOCTEXT_NAMESPACE "AtumLayerLinear"
 
-bool UAtumLayerLinear::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
+bool UAtumLayerLinear::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry)
 {
 	if (Options.InFeatures <= 0LL)
 	{

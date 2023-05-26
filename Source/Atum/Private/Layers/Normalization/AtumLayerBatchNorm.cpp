@@ -24,7 +24,7 @@ UAtumLayerBatchNorm1D::UAtumLayerBatchNorm1D() noexcept
 	ValidInputSizes.push_back(3LL);
 }
 
-bool UAtumLayerBatchNorm1D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
+bool UAtumLayerBatchNorm1D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry)
 {
 	Module.Reset(new torch::nn::BatchNorm1d(std::make_shared<torch::nn::BatchNorm1dImpl>(
 		static_cast<torch::nn::BatchNormOptions>(Options)
@@ -51,7 +51,7 @@ UAtumLayerBatchNorm2D::UAtumLayerBatchNorm2D() noexcept
 	ValidInputSizes.push_back(4LL);
 }
 
-bool UAtumLayerBatchNorm2D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
+bool UAtumLayerBatchNorm2D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry)
 {
 	Module.Reset(new torch::nn::BatchNorm2d(std::make_shared<torch::nn::BatchNorm2dImpl>(
 		static_cast<torch::nn::BatchNormOptions>(Options)
@@ -78,7 +78,7 @@ UAtumLayerBatchNorm3D::UAtumLayerBatchNorm3D() noexcept
 	ValidInputSizes.push_back(5LL);
 }
 
-bool UAtumLayerBatchNorm3D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
+bool UAtumLayerBatchNorm3D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry)
 {
 	Module.Reset(new torch::nn::BatchNorm3d(std::make_shared<torch::nn::BatchNorm3dImpl>(
 		static_cast<torch::nn::BatchNormOptions>(Options)

@@ -25,7 +25,7 @@ void UAtumLayerLayerNorm::DestroyNormalizedShape() const noexcept
 	}
 }
 
-bool UAtumLayerLayerNorm::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
+bool UAtumLayerLayerNorm::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry)
 {
 	DestroyNormalizedShape();
 	

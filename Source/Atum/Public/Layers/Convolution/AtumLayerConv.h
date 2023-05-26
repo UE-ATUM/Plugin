@@ -32,7 +32,7 @@ protected:
 	UE_NODISCARD
 	bool DoesPaddingCauseMultipleWrappings(const TArray<int64>& InputSizes) const noexcept;
 	
-	virtual bool OnInitializeData_Implementation(bool bRetry = true) noexcept override;
+	virtual bool OnInitializeData_Implementation(bool bRetry = true) override;
 	
 	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,
@@ -59,7 +59,7 @@ public:
 	UAtumLayerConv1D() noexcept;
 	
 protected:
-	virtual bool OnInitializeData_Implementation(bool bRetry = true) noexcept override;
+	virtual bool OnInitializeData_Implementation(bool bRetry = true) override;
 
 	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,
@@ -79,7 +79,7 @@ public:
 	UAtumLayerConv2D() noexcept;
 	
 protected:
-	virtual bool OnInitializeData_Implementation(bool bRetry = true) noexcept override;
+	virtual bool OnInitializeData_Implementation(bool bRetry = true) override;
 
 	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,
@@ -99,7 +99,7 @@ public:
 	UAtumLayerConv3D() noexcept;
 	
 protected:
-	virtual bool OnInitializeData_Implementation(bool bRetry = true) noexcept override;
+	virtual bool OnInitializeData_Implementation(bool bRetry = true) override;
 
 	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,

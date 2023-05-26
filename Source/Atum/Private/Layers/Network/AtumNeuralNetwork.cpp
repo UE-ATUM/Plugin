@@ -62,7 +62,7 @@ const TArray<const UObject*>& UAtumNeuralNetwork::GetRegisteredLayers() const no
 	return RegisteredLayersConst;
 }
 
-bool UAtumNeuralNetwork::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
+bool UAtumNeuralNetwork::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry)
 {
 	RegisteredLayers.Empty();
 	const TObjectPtr<UAtumNeuralNetworkLayers> Data = Options.LayersData;

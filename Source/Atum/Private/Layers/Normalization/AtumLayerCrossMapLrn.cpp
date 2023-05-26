@@ -14,7 +14,7 @@ UAtumLayerCrossMapLrn2D::UAtumLayerCrossMapLrn2D() noexcept
 	ValidInputSizes.push_back(4LL);
 }
 
-bool UAtumLayerCrossMapLrn2D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
+bool UAtumLayerCrossMapLrn2D::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry)
 {
 	if (const int64 Size = Options.Size; Size <= 0LL)
 	{

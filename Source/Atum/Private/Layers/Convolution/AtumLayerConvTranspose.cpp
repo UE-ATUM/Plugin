@@ -39,7 +39,7 @@ bool UAtumLayerConvTranspose::IsCalculatedOutputTensorSizeValid(const TArray<int
 	return true;
 }
 
-bool UAtumLayerConvTranspose::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
+bool UAtumLayerConvTranspose::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry)
 {
 	bool bSuccess = AreChannelsDivisibleByGroups(Options.InChannels, Options.OutChannels, Options.Groups);
 	bSuccess &= AreSizesPositive(Options.KernelSize, TEXT("Kernel Size"));
@@ -71,7 +71,7 @@ UAtumLayerConvTranspose1D::UAtumLayerConvTranspose1D() noexcept
 	Options = FAtumLayerConvTransposeOptions(DimensionCount);
 }
 
-bool UAtumLayerConvTranspose1D::OnInitializeData_Implementation(const bool bRetry) noexcept
+bool UAtumLayerConvTranspose1D::OnInitializeData_Implementation(const bool bRetry)
 {
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
@@ -103,7 +103,7 @@ UAtumLayerConvTranspose2D::UAtumLayerConvTranspose2D() noexcept
 	Options = FAtumLayerConvTransposeOptions(DimensionCount);
 }
 
-bool UAtumLayerConvTranspose2D::OnInitializeData_Implementation(const bool bRetry) noexcept
+bool UAtumLayerConvTranspose2D::OnInitializeData_Implementation(const bool bRetry)
 {
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
@@ -135,7 +135,7 @@ UAtumLayerConvTranspose3D::UAtumLayerConvTranspose3D() noexcept
 	Options = FAtumLayerConvTransposeOptions(DimensionCount);
 }
 
-bool UAtumLayerConvTranspose3D::OnInitializeData_Implementation(const bool bRetry) noexcept
+bool UAtumLayerConvTranspose3D::OnInitializeData_Implementation(const bool bRetry)
 {
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;

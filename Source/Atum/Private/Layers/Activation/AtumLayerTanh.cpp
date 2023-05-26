@@ -7,7 +7,7 @@
 
 #define LOCTEXT_NAMESPACE "AtumLayerTanh"
 
-bool UAtumLayerTanh::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
+bool UAtumLayerTanh::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry)
 {
 	Module.Reset(new torch::nn::Tanh(std::make_shared<torch::nn::TanhImpl>()));
 	return true;
