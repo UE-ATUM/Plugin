@@ -98,9 +98,11 @@ bool UAtumNeuralNetwork::OnForward_Implementation(
 )
 {
 	TScriptInterface<IAtumTensor> Subinput = Input;
-	for (const TObjectPtr<UObject> RegisteredLayer : RegisteredLayers)
+
+	const int32 RegisteredLayerCount = RegisteredLayers.Num();
+	for (int32 Index = 0; Index < RegisteredLayerCount; ++Index)
 	{
-		UObject* const LayerObject = RegisteredLayer.Get();
+		UObject* const LayerObject = RegisteredLayers[Index].Get();
 		if (LayerObject == this)
 		{
 			ATUM_LOG(Warning, TEXT("Neural network `%ls` contains itself as a layer!"), *GetName())
@@ -108,7 +110,10 @@ bool UAtumNeuralNetwork::OnForward_Implementation(
 		}
 		
 		if (LayerObject == nullptr || !Execute_Forward(LayerObject, Subinput, Output))
+		{
+			ATUM_LOG(Error, TEXT("Error encountered at registered layer number %d!"), Index)
 			return false;
+		}
 		
 		Subinput = Output;
 	}
