@@ -33,7 +33,23 @@ bool IAtumLayer::InitializeData_Implementation(const bool bRetry) noexcept
 	if (bInitialized && !bRetry)
 		return true;
 	
-	bInitialized = Execute_OnInitializeData(_getUObject(), bRetry);
+	try
+	{
+		bInitialized = Execute_OnInitializeData(_getUObject(), bRetry);
+	}
+	catch (const std::exception& Exception)
+	{
+		bInitialized = false;
+		
+		const std::string& ExceptionString = Exception.what();
+		ATUM_LOG(
+			Error,
+			TEXT("Unhandled exception - %hs\nFailed to initialize ATUM Layer of type `%hs`!"),
+			ExceptionString.substr(0, ExceptionString.find("\n")).c_str(),
+			TCHAR_TO_UTF8(*GetNameSafe(_getUObject()->GetClass()))
+		)
+	}
+	
 	return bInitialized;
 }
 
@@ -69,28 +85,23 @@ bool IAtumLayer::Forward_Implementation(
 		return false;
 	}
 	
-	bool bSuccess;
 	try
 	{
-		bSuccess = Execute_OnForward(LayerObject, Input, Output);
+		Execute_OnForward(LayerObject, Input, Output);
 	}
 	catch (const std::exception& Exception)
 	{
-		bSuccess = false;
-
 		const std::string& ExceptionString = Exception.what();
 		ATUM_LOG(
 			Error,
-			TEXT("Unhandled exception - %hs"),
-			ExceptionString.substr(0, ExceptionString.find("\n")).c_str()
+			TEXT("Unhandled exception - %hs\nFailed to forward in ATUM Layer of type `%hs`!"),
+			ExceptionString.substr(0, ExceptionString.find("\n")).c_str(),
+			LayerClassName
 		)
+		return false;
 	}
 	
-	if (!bSuccess)
-	{
-		ATUM_LOG(Error, TEXT("Failed to forward in ATUM Layer of type `%hs`!"), LayerClassName)
-	}
-	return bSuccess;
+	return true;
 }
 
 bool IAtumLayer::AreInputSizesValid(const int32 InputSizeCount) const noexcept
