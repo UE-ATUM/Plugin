@@ -13,7 +13,7 @@ struct ATUM_API FAtumLayerBaseOptions
 	GENERATED_BODY()
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess))
-	FName LayerName;
+	FString LayerName;
 	
 	UE_NODISCARD_CTOR
 	FAtumLayerBaseOptions() noexcept;
