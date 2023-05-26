@@ -44,7 +44,7 @@ bool IAtumLayer::Forward_Implementation(
 {
 	UObject* const LayerObject = _getUObject();
 	const ANSICHAR* const LayerClassName = TCHAR_TO_UTF8(*GetNameSafe(LayerObject->GetClass()));
-
+	
 	const at::Tensor* const Data = Input ? Input->GetData() : nullptr;
 	const at::IntArrayRef& Sizes = Data->sizes();
 	
@@ -63,12 +63,12 @@ bool IAtumLayer::Forward_Implementation(
 		}
 	}
 	
-	if (!Execute_InitializeData(LayerObject, false))
+	if (!bInitialized)
 	{
-		ATUM_LOG(Error, TEXT("Could not initialize ATUM Layer of type `%hs`!"), LayerClassName)
+		ATUM_LOG(Error, TEXT("ATUM Layer of type `%hs` has not been initialized!"), LayerClassName)
 		return false;
 	}
-
+	
 	bool bSuccess;
 	try
 	{
@@ -85,7 +85,7 @@ bool IAtumLayer::Forward_Implementation(
 			ExceptionString.substr(0, ExceptionString.find("\n")).c_str()
 		)
 	}
-
+	
 	if (!bSuccess)
 	{
 		ATUM_LOG(Error, TEXT("Failed to forward in ATUM Layer of type `%hs`!"), LayerClassName)
@@ -111,7 +111,7 @@ bool IAtumLayer::AreInputSizesValid(const int32 InputSizeCount) const noexcept
 		)
 		return false;
 	}
-
+	
 	return true;
 }
 
@@ -120,7 +120,7 @@ bool IAtumLayer::AreInputSizesValid(const TArray<int64>& InputSizes, const int64
 	const int32 SizeCount = InputSizes.Num();
 	if (!AreInputSizesValid(SizeCount))
 		return false;
-
+	
 	if (const int64 GivenChannels = InputSizes[SizeCount - DimensionCount - 1]; GivenChannels != ExpectedChannels)
 	{
 		ATUM_LOG(
@@ -132,15 +132,13 @@ bool IAtumLayer::AreInputSizesValid(const TArray<int64>& InputSizes, const int64
 		)
 		return false;
 	}
-
+	
 	return true;
 }
 
 bool IAtumLayer::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
-	const ANSICHAR* const LayerClassName = TCHAR_TO_UTF8(*GetNameSafe(_getUObject()->GetClass()));
-	ATUM_LOG(Error, TEXT("OnInitializeData is not implemented in `%hs`!"), LayerClassName)
-	
+	ATUM_LOG(Error, TEXT("OnInitializeData is not implemented in `%ls`!"), *GetNameSafe(_getUObject()->GetClass()))
 	return false;
 }
 
@@ -149,9 +147,7 @@ bool IAtumLayer::OnForward_Implementation(
 	TScriptInterface<IAtumTensor>& Output
 )
 {
-	const ANSICHAR* const LayerClassName = TCHAR_TO_UTF8(*GetNameSafe(_getUObject()->GetClass()));
-	ATUM_LOG(Error, TEXT("OnForward is not implemented in `%hs`!"), LayerClassName)
-	
+	ATUM_LOG(Error, TEXT("OnForward is not implemented in `%ls`!"), *GetNameSafe(_getUObject()->GetClass()))
 	Output = DuplicateObject(Input.GetObject(), nullptr);
 	return false;
 }

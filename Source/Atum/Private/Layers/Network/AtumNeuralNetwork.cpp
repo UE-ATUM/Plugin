@@ -51,30 +51,42 @@ bool UAtumNeuralNetwork::RegisterLayerAt(const TScriptInterface<IAtumLayer>& Lay
 	return true;
 }
 
-bool UAtumNeuralNetwork::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry) noexcept
+bool UAtumNeuralNetwork::OnInitializeData_Implementation(const bool bRetry) noexcept
 {
-	Module.Reset(new torch::nn::AtumNetwork(std::make_shared<torch::nn::AtumNetworkImpl>(
-		static_cast<torch::nn::AtumNetworkOptions>(Options)
-	)));
+	if (bRetry)
+	{
+		RegisteredLayers.Empty();
+	}
 	
 	const TObjectPtr<UAtumNeuralNetworkLayers> Data = Options.LayersData;
-	if (Data == nullptr)
-		return true;
+	const TArray<TScriptInterface<IAtumLayer>> PriorLayers = RegisteredLayers;
 	
 	TArray<TObjectPtr<const UObject>> Layers;
-	Data->GetLayerObjects(Layers);
-	
-	const TArray<TScriptInterface<IAtumLayer>> PriorLayers = RegisteredLayers;
-	for (const TObjectPtr<const UObject> Layer : Layers)
+	if (Data)
 	{
-		if (!RegisterLayer(DuplicateObject<UObject>(Layer, this)))
+		Data->GetLayerObjects(Layers);
+	}
+
+	const int32 LayerCount = Layers.Num();
+	for (int32 Index = 0; Index < LayerCount; ++Index)
+	{
+		if (!RegisterLayer(DuplicateObject<UObject>(Layers[Index].Get(), this)))
 		{
-			ATUM_LOG(Error, TEXT("Network `%ls` cannot register layers using `%ls`!"), *GetName(), *Data->GetName())
+			ATUM_LOG(
+				Error,
+				TEXT("Network `%ls` cannot register layers using `%ls` due to an issue at index %d!"),
+				*GetName(),
+				*Data->GetName(),
+				Index
+			)
 			RegisteredLayers = PriorLayers;
 			return false;
 		}
 	}
 	
+	Module.Reset(new torch::nn::AtumNetwork(std::make_shared<torch::nn::AtumNetworkImpl>(
+		static_cast<torch::nn::AtumNetworkOptions>(Options)
+	)));
 	return true;
 }
 
