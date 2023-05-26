@@ -48,6 +48,12 @@ bool IAtumLayerBaseConvolution::AreSizesPositive(
 	const bool bAllowZero
 ) const noexcept
 {
+	if (UNLIKELY(DimensionCount != Sizes.Num()))
+	{
+		UE_LOG(LogTemp, Error, TEXT("%ls must have exactly %llu elements!"), *Name, DimensionCount)
+		return false;
+	}
+	
 	if (bAllowZero)
 	{
 		for (uint64 Index = 0ULL; Index < DimensionCount; ++Index)
