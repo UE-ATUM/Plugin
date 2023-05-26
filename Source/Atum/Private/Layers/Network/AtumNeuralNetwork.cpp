@@ -5,10 +5,6 @@
 #include "AtumSettings.h"
 #include "Layers/Network/AtumNeuralNetworkLayers.h"
 
-LIBTORCH_INCLUDES_START
-#include <torch/torch.h>
-LIBTORCH_INCLUDES_END
-
 
 #define LOCTEXT_NAMESPACE "AtumNeuralNetwork"
 
