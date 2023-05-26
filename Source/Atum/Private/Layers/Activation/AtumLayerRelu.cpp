@@ -21,7 +21,7 @@ bool UAtumLayerRelu::OnForward_Implementation(
 )
 {
 	Output = DuplicateObject(Input.GetObject(), nullptr);
-	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kDouble)));
+	Output->SetData((*Module)(Input->GetDataChecked()));
 	return true;
 }
 
