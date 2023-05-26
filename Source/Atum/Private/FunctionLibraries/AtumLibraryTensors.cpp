@@ -24,7 +24,7 @@ void UAtumLibraryTensors::K2_DeserializeArray(
 	ATUM_LOG(Warning, TEXT("Called UAtumLibraryTensors::K2_DeserializeArray from native code!"))
 }
 
-UObject* UAtumLibraryTensors::Empty(const TSubclassOf<UObject> Class, const TArray<int64>& Sizes) noexcept
+UObject* UAtumLibraryTensors::Empty(const UClass* const Class, const TArray<int64>& Sizes) noexcept
 {
 	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
@@ -35,7 +35,7 @@ UObject* UAtumLibraryTensors::Empty(const TSubclassOf<UObject> Class, const TArr
 	return Tensor;
 }
 
-UObject* UAtumLibraryTensors::Eye(const TSubclassOf<UObject> Class, const int64 Size) noexcept
+UObject* UAtumLibraryTensors::Eye(const UClass* const Class, const int64 Size) noexcept
 {
 	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
@@ -44,7 +44,7 @@ UObject* UAtumLibraryTensors::Eye(const TSubclassOf<UObject> Class, const int64 
 	return Tensor;
 }
 
-UObject* UAtumLibraryTensors::Ones(const TSubclassOf<UObject> Class, const TArray<int64>& Sizes) noexcept
+UObject* UAtumLibraryTensors::Ones(const UClass* const Class, const TArray<int64>& Sizes) noexcept
 {
 	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
@@ -53,7 +53,7 @@ UObject* UAtumLibraryTensors::Ones(const TSubclassOf<UObject> Class, const TArra
 	return Tensor;
 }
 
-UObject* UAtumLibraryTensors::Random(const TSubclassOf<UObject> Class, const TArray<int64>& Sizes) noexcept
+UObject* UAtumLibraryTensors::Random(const UClass* const Class, const TArray<int64>& Sizes) noexcept
 {
 	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
@@ -62,7 +62,7 @@ UObject* UAtumLibraryTensors::Random(const TSubclassOf<UObject> Class, const TAr
 	return Tensor;
 }
 
-UObject* UAtumLibraryTensors::RandN(const TSubclassOf<UObject> Class, const TArray<int64>& Sizes) noexcept
+UObject* UAtumLibraryTensors::RandN(const UClass* const Class, const TArray<int64>& Sizes) noexcept
 {
 	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
