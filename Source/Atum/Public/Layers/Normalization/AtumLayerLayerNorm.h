@@ -30,7 +30,7 @@ public:
 protected:
 	void DestroyNormalizedShape() const noexcept;
 	
-	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;
+	virtual bool OnInitializeData_Implementation(bool bRetry = true) noexcept override;
 	
 	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,

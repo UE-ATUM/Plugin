@@ -42,7 +42,7 @@ public:
 	IAtumLayer() noexcept;
 	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
-	bool InitializeData(bool bRetry = false);
+	bool InitializeData(bool bRetry = true);
 	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
 	bool Forward(const TScriptInterface<IAtumTensor>& Input, TScriptInterface<IAtumTensor>& Output);
@@ -63,7 +63,7 @@ public:
 	virtual std::shared_ptr<torch::nn::Module> GetSharedModule() const noexcept;
 	
 private:
-	bool InitializeData_Implementation(bool bRetry = false) noexcept;
+	bool InitializeData_Implementation(bool bRetry = true) noexcept;
 	
 	bool Forward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,
@@ -78,8 +78,8 @@ protected:
 	bool AreInputSizesValid(const TArray<int64>& InputSizes, int64 ExpectedChannels) const noexcept;
 	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
-	bool OnInitializeData(bool bRetry = false);
-	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept;
+	bool OnInitializeData(bool bRetry = true);
+	virtual bool OnInitializeData_Implementation(bool bRetry = true) noexcept;
 	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
 	bool OnForward(const TScriptInterface<IAtumTensor>& Input, TScriptInterface<IAtumTensor>& Output);

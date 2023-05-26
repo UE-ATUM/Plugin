@@ -69,7 +69,7 @@ public:
 	bool RegisterLayerAt(const TScriptInterface<IAtumLayer>& Layer, int32 Index = 0) noexcept;
 	
 protected:
-	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;
+	virtual bool OnInitializeData_Implementation(bool bRetry = true) noexcept override;
 	
 	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,

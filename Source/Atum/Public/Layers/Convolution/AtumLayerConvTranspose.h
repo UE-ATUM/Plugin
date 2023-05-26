@@ -26,7 +26,7 @@ protected:
 	UE_NODISCARD
 	bool IsCalculatedOutputTensorSizeValid(const TArray<int64>& InputSizes) const noexcept;
 	
-	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;
+	virtual bool OnInitializeData_Implementation(bool bRetry = true) noexcept override;
 	
 	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,
@@ -53,7 +53,7 @@ public:
 	UAtumLayerConvTranspose1D() noexcept;
 	
 protected:
-	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;
+	virtual bool OnInitializeData_Implementation(bool bRetry = true) noexcept override;
 	
 	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,
@@ -73,7 +73,7 @@ public:
 	UAtumLayerConvTranspose2D() noexcept;
 	
 protected:
-	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;
+	virtual bool OnInitializeData_Implementation(bool bRetry = true) noexcept override;
 	
 	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,
@@ -93,7 +93,7 @@ public:
 	UAtumLayerConvTranspose3D() noexcept;
 	
 protected:
-	virtual bool OnInitializeData_Implementation(bool bRetry = false) noexcept override;
+	virtual bool OnInitializeData_Implementation(bool bRetry = true) noexcept override;
 	
 	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,
