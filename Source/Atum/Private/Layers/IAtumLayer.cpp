@@ -151,7 +151,7 @@ bool IAtumLayer::AreInputSizesValid(const TArray<int64>& InputSizes, const int64
 	return true;
 }
 
-bool IAtumLayer::OnInitializeData_Implementation(const bool bRetry)
+bool IAtumLayer::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry)
 {
 	throw std::logic_error(TCHAR_TO_UTF8(*FString::Printf(
 		TEXT("OnInitializeData is not implemented in `%ls`!"),
