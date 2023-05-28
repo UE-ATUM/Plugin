@@ -46,17 +46,29 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
 	bool Forward(const TScriptInterface<IAtumTensor>& Input, TScriptInterface<IAtumTensor>& Output);
 	
-	FORCEINLINE bool operator()(
-		const TScriptInterface<IAtumTensor>& Input,
-		TScriptInterface<IAtumTensor>& Output
-	) noexcept
-	{ return Execute_Forward(_getUObject(), Input, Output); }
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
+	void CloneData(TScriptInterface<IAtumLayer>& OutClone, UObject* Outer = nullptr) const;
+	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
+	void GetParameters(
+		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) const UClass* Class,
+		TMap<FString, TScriptInterface<IAtumTensor>>& OutValues
+	) const;
+	
+	UE_NODISCARD
+	virtual const torch::nn::Module* GetBaseModule() const noexcept;
 	
 	UE_NODISCARD
 	virtual const FAtumLayerBaseOptions* GetBaseOptions() const noexcept;
 	
 	UE_NODISCARD
 	virtual FAtumLayerBaseOptions* GetBaseOptions() noexcept;
+	
+	FORCEINLINE bool operator()(
+		const TScriptInterface<IAtumTensor>& Input,
+		TScriptInterface<IAtumTensor>& Output
+	) noexcept
+	{ return Execute_Forward(_getUObject(), Input, Output); }
 	
 private:
 	bool InitializeData_Implementation(bool bRetry = true) noexcept;
@@ -76,15 +88,27 @@ protected:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
 	bool OnInitializeData(bool bRetry = true);
 	
-	virtual bool OnInitializeData_Implementation(bool bRetry = true);
-	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
 	bool OnForward(const TScriptInterface<IAtumTensor>& Input, TScriptInterface<IAtumTensor>& Output);
+	
+	virtual bool OnInitializeData_Implementation(bool bRetry = true);
 	
 	virtual bool OnForward_Implementation(
 		const TScriptInterface<IAtumTensor>& Input,
 		TScriptInterface<IAtumTensor>& Output
 	);
+	
+	virtual void CloneData_Implementation(
+		TScriptInterface<IAtumLayer>& OutClone,
+		UObject* Outer = nullptr
+	) const noexcept;
+	
+	virtual void GetParameters_Implementation(
+		const UClass* Class,
+		TMap<FString, TScriptInterface<IAtumTensor>>& OutValues
+	) const noexcept;
+	
+	virtual void SetBaseModule(const torch::nn::Module* Value) noexcept;
 	
 public:
 	UE_NODISCARD

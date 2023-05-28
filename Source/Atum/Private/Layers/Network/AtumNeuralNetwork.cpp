@@ -55,9 +55,11 @@ bool UAtumNeuralNetwork::RegisterLayerAt(const TScriptInterface<IAtumLayer>& Lay
 const TArray<const UObject*>& UAtumNeuralNetwork::GetRegisteredLayers() const noexcept
 {
 	RegisteredLayersConst.Empty(RegisteredLayers.Num());
-	for (const TObjectPtr<const UObject> RegisteredLayer : RegisteredLayers)
+	for (const TObjectPtr<UObject> RegisteredLayer : RegisteredLayers)
 	{
-		RegisteredLayersConst.Add(DuplicateObject<const UObject>(RegisteredLayer, GetTransientPackage()));
+		TScriptInterface<IAtumLayer> DuplicateLayer;
+		Execute_CloneData(RegisteredLayer.Get(), DuplicateLayer, GetTransientPackage());
+		RegisteredLayersConst.Add(DuplicateLayer.GetObject());
 	}
 	return RegisteredLayersConst;
 }

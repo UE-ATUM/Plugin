@@ -4,6 +4,7 @@
 
 #include "AtumMacros.h"
 #include "AtumSettings.h"
+#include "Layers/IAtumLayer.h"
 
 
 #define LOCTEXT_NAMESPACE "AtumNeuralNetworkLayers"
@@ -21,9 +22,11 @@ const TArray<const UClass*>& UAtumNeuralNetworkLayers::GetLayerTypes() const noe
 const TArray<const UObject*>& UAtumNeuralNetworkLayers::GetLayerObjects() const noexcept
 {
 	LayerObjectsConst.Empty(LayerObjects.Num());
-	for (const TObjectPtr<const UObject> LayerObject : LayerObjects)
+	for (const TObjectPtr<UObject> LayerObject : LayerObjects)
 	{
-		LayerObjectsConst.Add(DuplicateObject<const UObject>(LayerObject, GetTransientPackage()));
+		TScriptInterface<IAtumLayer> DuplicateLayer;
+		IAtumLayer::Execute_CloneData(LayerObject.Get(), DuplicateLayer, GetTransientPackage());
+		LayerObjectsConst.Add(DuplicateLayer.GetObject());
 	}
 	return LayerObjectsConst;
 }

@@ -4,13 +4,22 @@
 
 #include "AtumSettings.h"
 #include "FunctionLibraries/AtumLibraryUtilities.h"
-#include "Tensors/IAtumTensor.h"
+#include "Tensors/AtumTensorDouble.h"
+
+LIBTORCH_INCLUDES_START
+#include <torch/nn/module.h>
+LIBTORCH_INCLUDES_END
 
 
 #define LOCTEXT_NAMESPACE "IAtumLayer"
 
 IAtumLayer::IAtumLayer() noexcept : bInitialized(false), DimensionCount(0ULL)
 {
+}
+
+const torch::nn::Module* IAtumLayer::GetBaseModule() const noexcept
+{
+	return nullptr;
 }
 
 const FAtumLayerBaseOptions* IAtumLayer::GetBaseOptions() const noexcept
@@ -160,6 +169,41 @@ bool IAtumLayer::OnForward_Implementation(
 		TEXT("OnForward is not implemented in `%ls`!"),
 		*GetNameSafe(_getUObject()->GetClass())
 	)));
+}
+
+void IAtumLayer::CloneData_Implementation(TScriptInterface<IAtumLayer>& OutClone, UObject* const Outer) const noexcept
+{
+	if (OutClone = DuplicateObject(_getUObject(), Outer); OutClone)
+	{
+		OutClone->SetBaseModule(GetBaseModule());
+	}
+}
+
+void IAtumLayer::GetParameters_Implementation(
+	const UClass* const Class,
+	TMap<FString, TScriptInterface<IAtumTensor>>& OutValues
+) const noexcept
+{
+	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
+	
+	const torch::nn::Module* BaseModule = GetBaseModule();
+	if (BaseModule == nullptr)
+		return;
+	
+	for (const torch::OrderedDict<std::string, at::Tensor>::Item& Parameter : BaseModule->parameters_)
+	{
+		const at::Tensor& Value = Parameter.value();
+		if (!Value.defined())
+			continue;
+		
+		TScriptInterface<IAtumTensor> Tensor = NewObject<UObject>(GetTransientPackage(), Class);
+		Tensor->SetData(Value);
+		OutValues.Add(FString(Parameter.key().c_str()), MoveTemp(Tensor));
+	}
+}
+
+void IAtumLayer::SetBaseModule([[maybe_unused]] const torch::nn::Module* const Value) noexcept
+{
 }
 
 #undef LOCTEXT_NAMESPACE

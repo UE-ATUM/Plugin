@@ -15,11 +15,17 @@
 	##__VA_ARGS__ \
 )
 
-#define GENERATED_ATUM_LAYER(ModuleClass) \
+#define GENERATED_ATUM_LAYER(ModuleClass) GENERATED_ATUM_LAYER_IMPL(ModuleClass, ModuleClass##Impl)
+
+#define GENERATED_ATUM_LAYER_IMPL(ModuleClass, ModuleClassImpl) \
 protected: \
 	TSharedPtr<ModuleClass> Module = nullptr; \
 	\
 public: \
+	UE_NODISCARD \
+	virtual const torch::nn::Module* GetBaseModule() const noexcept override \
+	{ return Module ? Module->get() : nullptr; } \
+	\
 	UE_NODISCARD \
 	virtual const FAtumLayerBaseOptions* GetBaseOptions() const noexcept override { return &Options; } \
 	\
@@ -31,6 +37,14 @@ public: \
 	\
 	UE_NODISCARD \
 	FORCEINLINE TSharedPtr<ModuleClass> GetModule() noexcept { return Module; } \
+	\
+protected: \
+	virtual void SetBaseModule(const torch::nn::Module* const Value) noexcept override \
+	{ \
+		Module = Value ? MakeShareable(new ModuleClass(std::make_shared<ModuleClassImpl>( \
+			*dynamic_cast<const ModuleClassImpl*>(Value) \
+		))) : nullptr; \
+	} \
 	\
 private:
 
