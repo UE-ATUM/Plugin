@@ -48,24 +48,19 @@ struct ATUM_API FAtumLayerConvOptions : public FAtumLayerBaseOptions
 	template <uint64 Dimensions>
 	requires (1ULL <= Dimensions && Dimensions <= 3ULL)
 	UE_NODISCARD
-	FORCEINLINE explicit operator torch::nn::ConvOptions<Dimensions>() const noexcept;
+	FORCEINLINE explicit operator torch::nn::ConvOptions<Dimensions>() const noexcept
+	{
+		return torch::nn::ConvOptions<Dimensions>(
+			InChannels,
+			OutChannels,
+			at::IntArrayRef(KernelSize.GetData(), Dimensions)
+		).stride(at::IntArrayRef(Stride.GetData(), Dimensions))
+		.padding(at::IntArrayRef(Padding.GetData(), Dimensions))
+		.groups(Groups)
+		.bias(bBias)
+		.dilation(at::IntArrayRef(Dilation.GetData(), Dimensions))
+		.padding_mode(AtumEnums::Cast<Dimensions>(PaddingMode));
+	}
 };
-
-
-template <uint64 Dimensions>
-requires (1ULL <= Dimensions && Dimensions <= 3ULL)
-FAtumLayerConvOptions::operator torch::nn::ConvOptions<Dimensions>() const noexcept
-{
-	return torch::nn::ConvOptions<Dimensions>(
-		InChannels,
-		OutChannels,
-		at::IntArrayRef(KernelSize.GetData(), Dimensions)
-	).stride(at::IntArrayRef(Stride.GetData(), Dimensions))
-	.padding(at::IntArrayRef(Padding.GetData(), Dimensions))
-	.groups(Groups)
-	.bias(bBias)
-	.dilation(at::IntArrayRef(Dilation.GetData(), Dimensions))
-	.padding_mode(AtumEnums::Cast<Dimensions>(PaddingMode));
-}
 
 #undef LOCTEXT_NAMESPACE
