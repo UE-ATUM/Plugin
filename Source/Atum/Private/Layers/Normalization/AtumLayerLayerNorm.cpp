@@ -19,10 +19,12 @@ UAtumLayerLayerNorm::~UAtumLayerLayerNorm() noexcept
 
 void UAtumLayerLayerNorm::DestroyNormalizedShape() const noexcept
 {
-	if (bInitialized)
-	{
-		(*Module)->options.normalized_shape().~vector();
-	}
+	if (!bInitialized)
+		return;
+
+	std::vector<int64>& NormalizedShape = (*Module)->options.normalized_shape();
+	NormalizedShape.clear();
+	NormalizedShape.~vector();
 }
 
 bool UAtumLayerLayerNorm::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry)
