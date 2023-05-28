@@ -86,6 +86,11 @@ protected:
 		TScriptInterface<IAtumTensor>& Output
 	) override;
 	
+	virtual void GetParameters_Implementation(
+		const UClass* Class,
+		TMap<FString, TScriptInterface<IAtumTensor>>& OutValues
+	) const noexcept override;
+	
 #if WITH_EDITOR
 	virtual void PostCDOCompiled(const FPostCDOCompiledContext& Context) override;
 #endif

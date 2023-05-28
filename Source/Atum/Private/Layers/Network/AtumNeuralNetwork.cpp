@@ -123,6 +123,17 @@ bool UAtumNeuralNetwork::OnForward_Implementation(
 	return true;
 }
 
+void UAtumNeuralNetwork::GetParameters_Implementation(
+	const UClass* const Class,
+	TMap<FString, TScriptInterface<IAtumTensor>>& OutValues
+) const noexcept
+{
+	for (const TObjectPtr<UObject> RegisteredLayer : RegisteredLayers)
+	{
+		Execute_GetParameters(RegisteredLayer.Get(), Class, OutValues);
+	}
+}
+
 #if WITH_EDITOR
 void UAtumNeuralNetwork::PostCDOCompiled(const FPostCDOCompiledContext& Context)
 {
