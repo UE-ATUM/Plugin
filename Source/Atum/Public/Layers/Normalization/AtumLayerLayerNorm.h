@@ -24,12 +24,6 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties))
 	FAtumLayerLayerNormOptions Options;
 	
-public:
-	virtual ~UAtumLayerLayerNorm() noexcept override;
-	
-protected:
-	void DestroyNormalizedShape() const noexcept;
-	
 	virtual bool OnInitializeData_Implementation(bool bRetry = true) override;
 	
 	virtual bool OnForward_Implementation(

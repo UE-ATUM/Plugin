@@ -9,37 +9,33 @@
 
 #define LOCTEXT_NAMESPACE "AtumLayerLayerNorm"
 
-UAtumLayerLayerNorm::~UAtumLayerLayerNorm() noexcept
+struct FNormalizedShapeDeleter
 {
-	if (Module)
-	{
-		DestroyNormalizedShape();
-	}
-}
+	void operator()(torch::nn::LayerNorm* LayerNorm) const noexcept;
+};
 
-void UAtumLayerLayerNorm::DestroyNormalizedShape() const noexcept
+
+void FNormalizedShapeDeleter::operator()(torch::nn::LayerNorm* LayerNorm) const noexcept
 {
-	if (!bInitialized)
+	if (LayerNorm == nullptr)
 		return;
-
-	std::vector<int64>& NormalizedShape = (*Module)->options.normalized_shape();
+	
+	std::vector<int64>& NormalizedShape = (*LayerNorm)->options.normalized_shape();
 	NormalizedShape.clear();
 	NormalizedShape.~vector();
 }
 
 bool UAtumLayerLayerNorm::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry)
 {
-	DestroyNormalizedShape();
-	
 	if (Options.NormalizedShape.IsEmpty())
 	{
 		ATUM_LOG(Error, TEXT("Normalized Shape must contain at least 1 dimension!"))
 		return false;
 	}
 	
-	Module = MakeShared<torch::nn::LayerNorm>(std::make_shared<torch::nn::LayerNormImpl>(
+	Module = MakeShareable(new torch::nn::LayerNorm(std::make_shared<torch::nn::LayerNormImpl>(
 		static_cast<torch::nn::LayerNormOptions>(Options)
-	));
+	)), FNormalizedShapeDeleter());
 	return true;
 }
 
