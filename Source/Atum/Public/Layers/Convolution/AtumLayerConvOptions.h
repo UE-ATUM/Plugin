@@ -48,19 +48,29 @@ struct ATUM_API FAtumLayerConvOptions : public FAtumLayerBaseOptions
 	template <uint64 Dimensions>
 	requires (1ULL <= Dimensions && Dimensions <= 3ULL)
 	UE_NODISCARD
-	FORCEINLINE explicit operator torch::nn::ConvOptions<Dimensions>() const noexcept
-	{
-		return torch::nn::ConvOptions<Dimensions>(
-			InChannels,
-			OutChannels,
-			at::IntArrayRef(KernelSize.GetData(), Dimensions)
-		).stride(at::IntArrayRef(Stride.GetData(), Dimensions))
-		.padding(at::IntArrayRef(Padding.GetData(), Dimensions))
-		.groups(Groups)
-		.bias(bBias)
-		.dilation(at::IntArrayRef(Dilation.GetData(), Dimensions))
-		.padding_mode(AtumEnums::Cast<Dimensions>(PaddingMode));
-	}
+	explicit operator torch::nn::ConvOptions<Dimensions>() const noexcept;
 };
+
+
+template <uint64 Dimensions>
+requires (1ULL <= Dimensions && Dimensions <= 3ULL)
+FAtumLayerConvOptions::operator torch::nn::ConvOptions<Dimensions>() const noexcept
+{
+	checkf(KernelSize.Num() == Dimensions, TEXT("Kernel size must contain exactly %ull values!"), Dimensions)
+	checkf(Stride.Num() == Dimensions, TEXT("Stride must contain exactly %ull values!"), Dimensions)
+	checkf(Padding.Num() == Dimensions, TEXT("Padding must contain exactly %ull values!"), Dimensions)
+	checkf(Dilation.Num() == Dimensions, TEXT("Dilation must contain exactly %ull values!"), Dimensions)
+	
+	return torch::nn::ConvOptions<Dimensions>(
+		InChannels,
+		OutChannels,
+		at::IntArrayRef(KernelSize.GetData(), Dimensions)
+	).stride(at::IntArrayRef(Stride.GetData(), Dimensions))
+	.padding(at::IntArrayRef(Padding.GetData(), Dimensions))
+	.groups(Groups)
+	.bias(bBias)
+	.dilation(at::IntArrayRef(Dilation.GetData(), Dimensions))
+	.padding_mode(AtumEnums::Cast<Dimensions>(PaddingMode));
+}
 
 #undef LOCTEXT_NAMESPACE

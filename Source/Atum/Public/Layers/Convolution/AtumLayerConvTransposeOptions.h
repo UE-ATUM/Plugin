@@ -52,20 +52,31 @@ struct ATUM_API FAtumLayerConvTransposeOptions : public FAtumLayerBaseOptions
 	template <uint64 Dimensions>
 	requires (1ULL <= Dimensions && Dimensions <= 3ULL)
 	UE_NODISCARD
-	FORCEINLINE explicit operator torch::nn::ConvTransposeOptions<Dimensions>() const noexcept
-	{
-		return torch::nn::ConvTransposeOptions<Dimensions>(
-			InChannels,
-			OutChannels,
-			at::IntArrayRef(KernelSize.GetData(), Dimensions)
-		).stride(at::IntArrayRef(Stride.GetData(), Dimensions))
-		.padding(at::IntArrayRef(Padding.GetData(), Dimensions))
-		.output_padding(at::IntArrayRef(OutputPadding.GetData(), Dimensions))
-		.groups(Groups)
-		.bias(bBias)
-		.dilation(at::IntArrayRef(Dilation.GetData(), Dimensions))
-		.padding_mode(torch::kZeros);
-	}
+	explicit operator torch::nn::ConvTransposeOptions<Dimensions>() const noexcept;
 };
+
+
+template <uint64 Dimensions>
+requires (1ULL <= Dimensions && Dimensions <= 3ULL)
+FAtumLayerConvTransposeOptions::operator torch::nn::ConvTransposeOptions<Dimensions>() const noexcept
+{
+	checkf(KernelSize.Num() == Dimensions, TEXT("Kernel size must contain exactly %ull values!"), Dimensions)
+	checkf(Stride.Num() == Dimensions, TEXT("Stride must contain exactly %ull values!"), Dimensions)
+	checkf(Padding.Num() == Dimensions, TEXT("Padding must contain exactly %ull values!"), Dimensions)
+	checkf(OutputPadding.Num() == Dimensions, TEXT("Output padding must contain exactly %ull values!"), Dimensions)
+	checkf(Dilation.Num() == Dimensions, TEXT("Dilation must contain exactly %ull values!"), Dimensions)
+	
+	return torch::nn::ConvTransposeOptions<Dimensions>(
+		InChannels,
+		OutChannels,
+		at::IntArrayRef(KernelSize.GetData(), Dimensions)
+	).stride(at::IntArrayRef(Stride.GetData(), Dimensions))
+	.padding(at::IntArrayRef(Padding.GetData(), Dimensions))
+	.output_padding(at::IntArrayRef(OutputPadding.GetData(), Dimensions))
+	.groups(Groups)
+	.bias(bBias)
+	.dilation(at::IntArrayRef(Dilation.GetData(), Dimensions))
+	.padding_mode(torch::kZeros);
+}
 
 #undef LOCTEXT_NAMESPACE
