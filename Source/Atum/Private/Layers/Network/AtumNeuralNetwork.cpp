@@ -128,6 +128,7 @@ void UAtumNeuralNetwork::GetParameters_Implementation(
 	TMap<FString, TScriptInterface<IAtumTensor>>& OutValues
 ) const noexcept
 {
+	IAtumLayer::GetParameters_Implementation(Class, OutValues);
 	for (const TObjectPtr<UObject> RegisteredLayer : RegisteredLayers)
 	{
 		Execute_GetParameters(RegisteredLayer.Get(), Class, OutValues);
