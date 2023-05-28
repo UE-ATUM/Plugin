@@ -36,10 +36,11 @@ bool IAtumLayer::InitializeData_Implementation(const bool bRetry) noexcept
 {
 	if (bInitialized && !bRetry)
 		return true;
-	
+
+	UObject* const LayerObject = _getUObject();
 	try
 	{
-		bInitialized = Execute_OnInitializeData(_getUObject(), bRetry);
+		bInitialized = Execute_OnInitializeData(LayerObject, bRetry);
 	}
 	catch (const std::exception& Exception)
 	{
@@ -50,7 +51,7 @@ bool IAtumLayer::InitializeData_Implementation(const bool bRetry) noexcept
 			Error,
 			TEXT("Unhandled exception - %hs\nFailed to initialize ATUM Layer of type `%hs`!"),
 			ExceptionString.substr(0, ExceptionString.find("\n")).c_str(),
-			TCHAR_TO_UTF8(*GetNameSafe(_getUObject()->GetClass()))
+			TCHAR_TO_UTF8(*GetNameSafe(LayerObject->GetClass()))
 		)
 	}
 	
