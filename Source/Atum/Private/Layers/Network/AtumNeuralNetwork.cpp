@@ -88,9 +88,9 @@ bool UAtumNeuralNetwork::OnInitializeData_Implementation([[maybe_unused]] const 
 		}
 	}
 	
-	Module = MakeShareable(new torch::nn::AtumNetwork(std::make_shared<torch::nn::AtumNetworkImpl>(
+	Module = MakeShared<torch::nn::AtumNetwork>(std::make_shared<torch::nn::AtumNetworkImpl>(
 		static_cast<torch::nn::AtumNetworkOptions>(Options)
-	)));
+	));
 	return true;
 }
 

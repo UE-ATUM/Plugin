@@ -37,9 +37,9 @@ bool UAtumLayerLayerNorm::OnInitializeData_Implementation([[maybe_unused]] const
 		return false;
 	}
 	
-	Module = MakeShareable(new torch::nn::LayerNorm(std::make_shared<torch::nn::LayerNormImpl>(
+	Module = MakeShared<torch::nn::LayerNorm>(std::make_shared<torch::nn::LayerNormImpl>(
 		static_cast<torch::nn::LayerNormOptions>(Options)
-	)));
+	));
 	return true;
 }
 

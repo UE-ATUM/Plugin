@@ -76,9 +76,9 @@ bool UAtumLayerConvTranspose1D::OnInitializeData_Implementation(const bool bRetr
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
 	
-	Module = MakeShareable(new torch::nn::ConvTranspose1d(std::make_shared<torch::nn::ConvTranspose1dImpl>(
+	Module = MakeShared<torch::nn::ConvTranspose1d>(std::make_shared<torch::nn::ConvTranspose1dImpl>(
 		static_cast<torch::nn::ConvTranspose1dOptions>(Options)
-	)));
+	));
 	return true;
 }
 
@@ -108,9 +108,9 @@ bool UAtumLayerConvTranspose2D::OnInitializeData_Implementation(const bool bRetr
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
 	
-	Module = MakeShareable(new torch::nn::ConvTranspose2d(std::make_shared<torch::nn::ConvTranspose2dImpl>(
+	Module = MakeShared<torch::nn::ConvTranspose2d>(std::make_shared<torch::nn::ConvTranspose2dImpl>(
 		static_cast<torch::nn::ConvTranspose2dOptions>(Options)
-	)));
+	));
 	return true;
 }
 
@@ -140,9 +140,9 @@ bool UAtumLayerConvTranspose3D::OnInitializeData_Implementation(const bool bRetr
 	if (!Super::OnInitializeData_Implementation(bRetry))
 		return false;
 	
-	Module = MakeShareable(new torch::nn::ConvTranspose3d(std::make_shared<torch::nn::ConvTranspose3dImpl>(
+	Module = MakeShared<torch::nn::ConvTranspose3d>(std::make_shared<torch::nn::ConvTranspose3dImpl>(
 		static_cast<torch::nn::ConvTranspose3dOptions>(Options)
-	)));
+	));
 	return true;
 }
 

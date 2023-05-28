@@ -9,7 +9,7 @@
 
 bool UAtumLayerSigmoid::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry)
 {
-	Module = MakeShareable(new torch::nn::Sigmoid(std::make_shared<torch::nn::SigmoidImpl>()));
+	Module = MakeShared<torch::nn::Sigmoid>(std::make_shared<torch::nn::SigmoidImpl>());
 	return true;
 }
 

@@ -21,9 +21,9 @@ bool UAtumLayerLinear::OnInitializeData_Implementation([[maybe_unused]] const bo
 		return false;
 	}
 	
-	Module = MakeShareable(new torch::nn::Linear(std::make_shared<torch::nn::LinearImpl>(
+	Module = MakeShared<torch::nn::Linear>(std::make_shared<torch::nn::LinearImpl>(
 		static_cast<torch::nn::LinearOptions>(Options)
-	)));
+	));
 	return true;
 }
 
