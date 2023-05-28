@@ -101,4 +101,20 @@ bool IAtumOptimizer::OnInitializeData_Implementation([[maybe_unused]] const bool
 	)));
 }
 
+void IAtumOptimizer::GetParameters_Implementation(TArray<TScriptInterface<IAtumTensor>>& OutParameters) const noexcept
+{
+	if (const FAtumOptimizerBaseOptions* const BaseOptions = GetBaseOptimizerOptions(); BaseOptions)
+	{
+		OutParameters = BaseOptions->Parameters;
+	}
+}
+
+void IAtumOptimizer::SetParameters_Implementation(const TArray<TScriptInterface<IAtumTensor>>& Parameters) noexcept
+{
+	if (FAtumOptimizerBaseOptions* const BaseOptions = GetBaseOptimizerOptions(); BaseOptions)
+	{
+		BaseOptions->Parameters = Parameters;
+	}
+}
+
 #undef LOCTEXT_NAMESPACE

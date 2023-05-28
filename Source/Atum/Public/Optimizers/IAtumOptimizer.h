@@ -6,6 +6,7 @@
 
 #include "IAtumOptimizer.generated.h"
 
+class IAtumTensor;
 struct FAtumOptimizerBaseOptions;
 
 // ReSharper disable CppUE4CodingStandardNamingViolationWarning
@@ -45,6 +46,12 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Optimizer")
 	bool InitializeData(bool bRetry = true);
 	
+	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "ATUM|Optimizer")
+	void GetParameters(TArray<TScriptInterface<IAtumTensor>>& OutParameters) const;
+	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Optimizer")
+	void SetParameters(const TArray<TScriptInterface<IAtumTensor>>& Parameters);
+	
 	UE_NODISCARD
 	virtual const FAtumOptimizerBaseOptions* GetBaseOptimizerOptions() const noexcept;
 	
@@ -59,6 +66,9 @@ protected:
 	bool OnInitializeData(bool bRetry = true);
 	
 	virtual bool OnInitializeData_Implementation(bool bRetry = true);
+	
+	virtual void GetParameters_Implementation(TArray<TScriptInterface<IAtumTensor>>& OutParameters) const noexcept;
+	virtual void SetParameters_Implementation(const TArray<TScriptInterface<IAtumTensor>>& Parameters) noexcept;
 	
 public:
 	UE_NODISCARD
