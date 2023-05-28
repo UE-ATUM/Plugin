@@ -4,7 +4,7 @@
 
 #include "AtumSettings.h"
 #include "FunctionLibraries/AtumLibraryUtilities.h"
-#include "Tensors/AtumTensorDouble.h"
+#include "Tensors/IAtumTensor.h"
 
 LIBTORCH_INCLUDES_START
 #include <torch/nn/module.h>
