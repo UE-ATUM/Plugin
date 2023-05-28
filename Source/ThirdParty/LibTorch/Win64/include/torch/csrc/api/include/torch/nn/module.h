@@ -62,6 +62,8 @@ namespace nn {
 /// the public API of `Module` and are typically invoked from within a
 /// concrete `Module`s constructor.
 class TORCH_API Module : public std::enable_shared_from_this<Module> {
+    friend class IAtumLayer;
+    
  public:
   using ModuleApplyFunction = std::function<void(Module&)>;
   using ConstModuleApplyFunction = std::function<void(const Module&)>;
