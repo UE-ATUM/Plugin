@@ -101,6 +101,28 @@ bool IAtumOptimizer::OnInitializeData_Implementation([[maybe_unused]] const bool
 	)));
 }
 
+void IAtumOptimizer::Step_Implementation(const UClass* const Class, TScriptInterface<IAtumTensor>& OutLoss) noexcept
+{
+	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
+	
+	if (!bInitialized)
+	{
+		ATUM_LOG(
+			Error,
+			TEXT("ATUM Optimizer of type `%hs` has not been initialized!"),
+			TCHAR_TO_UTF8(*GetNameSafe(_getUObject()->GetClass()))
+		)
+		return;
+	}
+	
+	at::Tensor Tensor = Optimizer->step();
+	if (!Tensor.defined())
+		return;
+	
+	OutLoss = NewObject<UObject>(GetTransientPackage(), Class);
+	OutLoss->SetData(MoveTemp(Tensor));
+}
+
 void IAtumOptimizer::GetParameters_Implementation(TArray<TScriptInterface<IAtumTensor>>& OutParameters) const noexcept
 {
 	if (const FAtumOptimizerBaseOptions* const BaseOptions = GetBaseOptimizerOptions(); BaseOptions)

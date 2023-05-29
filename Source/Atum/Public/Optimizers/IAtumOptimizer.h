@@ -46,6 +46,12 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Optimizer")
 	bool InitializeData(bool bRetry = true);
 	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Optimizer")
+	void Step(
+		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) const UClass* Class,
+		TScriptInterface<IAtumTensor>& OutLoss
+	);
+	
 	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "ATUM|Optimizer")
 	void GetParameters(TArray<TScriptInterface<IAtumTensor>>& OutParameters) const;
 	
@@ -67,7 +73,10 @@ protected:
 	
 	virtual bool OnInitializeData_Implementation(bool bRetry = true);
 	
+	virtual void Step_Implementation(const UClass* Class, TScriptInterface<IAtumTensor>& OutLoss) noexcept;
+	
 	virtual void GetParameters_Implementation(TArray<TScriptInterface<IAtumTensor>>& OutParameters) const noexcept;
+	
 	virtual void SetParameters_Implementation(const TArray<TScriptInterface<IAtumTensor>>& Parameters) noexcept;
 	
 public:
