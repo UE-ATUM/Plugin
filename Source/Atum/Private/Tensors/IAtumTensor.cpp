@@ -9,6 +9,11 @@ IAtumTensor::IAtumTensor() noexcept : Data(nullptr), ScalarType(EAtumTensorScala
 {
 }
 
+bool IAtumTensor::IsDefined() const noexcept
+{
+	return Data && Data->defined();
+}
+
 void IAtumTensor::GetSizes(TArray<int64>& OutSizes) const noexcept
 {
 	const c10::IntArrayRef DataSizes = Data->sizes();

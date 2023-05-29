@@ -34,6 +34,10 @@ public:
 	
 	UE_NODISCARD
 	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
+	virtual bool IsDefined() const noexcept;
+	
+	UE_NODISCARD
+	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
 	virtual void GetSizes(TArray<int64>& OutSizes) const noexcept;
 	
 	UE_NODISCARD
@@ -112,7 +116,7 @@ public:
 	FORCEINLINE const at::Tensor& GetDataChecked() const { return *GetData(); }
 	
 	FORCEINLINE void SetData(const at::Tensor& Value) noexcept
-	{ Data.Reset(new at::Tensor(Value.to(GetTorchScalarType()))); }
+	{ Data.Reset(Value.defined() ? new at::Tensor(Value.to(GetTorchScalarType())) : nullptr); }
 };
 
 
