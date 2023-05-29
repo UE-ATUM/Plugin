@@ -22,7 +22,7 @@ class ATUM_API UAtumLayerLeakyRelu : public UObject, public IAtumLayerBaseActiva
 	GENERATED_ATUM_LAYER(FAtumLayerLeakyReluOptions, torch::nn::LeakyReLU)
 	
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties, ExposeOnSpawn))
 	FAtumLayerLeakyReluOptions Options;
 };
 

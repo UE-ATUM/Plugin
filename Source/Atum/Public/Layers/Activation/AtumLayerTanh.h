@@ -23,7 +23,7 @@ class ATUM_API UAtumLayerTanh : public UObject, public IAtumLayerBaseActivation
 	GENERATED_ATUM_LAYER(FAtumLayerTanhOptions, torch::nn::Tanh)
 	
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties, ExposeOnSpawn))
 	FAtumLayerTanhOptions Options;
 };
 

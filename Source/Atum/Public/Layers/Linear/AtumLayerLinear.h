@@ -22,7 +22,7 @@ class ATUM_API UAtumLayerLinear : public UObject, public IAtumLayer
 	GENERATED_ATUM_LAYER(FAtumLayerLinearOptions, torch::nn::Linear)
 	
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties, ExposeOnSpawn))
 	FAtumLayerLinearOptions Options;
 };
 

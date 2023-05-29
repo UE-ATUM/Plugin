@@ -23,7 +23,7 @@ class ATUM_API UAtumLayerSigmoid : public UObject, public IAtumLayerBaseActivati
 	GENERATED_ATUM_LAYER(FAtumLayerSigmoidOptions, torch::nn::Sigmoid)
 	
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties, ExposeOnSpawn))
 	FAtumLayerSigmoidOptions Options;
 };
 

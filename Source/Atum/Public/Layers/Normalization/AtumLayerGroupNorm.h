@@ -22,7 +22,7 @@ class ATUM_API UAtumLayerGroupNorm : public UObject, public IAtumLayerBaseNormal
 	GENERATED_ATUM_LAYER(FAtumLayerGroupNormOptions, torch::nn::GroupNorm)
 	
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties, ExposeOnSpawn))
 	FAtumLayerGroupNormOptions Options;
 };
 

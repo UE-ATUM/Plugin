@@ -22,7 +22,7 @@ class ATUM_API UAtumLayerConv : public UObject, public IAtumLayerBaseConvolution
 	GENERATED_ATUM_LAYER_OPTIONS_ONLY(FAtumLayerConvOptions)
 	
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties, ExposeOnSpawn))
 	FAtumLayerConvOptions Options;
 	
 	UE_NODISCARD

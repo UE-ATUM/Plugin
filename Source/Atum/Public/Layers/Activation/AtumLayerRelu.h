@@ -22,7 +22,7 @@ class ATUM_API UAtumLayerRelu : public UObject, public IAtumLayerBaseActivation
 	GENERATED_ATUM_LAYER(FAtumLayerReluOptions, torch::nn::ReLU)
 	
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties, ExposeOnSpawn))
 	FAtumLayerReluOptions Options;
 };
 

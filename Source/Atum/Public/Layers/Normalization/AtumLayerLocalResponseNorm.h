@@ -22,7 +22,7 @@ class ATUM_API UAtumLayerLocalResponseNorm : public UObject, public IAtumLayerBa
 	GENERATED_ATUM_LAYER(FAtumLayerLocalResponseNormOptions, torch::nn::LocalResponseNorm)
 	
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties, ExposeOnSpawn))
 	FAtumLayerLocalResponseNormOptions Options;
 };
 

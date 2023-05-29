@@ -18,7 +18,7 @@ class ATUM_API UAtumOptimizerAdam : public UObject, public IAtumOptimizer
 	GENERATED_ATUM_OPTIMIZER(FAtumOptimizerAdamOptions)
 	
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties, ExposeOnSpawn))
 	FAtumOptimizerAdamOptions Options;
 };
 

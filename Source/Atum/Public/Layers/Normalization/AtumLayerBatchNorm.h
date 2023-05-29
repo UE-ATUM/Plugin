@@ -22,7 +22,7 @@ class ATUM_API UAtumLayerBatchNorm : public UObject, public IAtumLayerBaseNormal
 	GENERATED_ATUM_LAYER_OPTIONS_ONLY(FAtumLayerBatchNormOptions)
 	
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties, ExposeOnSpawn))
 	FAtumLayerBatchNormOptions Options;
 	
 	virtual bool OnForward_Implementation(

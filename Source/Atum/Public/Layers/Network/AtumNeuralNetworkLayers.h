@@ -13,7 +13,7 @@ UCLASS(BlueprintType, DisplayName = "ATUM Neural Network Layers Data Asset")
 class ATUM_API UAtumNeuralNetworkLayers : public UDataAsset
 {
 	GENERATED_BODY()
-
+	
 #if WITH_EDITORONLY_DATA
 	mutable TMap<TObjectPtr<const UClass>, TTuple<TArray<int32>, int32>> CachedIndices;
 	

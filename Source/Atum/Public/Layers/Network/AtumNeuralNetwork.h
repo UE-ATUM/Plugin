@@ -54,7 +54,7 @@ class ATUM_API UAtumNeuralNetwork : public UObject, public IAtumLayer
 	mutable TArray<const UObject*> RegisteredLayersConst;
 	
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties, ExposeOnSpawn))
 	FAtumNeuralNetworkOptions Options;
 	
 	UPROPERTY(Transient, NonTransactional, VisibleAnywhere, BlueprintGetter = "GetRegisteredLayers", meta = (
