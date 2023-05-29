@@ -13,11 +13,11 @@ UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Double Tensor")
 class ATUM_API UAtumTensorDouble : public UObject, public IAtumTensor, public TAtumTensor<double>
 {
 	GENERATED_BODY()
-
+	
 public:
 	UE_NODISCARD_CTOR
 	UAtumTensorDouble() noexcept;
-
+	
 protected:
 	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor", DisplayName = "Get Values (Double)", meta = (
 		Keywords = "ATUM Tensor Double Get Out Values Sizes"

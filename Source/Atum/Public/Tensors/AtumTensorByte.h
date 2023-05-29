@@ -13,11 +13,11 @@ UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Byte Tensor")
 class ATUM_API UAtumTensorByte : public UObject, public IAtumTensor, public TAtumTensor<uint8>
 {
 	GENERATED_BODY()
-
+	
 public:
 	UE_NODISCARD_CTOR
 	UAtumTensorByte() noexcept;
-
+	
 protected:
 	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor", DisplayName = "Get Values (Byte)", meta = (
 		Keywords = "ATUM Tensor Byte uint8 Get Out Values Sizes"

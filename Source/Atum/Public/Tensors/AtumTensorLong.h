@@ -13,11 +13,11 @@ UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Long Tensor")
 class ATUM_API UAtumTensorLong : public UObject, public IAtumTensor, public TAtumTensor<int64>
 {
 	GENERATED_BODY()
-
+	
 public:
 	UE_NODISCARD_CTOR
 	UAtumTensorLong() noexcept;
-
+	
 protected:
 	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor", DisplayName = "Get Values (Long)", meta = (
 		Keywords = "ATUM Tensor Long int64 Get Out Values Sizes"

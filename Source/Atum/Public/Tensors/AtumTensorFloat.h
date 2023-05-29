@@ -17,7 +17,7 @@ class ATUM_API UAtumTensorFloat : public UObject, public IAtumTensor, public TAt
 public:
 	UE_NODISCARD_CTOR
 	UAtumTensorFloat() noexcept;
-
+	
 protected:
 	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor", DisplayName = "Get Values (Float)", meta = (
 		Keywords = "ATUM Tensor Float Get Out Values Sizes"
