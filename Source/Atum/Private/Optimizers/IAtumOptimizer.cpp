@@ -2,7 +2,7 @@
 
 #include "Optimizers/IAtumOptimizer.h"
 
-#include "AtumSettings.h"
+#include "Macros/AtumMacrosLog.h"
 #include "Optimizers/AtumOptimizerBaseOptions.h"
 #include "Tensors/IAtumTensor.h"
 

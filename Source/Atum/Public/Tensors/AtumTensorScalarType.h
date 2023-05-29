@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "AtumMacros.h"
+#include "Macros/AtumMacrosGuards.h"
 
 LIBTORCH_INCLUDES_START
 #include <c10/core/ScalarType.h>

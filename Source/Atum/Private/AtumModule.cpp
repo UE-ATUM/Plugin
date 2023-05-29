@@ -2,10 +2,10 @@
 
 #include "AtumModule.h"
 
-#include "AtumMacros.h"
-#include "AtumSettings.h"
 #include "HAL/FileManager.h"
 #include "Kismet/GameplayStatics.h"
+#include "Macros/AtumMacrosGuards.h"
+#include "Macros/AtumMacrosLog.h"
 
 LIBTORCH_INCLUDES_START
 #include <torch/custom_class.h>
@@ -18,19 +18,19 @@ LIBTORCH_INCLUDES_END
 void FAtumModule::StartupModule()
 {
 #ifndef WITH_LIBTORCH
-	ATUM_LOG(Fatal, TEXT("Could not start ATUM module because LibTorch is missing!"))
+	UE_LOG(LogAtum, Fatal, TEXT("Could not start ATUM module because LibTorch is missing!"))
 #endif
 	
 	FString LibraryPath;
 	if (!GetLibraryPath(LibraryPath))
 	{
-		ATUM_LOG(Fatal, TEXT("Cannot load LibTorch on platform: %s"), *UGameplayStatics::GetPlatformName())
+		UE_LOG(LogAtum, Fatal, TEXT("Cannot load LibTorch on platform: %s"), *UGameplayStatics::GetPlatformName())
 		return;
 	}
 	
 	const TCHAR* const LibraryPathPointer = *LibraryPath;
-	ATUM_LOG(Warning, TEXT("Loading LibTorch libraries from path: %s"), LibraryPathPointer)
-
+	UE_LOG(LogAtum, Warning, TEXT("Loading LibTorch libraries from path: %s"), LibraryPathPointer)
+	
 #if PLATFORM_WINDOWS
 	FPlatformProcess::AddDllDirectory(LibraryPathPointer);
 	

@@ -11,7 +11,7 @@ class UAtumNeuralNetwork;
 
 #define LOCTEXT_NAMESPACE "AtumNeuralNetworkFactory"
 
-UCLASS(DisplayName = "ATUM Neural Network Factory")
+UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Neural Network Factory")
 class ATUMEDITOR_API UAtumNeuralNetworkFactory : public UFactory
 {
 	GENERATED_BODY()

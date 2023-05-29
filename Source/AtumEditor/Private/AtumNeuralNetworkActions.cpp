@@ -4,8 +4,8 @@
 
 #include "AtumEditorModule.h"
 #include "AtumNeuralNetworkEditorToolkit.h"
-#include "AtumSettings.h"
 #include "Layers/Network/AtumNeuralNetwork.h"
+#include "Settings/AtumSettings.h"
 
 
 #define LOCTEXT_NAMESPACE "AtumNeuralNetworkActions"

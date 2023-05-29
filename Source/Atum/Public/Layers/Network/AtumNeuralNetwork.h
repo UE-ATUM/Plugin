@@ -2,9 +2,10 @@
 
 #pragma once
 
-#include "AtumMacros.h"
 #include "AtumNeuralNetworkOptions.h"
 #include "Layers/IAtumLayer.h"
+#include "Macros/AtumMacrosGuards.h"
+#include "Macros/AtumMacrosLayer.h"
 
 LIBTORCH_INCLUDES_START
 #include <torch/nn/cloneable.h>
@@ -43,7 +44,7 @@ UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Neural Network")
 class ATUM_API UAtumNeuralNetwork : public UObject, public IAtumLayer
 {
 	GENERATED_BODY()
-	GENERATED_ATUM_LAYER(torch::nn::AtumNetwork)
+	GENERATED_ATUM_LAYER(FAtumNeuralNetworkOptions, torch::nn::AtumNetwork)
 	
 #if WITH_EDITOR
 	DECLARE_MULTICAST_DELEGATE(FOnPostCDOCompiled);
@@ -79,13 +80,6 @@ public:
 		GetRegisteredLayers() const noexcept;
 	
 protected:
-	virtual bool OnInitializeData_Implementation(bool bRetry = true) override;
-	
-	virtual bool OnForward_Implementation(
-		const TScriptInterface<IAtumTensor>& Input,
-		TScriptInterface<IAtumTensor>& Output
-	) override;
-	
 	virtual void GetParameters_Implementation(
 		const UClass* Class,
 		TMap<FString, TScriptInterface<IAtumTensor>>& OutValues

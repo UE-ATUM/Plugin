@@ -2,51 +2,10 @@
 
 #pragma once
 
-#include "Logging/LogMacros.h"
+#include "Windows/WindowsPlatformCompilerPreSetup.h"
 
 
-#define LOCTEXT_NAMESPACE "AtumMacros"
-
-#define ATUM_LOG(Verbosity, Format, ...) UE_CLOG( \
-	GetDefault<UAtumSettings>()->IsLogging(), \
-	LogAtum, \
-	Verbosity, \
-	Format, \
-	##__VA_ARGS__ \
-)
-
-#define GENERATED_ATUM_LAYER(ModuleClass) GENERATED_ATUM_LAYER_IMPL(ModuleClass, ModuleClass##Impl)
-
-#define GENERATED_ATUM_LAYER_IMPL(ModuleClass, ModuleClassImpl) \
-protected: \
-	TSharedPtr<ModuleClass> Module = nullptr; \
-	\
-public: \
-	UE_NODISCARD \
-	virtual const torch::nn::Module* GetBaseModule() const noexcept override \
-	{ return Module ? Module->get() : nullptr; } \
-	\
-	UE_NODISCARD \
-	virtual const FAtumLayerBaseOptions* GetBaseOptions() const noexcept override { return &Options; } \
-	\
-	UE_NODISCARD \
-	virtual FAtumLayerBaseOptions* GetBaseOptions() noexcept override { return &Options; } \
-	\
-	UE_NODISCARD \
-	FORCEINLINE TSharedPtr<const ModuleClass> GetModule() const noexcept { return Module; } \
-	\
-	UE_NODISCARD \
-	FORCEINLINE TSharedPtr<ModuleClass> GetModule() noexcept { return Module; } \
-	\
-protected: \
-	virtual void SetBaseModule(const torch::nn::Module* const Value) noexcept override \
-	{ \
-		Module = Value ? MakeShareable(new ModuleClass(std::make_shared<ModuleClassImpl>( \
-			*dynamic_cast<const ModuleClassImpl*>(Value) \
-		))) : nullptr; \
-	} \
-	\
-private:
+#define LOCTEXT_NAMESPACE "AtumMacrosGuards"
 
 #ifndef LIBTORCH_INCLUDES_START
 #define LIBTORCH_INCLUDES_START \
@@ -121,7 +80,5 @@ THIRD_PARTY_INCLUDES_START
 THIRD_PARTY_INCLUDES_END \
 __pragma(warning(pop))
 #endif
-
-DECLARE_LOG_CATEGORY_EXTERN(LogAtum, Log, All)
 
 #undef LOCTEXT_NAMESPACE

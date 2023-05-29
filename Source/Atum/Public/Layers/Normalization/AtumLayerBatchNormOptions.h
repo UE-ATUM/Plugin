@@ -2,8 +2,8 @@
 
 #pragma once
 
-#include "AtumMacros.h"
 #include "Layers/AtumLayerBaseOptions.h"
+#include "Macros/AtumMacrosGuards.h"
 
 LIBTORCH_INCLUDES_START
 #include <torch/nn/options/batchnorm.h>

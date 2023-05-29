@@ -2,8 +2,7 @@
 
 #include "Layers/Convolution/IAtumLayerBaseConvolution.h"
 
-#include "AtumMacros.h"
-#include "AtumSettings.h"
+#include "Macros/AtumMacrosLog.h"
 
 
 #define LOCTEXT_NAMESPACE "IAtumLayerBaseConvolution"

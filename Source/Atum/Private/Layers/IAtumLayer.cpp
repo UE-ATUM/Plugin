@@ -2,8 +2,8 @@
 
 #include "Layers/IAtumLayer.h"
 
-#include "AtumSettings.h"
 #include "FunctionLibraries/AtumLibraryUtilities.h"
+#include "Macros/AtumMacrosLog.h"
 #include "Tensors/IAtumTensor.h"
 
 LIBTORCH_INCLUDES_START
@@ -22,12 +22,12 @@ const torch::nn::Module* IAtumLayer::GetBaseModule() const noexcept
 	return nullptr;
 }
 
-const FAtumLayerBaseOptions* IAtumLayer::GetBaseOptions() const noexcept
+const FAtumLayerBaseOptions* IAtumLayer::GetBaseLayerOptions() const noexcept
 {
 	return nullptr;
 }
 
-FAtumLayerBaseOptions* IAtumLayer::GetBaseOptions() noexcept
+FAtumLayerBaseOptions* IAtumLayer::GetBaseLayerOptions() noexcept
 {
 	return nullptr;
 }

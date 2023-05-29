@@ -59,10 +59,10 @@ public:
 	virtual const torch::nn::Module* GetBaseModule() const noexcept;
 	
 	UE_NODISCARD
-	virtual const FAtumLayerBaseOptions* GetBaseOptions() const noexcept;
+	virtual const FAtumLayerBaseOptions* GetBaseLayerOptions() const noexcept;
 	
 	UE_NODISCARD
-	virtual FAtumLayerBaseOptions* GetBaseOptions() noexcept;
+	virtual FAtumLayerBaseOptions* GetBaseLayerOptions() noexcept;
 	
 	FORCEINLINE bool operator()(
 		const TScriptInterface<IAtumTensor>& Input,

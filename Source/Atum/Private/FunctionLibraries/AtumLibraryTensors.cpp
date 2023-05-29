@@ -2,7 +2,7 @@
 
 #include "FunctionLibraries/AtumLibraryTensors.h"
 
-#include "AtumSettings.h"
+#include "Macros/AtumMacrosLog.h"
 
 
 #define LOCTEXT_NAMESPACE "AtumLibraryTensors"

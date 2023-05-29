@@ -2,6 +2,8 @@
 
 #include "AtumEditorModule.h"
 
+#include "AtumNeuralNetworkActions.h"
+
 
 #define LOCTEXT_NAMESPACE "AtumEditorModule"
 

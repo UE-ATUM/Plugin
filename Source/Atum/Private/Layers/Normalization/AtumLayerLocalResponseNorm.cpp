@@ -2,7 +2,7 @@
 
 #include "Layers/Normalization/AtumLayerLocalResponseNorm.h"
 
-#include "AtumSettings.h"
+#include "Macros/AtumMacrosLog.h"
 #include "Tensors/IAtumTensor.h"
 
 

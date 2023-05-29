@@ -2,8 +2,8 @@
 
 #include "Layers/Convolution/AtumLayerConvTranspose.h"
 
-#include "AtumSettings.h"
 #include "FunctionLibraries/AtumLibraryUtilities.h"
+#include "Macros/AtumMacrosLog.h"
 #include "Tensors/IAtumTensor.h"
 
 

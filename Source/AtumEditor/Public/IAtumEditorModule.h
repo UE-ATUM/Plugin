@@ -2,7 +2,10 @@
 
 #pragma once
 
-#include "AtumNeuralNetworkActions.h"
+#include "AssetTypeCategories.h"
+#include "Modules/ModuleManager.h"
+
+class FAtumNeuralNetworkAssetTypeActions;
 
 
 #define LOCTEXT_NAMESPACE "IAtumEditorModule"

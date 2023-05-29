@@ -2,9 +2,8 @@
 
 #include "Layers/Network/AtumNeuralNetworkLayers.h"
 
-#include "AtumMacros.h"
-#include "AtumSettings.h"
 #include "Layers/IAtumLayer.h"
+#include "Macros/AtumMacrosLog.h"
 
 
 #define LOCTEXT_NAMESPACE "AtumNeuralNetworkLayers"

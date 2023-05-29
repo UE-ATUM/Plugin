@@ -2,8 +2,8 @@
 
 #pragma once
 
-#include "AtumMacros.h"
-#include "AtumSettings.h"
+#include "Macros/AtumMacrosGuards.h"
+#include "Macros/AtumMacrosLog.h"
 
 LIBTORCH_INCLUDES_START
 #include <torch/nn/options/conv.h>

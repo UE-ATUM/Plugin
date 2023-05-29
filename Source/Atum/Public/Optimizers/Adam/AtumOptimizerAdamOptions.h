@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "AtumMacros.h"
+#include "Macros/AtumMacrosGuards.h"
 #include "Optimizers/AtumOptimizerBaseOptions.h"
 
 LIBTORCH_INCLUDES_START

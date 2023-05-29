@@ -4,6 +4,7 @@
 
 #include "AtumLayerLocalResponseNormOptions.h"
 #include "IAtumLayerBaseNormalization.h"
+#include "Macros/AtumMacrosLayer.h"
 
 LIBTORCH_INCLUDES_START
 #include <torch/nn/modules/normalization.h>
@@ -18,25 +19,11 @@ UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Local Response Norm Lay
 class ATUM_API UAtumLayerLocalResponseNorm : public UObject, public IAtumLayerBaseNormalization
 {
 	GENERATED_BODY()
-	GENERATED_ATUM_LAYER(torch::nn::LocalResponseNorm)
+	GENERATED_ATUM_LAYER(FAtumLayerLocalResponseNormOptions, torch::nn::LocalResponseNorm)
 	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties))
 	FAtumLayerLocalResponseNormOptions Options;
-	
-	virtual bool OnInitializeData_Implementation(bool bRetry = true) override;
-	
-	virtual bool OnForward_Implementation(
-		const TScriptInterface<IAtumTensor>& Input,
-		TScriptInterface<IAtumTensor>& Output
-	) override;
-	
-public:
-	UE_NODISCARD
-	FORCEINLINE const FAtumLayerLocalResponseNormOptions& GetOptions() const noexcept { return Options; }
-	
-	UE_NODISCARD
-	FORCEINLINE FAtumLayerLocalResponseNormOptions& GetOptions() noexcept { return Options; }
 };
 
 #undef LOCTEXT_NAMESPACE
