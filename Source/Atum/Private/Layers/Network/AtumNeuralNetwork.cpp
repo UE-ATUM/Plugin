@@ -100,7 +100,7 @@ bool UAtumNeuralNetwork::OnForward_Implementation(
 )
 {
 	TScriptInterface<IAtumTensor> Subinput = Input;
-
+	
 	const int32 RegisteredLayerCount = RegisteredLayers.Num();
 	for (int32 Index = 0; Index < RegisteredLayerCount; ++Index)
 	{
