@@ -1,6 +1,6 @@
 ﻿// © 2023 Kaya Adrian.
 
-#include "AtumSettings.h"
+#include "Settings/AtumSettings.h"
 
 #include "HAL/IConsoleManager.h"
 
