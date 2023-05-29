@@ -27,12 +27,12 @@ EAtumTensorScalarType IAtumTensor::GetScalarType() const noexcept
 
 int64 IAtumTensor::GetElementCount() const noexcept
 {
-	return Data ? Data->numel() : 0LL;
+	return IsDefined() ? Data->numel() : 0LL;
 }
 
 int64 IAtumTensor::GetElementSize() const noexcept
 {
-	return Data ? Data->element_size() : 0LL;
+	return IsDefined() ? Data->element_size() : 0LL;
 }
 
 void IAtumTensor::GetSerializedValues(TArray<uint8>& OutValues, TArray<int64>& OutSizes) const noexcept

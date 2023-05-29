@@ -63,7 +63,7 @@ public:
 	
 	UE_NODISCARD
 	FORCEINLINE c10::ScalarType GetTorchScalarType() const noexcept
-	{ return Data ? Data->scalar_type() : AtumEnums::Cast(GetScalarType()); }
+	{ return IsDefined() ? Data->scalar_type() : AtumEnums::Cast(GetScalarType()); }
 	
 	UE_NODISCARD
 	explicit operator FString() const noexcept;
@@ -99,7 +99,7 @@ public:
 private:
 	UE_NODISCARD
 	FORCEINLINE void* GetUncastedValues(const c10::ScalarType Type) const noexcept
-	{ return Data ? Data->to(Type).data_ptr() : nullptr; }
+	{ return IsDefined() ? Data->to(Type).data_ptr() : nullptr; }
 	
 	UE_NODISCARD
 	FORCEINLINE void* GetUncastedValues(const EAtumTensorScalarType Type) const noexcept
@@ -139,7 +139,7 @@ public:
 template <typename T>
 void IAtumTensor::GetValues(TArray<T>& OutValues, TArray<int64>& OutSizes) const noexcept
 {
-	if (Data == nullptr)
+	if (!IsDefined())
 		return;
 	
 	OutValues.Append(static_cast<T*>(GetUncastedValues(GetScalarType())), Data->numel());
