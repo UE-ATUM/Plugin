@@ -9,12 +9,6 @@
 
 #define LOCTEXT_NAMESPACE "AtumLayerLayerNorm"
 
-struct FNormalizedShapeDeleter
-{
-	void operator()(torch::nn::LayerNorm* LayerNorm) const noexcept;
-};
-
-
 void FNormalizedShapeDeleter::operator()(torch::nn::LayerNorm* LayerNorm) const noexcept
 {
 	if (LayerNorm == nullptr)

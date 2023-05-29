@@ -15,6 +15,12 @@ LIBTORCH_INCLUDES_END
 
 #define LOCTEXT_NAMESPACE "AtumLayerLayerNorm"
 
+struct FNormalizedShapeDeleter
+{
+	void operator()(torch::nn::LayerNorm* LayerNorm) const noexcept;
+};
+
+
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Layer Norm Layer")
 class ATUM_API UAtumLayerLayerNorm : public UObject, public IAtumLayerBaseNormalization
 {
