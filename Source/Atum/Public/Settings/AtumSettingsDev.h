@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "Settings/AtumSettingsBase.h"
+#include "AtumSettingsBase.h"
 
 #include "AtumSettingsDev.generated.h"
 
