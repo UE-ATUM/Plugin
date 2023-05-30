@@ -5,7 +5,7 @@
 #include "AtumEditorModule.h"
 #include "AtumNeuralNetworkEditorToolkit.h"
 #include "Layers/Network/AtumNeuralNetwork.h"
-#include "Settings/AtumSettings.h"
+#include "Settings/AtumSettingsEditor.h"
 
 
 #define LOCTEXT_NAMESPACE "AtumNeuralNetworkActions"
@@ -22,7 +22,7 @@ FText FAtumNeuralNetworkAssetTypeActions::GetName() const
 
 FColor FAtumNeuralNetworkAssetTypeActions::GetTypeColor() const
 {
-	return GetDefault<UAtumSettings>()->GetNeuralNetworkAssetTypeColor();
+	return GetDefault<UAtumSettingsEditor>()->GetNeuralNetworkAssetTypeColor();
 }
 
 uint32 FAtumNeuralNetworkAssetTypeActions::GetCategories()

@@ -2,13 +2,14 @@
 
 #include "Macros/AtumMacrosLog.h"
 
-#include "Settings/AtumSettings.h"
+#include "Settings/AtumSettingsDev.h"
 
 
 #define LOCTEXT_NAMESPACE "AtumMacrosLog"
 
 DEFINE_LOG_CATEGORY(LogAtum)
 
-const IsLoggingAtumFunction IsLoggingAtum = []() noexcept { return GetDefault<UAtumSettings>()->IsLogging(); };
+FORCEINLINE bool IsLogging() noexcept { return GetDefault<UAtumSettingsDev>()->IsLogAtumEnabled(); }
+const IsLoggingAtumFunction IsLoggingAtum = &IsLogging;
 
 #undef LOCTEXT_NAMESPACE

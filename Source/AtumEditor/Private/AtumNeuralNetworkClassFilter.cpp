@@ -4,7 +4,7 @@
 
 #include "Kismet2/KismetEditorUtilities.h"
 #include "Layers/Network/AtumNeuralNetwork.h"
-#include "Settings/AtumSettings.h"
+#include "Settings/AtumSettingsEditor.h"
 
 
 #define LOCTEXT_NAMESPACE "AtumNeuralNetworkClassFilter"
@@ -31,7 +31,7 @@ bool FAtumNeuralNetworkClassFilter::IsClassAllowed(
 		return false;
 	
 	return !FKismetEditorUtilities::CanCreateBlueprintOfClass(InClass)
-	|| GetDefault<UAtumSettings>()->CanAllowBlueprintableClasses();
+	|| GetDefault<UAtumSettingsEditor>()->AreBlueprintableClassesAllowed();
 }
 
 bool FAtumNeuralNetworkClassFilter::IsUnloadedClassAllowed(
@@ -40,7 +40,7 @@ bool FAtumNeuralNetworkClassFilter::IsUnloadedClassAllowed(
 	const TSharedRef<FClassViewerFilterFuncs> InFilterFuncs
 )
 {
-	return GetDefault<UAtumSettings>()->CanAllowBlueprintableClasses() &&
+	return GetDefault<UAtumSettingsEditor>()->AreBlueprintableClassesAllowed() &&
 		!InUnloadedClassData->HasAnyClassFlags(BannedClassFlags) &&
 		InFilterFuncs->IfInChildOfClassesSet(AllowedClasses, InUnloadedClassData) != EFilterReturn::Failed;
 }
@@ -48,7 +48,7 @@ bool FAtumNeuralNetworkClassFilter::IsUnloadedClassAllowed(
 void FAtumNeuralNetworkClassFilter::GetFilterOptions(TArray<TSharedRef<FClassViewerFilterOption>>& OutFilterOptions)
 {
 	const TSharedRef<FClassViewerFilterOption> BlueprintableClassFilter = MakeShared<FClassViewerFilterOption>();
-	BlueprintableClassFilter->bEnabled = GetDefault<UAtumSettings>()->CanAllowBlueprintableClasses();
+	BlueprintableClassFilter->bEnabled = GetDefault<UAtumSettingsEditor>()->AreBlueprintableClassesAllowed();
 	BlueprintableClassFilter->LabelText = LOCTEXT("BlueprintableClassFilterLabel", "Show Blueprintable Classes");
 	BlueprintableClassFilter->ToolTipText = LOCTEXT(
 		"BlueprintableClassFilterToolTip",
@@ -56,7 +56,7 @@ void FAtumNeuralNetworkClassFilter::GetFilterOptions(TArray<TSharedRef<FClassVie
 	);
 	BlueprintableClassFilter->OnOptionChanged = FOnClassViewerFilterOptionChanged::CreateLambda(
 		[](const bool bEnabled)
-		{ GetMutableDefault<UAtumSettings>()->SetAllowBlueprintableClasses(bEnabled); }
+		{ GetMutableDefault<UAtumSettingsEditor>()->SetBlueprintableClassesAllowed(bEnabled); }
 	);
 	
 	OutFilterOptions.Add(BlueprintableClassFilter);
