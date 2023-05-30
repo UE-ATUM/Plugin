@@ -23,9 +23,16 @@ const TArray<const UObject*>& UAtumNeuralNetworkLayers::GetLayerObjects() const 
 	LayerObjectsConst.Empty(LayerObjects.Num());
 	for (const TObjectPtr<UObject> LayerObject : LayerObjects)
 	{
-		TScriptInterface<IAtumLayer> DuplicateLayer;
-		IAtumLayer::Execute_CloneData(LayerObject.Get(), DuplicateLayer, GetTransientPackage());
-		LayerObjectsConst.Add(DuplicateLayer.GetObject());
+		if (const UObject* const Layer = LayerObject.Get(); Layer)
+		{
+			TScriptInterface<IAtumLayer> DuplicateLayer;
+			IAtumLayer::Execute_CloneData(Layer, DuplicateLayer, GetTransientPackage());
+			LayerObjectsConst.Add(DuplicateLayer.GetObject());
+		}
+		else
+		{
+			LayerObjectsConst.Add(nullptr);
+		}
 	}
 	return LayerObjectsConst;
 }
