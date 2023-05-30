@@ -9,7 +9,11 @@
 
 DEFINE_LOG_CATEGORY(LogAtumEditor)
 
-FORCEINLINE bool IsLogging() noexcept { return GetDefault<UAtumSettingsEditor>()->IsLogAtumEditorEnabled(); }
-const IsLoggingAtumEditorFunction IsLoggingAtumEditor = &IsLogging;
+namespace
+{
+	UE_NODISCARD
+	FORCEINLINE bool AreLogsEnabled() noexcept { return GetDefault<UAtumSettingsEditor>()->IsLogAtumEditorEnabled(); }
+}
+const IsLogAtumEditorEnabledCheck IsLogAtumEditorEnabled = &AreLogsEnabled;
 
 #undef LOCTEXT_NAMESPACE

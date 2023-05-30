@@ -9,7 +9,11 @@
 
 DEFINE_LOG_CATEGORY(LogAtum)
 
-FORCEINLINE bool IsLogging() noexcept { return GetDefault<UAtumSettingsDev>()->IsLogAtumEnabled(); }
-const IsLoggingAtumFunction IsLoggingAtum = &IsLogging;
+namespace
+{
+	UE_NODISCARD
+	FORCEINLINE bool AreLogsEnabled() noexcept { return GetDefault<UAtumSettingsDev>()->IsLogAtumEnabled(); }
+}
+const IsLogAtumEnabledCheck IsLogAtumEnabled = &AreLogsEnabled;
 
 #undef LOCTEXT_NAMESPACE
