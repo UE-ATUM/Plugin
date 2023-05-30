@@ -6,9 +6,9 @@
 #include "IAtumLayerBaseNormalization.h"
 #include "Macros/AtumMacrosLayer.h"
 
-LIBTORCH_INCLUDES_START
+TORCH_INCLUDES_START
 #include <torch/nn/modules/instancenorm.h>
-LIBTORCH_INCLUDES_END
+TORCH_INCLUDES_END
 
 #include "AtumLayerInstanceNorm.generated.h"
 

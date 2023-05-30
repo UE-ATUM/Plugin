@@ -5,9 +5,9 @@
 #include "AtumTensorScalarType.h"
 #include "UObject/Interface.h"
 
-LIBTORCH_INCLUDES_START
+TORCH_INCLUDES_START
 #include <torch/csrc/autograd/generated/variable_factories.h>
-LIBTORCH_INCLUDES_END
+TORCH_INCLUDES_END
 
 #include "IAtumTensor.generated.h"
 

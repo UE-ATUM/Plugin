@@ -5,9 +5,9 @@
 #include "Layers/AtumLayerBaseOptions.h"
 #include "Macros/AtumMacrosGuards.h"
 
-LIBTORCH_INCLUDES_START
+TORCH_INCLUDES_START
 #include <torch/nn/options/normalization.h>
-LIBTORCH_INCLUDES_END
+TORCH_INCLUDES_END
 
 #include "AtumLayerLayerNormOptions.generated.h"
 

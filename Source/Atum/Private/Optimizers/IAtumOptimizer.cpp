@@ -6,9 +6,9 @@
 #include "Optimizers/AtumOptimizerBaseOptions.h"
 #include "Tensors/IAtumTensor.h"
 
-LIBTORCH_INCLUDES_START
+TORCH_INCLUDES_START
 #include <torch/optim/optimizer.h>
-LIBTORCH_INCLUDES_END
+TORCH_INCLUDES_END
 
 
 #define LOCTEXT_NAMESPACE "IAtumOptimizer"

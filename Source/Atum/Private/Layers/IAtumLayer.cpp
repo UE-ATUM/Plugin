@@ -6,9 +6,9 @@
 #include "Macros/AtumMacrosLog.h"
 #include "Tensors/IAtumTensor.h"
 
-LIBTORCH_INCLUDES_START
+TORCH_INCLUDES_START
 #include <torch/nn/module.h>
-LIBTORCH_INCLUDES_END
+TORCH_INCLUDES_END
 
 
 #define LOCTEXT_NAMESPACE "IAtumLayer"

@@ -5,9 +5,9 @@
 #include "Macros/AtumMacrosGuards.h"
 #include "Macros/AtumMacrosLog.h"
 
-LIBTORCH_INCLUDES_START
+TORCH_INCLUDES_START
 #include <torch/nn/options/conv.h>
-LIBTORCH_INCLUDES_END
+TORCH_INCLUDES_END
 
 #include "AtumLayerConvPaddingMode.generated.h"
 

@@ -6,9 +6,9 @@
 #include "Layers/IAtumLayer.h"
 #include "Macros/AtumMacrosLayer.h"
 
-LIBTORCH_INCLUDES_START
+TORCH_INCLUDES_START
 #include <torch/nn/modules/linear.h>
-LIBTORCH_INCLUDES_END
+TORCH_INCLUDES_END
 
 #include "AtumLayerLinear.generated.h"
 

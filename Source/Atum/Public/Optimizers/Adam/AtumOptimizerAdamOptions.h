@@ -5,9 +5,9 @@
 #include "Macros/AtumMacrosGuards.h"
 #include "Optimizers/AtumOptimizerBaseOptions.h"
 
-LIBTORCH_INCLUDES_START
+TORCH_INCLUDES_START
 #include <torch/optim/adam.h>
-LIBTORCH_INCLUDES_END
+TORCH_INCLUDES_END
 
 #include "AtumOptimizerAdamOptions.generated.h"
 

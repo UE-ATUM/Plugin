@@ -4,9 +4,9 @@
 
 #include "Macros/AtumMacrosGuards.h"
 
-LIBTORCH_INCLUDES_START
+TORCH_INCLUDES_START
 #include <c10/core/ScalarType.h>
-LIBTORCH_INCLUDES_END
+TORCH_INCLUDES_END
 
 #include "AtumTensorScalarType.generated.h"
 

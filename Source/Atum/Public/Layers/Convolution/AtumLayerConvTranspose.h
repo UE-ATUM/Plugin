@@ -6,9 +6,9 @@
 #include "IAtumLayerBaseConvolution.h"
 #include "Macros/AtumMacrosLayer.h"
 
-LIBTORCH_INCLUDES_START
+TORCH_INCLUDES_START
 #include <torch/nn/modules/conv.h>
-LIBTORCH_INCLUDES_END
+TORCH_INCLUDES_END
 
 #include "AtumLayerConvTranspose.generated.h"
 

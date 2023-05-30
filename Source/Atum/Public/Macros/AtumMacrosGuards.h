@@ -7,8 +7,8 @@
 
 #define LOCTEXT_NAMESPACE "AtumMacrosGuards"
 
-#ifndef LIBTORCH_INCLUDES_START
-#define LIBTORCH_INCLUDES_START \
+#ifndef TORCH_INCLUDES_START
+#define TORCH_INCLUDES_START \
 __pragma(warning(push)) \
 \
 /*
@@ -75,8 +75,8 @@ __pragma(warning(disable: 4805)) \
 THIRD_PARTY_INCLUDES_START
 #endif
 
-#ifndef LIBTORCH_INCLUDES_END
-#define LIBTORCH_INCLUDES_END \
+#ifndef TORCH_INCLUDES_END
+#define TORCH_INCLUDES_END \
 THIRD_PARTY_INCLUDES_END \
 __pragma(warning(pop))
 #endif
