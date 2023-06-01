@@ -11,7 +11,7 @@ class UAtumNeuralNetwork;
 
 #define LOCTEXT_NAMESPACE "AtumNeuralNetworkLayers"
 
-UCLASS(BlueprintType, DisplayName = "ATUM Neural Network Layers Data Asset")
+UCLASS(BlueprintType, EditInlineNew, DisplayName = "ATUM Neural Network Layers Data Asset")
 class ATUM_API UAtumNeuralNetworkLayers : public UDataAsset
 {
 	GENERATED_BODY()

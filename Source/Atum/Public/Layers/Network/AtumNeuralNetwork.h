@@ -40,7 +40,7 @@ namespace torch::nn
 // ReSharper restore CppUE4CodingStandardNamingViolationWarning
 
 
-UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Neural Network")
+UCLASS(Blueprintable, BlueprintType, EditInlineNew, DisplayName = "ATUM Neural Network")
 class ATUM_API UAtumNeuralNetwork : public UObject, public IAtumLayer
 {
 	GENERATED_BODY()
