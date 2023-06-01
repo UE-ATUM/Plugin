@@ -72,7 +72,7 @@ public:
 	virtual void CloneData(TScriptInterface<IAtumTensor>& OutClone, UObject* Outer = nullptr) const noexcept;
 	
 	UFUNCTION(BlueprintPure = "false", Category = "ATUM|Tensor", meta = (
-		AdvancedDisplay = "0",
+		AdvancedDisplay = "Gradient,Inputs,RetainGraphMode,bCreateGraph",
 		AutoCreateRefTerm = "Gradient,Inputs"
 	))
 	virtual bool Backward(
