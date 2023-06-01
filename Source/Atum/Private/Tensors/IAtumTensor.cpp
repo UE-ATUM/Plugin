@@ -14,6 +14,28 @@ bool IAtumTensor::IsDefined() const noexcept
 	return Data && Data->defined();
 }
 
+void IAtumTensor::GetGradient(TScriptInterface<IAtumTensor>& OutGradient) const noexcept
+{
+	if (OutGradient = IsDefined() ? DuplicateObject(_getUObject(), nullptr) : nullptr; OutGradient)
+	{
+		OutGradient->SetData(Data->grad());
+	}
+}
+
+bool IAtumTensor::DoesRequireGradient() const noexcept
+{
+	return Data && Data->requires_grad();
+}
+
+IAtumTensor* IAtumTensor::SetRequireGradient(const bool bValue) noexcept
+{
+	if (Data)
+	{
+		SetData(Data->set_requires_grad(bValue));
+	}
+	return this;
+}
+
 void IAtumTensor::GetSizes(TArray<int64>& OutSizes) const noexcept
 {
 	const c10::IntArrayRef DataSizes = Data->sizes();
@@ -74,11 +96,51 @@ void IAtumTensor::CloneData(TScriptInterface<IAtumTensor>& OutClone, UObject* co
 	}
 }
 
+bool IAtumTensor::Backward(
+	const TScriptInterface<IAtumTensor>& Gradient,
+	const TArray<TScriptInterface<IAtumTensor>>& Inputs,
+	const EAtumTensorRetainGraphMode RetainGraphMode,
+	const bool bCreateGraph
+) const noexcept
+{
+	if (!IsDefined() || !DoesRequireGradient())
+		return false;
+	
+	at::Tensor GradientTensor = Gradient && Gradient->IsDefined() ?
+		Gradient->GetDataChecked() : torch::ones_like(*Data, c10::TensorOptions().requires_grad(true));
+	if (!Data->is_same_size(GradientTensor))
+		return false;
+	
+	std::vector<at::Tensor> TensorList;
+	TensorList.reserve(Inputs.Num());
+	for (const TScriptInterface<IAtumTensor>& Input : Inputs)
+	{
+		if (Input->IsDefined() && Input->GetDataChecked().requires_grad())
+		{
+			TensorList.push_back(Input->GetDataChecked().to(c10::kFloat).set_requires_grad(true));
+		}
+	}
+	
+	const bool bRetainGraph = RetainGraphMode == EAtumTensorRetainGraphMode::Always;
+	Data->backward(
+		MoveTemp(GradientTensor),
+		RetainGraphMode == EAtumTensorRetainGraphMode::IfCreated ? c10::nullopt : c10::optional<bool>(bRetainGraph),
+		bCreateGraph,
+		TensorList.empty() ? c10::nullopt : c10::optional<at::TensorList>(MoveTemp(TensorList))
+	);
+	return true;
+}
+
 IAtumTensor::operator FString() const noexcept
 {
 	std::ostringstream Stream;
 	Stream << *this;
 	return Stream.str().c_str();
+}
+
+void IAtumTensor::K2_SetRequireGradient(const bool bValue, TScriptInterface<IAtumTensor>& OutSelf) noexcept
+{
+	OutSelf = SetRequireGradient(bValue)->_getUObject();
 }
 
 std::ostream& operator<<(std::ostream& OutStream, const IAtumTensor& AtumTensor) noexcept

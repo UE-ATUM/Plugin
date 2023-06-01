@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "AtumTensorRetainGraphMode.h"
 #include "AtumTensorScalarType.h"
 #include "UObject/Interface.h"
 
@@ -36,6 +37,15 @@ public:
 	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
 	virtual bool IsDefined() const noexcept;
 	
+	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
+	virtual void GetGradient(TScriptInterface<IAtumTensor>& OutGradient) const noexcept;
+	
+	UE_NODISCARD
+	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
+	virtual bool DoesRequireGradient() const noexcept;
+	
+	virtual IAtumTensor* SetRequireGradient(bool bValue) noexcept;
+	
 	UE_NODISCARD
 	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
 	virtual void GetSizes(TArray<int64>& OutSizes) const noexcept;
@@ -60,6 +70,17 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
 	virtual void CloneData(TScriptInterface<IAtumTensor>& OutClone, UObject* Outer = nullptr) const noexcept;
+	
+	UFUNCTION(BlueprintPure = "false", Category = "ATUM|Tensor", meta = (
+		AdvancedDisplay = "0",
+		AutoCreateRefTerm = "Gradient,Inputs"
+	))
+	virtual bool Backward(
+		const TScriptInterface<IAtumTensor>& Gradient,
+		const TArray<TScriptInterface<IAtumTensor>>& Inputs,
+		EAtumTensorRetainGraphMode RetainGraphMode = EAtumTensorRetainGraphMode::IfCreated,
+		bool bCreateGraph = false
+	) const noexcept;
 	
 	UE_NODISCARD
 	FORCEINLINE c10::ScalarType GetTorchScalarType() const noexcept
@@ -95,7 +116,11 @@ public:
 			GetTorchScalarType()
 		));
 	}
-
+	
+protected:
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor", DisplayName = "Set Require Gradient")
+	virtual void K2_SetRequireGradient(bool bValue, TScriptInterface<IAtumTensor>& OutSelf) noexcept;
+	
 private:
 	UE_NODISCARD
 	FORCEINLINE void* GetUncastedValues(const c10::ScalarType Type) const noexcept
