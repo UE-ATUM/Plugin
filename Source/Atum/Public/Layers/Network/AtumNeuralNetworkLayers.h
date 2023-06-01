@@ -6,6 +6,8 @@
 
 #include "AtumNeuralNetworkLayers.generated.h"
 
+class UAtumNeuralNetwork;
+
 
 #define LOCTEXT_NAMESPACE "AtumNeuralNetworkLayers"
 
@@ -65,6 +67,8 @@ protected:
 private:
 	DECLARE_FUNCTION(execGetLayerTypes) noexcept;
 	DECLARE_FUNCTION(execGetLayerObjects) noexcept;
+
+	friend UAtumNeuralNetwork;
 };
 
 #undef LOCTEXT_NAMESPACE

@@ -40,7 +40,7 @@ bool UAtumNeuralNetwork::RegisterLayerAt(const TScriptInterface<IAtumLayer>& Lay
 		ATUM_LOG(Error, TEXT("The number %d is not a valid index!"), Index)
 		return false;
 	}
-
+	
 	UObject* const LayerObject = Layer.GetObject();
 	if (LayerObject == nullptr || !Execute_InitializeData(LayerObject, true))
 	{
@@ -69,12 +69,12 @@ bool UAtumNeuralNetwork::OnInitializeData_Implementation([[maybe_unused]] const 
 	RegisteredLayers.Empty();
 	const TObjectPtr<UAtumNeuralNetworkLayers> Data = Options.LayersData;
 	
-	const TArray<const UObject*>& Layers = Data ? Data->GetLayerObjects() : TArray<const UObject*>();
+	const TArray<UObject*>& Layers = Data ? Data->LayerObjects : TArray<UObject*>();
 	const int32 LayerCount = Layers.Num();
 	
 	for (int32 Index = 0; Index < LayerCount; ++Index)
 	{
-		if (!RegisterLayer(DuplicateObject<UObject>(Layers[Index], this)))
+		if (!RegisterLayer(Layers[Index]))
 		{
 			ATUM_LOG(
 				Error,
