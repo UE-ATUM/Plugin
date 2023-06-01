@@ -101,7 +101,11 @@ bool IAtumOptimizer::OnInitializeData_Implementation([[maybe_unused]] const bool
 	)));
 }
 
-void IAtumOptimizer::Step_Implementation(const UClass* const Class, TScriptInterface<IAtumTensor>& OutLoss) noexcept
+void IAtumOptimizer::K2_Step_Implementation(
+	const UClass* const Class,
+	TScriptInterface<IAtumTensor>& OutLoss,
+	const FAtumOptimizerLossClosure& LossClosure
+) noexcept
 {
 	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
@@ -115,12 +119,16 @@ void IAtumOptimizer::Step_Implementation(const UClass* const Class, TScriptInter
 		return;
 	}
 	
-	at::Tensor Tensor = Optimizer->step();
-	if (!Tensor.defined())
-		return;
-	
 	OutLoss = NewObject<UObject>(GetTransientPackage(), Class);
-	OutLoss->SetData(MoveTemp(Tensor));
+	OutLoss->SetData(Optimizer->step([Class, LossClosure]
+	{
+		const TScriptInterface<IAtumTensor> Loss = NewObject<UObject>(GetTransientPackage(), Class);
+		if (UNLIKELY(LossClosure.IsBound()))
+		{
+			LossClosure.Execute(Loss);
+		}
+		return Loss->IsDefined() ? Loss->GetDataChecked() : at::Tensor();
+	}));
 }
 
 void IAtumOptimizer::GetParameters_Implementation(TArray<TScriptInterface<IAtumTensor>>& OutParameters) const noexcept

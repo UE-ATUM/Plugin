@@ -19,6 +19,9 @@ namespace torch::optim
 
 #define LOCTEXT_NAMESPACE "IAtumOptimizer"
 
+DECLARE_DYNAMIC_DELEGATE_OneParam(FAtumOptimizerLossClosure, const TScriptInterface<IAtumTensor>&, Loss);
+
+
 struct FOptimizerParametersDeleter
 {
 	void operator()(torch::optim::Optimizer* Optimizer) const noexcept;
@@ -46,17 +49,18 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Optimizer")
 	bool InitializeData(bool bRetry = true);
 	
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Optimizer")
-	void Step(
-		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) const UClass* Class,
-		TScriptInterface<IAtumTensor>& OutLoss
-	);
-	
 	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "ATUM|Optimizer")
 	void GetParameters(TArray<TScriptInterface<IAtumTensor>>& OutParameters) const;
 	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Optimizer")
 	void SetParameters(const TArray<TScriptInterface<IAtumTensor>>& Parameters);
+	
+	FORCEINLINE void Step(
+		const UClass* Class,
+		TScriptInterface<IAtumTensor>& OutLoss,
+		const FAtumOptimizerLossClosure& LossClosure = FAtumOptimizerLossClosure()
+	) noexcept
+	{ Execute_K2_Step(_getUObject(), Class, OutLoss, LossClosure); }
 	
 	UE_NODISCARD
 	virtual const FAtumOptimizerBaseOptions* GetBaseOptimizerOptions() const noexcept;
@@ -71,9 +75,23 @@ protected:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Optimizer")
 	bool OnInitializeData(bool bRetry = true);
 	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Optimizer", DisplayName = "Step", meta = (
+		AdvancedDisplay = "2",
+		AutoCreateRefTerm = "LossClosure"
+	))
+	void K2_Step(
+		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) const UClass* Class,
+		TScriptInterface<IAtumTensor>& OutLoss,
+		const FAtumOptimizerLossClosure& LossClosure
+	);
+	
 	virtual bool OnInitializeData_Implementation(bool bRetry = true);
 	
-	virtual void Step_Implementation(const UClass* Class, TScriptInterface<IAtumTensor>& OutLoss) noexcept;
+	virtual void K2_Step_Implementation(
+		const UClass* Class,
+		TScriptInterface<IAtumTensor>& OutLoss,
+		const FAtumOptimizerLossClosure& LossClosure
+	) noexcept;
 	
 	virtual void GetParameters_Implementation(TArray<TScriptInterface<IAtumTensor>>& OutParameters) const noexcept;
 	
