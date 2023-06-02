@@ -9,6 +9,8 @@
 
 #include "AtumLibraryUtilities.generated.h"
 
+class UTexture2D;
+
 
 #define LOCTEXT_NAMESPACE "AtumLibraryUtilities"
 
@@ -18,6 +20,23 @@ class ATUM_API UAtumLibraryUtilities : public UBlueprintFunctionLibrary
 	GENERATED_BODY()
 	
 public:
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Utilities")
+	static bool LoadFileContentFrom(const FString& AtumContentRelativePath, TArray<FString>& OutContent) noexcept;
+	
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Utilities")
+	static bool SetTextureData(UTexture2D* Texture, const TArray<uint8>& Pixels) noexcept;
+	
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Utilities")
+	static UTexture2D* CreateTexture(int32 SizeX, int32 SizeY, const TArray<uint8>& Pixels) noexcept;
+	
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Utilities")
+	static void CreateEmptyTextures(
+		int32 SizeX,
+		int32 SizeY,
+		TArray<UTexture2D*>& OutTextures,
+		int32 Count = 1
+	) noexcept;
+	
 	template <typename T>
 	UE_NODISCARD
 	static std::string FormatWithConjunction(

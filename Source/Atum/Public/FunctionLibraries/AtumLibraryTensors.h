@@ -16,7 +16,7 @@ UCLASS(Abstract, Blueprintable, BlueprintType, DisplayName = "ATUM Tensor Librar
 class ATUM_API UAtumLibraryTensors : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
-
+	
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Cast", DisplayName = "Serialize Array", CustomThunk, meta = (
 		ArrayParm = "Target",
 		CompactNodeTitle = "Serialize",
@@ -35,7 +35,7 @@ class ATUM_API UAtumLibraryTensors : public UBlueprintFunctionLibrary
 		const TArray<UProperty*>& TargetTypeProvider,
 		TArray<UProperty*>& OutTarget
 	) noexcept;
-
+	
 public:
 	UE_NODISCARD
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make Empty Tensor", meta = (
@@ -58,7 +58,7 @@ public:
 		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) const UClass* Class,
 		int64 Size
 	) noexcept;
-
+	
 	UE_NODISCARD
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make Ones Tensor", meta = (
 		DeterminesOutputType = "Class",
@@ -69,7 +69,7 @@ public:
 		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) const UClass* Class,
 		const TArray<int64>& Sizes
 	) noexcept;
-
+	
 	UE_NODISCARD
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make Random Tensor", meta = (
 		DeterminesOutputType = "Class",
@@ -80,7 +80,7 @@ public:
 		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) const UClass* Class,
 		const TArray<int64>& Sizes
 	) noexcept;
-
+	
 	UE_NODISCARD
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make RandN Tensor", meta = (
 		DeterminesOutputType = "Class",
@@ -100,19 +100,19 @@ public:
 	))
 	static FORCEINLINE FString Conv_TensorToString(const TScriptInterface<const IAtumTensor>& Tensor) noexcept
 	{ return Tensor ? Tensor->ToString() : TEXT(""); }
-
+	
 	static void GenericArray_Serialize(
 		const uint8* TargetAddress,
 		const FArrayProperty* TargetProperty,
 		TArray<uint8>& OutBytes
 	) noexcept;
-
+	
 	static void GenericArray_Deserialize(
 		const TArray<uint8>& Bytes,
 		uint8* OutTargetAddress,
 		const FArrayProperty* OutTargetProperty
 	) noexcept;
-
+	
 private:
 	DECLARE_FUNCTION(execK2_SerializeArray) noexcept;
 	DECLARE_FUNCTION(execK2_DeserializeArray) noexcept;

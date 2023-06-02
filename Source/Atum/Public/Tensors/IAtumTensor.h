@@ -67,7 +67,7 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
 	virtual void SetSerializedValues(const TArray<uint8>& Values, const TArray<int64>& Sizes) noexcept;
-
+	
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
 	virtual void CloneData(TScriptInterface<IAtumTensor>& OutClone, UObject* Outer = nullptr) const noexcept;
 	
