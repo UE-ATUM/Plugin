@@ -9,4 +9,12 @@ FAtumLayerCrossMapLrnOptions::FAtumLayerCrossMapLrnOptions() noexcept : Size(0LL
 {
 }
 
+void FAtumLayerCrossMapLrnOptions::SetFrom(const torch::nn::CrossMapLRN2dOptions& Options) noexcept
+{
+	Size = Options.size();
+	Alpha = Options.alpha();
+	Beta = Options.beta();
+	K = Options.k();
+}
+
 #undef LOCTEXT_NAMESPACE

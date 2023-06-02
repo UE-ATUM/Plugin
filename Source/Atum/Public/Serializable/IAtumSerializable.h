@@ -23,9 +23,15 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintPure = "false", Category = "ATUM|Serializable")
 	bool SaveToFile(const FString& RelativePath) const;
 	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Serializable")
+	bool LoadFromFile(const FString& RelativePath);
+	
 protected:
-	virtual bool SaveToFile_Implementation([[maybe_unused]] const FString& RelativePath) const noexcept
+	virtual bool SaveToFile_Implementation([[maybe_unused]] const FString& RelativePath) const
 	PURE_VIRTUAL(IAtumSerializable::SaveToFile, return false;);
+	
+	virtual bool LoadFromFile_Implementation([[maybe_unused]] const FString& RelativePath)
+	PURE_VIRTUAL(IAtumSerializable::LoadFromFile, return false;);
 };
 
 #undef LOCTEXT_NAMESPACE

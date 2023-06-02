@@ -41,6 +41,9 @@ class ATUM_API UAtumLayerBatchNorm1D : public UAtumLayerBatchNorm
 public:
 	UE_NODISCARD_CTOR
 	UAtumLayerBatchNorm1D() noexcept;
+	
+protected:
+	virtual bool LoadFromFile_Implementation(const FString& RelativePath) override;
 };
 
 
@@ -53,6 +56,9 @@ class ATUM_API UAtumLayerBatchNorm2D : public UAtumLayerBatchNorm
 public:
 	UE_NODISCARD_CTOR
 	UAtumLayerBatchNorm2D() noexcept;
+	
+protected:
+	virtual bool LoadFromFile_Implementation(const FString& RelativePath) override;
 };
 
 
@@ -65,6 +71,9 @@ class ATUM_API UAtumLayerBatchNorm3D : public UAtumLayerBatchNorm
 public:
 	UE_NODISCARD_CTOR
 	UAtumLayerBatchNorm3D() noexcept;
+	
+protected:
+	virtual bool LoadFromFile_Implementation(const FString& RelativePath) override;
 };
 
 #undef LOCTEXT_NAMESPACE

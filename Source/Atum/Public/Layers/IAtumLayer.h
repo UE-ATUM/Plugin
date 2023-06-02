@@ -59,6 +59,10 @@ public:
 	virtual const torch::nn::Module* GetBaseModule() const noexcept;
 	
 	UE_NODISCARD
+	FORCEINLINE torch::nn::Module* GetBaseModule() noexcept
+	{ return const_cast<torch::nn::Module*>(std::as_const(*this).GetBaseModule()); }
+	
+	UE_NODISCARD
 	virtual const FAtumLayerBaseOptions* GetBaseLayerOptions() const noexcept;
 	
 	UE_NODISCARD
@@ -102,7 +106,9 @@ protected:
 	
 	virtual void SetBaseModule(const torch::nn::Module* Value) noexcept;
 	
-	virtual bool SaveToFile_Implementation(const FString& RelativePath) const noexcept override;
+	virtual bool SaveToFile_Implementation(const FString& RelativePath) const override;
+	
+	virtual bool LoadFromFile_Implementation(const FString& RelativePath) override;
 	
 private:
 	bool InitializeData_Implementation(bool bRetry = true) noexcept;

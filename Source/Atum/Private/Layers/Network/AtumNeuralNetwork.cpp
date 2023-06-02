@@ -2,9 +2,9 @@
 
 #include "Layers/Network/AtumNeuralNetwork.h"
 
-#include "IAtumModule.h"
 #include "Layers/Network/AtumNeuralNetworkLayers.h"
 #include "Macros/AtumMacrosLog.h"
+#include "Misc/Paths.h"
 
 
 #define LOCTEXT_NAMESPACE "AtumNeuralNetwork"
@@ -136,20 +136,48 @@ void UAtumNeuralNetwork::GetParameters_Implementation(
 	}
 }
 
-bool UAtumNeuralNetwork::SaveToFile_Implementation(const FString& RelativePath) const noexcept
+bool UAtumNeuralNetwork::SaveToFile_Implementation(const FString& RelativePath) const
 {
-	if (!IsInitialized())
+	if (!IAtumLayer::SaveToFile_Implementation(RelativePath))
 		return false;
 	
-	torch::serialize::OutputArchive Archive;
-	GetBaseModule()->save(Archive);
+	const FString Extension = FPaths::GetExtension(RelativePath, true);
+	const FString PathWithoutExtension = RelativePath.Left(RelativePath.Len() - Extension.Len());
 	
-	for (const TObjectPtr<UObject> Layer : RegisteredLayers)
+	const int32 RegisteredLayerCount = RegisteredLayers.Num();
+	for (int32 Index = 0; Index < RegisteredLayerCount; ++Index)
 	{
-		CastChecked<IAtumLayer>(Layer.Get())->GetBaseModule()->save(Archive);
+		if (!Execute_SaveToFile(RegisteredLayers[Index].Get(), FString::Printf(
+			TEXT("%ls-%d%ls"),
+			*PathWithoutExtension,
+			Index + 1,
+			*Extension
+		)))
+			return false;
+	}
+	return true;
+}
+
+bool UAtumNeuralNetwork::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	if (!IAtumLayer::LoadFromFile_Implementation(RelativePath))
+		return false;
+	
+	const FString Extension = FPaths::GetExtension(RelativePath, true);
+	const FString PathWithoutExtension = RelativePath.Left(RelativePath.Len() - Extension.Len());
+	
+	const int32 RegisteredLayerCount = RegisteredLayers.Num();
+	for (int32 Index = 0; Index < RegisteredLayerCount; ++Index)
+	{
+		if (!Execute_LoadFromFile(RegisteredLayers[Index].Get(), FString::Printf(
+			TEXT("%ls-%d%ls"),
+			*PathWithoutExtension,
+			Index + 1,
+			*Extension
+		)))
+			return false;
 	}
 	
-	Archive.save_to(TCHAR_TO_UTF8(*IAtumModule::GetContentDirectory(RelativePath)));
 	return true;
 }
 

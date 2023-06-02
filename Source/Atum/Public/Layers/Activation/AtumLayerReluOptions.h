@@ -27,6 +27,8 @@ struct ATUM_API FAtumLayerReluOptions : public FAtumLayerBaseOptions
 	
 	UE_NODISCARD
 	FORCEINLINE explicit operator torch::nn::ReLUOptions() const noexcept { return torch::nn::ReLUOptions(bInplace); }
+	
+	FORCEINLINE void SetFrom(const torch::nn::ReLUOptions& Options) noexcept { bInplace = Options.inplace(); }
 };
 
 #undef LOCTEXT_NAMESPACE

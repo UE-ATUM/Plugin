@@ -39,6 +39,8 @@ struct ATUM_API FAtumOptimizerAdamOptions : public FAtumOptimizerBaseOptions
 	
 	UE_NODISCARD
 	explicit operator torch::optim::AdamOptions() const noexcept;
+	
+	void SetFrom(const torch::optim::AdamOptions& Options) noexcept;
 };
 
 #undef LOCTEXT_NAMESPACE

@@ -25,7 +25,7 @@ namespace torch::nn
 		AtumNetworkOptions options;
 		
 		UE_NODISCARD_CTOR
-		explicit AtumNetworkImpl(const AtumNetworkOptions& options_) noexcept;
+		explicit AtumNetworkImpl(const AtumNetworkOptions& options_ = {}) noexcept;
 		
 		UE_NODISCARD
 		// ReSharper disable once CppMemberFunctionMayBeStatic
@@ -83,7 +83,7 @@ protected:
 		TMap<FString, TScriptInterface<IAtumTensor>>& OutValues
 	) const noexcept override;
 	
-	virtual bool SaveToFile_Implementation(const FString& RelativePath) const noexcept override;
+	virtual bool SaveToFile_Implementation(const FString& RelativePath) const override;
 	
 #if WITH_EDITOR
 	virtual void PostCDOCompiled(const FPostCDOCompiledContext& Context) override;

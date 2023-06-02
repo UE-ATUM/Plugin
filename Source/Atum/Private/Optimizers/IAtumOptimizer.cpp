@@ -93,12 +93,27 @@ void IAtumOptimizer::SetParameters_Implementation(const TArray<TScriptInterface<
 	}
 }
 
-bool IAtumOptimizer::SaveToFile_Implementation(const FString& RelativePath) const noexcept
+bool IAtumOptimizer::SaveToFile_Implementation(const FString& RelativePath) const
 {
-	if (!IsInitialized())
+	if (!bInitialized)
 		return false;
 	
-	torch::save(*Optimizer, TCHAR_TO_UTF8(*IAtumModule::GetContentDirectory(RelativePath)));
+	torch::serialize::OutputArchive Archive;
+	Optimizer->save(Archive);
+	
+	Archive.save_to(TCHAR_TO_UTF8(*IAtumModule::GetContentDirectory(RelativePath)));
+	return true;
+}
+
+bool IAtumOptimizer::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	if (!bInitialized)
+		return false;
+	
+	torch::serialize::InputArchive Archive;
+	Archive.load_from(TCHAR_TO_UTF8(*IAtumModule::GetContentDirectory(RelativePath)));
+	
+	Optimizer->load(Archive);
 	return true;
 }
 
@@ -110,13 +125,8 @@ bool IAtumOptimizer::InitializeData_Implementation(const bool bRetry) noexcept
 	UObject* const OptimizerObject = _getUObject();
 	const ANSICHAR* const OptimizerClassName = TCHAR_TO_UTF8(*GetNameSafe(OptimizerObject->GetClass()));
 	
-	const FAtumOptimizerBaseOptions* const BaseOptions = GetBaseOptimizerOptions();
-	if (UNLIKELY(BaseOptions == nullptr))
-	{
-		bInitialized = false;
-		ATUM_LOG(Error, TEXT("No options have been found in ATUM Optimizer of type `%hs`!"), OptimizerClassName)
-		return bInitialized;
-	}
+	FAtumOptimizerBaseOptions* const BaseOptions = GetBaseOptimizerOptions();
+	check(BaseOptions)
 	
 	try
 	{

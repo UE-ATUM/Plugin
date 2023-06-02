@@ -53,6 +53,10 @@ struct ATUM_API FAtumLayerConvTransposeOptions : public FAtumLayerBaseOptions
 	requires (1ULL <= Dimensions && Dimensions <= 3ULL)
 	UE_NODISCARD
 	explicit operator torch::nn::ConvTransposeOptions<Dimensions>() const noexcept;
+	
+	template <uint64 Dimensions>
+	requires (1ULL <= Dimensions && Dimensions <= 3ULL)
+	void SetFrom(const torch::nn::detail::ConvNdOptions<Dimensions>& Options) noexcept;
 };
 
 
@@ -77,6 +81,31 @@ FAtumLayerConvTransposeOptions::operator torch::nn::ConvTransposeOptions<Dimensi
 	.bias(bBias)
 	.dilation(at::IntArrayRef(Dilation.GetData(), Dimensions))
 	.padding_mode(torch::kZeros);
+}
+
+template <uint64 Dimensions>
+requires (1ULL <= Dimensions && Dimensions <= 3ULL)
+void FAtumLayerConvTransposeOptions::SetFrom(const torch::nn::detail::ConvNdOptions<Dimensions>& Options) noexcept
+{
+	checkf(KernelSize.Num() == Dimensions, TEXT("Kernel size must contain exactly %ull values!"), Dimensions)
+	checkf(Stride.Num() == Dimensions, TEXT("Stride must contain exactly %ull values!"), Dimensions)
+	checkf(Padding.Num() == Dimensions, TEXT("Padding must contain exactly %ull values!"), Dimensions)
+	checkf(OutputPadding.Num() == Dimensions, TEXT("Output padding must contain exactly %ull values!"), Dimensions)
+	checkf(Dilation.Num() == Dimensions, TEXT("Dilation must contain exactly %ull values!"), Dimensions)
+	
+	InChannels = Options.in_channels();
+	OutChannels = Options.out_channels();
+	Groups = Options.groups();
+	bBias = Options.bias();
+	
+	for (uint64 Index = 0ULL; Index < Dimensions; ++Index)
+	{
+		KernelSize[Index] = Options.kernel_size()->at(Index);
+		Stride[Index] = Options.stride()->at(Index);
+		Padding[Index] = c10::get<torch::ExpandingArray<Dimensions>>(Options.padding())->at(Index);
+		OutputPadding[Index] = Options.output_padding()->at(Index);
+		Dilation[Index] = Options.dilation()->at(Index);
+	}
 }
 
 #undef LOCTEXT_NAMESPACE

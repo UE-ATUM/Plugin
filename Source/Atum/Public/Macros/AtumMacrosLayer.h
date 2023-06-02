@@ -6,6 +6,9 @@
 #define LOCTEXT_NAMESPACE "AtumMacrosLayer"
 
 #define GENERATED_ATUM_LAYER_OPTIONS_ONLY(OptionsClass) \
+protected: \
+	virtual bool LoadFromFile_Implementation(const FString& RelativePath) override; \
+	\
 public: \
 	UE_NODISCARD \
 	virtual const FAtumLayerBaseOptions* GetBaseLayerOptions() const noexcept override { return &Options; } \

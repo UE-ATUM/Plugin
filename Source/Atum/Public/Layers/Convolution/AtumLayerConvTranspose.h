@@ -46,6 +46,9 @@ class ATUM_API UAtumLayerConvTranspose1D : public UAtumLayerConvTranspose
 public:
 	UE_NODISCARD_CTOR
 	UAtumLayerConvTranspose1D() noexcept;
+	
+protected:
+	virtual bool LoadFromFile_Implementation(const FString& RelativePath) override;
 };
 
 
@@ -58,6 +61,9 @@ class ATUM_API UAtumLayerConvTranspose2D : public UAtumLayerConvTranspose
 public:
 	UE_NODISCARD_CTOR
 	UAtumLayerConvTranspose2D() noexcept;
+	
+protected:
+	virtual bool LoadFromFile_Implementation(const FString& RelativePath) override;
 };
 
 
@@ -70,6 +76,9 @@ class ATUM_API UAtumLayerConvTranspose3D : public UAtumLayerConvTranspose
 public:
 	UE_NODISCARD_CTOR
 	UAtumLayerConvTranspose3D() noexcept;
+	
+protected:
+	virtual bool LoadFromFile_Implementation(const FString& RelativePath) override;
 };
 
 #undef LOCTEXT_NAMESPACE

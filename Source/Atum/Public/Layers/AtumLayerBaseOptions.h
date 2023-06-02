@@ -4,6 +4,13 @@
 
 #include "AtumLayerBaseOptions.generated.h"
 
+// ReSharper disable CppUE4CodingStandardNamingViolationWarning
+namespace torch::nn
+{
+	class Module;
+}
+// ReSharper restore CppUE4CodingStandardNamingViolationWarning
+
 
 #define LOCTEXT_NAMESPACE "AtumLayerBaseOptions"
 
@@ -17,6 +24,8 @@ struct ATUM_API FAtumLayerBaseOptions
 	
 	UE_NODISCARD_CTOR
 	FAtumLayerBaseOptions() noexcept;
+	
+	void SetNameFrom(const torch::nn::Module& Module) noexcept;
 };
 
 #undef LOCTEXT_NAMESPACE

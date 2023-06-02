@@ -25,4 +25,15 @@ FAtumOptimizerAdamOptions::operator torch::optim::AdamOptions() const noexcept
 	.amsgrad(Amsgrad);
 }
 
+void FAtumOptimizerAdamOptions::SetFrom(const torch::optim::AdamOptions& Options) noexcept
+{
+	Lr = Options.lr();
+	Eps = Options.eps();
+	WeightDecay = Options.weight_decay();
+	Amsgrad = Options.amsgrad();
+	
+	const std::tuple<double, double>& OptionBetas = Options.betas();
+	Betas = { std::get<0ULL>(OptionBetas), std::get<1ULL>(OptionBetas) };
+}
+
 #undef LOCTEXT_NAMESPACE

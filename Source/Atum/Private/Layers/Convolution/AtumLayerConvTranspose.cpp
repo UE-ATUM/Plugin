@@ -63,6 +63,11 @@ bool UAtumLayerConvTranspose::OnForward_Implementation(
 	return bSuccess;
 }
 
+bool UAtumLayerConvTranspose::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	return IAtumLayer::LoadFromFile_Implementation(RelativePath);
+}
+
 UAtumLayerConvTranspose1D::UAtumLayerConvTranspose1D() noexcept
 {
 	DimensionCount = 1ULL;
@@ -92,6 +97,15 @@ bool UAtumLayerConvTranspose1D::OnForward_Implementation(
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
 	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kFloat)));
+	return true;
+}
+
+bool UAtumLayerConvTranspose1D::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	if (!Super::LoadFromFile_Implementation(RelativePath))
+		return false;
+	
+	Options.SetFrom((*Module)->options);
 	return true;
 }
 
@@ -127,6 +141,15 @@ bool UAtumLayerConvTranspose2D::OnForward_Implementation(
 	return true;
 }
 
+bool UAtumLayerConvTranspose2D::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	if (!Super::LoadFromFile_Implementation(RelativePath))
+		return false;
+	
+	Options.SetFrom((*Module)->options);
+	return true;
+}
+
 UAtumLayerConvTranspose3D::UAtumLayerConvTranspose3D() noexcept
 {
 	DimensionCount = 3ULL;
@@ -156,6 +179,15 @@ bool UAtumLayerConvTranspose3D::OnForward_Implementation(
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
 	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kFloat)));
+	return true;
+}
+
+bool UAtumLayerConvTranspose3D::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	if (!Super::LoadFromFile_Implementation(RelativePath))
+		return false;
+	
+	Options.SetFrom((*Module)->options);
 	return true;
 }
 

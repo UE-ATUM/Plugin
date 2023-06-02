@@ -13,4 +13,12 @@ K(1.0)
 {
 }
 
+void FAtumLayerLocalResponseNormOptions::SetFrom(const torch::nn::LocalResponseNormOptions& Options) noexcept
+{
+	Size = Options.size();
+	Alpha = Options.alpha();
+	Beta = Options.beta();
+	K = Options.k();
+}
+
 #undef LOCTEXT_NAMESPACE

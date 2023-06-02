@@ -17,6 +17,11 @@ bool UAtumLayerBatchNorm::OnForward_Implementation(
 	return AreInputSizesValid(InputSizes, Options.NumFeatures);
 }
 
+bool UAtumLayerBatchNorm::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	return IAtumLayer::LoadFromFile_Implementation(RelativePath);
+}
+
 UAtumLayerBatchNorm1D::UAtumLayerBatchNorm1D() noexcept
 {
 	DimensionCount = 1ULL;
@@ -42,6 +47,15 @@ bool UAtumLayerBatchNorm1D::OnForward_Implementation(
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
 	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kBFloat16)));
+	return true;
+}
+
+bool UAtumLayerBatchNorm1D::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	if (!IAtumLayer::LoadFromFile_Implementation(RelativePath))
+		return false;
+	
+	Options.SetFrom((*Module)->options);
 	return true;
 }
 
@@ -72,6 +86,15 @@ bool UAtumLayerBatchNorm2D::OnForward_Implementation(
 	return true;
 }
 
+bool UAtumLayerBatchNorm2D::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	if (!IAtumLayer::LoadFromFile_Implementation(RelativePath))
+		return false;
+	
+	Options.SetFrom((*Module)->options);
+	return true;
+}
+
 UAtumLayerBatchNorm3D::UAtumLayerBatchNorm3D() noexcept
 {
 	DimensionCount = 3ULL;
@@ -96,6 +119,15 @@ bool UAtumLayerBatchNorm3D::OnForward_Implementation(
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
 	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kBFloat16)));
+	return true;
+}
+
+bool UAtumLayerBatchNorm3D::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	if (!IAtumLayer::LoadFromFile_Implementation(RelativePath))
+		return false;
+	
+	Options.SetFrom((*Module)->options);
 	return true;
 }
 

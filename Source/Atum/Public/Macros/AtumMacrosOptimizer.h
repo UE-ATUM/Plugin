@@ -9,6 +9,8 @@
 protected: \
 	virtual bool OnInitializeData_Implementation(bool bRetry = true) override; \
 	\
+	virtual bool LoadFromFile_Implementation(const FString& RelativePath) override; \
+	\
 public: \
 	UE_NODISCARD \
 	virtual const FAtumOptimizerBaseOptions* GetBaseOptimizerOptions() const noexcept override { return &Options; } \

@@ -23,4 +23,9 @@ bool UAtumLayerSigmoid::OnForward_Implementation(
 	return true;
 }
 
+bool UAtumLayerSigmoid::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	return IAtumLayer::LoadFromFile_Implementation(RelativePath);
+}
+
 #undef LOCTEXT_NAMESPACE

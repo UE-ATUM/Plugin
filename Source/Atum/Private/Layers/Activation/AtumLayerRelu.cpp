@@ -25,4 +25,13 @@ bool UAtumLayerRelu::OnForward_Implementation(
 	return true;
 }
 
+bool UAtumLayerRelu::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	if (!IAtumLayer::LoadFromFile_Implementation(RelativePath))
+		return false;
+	
+	Options.SetFrom((*Module)->options);
+	return true;
+}
+
 #undef LOCTEXT_NAMESPACE

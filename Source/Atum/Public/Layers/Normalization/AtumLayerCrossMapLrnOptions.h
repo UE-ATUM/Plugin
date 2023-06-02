@@ -37,6 +37,8 @@ struct ATUM_API FAtumLayerCrossMapLrnOptions : public FAtumLayerBaseOptions
 	UE_NODISCARD
 	FORCEINLINE explicit operator torch::nn::CrossMapLRN2dOptions() const noexcept
 	{ return torch::nn::CrossMapLRN2dOptions(Size).alpha(Alpha).beta(Beta).k(K); }
+	
+	void SetFrom(const torch::nn::CrossMapLRN2dOptions& Options) noexcept;
 };
 
 #undef LOCTEXT_NAMESPACE

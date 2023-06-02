@@ -46,7 +46,9 @@ public:
 	UE_NODISCARD_CTOR
 	IAtumOptimizer() noexcept;
 	
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Optimizer")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Optimizer", meta = (
+		AutoCreateRefTerm = "Parameters"
+	))
 	bool InitializeData(bool bRetry = true);
 	
 	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "ATUM|Optimizer")
@@ -69,7 +71,9 @@ public:
 	virtual FAtumOptimizerBaseOptions* GetBaseOptimizerOptions() noexcept;
 	
 protected:
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Optimizer")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Optimizer", meta = (
+		AutoCreateRefTerm = "Parameters"
+	))
 	bool OnInitializeData(bool bRetry = true);
 	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Optimizer", DisplayName = "Step", meta = (
@@ -94,7 +98,9 @@ protected:
 	
 	virtual void SetParameters_Implementation(const TArray<TScriptInterface<IAtumTensor>>& Parameters) noexcept;
 	
-	virtual bool SaveToFile_Implementation(const FString& RelativePath) const noexcept override;
+	virtual bool SaveToFile_Implementation(const FString& RelativePath) const override;
+	
+	virtual bool LoadFromFile_Implementation(const FString& RelativePath) override;
 	
 private:
 	bool InitializeData_Implementation(bool bRetry = true) noexcept;

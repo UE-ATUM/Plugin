@@ -121,7 +121,9 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor", DisplayName = "Set Require Gradient")
 	virtual void K2_SetRequireGradient(bool bValue, TScriptInterface<IAtumTensor>& OutSelf) noexcept;
 	
-	virtual bool SaveToFile_Implementation(const FString& RelativePath) const noexcept override;
+	virtual bool SaveToFile_Implementation(const FString& RelativePath) const override;
+	
+	virtual bool LoadFromFile_Implementation(const FString& RelativePath) override;
 	
 private:
 	UE_NODISCARD

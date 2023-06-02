@@ -23,4 +23,9 @@ bool UAtumLayerTanh::OnForward_Implementation(
 	return true;
 }
 
+bool UAtumLayerTanh::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	return IAtumLayer::LoadFromFile_Implementation(RelativePath);
+}
+
 #undef LOCTEXT_NAMESPACE

@@ -37,6 +37,8 @@ struct ATUM_API FAtumLayerLocalResponseNormOptions : public FAtumLayerBaseOption
 	UE_NODISCARD
 	FORCEINLINE explicit operator torch::nn::LocalResponseNormOptions() const noexcept
 	{ return torch::nn::LocalResponseNormOptions(Size).alpha(Alpha).beta(Beta).k(K); }
+	
+	void SetFrom(const torch::nn::LocalResponseNormOptions& Options) noexcept;
 };
 
 #undef LOCTEXT_NAMESPACE

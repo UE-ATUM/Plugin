@@ -125,6 +125,11 @@ bool UAtumLayerConv::OnForward_Implementation(
 	return bSuccess;
 }
 
+bool UAtumLayerConv::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	return IAtumLayer::LoadFromFile_Implementation(RelativePath);
+}
+
 UAtumLayerConv1D::UAtumLayerConv1D() noexcept
 {
 	DimensionCount = 1ULL;
@@ -154,6 +159,15 @@ bool UAtumLayerConv1D::OnForward_Implementation(
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
 	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kFloat)));
+	return true;
+}
+
+bool UAtumLayerConv1D::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	if (!Super::LoadFromFile_Implementation(RelativePath))
+		return false;
+	
+	Options.SetFrom((*Module)->options);
 	return true;
 }
 
@@ -189,6 +203,15 @@ bool UAtumLayerConv2D::OnForward_Implementation(
 	return true;
 }
 
+bool UAtumLayerConv2D::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	if (!Super::LoadFromFile_Implementation(RelativePath))
+		return false;
+	
+	Options.SetFrom((*Module)->options);
+	return true;
+}
+
 UAtumLayerConv3D::UAtumLayerConv3D() noexcept
 {
 	DimensionCount = 3ULL;
@@ -218,6 +241,15 @@ bool UAtumLayerConv3D::OnForward_Implementation(
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
 	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kFloat)));
+	return true;
+}
+
+bool UAtumLayerConv3D::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	if (!Super::LoadFromFile_Implementation(RelativePath))
+		return false;
+	
+	Options.SetFrom((*Module)->options);
 	return true;
 }
 

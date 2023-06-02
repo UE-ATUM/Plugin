@@ -31,6 +31,8 @@ struct ATUM_API FAtumLayerLeakyReluOptions : public FAtumLayerBaseOptions
 	UE_NODISCARD
 	FORCEINLINE explicit operator torch::nn::LeakyReLUOptions() const noexcept
 	{ return torch::nn::LeakyReLUOptions().negative_slope(NegativeSlope).inplace(bInplace); }
+	
+	void SetFrom(const torch::nn::LeakyReLUOptions& Options) noexcept;
 };
 
 #undef LOCTEXT_NAMESPACE

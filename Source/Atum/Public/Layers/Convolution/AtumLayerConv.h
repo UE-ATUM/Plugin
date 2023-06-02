@@ -52,6 +52,9 @@ class ATUM_API UAtumLayerConv1D : public UAtumLayerConv
 public:
 	UE_NODISCARD_CTOR
 	UAtumLayerConv1D() noexcept;
+	
+protected:
+	virtual bool LoadFromFile_Implementation(const FString& RelativePath) override;
 };
 
 
@@ -64,6 +67,9 @@ class ATUM_API UAtumLayerConv2D : public UAtumLayerConv
 public:
 	UE_NODISCARD_CTOR
 	UAtumLayerConv2D() noexcept;
+	
+protected:
+	virtual bool LoadFromFile_Implementation(const FString& RelativePath) override;
 };
 
 
@@ -76,6 +82,9 @@ class ATUM_API UAtumLayerConv3D : public UAtumLayerConv
 public:
 	UE_NODISCARD_CTOR
 	UAtumLayerConv3D() noexcept;
+	
+protected:
+	virtual bool LoadFromFile_Implementation(const FString& RelativePath) override;
 };
 
 #undef LOCTEXT_NAMESPACE

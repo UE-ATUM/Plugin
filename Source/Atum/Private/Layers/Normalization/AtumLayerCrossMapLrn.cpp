@@ -43,4 +43,13 @@ bool UAtumLayerCrossMapLrn2D::OnForward_Implementation(
 	return true;
 }
 
+bool UAtumLayerCrossMapLrn2D::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	if (!IAtumLayer::LoadFromFile_Implementation(RelativePath))
+		return false;
+	
+	Options.SetFrom((*Module)->options);
+	return true;
+}
+
 #undef LOCTEXT_NAMESPACE

@@ -149,13 +149,21 @@ void IAtumTensor::K2_SetRequireGradient(const bool bValue, TScriptInterface<IAtu
 	OutSelf = SetRequireGradient(bValue)->_getUObject();
 }
 
-bool IAtumTensor::SaveToFile_Implementation(const FString& RelativePath) const noexcept
+bool IAtumTensor::SaveToFile_Implementation(const FString& RelativePath) const
 {
 	if (!IsDefined())
 		return false;
 	
 	torch::save(*Data, TCHAR_TO_UTF8(*IAtumModule::GetContentDirectory(RelativePath)));
 	return true;
+}
+
+bool IAtumTensor::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	at::Tensor LoadedTensor;
+	torch::load(LoadedTensor, TCHAR_TO_UTF8(*IAtumModule::GetContentDirectory(RelativePath)));
+	SetData(MoveTemp(LoadedTensor));
+	return IsDefined();
 }
 
 std::ostream& operator<<(std::ostream& OutStream, const IAtumTensor& AtumTensor) noexcept

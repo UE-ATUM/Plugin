@@ -70,4 +70,13 @@ bool UAtumLayerGroupNorm::OnForward_Implementation(
 	return true;
 }
 
+bool UAtumLayerGroupNorm::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	if (!IAtumLayer::LoadFromFile_Implementation(RelativePath))
+		return false;
+	
+	Options.SetFrom((*Module)->options);
+	return true;
+}
+
 #undef LOCTEXT_NAMESPACE

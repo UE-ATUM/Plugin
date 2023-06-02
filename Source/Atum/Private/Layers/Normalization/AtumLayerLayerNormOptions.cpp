@@ -5,7 +5,7 @@
 
 #define LOCTEXT_NAMESPACE "AtumLayerLayerNormOptions"
 
-FAtumLayerLayerNormOptions::FAtumLayerLayerNormOptions() noexcept : Epsilon(1E-5), bElementwiseAffine(true)
+FAtumLayerLayerNormOptions::FAtumLayerLayerNormOptions() noexcept : Eps(1E-5), bElementwiseAffine(true)
 {
 }
 
@@ -14,9 +14,15 @@ FAtumLayerLayerNormOptions::operator torch::nn::LayerNormOptions() const noexcep
 	const int64* const Data = NormalizedShape.GetData();
 	return MoveTemp(
 		torch::nn::LayerNormOptions(std::vector(Data, Data + NormalizedShape.Num()))
-		.eps(Epsilon)
+		.eps(Eps)
 		.elementwise_affine(bElementwiseAffine)
 	);
+}
+
+void FAtumLayerLayerNormOptions::SetFrom(const torch::nn::LayerNormOptions& Options) noexcept
+{
+	Eps = Options.eps();
+	bElementwiseAffine = Options.elementwise_affine();
 }
 
 #undef LOCTEXT_NAMESPACE

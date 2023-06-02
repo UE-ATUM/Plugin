@@ -14,4 +14,13 @@ bool UAtumOptimizerAdam::OnInitializeData_Implementation([[maybe_unused]] const 
 	return true;
 }
 
+bool UAtumOptimizerAdam::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	if (!IAtumOptimizer::LoadFromFile_Implementation(RelativePath))
+		return false;
+	
+	Options.SetFrom(static_cast<torch::optim::AdamOptions&>(Optimizer->defaults()));
+	return true;
+}
+
 #undef LOCTEXT_NAMESPACE

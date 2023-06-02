@@ -23,7 +23,7 @@ struct ATUM_API FAtumLayerLayerNormOptions : public FAtumLayerBaseOptions
 	TArray<int64> NormalizedShape;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess))
-	double Epsilon;
+	double Eps;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess))
 	bool bElementwiseAffine;
@@ -33,6 +33,8 @@ struct ATUM_API FAtumLayerLayerNormOptions : public FAtumLayerBaseOptions
 	
 	UE_NODISCARD
 	explicit operator torch::nn::LayerNormOptions() const noexcept;
+	
+	void SetFrom(const torch::nn::LayerNormOptions& Options) noexcept;
 };
 
 #undef LOCTEXT_NAMESPACE

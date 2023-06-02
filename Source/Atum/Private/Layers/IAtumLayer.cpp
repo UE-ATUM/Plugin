@@ -130,15 +130,27 @@ void IAtumLayer::SetBaseModule([[maybe_unused]] const torch::nn::Module* const V
 {
 }
 
-bool IAtumLayer::SaveToFile_Implementation(const FString& RelativePath) const noexcept
+bool IAtumLayer::SaveToFile_Implementation(const FString& RelativePath) const
 {
-	if (!IsInitialized())
+	if (!bInitialized)
 		return false;
 	
 	torch::serialize::OutputArchive Archive;
 	GetBaseModule()->save(Archive);
 	
 	Archive.save_to(TCHAR_TO_UTF8(*IAtumModule::GetContentDirectory(RelativePath)));
+	return true;
+}
+
+bool IAtumLayer::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	if (!bInitialized)
+		return false;
+	
+	torch::serialize::InputArchive Archive;
+	Archive.load_from(TCHAR_TO_UTF8(*IAtumModule::GetContentDirectory(RelativePath)));
+	
+	GetBaseModule()->load(Archive);
 	return true;
 }
 

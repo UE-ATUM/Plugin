@@ -17,6 +17,11 @@ bool UAtumLayerInstanceNorm::OnForward_Implementation(
 	return AreInputSizesValid(InputSizes, Options.NumFeatures);
 }
 
+bool UAtumLayerInstanceNorm::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	return IAtumLayer::LoadFromFile_Implementation(RelativePath);
+}
+
 UAtumLayerInstanceNorm1D::UAtumLayerInstanceNorm1D() noexcept
 {
 	DimensionCount = 1ULL;
@@ -42,6 +47,15 @@ bool UAtumLayerInstanceNorm1D::OnForward_Implementation(
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
 	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kDouble)));
+	return true;
+}
+
+bool UAtumLayerInstanceNorm1D::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	if (!IAtumLayer::LoadFromFile_Implementation(RelativePath))
+		return false;
+	
+	Options.SetFrom((*Module)->options);
 	return true;
 }
 
@@ -73,6 +87,15 @@ bool UAtumLayerInstanceNorm2D::OnForward_Implementation(
 	return true;
 }
 
+bool UAtumLayerInstanceNorm2D::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	if (!IAtumLayer::LoadFromFile_Implementation(RelativePath))
+		return false;
+	
+	Options.SetFrom((*Module)->options);
+	return true;
+}
+
 UAtumLayerInstanceNorm3D::UAtumLayerInstanceNorm3D() noexcept
 {
 	DimensionCount = 3ULL;
@@ -98,6 +121,15 @@ bool UAtumLayerInstanceNorm3D::OnForward_Implementation(
 	
 	Output = DuplicateObject(Input.GetObject(), nullptr);
 	Output->SetData((*Module)(Input->GetDataChecked().to(c10::kDouble)));
+	return true;
+}
+
+bool UAtumLayerInstanceNorm3D::LoadFromFile_Implementation(const FString& RelativePath)
+{
+	if (!IAtumLayer::LoadFromFile_Implementation(RelativePath))
+		return false;
+	
+	Options.SetFrom((*Module)->options);
 	return true;
 }
 

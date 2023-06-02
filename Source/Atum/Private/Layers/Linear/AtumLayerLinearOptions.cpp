@@ -9,4 +9,11 @@ FAtumLayerLinearOptions::FAtumLayerLinearOptions() noexcept : InFeatures(0LL), O
 {
 }
 
+void FAtumLayerLinearOptions::SetFrom(const torch::nn::LinearOptions& Options) noexcept
+{
+	InFeatures = Options.in_features();
+	OutFeatures = Options.out_features();
+	bBias = Options.bias();
+}
+
 #undef LOCTEXT_NAMESPACE

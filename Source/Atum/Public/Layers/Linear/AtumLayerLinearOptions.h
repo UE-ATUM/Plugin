@@ -34,6 +34,8 @@ struct ATUM_API FAtumLayerLinearOptions : public FAtumLayerBaseOptions
 	UE_NODISCARD
 	FORCEINLINE explicit operator torch::nn::LinearOptions() const noexcept
 	{ return torch::nn::LinearOptions(InFeatures, OutFeatures).bias(bBias); }
+	
+	void SetFrom(const torch::nn::LinearOptions& Options) noexcept;
 };
 
 #undef LOCTEXT_NAMESPACE

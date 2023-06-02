@@ -23,7 +23,7 @@ struct ATUM_API FAtumLayerInstanceNormOptions : public FAtumLayerBaseOptions
 	int64 NumFeatures;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess))
-	double Epsilon;
+	double Eps;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess))
 	double Momentum;
@@ -41,11 +41,13 @@ struct ATUM_API FAtumLayerInstanceNormOptions : public FAtumLayerBaseOptions
 	FORCEINLINE explicit operator torch::nn::InstanceNormOptions() const noexcept
 	{
 		return torch::nn::InstanceNormOptions(NumFeatures)
-		.eps(Epsilon)
+		.eps(Eps)
 		.momentum(Momentum)
 		.affine(bAffine)
 		.track_running_stats(bTrackRunningStats);
 	}
+	
+	void SetFrom(const torch::nn::InstanceNormOptions& Options) noexcept;
 };
 
 #undef LOCTEXT_NAMESPACE

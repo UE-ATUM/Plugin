@@ -13,4 +13,12 @@ bAffine(true)
 {
 }
 
+void FAtumLayerGroupNormOptions::SetFrom(const torch::nn::GroupNormOptions& Options) noexcept
+{
+	NumGroups = Options.num_groups();
+	NumChannels = Options.num_channels();
+	Eps = Options.eps();
+	bAffine = Options.affine();
+}
+
 #undef LOCTEXT_NAMESPACE

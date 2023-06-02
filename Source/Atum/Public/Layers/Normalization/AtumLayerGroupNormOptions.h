@@ -37,6 +37,8 @@ struct ATUM_API FAtumLayerGroupNormOptions : public FAtumLayerBaseOptions
 	UE_NODISCARD
 	FORCEINLINE explicit operator torch::nn::GroupNormOptions() const noexcept
 	{ return torch::nn::GroupNormOptions(NumGroups, NumChannels).eps(Eps).affine(bAffine); }
+	
+	void SetFrom(const torch::nn::GroupNormOptions& Options) noexcept;
 };
 
 #undef LOCTEXT_NAMESPACE
