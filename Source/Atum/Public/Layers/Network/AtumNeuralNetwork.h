@@ -50,7 +50,7 @@ class ATUM_API UAtumNeuralNetwork : public UObject, public IAtumLayer
 	DECLARE_MULTICAST_DELEGATE(FOnPostCDOCompiled);
 #endif
 	
-	UPROPERTY(Transient, NonTransactional, meta = (MustImplement = "/Script/Atum.AtumLayer"))
+	UPROPERTY(Transient, NonTransactional)
 	mutable TArray<const UObject*> RegisteredLayersConst;
 	
 protected:
@@ -58,8 +58,7 @@ protected:
 	FAtumNeuralNetworkOptions Options;
 	
 	UPROPERTY(Transient, NonTransactional, VisibleAnywhere, BlueprintGetter = "GetRegisteredLayers", meta = (
-		AllowPrivateAccess,
-		MustImplement = "/Script/Atum.AtumLayer"
+		AllowPrivateAccess
 	))
 	TArray<TObjectPtr<UObject>> RegisteredLayers;
 	
@@ -76,8 +75,7 @@ public:
 	bool RegisterLayerAt(const TScriptInterface<IAtumLayer>& Layer, int32 Index = 0) noexcept;
 	
 	UFUNCTION(BlueprintGetter, Category = "ATUM|Network", CustomThunk, meta = (Keywords = "ATUM Get Registered Layers"))
-	UPARAM(meta = (MustImplement = "/Script/Atum.AtumLayer")) const TArray<const UObject*>&
-		GetRegisteredLayers() const noexcept;
+	const TArray<const UObject*>& GetRegisteredLayers() const noexcept;
 	
 protected:
 	virtual void GetParameters_Implementation(

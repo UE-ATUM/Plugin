@@ -19,17 +19,17 @@ class ATUM_API UAtumNeuralNetworkLayers : public UDataAsset
 #if WITH_EDITORONLY_DATA
 	mutable TMap<TObjectPtr<const UClass>, TTuple<TArray<int32>, int32>> CachedIndices;
 	
-	UPROPERTY(Transient, NonTransactional, meta = (MustImplement = "/Script/Atum.AtumLayer"))
+	UPROPERTY(Transient, NonTransactional)
 	mutable TArray<TObjectPtr<const UClass>> PreEditLayerTypes;
 	
-	UPROPERTY(Transient, NonTransactional, meta = (MustImplement = "/Script/Atum.AtumLayer"))
+	UPROPERTY(Transient, NonTransactional)
 	mutable TArray<TObjectPtr<UObject>> PreEditLayerObjects;
 #endif
 	
-	UPROPERTY(Transient, NonTransactional, meta = (MustImplement = "/Script/Atum.AtumLayer"))
+	UPROPERTY(Transient, NonTransactional)
 	mutable TArray<const UClass*> LayerTypesConst;
 	
-	UPROPERTY(Transient, NonTransactional, meta = (MustImplement = "/Script/Atum.AtumLayer"))
+	UPROPERTY(Transient, NonTransactional)
 	mutable TArray<const UObject*> LayerObjectsConst;
 	
 protected:
@@ -40,19 +40,16 @@ protected:
 	TArray<TObjectPtr<const UClass>> LayerTypes;
 	
 	UPROPERTY(Instanced, EditFixedSize, VisibleAnywhere, BlueprintGetter = "GetLayerObjects", meta = (
-		AllowPrivateAccess,
-		MustImplement = "/Script/Atum.AtumLayer"
+		AllowPrivateAccess
 	))
 	TArray<TObjectPtr<UObject>> LayerObjects;
 	
 public:
 	UFUNCTION(BlueprintGetter, Category = "ATUM|Network", CustomThunk, meta = (Keywords = "ATUM Get Layer Types"))
-	UPARAM(meta = (MustImplement = "/Script/Atum.AtumLayer")) const TArray<const UClass*>&
-		GetLayerTypes() const noexcept;
+	const TArray<const UClass*>& GetLayerTypes() const noexcept;
 	
 	UFUNCTION(BlueprintGetter, Category = "ATUM|Network", CustomThunk, meta = (Keywords = "ATUM Get Layer Objects"))
-	UPARAM(meta = (MustImplement = "/Script/Atum.AtumLayer")) const TArray<const UObject*>&
-		GetLayerObjects() const noexcept;
+	const TArray<const UObject*>& GetLayerObjects() const noexcept;
 	
 protected:
 #if WITH_EDITOR
@@ -67,7 +64,7 @@ protected:
 private:
 	DECLARE_FUNCTION(execGetLayerTypes) noexcept;
 	DECLARE_FUNCTION(execGetLayerObjects) noexcept;
-
+	
 	friend UAtumNeuralNetwork;
 };
 
