@@ -2,8 +2,6 @@
 
 #include "IAtumModule.h"
 
-#include "Interfaces/IPluginManager.h"
-
 #if PLATFORM_WINDOWS
 #include "Windows/WindowsPlatformProcess.h"
 #endif

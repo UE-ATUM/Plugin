@@ -2,7 +2,9 @@
 
 #pragma once
 
+#include "IAtumModule.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "Misc/FileHelper.h"
 
 #include <sstream>
 #include <vector>
@@ -21,7 +23,8 @@ class ATUM_API UAtumLibraryUtilities : public UBlueprintFunctionLibrary
 	
 public:
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Utilities")
-	static bool LoadFileContentFrom(const FString& AtumContentRelativePath, TArray<FString>& OutContent) noexcept;
+	static FORCEINLINE bool LoadFileContentFrom(const FString& RelativePath, TArray<FString>& OutContent) noexcept
+	{ return FFileHelper::LoadFileToStringArray(OutContent, *IAtumModule::GetContentDirectory(RelativePath)); }
 	
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Utilities")
 	static bool SetTextureData(UTexture2D* Texture, const TArray<uint8>& Pixels) noexcept;

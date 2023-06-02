@@ -3,24 +3,9 @@
 #include "FunctionLibraries/AtumLibraryUtilities.h"
 
 #include "Engine/Texture2D.h"
-#include "IAtumModule.h"
-#include "Interfaces/IPluginManager.h"
-#include "Misc/FileHelper.h"
 
 
 #define LOCTEXT_NAMESPACE "AtumLibraryUtilities"
-
-bool UAtumLibraryUtilities::LoadFileContentFrom(
-	const FString& AtumContentRelativePath,
-	TArray<FString>& OutContent
-) noexcept
-{
-	const IPlugin* const AtumPlugin = IPluginManager::Get().FindPlugin(IAtumModule::ModuleName.ToString()).Get();
-	return LIKELY(AtumPlugin) && FFileHelper::LoadFileToStringArray(
-		OutContent,
-		*(AtumPlugin->GetContentDir() / AtumContentRelativePath)
-	);
-}
 
 bool UAtumLibraryUtilities::SetTextureData(UTexture2D* const Texture, const TArray<uint8>& Pixels) noexcept
 {

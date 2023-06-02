@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "Interfaces/IPluginManager.h"
 #include "Modules/ModuleManager.h"
 
 
@@ -24,6 +25,9 @@ protected:
 	
 public:
 	static const FName ModuleName;
+	
+	static FORCEINLINE FString GetContentDirectory(const FString& AppendedPath = TEXT("")) noexcept
+	{ return IPluginManager::Get().FindPlugin(ModuleName.ToString())->GetContentDir() / AppendedPath; }
 	
 	static bool GetLibraryPath(FString& OutPath) noexcept;
 	
