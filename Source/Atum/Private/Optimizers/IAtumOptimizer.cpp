@@ -2,12 +2,14 @@
 
 #include "Optimizers/IAtumOptimizer.h"
 
+#include "IAtumModule.h"
 #include "Macros/AtumMacrosLog.h"
 #include "Optimizers/AtumOptimizerBaseOptions.h"
 #include "Tensors/IAtumTensor.h"
 
 TORCH_INCLUDES_START
 #include <torch/optim/optimizer.h>
+#include <torch/serialize.h>
 TORCH_INCLUDES_END
 
 
@@ -35,6 +37,69 @@ const FAtumOptimizerBaseOptions* IAtumOptimizer::GetBaseOptimizerOptions() const
 FAtumOptimizerBaseOptions* IAtumOptimizer::GetBaseOptimizerOptions() noexcept
 {
 	return nullptr;
+}
+
+bool IAtumOptimizer::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry)
+{
+	throw std::logic_error(TCHAR_TO_UTF8(*FString::Printf(
+		TEXT("OnInitializeData is not implemented in `%ls`!"),
+		*GetNameSafe(_getUObject()->GetClass())
+	)));
+}
+
+void IAtumOptimizer::K2_Step_Implementation(
+	const UClass* const Class,
+	TScriptInterface<IAtumTensor>& OutLoss,
+	const FAtumOptimizerLossClosure& LossClosure
+) noexcept
+{
+	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
+	
+	if (!bInitialized)
+	{
+		ATUM_LOG(
+			Error,
+			TEXT("ATUM Optimizer of type `%hs` has not been initialized!"),
+			TCHAR_TO_UTF8(*GetNameSafe(_getUObject()->GetClass()))
+		)
+		return;
+	}
+	
+	OutLoss = NewObject<UObject>(GetTransientPackage(), Class);
+	OutLoss->SetData(Optimizer->step([Class, LossClosure]
+	{
+		const TScriptInterface<IAtumTensor> Loss = NewObject<UObject>(GetTransientPackage(), Class);
+		if (UNLIKELY(LossClosure.IsBound()))
+		{
+			LossClosure.Execute(Loss);
+		}
+		return Loss->IsDefined() ? Loss->GetDataChecked() : at::Tensor();
+	}));
+}
+
+void IAtumOptimizer::GetParameters_Implementation(TArray<TScriptInterface<IAtumTensor>>& OutParameters) const noexcept
+{
+	if (const FAtumOptimizerBaseOptions* const BaseOptions = GetBaseOptimizerOptions(); BaseOptions)
+	{
+		OutParameters = BaseOptions->Parameters;
+	}
+}
+
+void IAtumOptimizer::SetParameters_Implementation(const TArray<TScriptInterface<IAtumTensor>>& Parameters) noexcept
+{
+	if (FAtumOptimizerBaseOptions* const BaseOptions = GetBaseOptimizerOptions(); BaseOptions)
+	{
+		BaseOptions->Parameters = Parameters;
+	}
+}
+
+bool IAtumOptimizer::SaveToFile_Implementation(const FString& RelativePath) const noexcept
+{
+	if (!IsInitialized())
+		return false;
+	
+	torch::save(*Optimizer, TCHAR_TO_UTF8(*IAtumModule::GetContentDirectory(RelativePath)));
+	return true;
 }
 
 bool IAtumOptimizer::InitializeData_Implementation(const bool bRetry) noexcept
@@ -91,60 +156,6 @@ bool IAtumOptimizer::InitializeData_Implementation(const bool bRetry) noexcept
 	
 	bInitialized = true;
 	return bInitialized;
-}
-
-bool IAtumOptimizer::OnInitializeData_Implementation([[maybe_unused]] const bool bRetry)
-{
-	throw std::logic_error(TCHAR_TO_UTF8(*FString::Printf(
-		TEXT("OnInitializeData is not implemented in `%ls`!"),
-		*GetNameSafe(_getUObject()->GetClass())
-	)));
-}
-
-void IAtumOptimizer::K2_Step_Implementation(
-	const UClass* const Class,
-	TScriptInterface<IAtumTensor>& OutLoss,
-	const FAtumOptimizerLossClosure& LossClosure
-) noexcept
-{
-	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
-	
-	if (!bInitialized)
-	{
-		ATUM_LOG(
-			Error,
-			TEXT("ATUM Optimizer of type `%hs` has not been initialized!"),
-			TCHAR_TO_UTF8(*GetNameSafe(_getUObject()->GetClass()))
-		)
-		return;
-	}
-	
-	OutLoss = NewObject<UObject>(GetTransientPackage(), Class);
-	OutLoss->SetData(Optimizer->step([Class, LossClosure]
-	{
-		const TScriptInterface<IAtumTensor> Loss = NewObject<UObject>(GetTransientPackage(), Class);
-		if (UNLIKELY(LossClosure.IsBound()))
-		{
-			LossClosure.Execute(Loss);
-		}
-		return Loss->IsDefined() ? Loss->GetDataChecked() : at::Tensor();
-	}));
-}
-
-void IAtumOptimizer::GetParameters_Implementation(TArray<TScriptInterface<IAtumTensor>>& OutParameters) const noexcept
-{
-	if (const FAtumOptimizerBaseOptions* const BaseOptions = GetBaseOptimizerOptions(); BaseOptions)
-	{
-		OutParameters = BaseOptions->Parameters;
-	}
-}
-
-void IAtumOptimizer::SetParameters_Implementation(const TArray<TScriptInterface<IAtumTensor>>& Parameters) noexcept
-{
-	if (FAtumOptimizerBaseOptions* const BaseOptions = GetBaseOptimizerOptions(); BaseOptions)
-	{
-		BaseOptions->Parameters = Parameters;
-	}
 }
 
 #undef LOCTEXT_NAMESPACE

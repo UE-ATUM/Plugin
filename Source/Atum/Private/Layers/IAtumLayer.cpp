@@ -32,83 +32,6 @@ FAtumLayerBaseOptions* IAtumLayer::GetBaseLayerOptions() noexcept
 	return nullptr;
 }
 
-bool IAtumLayer::InitializeData_Implementation(const bool bRetry) noexcept
-{
-	if (bInitialized && !bRetry)
-		return true;
-
-	UObject* const LayerObject = _getUObject();
-	try
-	{
-		bInitialized = Execute_OnInitializeData(LayerObject, bRetry);
-	}
-	catch (const std::exception& Exception)
-	{
-		bInitialized = false;
-		
-		const std::string& ExceptionString = Exception.what();
-		ATUM_LOG(
-			Error,
-			TEXT("Unhandled exception - %hs\nFailed to initialize ATUM Layer of type `%hs`!"),
-			ExceptionString.substr(0, ExceptionString.find("\n")).c_str(),
-			TCHAR_TO_UTF8(*GetNameSafe(LayerObject->GetClass()))
-		)
-	}
-	
-	return bInitialized;
-}
-
-bool IAtumLayer::Forward_Implementation(
-	const TScriptInterface<IAtumTensor>& Input,
-	TScriptInterface<IAtumTensor>& Output
-) noexcept
-{
-	UObject* const LayerObject = _getUObject();
-	const ANSICHAR* const LayerClassName = TCHAR_TO_UTF8(*GetNameSafe(LayerObject->GetClass()));
-	
-	const at::Tensor* const Data = Input ? Input->GetData() : nullptr;
-	const at::IntArrayRef& Sizes = Data ? Data->sizes() : at::IntArrayRef();
-	
-	if (Data == nullptr || Sizes.empty())
-	{
-		ATUM_LOG(Error, TEXT("Input had no data at ATUM Layer of type `%hs`!"), LayerClassName)
-		return false;
-	}
-	
-	for (const int64 Size : Sizes)
-	{
-		if (UNLIKELY(Size == 0LL))
-		{
-			ATUM_LOG(Error, TEXT("Input contains 0D dimension in ATUM Layer of type `%hs`!"), LayerClassName)
-			return false;
-		}
-	}
-	
-	if (!bInitialized)
-	{
-		ATUM_LOG(Error, TEXT("ATUM Layer of type `%hs` has not been initialized!"), LayerClassName)
-		return false;
-	}
-	
-	try
-	{
-		Execute_OnForward(LayerObject, Input, Output);
-	}
-	catch (const std::exception& Exception)
-	{
-		const std::string& ExceptionString = Exception.what();
-		ATUM_LOG(
-			Error,
-			TEXT("Unhandled exception - %hs\nFailed to forward in ATUM Layer of type `%hs`!"),
-			ExceptionString.substr(0, ExceptionString.find("\n")).c_str(),
-			LayerClassName
-		)
-		return false;
-	}
-	
-	return true;
-}
-
 bool IAtumLayer::AreInputSizesValid(const int32 InputSizeCount) const noexcept
 {
 	if (UNLIKELY(ValidInputSizes.empty()))
@@ -205,6 +128,95 @@ void IAtumLayer::GetParameters_Implementation(
 
 void IAtumLayer::SetBaseModule([[maybe_unused]] const torch::nn::Module* const Value) noexcept
 {
+}
+
+bool IAtumLayer::SaveToFile_Implementation(const FString& RelativePath) const noexcept
+{
+	if (!IsInitialized())
+		return false;
+	
+	torch::serialize::OutputArchive Archive;
+	GetBaseModule()->save(Archive);
+	
+	Archive.save_to(TCHAR_TO_UTF8(*IAtumModule::GetContentDirectory(RelativePath)));
+	return true;
+}
+
+bool IAtumLayer::InitializeData_Implementation(const bool bRetry) noexcept
+{
+	if (bInitialized && !bRetry)
+		return true;
+
+	UObject* const LayerObject = _getUObject();
+	try
+	{
+		bInitialized = Execute_OnInitializeData(LayerObject, bRetry);
+	}
+	catch (const std::exception& Exception)
+	{
+		bInitialized = false;
+		
+		const std::string& ExceptionString = Exception.what();
+		ATUM_LOG(
+			Error,
+			TEXT("Unhandled exception - %hs\nFailed to initialize ATUM Layer of type `%hs`!"),
+			ExceptionString.substr(0, ExceptionString.find("\n")).c_str(),
+			TCHAR_TO_UTF8(*GetNameSafe(LayerObject->GetClass()))
+		)
+	}
+	
+	return bInitialized;
+}
+
+bool IAtumLayer::Forward_Implementation(
+	const TScriptInterface<IAtumTensor>& Input,
+	TScriptInterface<IAtumTensor>& Output
+) noexcept
+{
+	UObject* const LayerObject = _getUObject();
+	const ANSICHAR* const LayerClassName = TCHAR_TO_UTF8(*GetNameSafe(LayerObject->GetClass()));
+	
+	const at::Tensor* const Data = Input ? Input->GetData() : nullptr;
+	const at::IntArrayRef& Sizes = Data ? Data->sizes() : at::IntArrayRef();
+	
+	if (Data == nullptr || Sizes.empty())
+	{
+		ATUM_LOG(Error, TEXT("Input had no data at ATUM Layer of type `%hs`!"), LayerClassName)
+		return false;
+	}
+	
+	for (const int64 Size : Sizes)
+	{
+		if (UNLIKELY(Size == 0LL))
+		{
+			ATUM_LOG(Error, TEXT("Input contains 0D dimension in ATUM Layer of type `%hs`!"), LayerClassName)
+			return false;
+		}
+	}
+	
+	if (!bInitialized)
+	{
+		ATUM_LOG(Error, TEXT("ATUM Layer of type `%hs` has not been initialized!"), LayerClassName)
+		return false;
+	}
+	
+	try
+	{
+		Execute_OnForward(LayerObject, Input, Output);
+	}
+	catch (const std::exception& Exception)
+	{
+		const std::string& ExceptionString = Exception.what();
+		ATUM_LOG(
+			Error,
+			TEXT("Unhandled exception - %hs\nFailed to forward in ATUM Layer of type `%hs`!"),
+			ExceptionString.substr(0, ExceptionString.find("\n")).c_str(),
+			LayerClassName
+		)
+		return false;
+	}
+	
+	return true;
 }
 
 #undef LOCTEXT_NAMESPACE

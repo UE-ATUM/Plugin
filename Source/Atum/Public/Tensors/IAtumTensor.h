@@ -4,7 +4,7 @@
 
 #include "AtumTensorRetainGraphMode.h"
 #include "AtumTensorScalarType.h"
-#include "UObject/Interface.h"
+#include "Serializable/IAtumSerializable.h"
 
 TORCH_INCLUDES_START
 #include <torch/csrc/autograd/generated/variable_factories.h>
@@ -16,12 +16,12 @@ TORCH_INCLUDES_END
 #define LOCTEXT_NAMESPACE "IAtumTensor"
 
 UINTERFACE(MinimalAPI, NotBlueprintable, BlueprintType, DisplayName = "ATUM Tensor")
-class UAtumTensor : public UInterface
+class UAtumTensor : public UAtumSerializable
 {
 	GENERATED_BODY()
 };
 
-class ATUM_API IAtumTensor
+class ATUM_API IAtumTensor : public IAtumSerializable
 {
 	GENERATED_BODY()
 	
@@ -120,6 +120,8 @@ public:
 protected:
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor", DisplayName = "Set Require Gradient")
 	virtual void K2_SetRequireGradient(bool bValue, TScriptInterface<IAtumTensor>& OutSelf) noexcept;
+	
+	virtual bool SaveToFile_Implementation(const FString& RelativePath) const noexcept override;
 	
 private:
 	UE_NODISCARD

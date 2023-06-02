@@ -2,6 +2,7 @@
 
 #include "Layers/Network/AtumNeuralNetwork.h"
 
+#include "IAtumModule.h"
 #include "Layers/Network/AtumNeuralNetworkLayers.h"
 #include "Macros/AtumMacrosLog.h"
 
@@ -133,6 +134,23 @@ void UAtumNeuralNetwork::GetParameters_Implementation(
 	{
 		Execute_GetParameters(RegisteredLayer.Get(), Class, OutValues);
 	}
+}
+
+bool UAtumNeuralNetwork::SaveToFile_Implementation(const FString& RelativePath) const noexcept
+{
+	if (!IsInitialized())
+		return false;
+	
+	torch::serialize::OutputArchive Archive;
+	GetBaseModule()->save(Archive);
+	
+	for (const TObjectPtr<UObject> Layer : RegisteredLayers)
+	{
+		CastChecked<IAtumLayer>(Layer.Get())->GetBaseModule()->save(Archive);
+	}
+	
+	Archive.save_to(TCHAR_TO_UTF8(*IAtumModule::GetContentDirectory(RelativePath)));
+	return true;
 }
 
 #if WITH_EDITOR

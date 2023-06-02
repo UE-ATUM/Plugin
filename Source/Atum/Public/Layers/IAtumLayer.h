@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "UObject/Interface.h"
+#include "Serializable/IAtumSerializable.h"
 
 #include <vector>
 
@@ -22,12 +22,12 @@ namespace torch::nn
 #define LOCTEXT_NAMESPACE "IAtumLayer"
 
 UINTERFACE(MinimalAPI, Blueprintable, BlueprintType, DisplayName = "ATUM Layer")
-class UAtumLayer : public UInterface
+class UAtumLayer : public UAtumSerializable
 {
 	GENERATED_BODY()
 };
 
-class ATUM_API IAtumLayer
+class ATUM_API IAtumLayer : public IAtumSerializable
 {
 	GENERATED_BODY()
 	
@@ -70,14 +70,6 @@ public:
 	) noexcept
 	{ return Execute_Forward(_getUObject(), Input, Output); }
 	
-private:
-	bool InitializeData_Implementation(bool bRetry = true) noexcept;
-	
-	bool Forward_Implementation(
-		const TScriptInterface<IAtumTensor>& Input,
-		TScriptInterface<IAtumTensor>& Output
-	) noexcept;
-	
 protected:
 	UE_NODISCARD
 	bool AreInputSizesValid(int32 InputSizeCount) const noexcept;
@@ -109,6 +101,16 @@ protected:
 	) const noexcept;
 	
 	virtual void SetBaseModule(const torch::nn::Module* Value) noexcept;
+	
+	virtual bool SaveToFile_Implementation(const FString& RelativePath) const noexcept override;
+	
+private:
+	bool InitializeData_Implementation(bool bRetry = true) noexcept;
+	
+	bool Forward_Implementation(
+		const TScriptInterface<IAtumTensor>& Input,
+		TScriptInterface<IAtumTensor>& Output
+	) noexcept;
 	
 public:
 	UE_NODISCARD

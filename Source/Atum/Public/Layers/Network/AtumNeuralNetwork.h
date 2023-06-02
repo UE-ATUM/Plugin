@@ -83,6 +83,8 @@ protected:
 		TMap<FString, TScriptInterface<IAtumTensor>>& OutValues
 	) const noexcept override;
 	
+	virtual bool SaveToFile_Implementation(const FString& RelativePath) const noexcept override;
+	
 #if WITH_EDITOR
 	virtual void PostCDOCompiled(const FPostCDOCompiledContext& Context) override;
 #endif

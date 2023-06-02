@@ -2,6 +2,12 @@
 
 #include "Tensors/IAtumTensor.h"
 
+#include "IAtumModule.h"
+
+TORCH_INCLUDES_START
+#include <torch/serialize.h>
+TORCH_INCLUDES_END
+
 
 #define LOCTEXT_NAMESPACE "IAtumTensor"
 
@@ -141,6 +147,15 @@ IAtumTensor::operator FString() const noexcept
 void IAtumTensor::K2_SetRequireGradient(const bool bValue, TScriptInterface<IAtumTensor>& OutSelf) noexcept
 {
 	OutSelf = SetRequireGradient(bValue)->_getUObject();
+}
+
+bool IAtumTensor::SaveToFile_Implementation(const FString& RelativePath) const noexcept
+{
+	if (!IsDefined())
+		return false;
+	
+	torch::save(*Data, TCHAR_TO_UTF8(*IAtumModule::GetContentDirectory(RelativePath)));
+	return true;
 }
 
 std::ostream& operator<<(std::ostream& OutStream, const IAtumTensor& AtumTensor) noexcept

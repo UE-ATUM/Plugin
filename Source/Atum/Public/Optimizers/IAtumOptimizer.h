@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "UObject/Interface.h"
+#include "Serializable/IAtumSerializable.h"
 
 #include "IAtumOptimizer.generated.h"
 
@@ -29,12 +29,12 @@ struct FOptimizerParametersDeleter
 
 
 UINTERFACE(MinimalAPI, Blueprintable, BlueprintType, DisplayName = "ATUM Optimizer")
-class UAtumOptimizer : public UInterface
+class UAtumOptimizer : public UAtumSerializable
 {
 	GENERATED_BODY()
 };
 
-class ATUM_API IAtumOptimizer
+class ATUM_API IAtumOptimizer : public IAtumSerializable
 {
 	GENERATED_BODY()
 	
@@ -68,9 +68,6 @@ public:
 	UE_NODISCARD
 	virtual FAtumOptimizerBaseOptions* GetBaseOptimizerOptions() noexcept;
 	
-private:
-	bool InitializeData_Implementation(bool bRetry = true) noexcept;
-	
 protected:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Optimizer")
 	bool OnInitializeData(bool bRetry = true);
@@ -96,6 +93,11 @@ protected:
 	virtual void GetParameters_Implementation(TArray<TScriptInterface<IAtumTensor>>& OutParameters) const noexcept;
 	
 	virtual void SetParameters_Implementation(const TArray<TScriptInterface<IAtumTensor>>& Parameters) noexcept;
+	
+	virtual bool SaveToFile_Implementation(const FString& RelativePath) const noexcept override;
+	
+private:
+	bool InitializeData_Implementation(bool bRetry = true) noexcept;
 	
 public:
 	UE_NODISCARD
