@@ -40,3 +40,6 @@ Saved/*
 Intermediate/*
 Plugins/*/Intermediate/*
 DerivedDataCache/*
+
+Content/MNIST/mnist_test.csv
+Content/MNIST/mnist_train.csv
