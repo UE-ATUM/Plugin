@@ -39,6 +39,7 @@ class ATUM_API UAtumLibraryTensors : public UBlueprintFunctionLibrary
 public:
 	UE_NODISCARD
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make Empty Tensor", meta = (
+		AutoCreateRefTerm = "Sizes",
 		DeterminesOutputType = "Class",
 		CompactNodeTitle = "Empty Tensor",
 		Keywords = "ATUM Constructor Make Empty Tensor Class Sizes"
@@ -46,7 +47,7 @@ public:
 	static UObject* Empty(
 		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) const UClass* Class,
 		const TArray<int64>& Sizes
-	) noexcept;
+	);
 	
 	UE_NODISCARD
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make Eye Tensor", meta = (
@@ -56,11 +57,12 @@ public:
 	))
 	static UObject* Eye(
 		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) const UClass* Class,
-		int64 Size
-	) noexcept;
+		int64 Size = 0LL
+	);
 	
 	UE_NODISCARD
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make Ones Tensor", meta = (
+		AutoCreateRefTerm = "Sizes",
 		DeterminesOutputType = "Class",
 		CompactNodeTitle = "Ones Tensor",
 		Keywords = "ATUM Constructor Make Ones Tensor Class Sizes"
@@ -68,10 +70,11 @@ public:
 	static UObject* Ones(
 		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) const UClass* Class,
 		const TArray<int64>& Sizes
-	) noexcept;
+	);
 	
 	UE_NODISCARD
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make Random Tensor", meta = (
+		AutoCreateRefTerm = "Sizes",
 		DeterminesOutputType = "Class",
 		CompactNodeTitle = "Random Tensor",
 		Keywords = "ATUM Constructor Make Random Tensor Class Sizes"
@@ -79,10 +82,11 @@ public:
 	static UObject* Random(
 		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) const UClass* Class,
 		const TArray<int64>& Sizes
-	) noexcept;
+	);
 	
 	UE_NODISCARD
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make RandN Tensor", meta = (
+		AutoCreateRefTerm = "Sizes",
 		DeterminesOutputType = "Class",
 		CompactNodeTitle = "RandN Tensor",
 		Keywords = "ATUM Constructor Make Normally Distributed Random Tensor Class Sizes"
@@ -90,16 +94,28 @@ public:
 	static UObject* RandN(
 		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) const UClass* Class,
 		const TArray<int64>& Sizes
-	) noexcept;
+	);
 	
 	UE_NODISCARD
-	UFUNCTION(BlueprintPure, Category = "ATUM|Cast", DisplayName = "To String", CustomThunk, meta = (
+	UFUNCTION(BlueprintPure, Category = "ATUM|Cast", DisplayName = "Tensor To String", CustomThunk, meta = (
 		BlueprintAutocast,
 		CompactNodeTitle = "->",
 		Keywords = "ATUM Cast Tensor To String"
 	))
 	static FORCEINLINE FString Conv_TensorToString(const TScriptInterface<const IAtumTensor>& Tensor) noexcept
 	{ return Tensor ? Tensor->ToString() : TEXT(""); }
+	
+	UE_NODISCARD
+	UFUNCTION(BlueprintPure, Category = "ATUM|Operator", DisplayName = "Add Tensors", CustomThunk, meta = (
+		CompactNodeTitle = "+",
+		Keywords = "ATUM Operator Overload + Add Plus Tensor Left Right"
+	))
+	static TScriptInterface<IAtumTensor> Add_TensorTensor(
+		const TScriptInterface<const IAtumTensor>& Left,
+		const TScriptInterface<IAtumTensor>& Right,
+		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) const UClass* const Class
+	) noexcept
+	{ return Left->Add(Right, Class); }
 	
 	static void GenericArray_Serialize(
 		const uint8* TargetAddress,
@@ -117,6 +133,7 @@ private:
 	DECLARE_FUNCTION(execK2_SerializeArray) noexcept;
 	DECLARE_FUNCTION(execK2_DeserializeArray) noexcept;
 	DECLARE_FUNCTION(execConv_TensorToString) noexcept;
+	DECLARE_FUNCTION(execAdd_TensorTensor) noexcept;
 };
 
 #undef LOCTEXT_NAMESPACE

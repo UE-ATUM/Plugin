@@ -20,6 +20,60 @@ bool IAtumTensor::IsDefined() const noexcept
 	return Data && Data->defined();
 }
 
+bool IAtumTensor::IsBroadcastableToArray(const TArray<int64>& BroadcastSizes) const noexcept
+{
+	if (BroadcastSizes.IsEmpty() || BroadcastSizes.Contains(0LL) || !IsDefined())
+		return false;
+	
+	TArray<int64> Sizes;
+	GetSizes(Sizes);
+	if (Sizes.IsEmpty() || Sizes.Contains(0LL))
+		return false;
+	
+	const auto [MinSizeCount, MaxSizeCount] = std::minmax(Sizes.Num(), BroadcastSizes.Num());
+	if (MinSizeCount == 0 || MaxSizeCount == 0)
+		return false;
+	
+	const int32 SizeDifference = MaxSizeCount - MinSizeCount;
+	for (int32 Index = 0; Index < MinSizeCount; ++Index)
+	{
+		const int64 BroadcastSize = BroadcastSizes[Index + SizeDifference];
+		if (const int64 Size = Sizes[Index]; Size != BroadcastSize && Size != 1LL && BroadcastSize != 1LL)
+			return false;
+	}
+	return true;
+}
+
+bool IAtumTensor::IsBroadcastableToTensor(const TScriptInterface<IAtumTensor>& Tensor) const noexcept
+{
+	if (Tensor == nullptr || !Tensor->IsDefined())
+		return false;
+	
+	TArray<int64> TensorSizes;
+	Tensor->GetSizes(TensorSizes);
+	return IsBroadcastableToArray(TensorSizes);
+}
+
+bool IAtumTensor::BroadcastToArray(const TArray<int64>& BroadcastSizes) noexcept
+{
+	if (!IsBroadcastableToArray(BroadcastSizes))
+		return false;
+	
+	const int64* const SizeData = BroadcastSizes.GetData();
+	*Data = broadcast_to(*Data, at::IntArrayRef(SizeData, SizeData + BroadcastSizes.Num()));
+	return true;
+}
+
+bool IAtumTensor::BroadcastToTensor(const TScriptInterface<IAtumTensor>& Tensor) noexcept
+{
+	if (Tensor == nullptr || !Tensor->IsDefined())
+		return false;
+	
+	TArray<int64> TensorSizes;
+	Tensor->GetSizes(TensorSizes);
+	return BroadcastToArray(TensorSizes);
+}
+
 void IAtumTensor::GetGradient(TScriptInterface<IAtumTensor>& OutGradient) const noexcept
 {
 	if (OutGradient = IsDefined() ? DuplicateObject(_getUObject(), nullptr) : nullptr; OutGradient)
@@ -71,7 +125,7 @@ void IAtumTensor::GetSerializedValues(TArray<uint8>& OutValues, TArray<int64>& O
 		OutSizes.AddZeroed();
 		return;
 	}
-
+	
 	OutValues.AddUninitialized(ByteCount);
 	FMemory::Memcpy(OutValues.GetData(), Data->data_ptr(), ByteCount);
 	GetSizes(OutSizes);
@@ -135,6 +189,22 @@ bool IAtumTensor::Backward(
 		TensorList.empty() ? c10::nullopt : c10::optional<at::TensorList>(MoveTemp(TensorList))
 	);
 	return true;
+}
+
+TScriptInterface<IAtumTensor> IAtumTensor::Add(
+	const TScriptInterface<IAtumTensor>& Other,
+	const UClass* const Class
+) const noexcept
+{
+	auto* const Result = NewObject<UObject>(
+		GetTransientPackage(),
+		Class && Class->ImplementsInterface(UAtumTensor::StaticClass()) ? Class : _getUObject()->GetClass()
+	);
+	if (IsBroadcastableToTensor(Other))
+	{
+		CastChecked<IAtumTensor>(Result)->SetData(Data->add(*Other->Data));
+	}
+	return Result;
 }
 
 IAtumTensor::operator FString() const noexcept

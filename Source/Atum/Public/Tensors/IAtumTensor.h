@@ -37,6 +37,20 @@ public:
 	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
 	virtual bool IsDefined() const noexcept;
 	
+	UE_NODISCARD
+	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor", DisplayName = "Is Broadcastable (Array)")
+	virtual bool IsBroadcastableToArray(const TArray<int64>& BroadcastSizes) const noexcept;
+	
+	UE_NODISCARD
+	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor", DisplayName = "Is Broadcastable (Tensor)")
+	virtual bool IsBroadcastableToTensor(const TScriptInterface<IAtumTensor>& Tensor) const noexcept;
+	
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor", DisplayName = "Broadcast To (Array)")
+	virtual bool BroadcastToArray(const TArray<int64>& BroadcastSizes) noexcept;
+	
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor", DisplayName = "Broadcast To (Tensor)")
+	virtual bool BroadcastToTensor(const TScriptInterface<IAtumTensor>& Tensor) noexcept;
+	
 	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
 	virtual void GetGradient(TScriptInterface<IAtumTensor>& OutGradient) const noexcept;
 	
@@ -85,6 +99,16 @@ public:
 	UE_NODISCARD
 	FORCEINLINE c10::ScalarType GetTorchScalarType() const noexcept
 	{ return IsDefined() ? Data->scalar_type() : AtumEnums::Cast(GetScalarType()); }
+	
+	UE_NODISCARD
+	TScriptInterface<IAtumTensor> Add(
+		const TScriptInterface<IAtumTensor>& Other,
+		const UClass* Class = nullptr
+	) const noexcept;
+	
+	UE_NODISCARD
+	FORCEINLINE TScriptInterface<IAtumTensor> operator+(const TScriptInterface<IAtumTensor>& Other) const noexcept
+	{ return Add(Other); }
 	
 	UE_NODISCARD
 	explicit operator FString() const noexcept;

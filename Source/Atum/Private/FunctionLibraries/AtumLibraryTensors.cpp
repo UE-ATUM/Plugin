@@ -24,7 +24,7 @@ void UAtumLibraryTensors::K2_DeserializeArray(
 	ATUM_LOG(Warning, TEXT("Called UAtumLibraryTensors::K2_DeserializeArray from native code!"))
 }
 
-UObject* UAtumLibraryTensors::Empty(const UClass* const Class, const TArray<int64>& Sizes) noexcept
+UObject* UAtumLibraryTensors::Empty(const UClass* const Class, const TArray<int64>& Sizes)
 {
 	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
@@ -35,7 +35,7 @@ UObject* UAtumLibraryTensors::Empty(const UClass* const Class, const TArray<int6
 	return Tensor;
 }
 
-UObject* UAtumLibraryTensors::Eye(const UClass* const Class, const int64 Size) noexcept
+UObject* UAtumLibraryTensors::Eye(const UClass* const Class, const int64 Size)
 {
 	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
@@ -44,7 +44,7 @@ UObject* UAtumLibraryTensors::Eye(const UClass* const Class, const int64 Size) n
 	return Tensor;
 }
 
-UObject* UAtumLibraryTensors::Ones(const UClass* const Class, const TArray<int64>& Sizes) noexcept
+UObject* UAtumLibraryTensors::Ones(const UClass* const Class, const TArray<int64>& Sizes)
 {
 	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
@@ -53,7 +53,7 @@ UObject* UAtumLibraryTensors::Ones(const UClass* const Class, const TArray<int64
 	return Tensor;
 }
 
-UObject* UAtumLibraryTensors::Random(const UClass* const Class, const TArray<int64>& Sizes) noexcept
+UObject* UAtumLibraryTensors::Random(const UClass* const Class, const TArray<int64>& Sizes)
 {
 	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
@@ -62,7 +62,7 @@ UObject* UAtumLibraryTensors::Random(const UClass* const Class, const TArray<int
 	return Tensor;
 }
 
-UObject* UAtumLibraryTensors::RandN(const UClass* const Class, const TArray<int64>& Sizes) noexcept
+UObject* UAtumLibraryTensors::RandN(const UClass* const Class, const TArray<int64>& Sizes)
 {
 	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
@@ -193,6 +193,30 @@ void UAtumLibraryTensors::execConv_TensorToString(
 	*static_cast<FString*>(Z_Param__Result) = Conv_TensorToString(Tensor);
 	P_NATIVE_END
 }
+
+void UAtumLibraryTensors::execAdd_TensorTensor(
+	[[maybe_unused]] UObject* const Context,
+	FFrame& Stack,
+	void* const Z_Param__Result
+) noexcept
+{
+	TScriptInterface<const IAtumTensor> LeftTemp;
+	const TScriptInterface<const IAtumTensor>& Left = Stack
+	.StepCompiledInRef<FInterfaceProperty, TScriptInterface<const IAtumTensor>>(&LeftTemp);
+	
+	TScriptInterface<IAtumTensor> RightTemp;
+	const TScriptInterface<IAtumTensor>& Right = Stack
+	.StepCompiledInRef<FInterfaceProperty, TScriptInterface<IAtumTensor>>(&RightTemp);
+	
+	P_GET_OBJECT(UClass, Class)
+	
+	P_FINISH
+	
+	P_NATIVE_BEGIN
+	*static_cast<TScriptInterface<IAtumTensor>*>(Z_Param__Result) = Add_TensorTensor(Left, Right, Class);
+	P_NATIVE_END
+}
+
 // ReSharper restore CppUE4CodingStandardNamingViolationWarning
 
 #undef LOCTEXT_NAMESPACE
