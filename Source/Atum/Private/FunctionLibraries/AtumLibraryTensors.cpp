@@ -26,7 +26,7 @@ void UAtumLibraryTensors::K2_DeserializeArray(
 
 UObject* UAtumLibraryTensors::Empty(const UClass* const Class, const TArray<int64>& Sizes)
 {
-	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
+	check(Class && Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
 	auto* const Tensor = NewObject<UObject>(GetTransientPackage(), Class);
 	CastChecked<IAtumTensor>(Tensor)->SetData(
@@ -37,7 +37,7 @@ UObject* UAtumLibraryTensors::Empty(const UClass* const Class, const TArray<int6
 
 UObject* UAtumLibraryTensors::Eye(const UClass* const Class, const int64 Size)
 {
-	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
+	check(Class && Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
 	auto* const Tensor = NewObject<UObject>(GetTransientPackage(), Class);
 	CastChecked<IAtumTensor>(Tensor)->SetData(torch::eye(Size));
@@ -46,7 +46,7 @@ UObject* UAtumLibraryTensors::Eye(const UClass* const Class, const int64 Size)
 
 UObject* UAtumLibraryTensors::Ones(const UClass* const Class, const TArray<int64>& Sizes)
 {
-	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
+	check(Class && Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
 	auto* const Tensor = NewObject<UObject>(GetTransientPackage(), Class);
 	CastChecked<IAtumTensor>(Tensor)->SetData(torch::ones(at::IntArrayRef(Sizes.GetData(), Sizes.Num())));
@@ -55,7 +55,7 @@ UObject* UAtumLibraryTensors::Ones(const UClass* const Class, const TArray<int64
 
 UObject* UAtumLibraryTensors::Random(const UClass* const Class, const TArray<int64>& Sizes)
 {
-	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
+	check(Class && Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
 	auto* const Tensor = NewObject<UObject>(GetTransientPackage(), Class);
 	CastChecked<IAtumTensor>(Tensor)->SetData(torch::rand(at::IntArrayRef(Sizes.GetData(), Sizes.Num())));
@@ -64,12 +64,30 @@ UObject* UAtumLibraryTensors::Random(const UClass* const Class, const TArray<int
 
 UObject* UAtumLibraryTensors::RandN(const UClass* const Class, const TArray<int64>& Sizes)
 {
-	check(Class->ImplementsInterface(UAtumTensor::StaticClass()))
+	check(Class && Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
 	auto* const Tensor = NewObject<UObject>(GetTransientPackage(), Class);
 	CastChecked<IAtumTensor>(Tensor)->SetData(
 		torch::randn(at::IntArrayRef(Sizes.GetData(), Sizes.Num()))
 	);
+	return Tensor;
+}
+
+TScriptInterface<IAtumTensor> UAtumLibraryTensors::BinaryCrossEntropy(
+	const TScriptInterface<const IAtumTensor>& Output,
+	const TScriptInterface<const IAtumTensor>& Label,
+	const UClass* const Class
+) noexcept
+{
+	check(Class && Class->ImplementsInterface(UAtumTensor::StaticClass()))
+	
+	auto* const Tensor = NewObject<UObject>(GetTransientPackage(), Class);
+	if (Output->IsBroadcastableToTensor(Label.GetObject()) || Label->IsBroadcastableToTensor(Output.GetObject()))
+	{
+		CastChecked<IAtumTensor>(Tensor)->SetData(
+			binary_cross_entropy(Output->GetDataChecked(), Label->GetDataChecked())
+		);
+	}
 	return Tensor;
 }
 
@@ -82,7 +100,7 @@ void UAtumLibraryTensors::GenericArray_Serialize(
 	check(TargetProperty)
 	if (TargetAddress == nullptr)
 		return;
-
+	
 	FScriptArrayHelper TargetArray(TargetProperty, TargetAddress);
 	OutBytes = TArray(TargetArray.GetRawPtr(), TargetArray.Num() * TargetProperty->Inner->GetSize());
 }
@@ -100,10 +118,10 @@ void UAtumLibraryTensors::GenericArray_Deserialize(
 	const FProperty* const OutTargetInnerProperty = OutTargetProperty->Inner;
 	const int32 ElementSize = OutTargetInnerProperty->GetSize();
 	const int32 ElementCount = Bytes.Num() / ElementSize;
-
+	
 	FScriptArrayHelper OutTargetArray(OutTargetProperty, OutTargetAddress);
 	OutTargetArray.AddUninitializedValues(ElementCount);
-
+	
 	const uint8* Source = Bytes.GetData();
 	uint8* Destination = OutTargetArray.GetRawPtr();
 	
@@ -124,7 +142,7 @@ void UAtumLibraryTensors::execK2_SerializeArray(
 {
 	Stack.MostRecentProperty = nullptr;
 	Stack.StepCompiledIn<FArrayProperty>(nullptr);
-
+	
 	const uint8* const TargetAddress = Stack.MostRecentPropertyAddress;
 	const FArrayProperty* const TargetProperty = CastField<FArrayProperty>(Stack.MostRecentProperty);
 	if (TargetProperty == nullptr)
@@ -132,11 +150,11 @@ void UAtumLibraryTensors::execK2_SerializeArray(
 		Stack.bArrayContextFailed = true;
 		return;
 	}
-
+	
 	P_GET_TARRAY_REF(uint8, OutBytes)
 	
 	P_FINISH
-		
+	
 	P_NATIVE_BEGIN
 	GenericArray_Serialize(TargetAddress, TargetProperty, OutBytes);
 	P_NATIVE_END
@@ -150,7 +168,7 @@ void UAtumLibraryTensors::execK2_DeserializeArray(
 {
 	TArray<uint8> BytesTemp;
 	const TArray<uint8>& Bytes = Stack.StepCompiledInRef<FArrayProperty, TArray<uint8>>(&BytesTemp);
-
+	
 	Stack.MostRecentProperty = nullptr;
 	Stack.StepCompiledIn<FArrayProperty>(nullptr);
 	if (CastField<FArrayProperty>(Stack.MostRecentProperty) == nullptr)
@@ -158,10 +176,10 @@ void UAtumLibraryTensors::execK2_DeserializeArray(
 		Stack.bArrayContextFailed = true;
 		return;
 	}
-
+	
 	Stack.MostRecentProperty = nullptr;
 	Stack.StepCompiledIn<FArrayProperty>(nullptr);
-
+	
 	uint8* const OutTargetAddress = Stack.MostRecentPropertyAddress;
 	const FArrayProperty* const OutTargetProperty = CastField<FArrayProperty>(Stack.MostRecentProperty);
 	if (OutTargetProperty == nullptr)
@@ -186,9 +204,9 @@ void UAtumLibraryTensors::execConv_TensorToString(
 	TScriptInterface<const IAtumTensor> TensorTemp;
 	const TScriptInterface<const IAtumTensor>& Tensor = Stack
 	.StepCompiledInRef<FInterfaceProperty, TScriptInterface<const IAtumTensor>>(&TensorTemp);
-		
+	
 	P_FINISH
-		
+	
 	P_NATIVE_BEGIN
 	*static_cast<FString*>(Z_Param__Result) = Conv_TensorToString(Tensor);
 	P_NATIVE_END
@@ -217,6 +235,28 @@ void UAtumLibraryTensors::execAdd_TensorTensor(
 	P_NATIVE_END
 }
 
+void UAtumLibraryTensors::execBinaryCrossEntropy(
+	[[maybe_unused]] UObject* const Context,
+	FFrame& Stack,
+	void* const Z_Param__Result
+) noexcept
+{
+	TScriptInterface<const IAtumTensor> OutputTemp;
+	const TScriptInterface<const IAtumTensor>& Output = Stack
+	.StepCompiledInRef<FInterfaceProperty, TScriptInterface<const IAtumTensor>>(&OutputTemp);
+	
+	TScriptInterface<const IAtumTensor> LabelTemp;
+	const TScriptInterface<const IAtumTensor>& Label = Stack
+	.StepCompiledInRef<FInterfaceProperty, TScriptInterface<const IAtumTensor>>(&LabelTemp);
+	
+	P_GET_OBJECT(UClass, Class)
+	
+	P_FINISH
+	
+	P_NATIVE_BEGIN
+	*static_cast<TScriptInterface<IAtumTensor>*>(Z_Param__Result) = BinaryCrossEntropy(Output, Label, Class);
+	P_NATIVE_END
+}
 // ReSharper restore CppUE4CodingStandardNamingViolationWarning
 
 #undef LOCTEXT_NAMESPACE

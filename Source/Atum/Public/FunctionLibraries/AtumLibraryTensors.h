@@ -108,7 +108,7 @@ public:
 	UE_NODISCARD
 	UFUNCTION(BlueprintPure, Category = "ATUM|Operator", DisplayName = "Add Tensors", CustomThunk, meta = (
 		CompactNodeTitle = "+",
-		Keywords = "ATUM Operator Overload + Add Plus Tensor Left Right"
+		Keywords = "ATUM Operator Overload + Add Plus Tensor Left Right Class"
 	))
 	static TScriptInterface<IAtumTensor> Add_TensorTensor(
 		const TScriptInterface<const IAtumTensor>& Left,
@@ -116,6 +116,16 @@ public:
 		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) const UClass* const Class
 	) noexcept
 	{ return Left->Add(Right, Class); }
+	
+	UE_NODISCARD
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor", CustomThunk, meta = (
+		Keywords = "ATUM Tensor Binary Cross Entropy Output Label Class"
+	))
+	static TScriptInterface<IAtumTensor> BinaryCrossEntropy(
+		const TScriptInterface<const IAtumTensor>& Output,
+		const TScriptInterface<const IAtumTensor>& Label,
+		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) const UClass* Class
+	) noexcept;
 	
 	static void GenericArray_Serialize(
 		const uint8* TargetAddress,
@@ -134,6 +144,7 @@ private:
 	DECLARE_FUNCTION(execK2_DeserializeArray) noexcept;
 	DECLARE_FUNCTION(execConv_TensorToString) noexcept;
 	DECLARE_FUNCTION(execAdd_TensorTensor) noexcept;
+	DECLARE_FUNCTION(execBinaryCrossEntropy) noexcept;
 };
 
 #undef LOCTEXT_NAMESPACE
