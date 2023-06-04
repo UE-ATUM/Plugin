@@ -103,6 +103,16 @@ void IAtumLayer::CloneData_Implementation(TScriptInterface<IAtumLayer>& OutClone
 	}
 }
 
+bool IAtumLayer::SetGradientToZero_Implementation(const bool bSetToNone) noexcept
+{
+	torch::nn::Module* const BaseModule = GetBaseModule();
+	if (BaseModule == nullptr)
+		return false;
+	
+	BaseModule->zero_grad(bSetToNone);
+	return true;
+}
+
 void IAtumLayer::GetParameters_Implementation(
 	const UClass* const Class,
 	TMap<FString, TScriptInterface<IAtumTensor>>& OutValues

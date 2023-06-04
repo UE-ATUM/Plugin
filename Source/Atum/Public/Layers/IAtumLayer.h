@@ -50,6 +50,9 @@ public:
 	void CloneData(TScriptInterface<IAtumLayer>& OutClone, UObject* Outer = nullptr) const;
 	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
+	bool SetGradientToZero(bool bSetToNone = false);
+	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
 	void GetParameters(
 		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) const UClass* Class,
 		TMap<FString, TScriptInterface<IAtumTensor>>& OutValues
@@ -98,6 +101,8 @@ protected:
 		TScriptInterface<IAtumLayer>& OutClone,
 		UObject* Outer = nullptr
 	) const noexcept;
+	
+	virtual bool SetGradientToZero_Implementation(bool bSetToNone = false) noexcept;
 	
 	virtual void GetParameters_Implementation(
 		const UClass* Class,
