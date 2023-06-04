@@ -188,6 +188,16 @@ void UAtumNeuralNetwork::PostCDOCompiled(const FPostCDOCompiledContext& Context)
 	
 	OnPostCDOCompiled->Broadcast();
 }
+
+void UAtumNeuralNetwork::InitializeAssetData() noexcept
+{
+	SET_WARN_COLOR(COLOR_DARK_RED)
+	const bool bSuccess = Execute_InitializeData(this, true);
+	
+	SET_WARN_COLOR(COLOR_DARK_GREEN)
+	ATUM_CLOG(bSuccess, Warning, TEXT("Neural network `%ls` initialised from the editor!"), *GetName());
+	CLEAR_WARN_COLOR()
+}
 #endif
 
 // ReSharper disable CppUE4CodingStandardNamingViolationWarning

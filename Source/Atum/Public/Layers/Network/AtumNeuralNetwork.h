@@ -90,6 +90,11 @@ protected:
 #endif
 	
 private:
+#if WITH_EDITOR
+	UFUNCTION(CallInEditor, BlueprintInternalUseOnly, Category = "ATUM|Network")
+	void InitializeAssetData() noexcept;
+#endif
+	
 	DECLARE_FUNCTION(execGetRegisteredLayers) noexcept;
 };
 
