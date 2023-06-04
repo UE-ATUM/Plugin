@@ -5,9 +5,9 @@
 #include "AssetTypeActions_Base.h"
 
 
-#define LOCTEXT_NAMESPACE "AtumNeuralNetworkActions"
+#define LOCTEXT_NAMESPACE "AssetTypeActions_AtumNeuralNetwork"
 
-class ATUMEDITOR_API FAtumNeuralNetworkAssetTypeActions : public FAssetTypeActions_Base
+class ATUMEDITOR_API FAssetTypeActions_AtumNeuralNetwork : public FAssetTypeActions_Base
 {
 public:
 	UE_NODISCARD

@@ -1,36 +1,36 @@
 ﻿// © 2023 Kaya Adrian.
 
-#include "AtumNeuralNetworkActions.h"
+#include "Assets/Network/AssetTypeActions_AtumNeuralNetwork.h"
 
-#include "AtumEditorModule.h"
-#include "AtumNeuralNetworkEditorToolkit.h"
+#include "Assets/Network/AtumNeuralNetworkEditorToolkit.h"
+#include "IAtumEditorModule.h"
 #include "Layers/Network/AtumNeuralNetwork.h"
 #include "Settings/AtumSettingsEditor.h"
 
 
-#define LOCTEXT_NAMESPACE "AtumNeuralNetworkActions"
+#define LOCTEXT_NAMESPACE "AssetTypeActions_AtumNeuralNetwork"
 
-UClass* FAtumNeuralNetworkAssetTypeActions::GetSupportedClass() const
+UClass* FAssetTypeActions_AtumNeuralNetwork::GetSupportedClass() const
 {
 	return UAtumNeuralNetwork::StaticClass();
 }
 
-FText FAtumNeuralNetworkAssetTypeActions::GetName() const
+FText FAssetTypeActions_AtumNeuralNetwork::GetName() const
 {
 	return LOCTEXT("AssetTypeActionsName", "ATUM Neural Network");
 }
 
-FColor FAtumNeuralNetworkAssetTypeActions::GetTypeColor() const
+FColor FAssetTypeActions_AtumNeuralNetwork::GetTypeColor() const
 {
 	return GetDefault<UAtumSettingsEditor>()->GetNeuralNetworkAssetTypeColor();
 }
 
-uint32 FAtumNeuralNetworkAssetTypeActions::GetCategories()
+uint32 FAssetTypeActions_AtumNeuralNetwork::GetCategories()
 {
-	return FAtumEditorModule::GetModule().GetAtumAssetCategoryBit();
+	return IAtumEditorModule::GetModule().GetAtumAssetCategoryBit();
 }
 
-void FAtumNeuralNetworkAssetTypeActions::OpenAssetEditor(
+void FAssetTypeActions_AtumNeuralNetwork::OpenAssetEditor(
 	const TArray<UObject*>& InObjects,
 	const TSharedPtr<IToolkitHost> EditWithinLevelEditor
 )

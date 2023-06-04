@@ -2,7 +2,7 @@
 
 #include "IAtumEditorModule.h"
 
-#include "AtumNeuralNetworkActions.h"
+#include "Assets/Network/AssetTypeActions_AtumNeuralNetwork.h"
 
 
 #define LOCTEXT_NAMESPACE "IAtumEditorModule"
@@ -12,7 +12,7 @@ const FName IAtumEditorModule::ModuleName = TEXT("AtumEditor");
 
 IAtumEditorModule::IAtumEditorModule() noexcept :
 AtumAssetCategoryBit(EAssetTypeCategories::None),
-AtumNeuralNetworkAssetTypeActions(MakeShared<FAtumNeuralNetworkAssetTypeActions>())
+AtumNeuralNetworkAssetTypeActions(MakeShared<FAssetTypeActions_AtumNeuralNetwork>())
 {
 }
 

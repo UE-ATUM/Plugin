@@ -5,7 +5,7 @@
 #include "AssetTypeCategories.h"
 #include "Modules/ModuleManager.h"
 
-class FAtumNeuralNetworkAssetTypeActions;
+class FAssetTypeActions_AtumNeuralNetwork;
 
 
 #define LOCTEXT_NAMESPACE "IAtumEditorModule"
@@ -14,7 +14,7 @@ class ATUMEDITOR_API IAtumEditorModule : public IModuleInterface
 {
 protected:
 	EAssetTypeCategories::Type AtumAssetCategoryBit;
-	TSharedRef<FAtumNeuralNetworkAssetTypeActions> AtumNeuralNetworkAssetTypeActions;
+	TSharedRef<FAssetTypeActions_AtumNeuralNetwork> AtumNeuralNetworkAssetTypeActions;
 	
 public:
 	static const FName ModuleName;
@@ -33,7 +33,7 @@ public:
 	FORCEINLINE EAssetTypeCategories::Type GetAtumAssetCategoryBit() const noexcept { return AtumAssetCategoryBit; }
 	
 	UE_NODISCARD
-	FORCEINLINE TSharedRef<const FAtumNeuralNetworkAssetTypeActions>
+	FORCEINLINE TSharedRef<const FAssetTypeActions_AtumNeuralNetwork>
 	GetAtumNeuralNetworkAssetTypeActions() const noexcept { return AtumNeuralNetworkAssetTypeActions; }
 };
 

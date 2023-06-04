@@ -1,11 +1,9 @@
 ﻿// © 2023 Kaya Adrian.
 
-#include "AtumNeuralNetworkEditorToolkit.h"
+#include "Assets/Network/AtumNeuralNetworkEditorToolkit.h"
 
-#include "GraphEditorActions.h"
 #include "Layers/Network/AtumNeuralNetwork.h"
 #include "Modules/ModuleManager.h"
-#include "SAtumNeuralNetworkWidget.h"
 #include "Widgets/Docking/SDockTab.h"
 
 
@@ -27,30 +25,23 @@ void FAtumNeuralNetworkEditorToolkit::InitEditor(
 	NeuralNetwork = NetworkToEdit;
 	OnPostCDOCompiledHandle = UAtumNeuralNetwork::OnPostCDOCompiled->AddLambda([this] { CloseWindow(); });
 	
-	FGraphEditorCommands::Register();
-	
 	const TSharedRef<FTabManager::FLayout> Layout = FTabManager::NewLayout(TEXT("AtumNeuralNetworkEditorLayout"))
 	->AddArea(
 		FTabManager::NewPrimaryArea()
 		->SetOrientation(Orient_Vertical)
 		->Split(
 			FTabManager::NewSplitter()
-			->SetSizeCoefficient(0.8F)
+			->SetSizeCoefficient(0.6F)
 			->SetOrientation(Orient_Horizontal)
 			->Split(
 				FTabManager::NewStack()
-				->SetSizeCoefficient(0.6F)
-				->AddTab(TEXT("AtumNeuralNetworkTestTab"), ETabState::OpenedTab)
-			)
-			->Split(
-				FTabManager::NewStack()
-				->SetSizeCoefficient(0.4F)
+				->SetSizeCoefficient(1.0F)
 				->AddTab(TEXT("AtumNeuralNetworkDetailsTab"), ETabState::OpenedTab)
 			)
 		)
 		->Split(
 			FTabManager::NewStack()
-			->SetSizeCoefficient(0.2F)
+			->SetSizeCoefficient(0.4F)
 			->AddTab(TEXT("OutputLog"), ETabState::OpenedTab)
 		)
 	);
@@ -79,18 +70,6 @@ void FAtumNeuralNetworkEditorToolkit::RegisterTabSpawners(const TSharedRef<FTabM
 	WorkspaceMenuCategory = InTabManager->AddLocalWorkspaceMenuCategory(
 		LOCTEXT("WorkspaceMenuCategory", "ATUM Neural Network Editor")
 	);
-	
-	InTabManager->RegisterTabSpawner(
-		TEXT("AtumNeuralNetworkTestTab"),
-		FOnSpawnTab::CreateLambda([=](const FSpawnTabArgs&)
-		{
-			return SNew(SDockTab)[
-				SNew(SAtumNeuralNetworkWidget)
-			];
-		})
-	)
-	.SetDisplayName(LOCTEXT("TestTab", "Test"))
-	.SetGroup(WorkspaceMenuCategory.ToSharedRef());
 	
 	FDetailsViewArgs DetailsViewArguments;
 	DetailsViewArguments.NameAreaSettings = FDetailsViewArgs::HideNameArea;

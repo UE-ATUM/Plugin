@@ -1,6 +1,6 @@
 ﻿// © 2023 Kaya Adrian.
 
-#include "AtumNeuralNetworkClassFilter.h"
+#include "Factories/AtumNeuralNetworkClassFilter.h"
 
 #include "Kismet2/KismetEditorUtilities.h"
 #include "Layers/Network/AtumNeuralNetwork.h"
