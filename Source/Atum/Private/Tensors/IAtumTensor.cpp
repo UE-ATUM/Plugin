@@ -30,15 +30,27 @@ bool IAtumTensor::IsBroadcastableToArray(const TArray<int64>& BroadcastSizes) co
 	if (Sizes.IsEmpty() || Sizes.Contains(0LL))
 		return false;
 	
-	const auto [MinSizeCount, MaxSizeCount] = std::minmax(Sizes.Num(), BroadcastSizes.Num());
+	const int32 BroadcastSizeCount = BroadcastSizes.Num();
+	const auto [MinSizeCount, MaxSizeCount] = std::minmax(Sizes.Num(), BroadcastSizeCount);
 	if (MinSizeCount == 0 || MaxSizeCount == 0)
 		return false;
+	
+	const int64* SmallSizeArray = Sizes.GetData();
+	const int64* BigSizeArray = nullptr;
+	if (MaxSizeCount != BroadcastSizeCount)
+	{
+		BigSizeArray = SmallSizeArray;
+		SmallSizeArray = BroadcastSizes.GetData();
+	}
 	
 	const int32 SizeDifference = MaxSizeCount - MinSizeCount;
 	for (int32 Index = 0; Index < MinSizeCount; ++Index)
 	{
-		const int64 BroadcastSize = BroadcastSizes[Index + SizeDifference];
-		if (const int64 Size = Sizes[Index]; Size != BroadcastSize && Size != 1LL && BroadcastSize != 1LL)
+		const int64 BigSize = *(BigSizeArray + Index + SizeDifference);
+		if (
+			const int64 SmallSize = *(SmallSizeArray + Index);
+			SmallSize != BigSize && SmallSize != 1LL && BigSize != 1LL
+		)
 			return false;
 	}
 	return true;
