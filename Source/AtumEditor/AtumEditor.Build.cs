@@ -16,7 +16,7 @@ public class AtumEditor : ModuleRules
 		bEnforceIWYU = true;
 		bUsePrecompiled = false;
 		bEnableExceptions = true;
-
+		
 		PublicDependencyModuleNames.AddRange(new[]
 		{
 			"Atum",

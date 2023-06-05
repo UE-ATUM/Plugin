@@ -16,7 +16,7 @@ public class Atum : ModuleRules
 		bEnforceIWYU = true;
 		bUsePrecompiled = false;
 		bEnableExceptions = true;
-
+		
 		PublicDependencyModuleNames.AddRange(new[]
 		{
 			"Core",
