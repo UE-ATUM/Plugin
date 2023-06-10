@@ -38,18 +38,14 @@ public:
 	virtual bool IsDefined() const noexcept;
 	
 	UE_NODISCARD
-	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor", DisplayName = "Is Broadcastable (Array)")
-	virtual bool IsBroadcastableToArray(const TArray<int64>& BroadcastSizes) const noexcept;
+	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor", DisplayName = "Is Broadcastable With")
+	virtual bool IsBroadcastableWith(const TScriptInterface<IAtumTensor>& BroadcastTensor) const noexcept;
 	
-	UE_NODISCARD
-	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor", DisplayName = "Is Broadcastable (Tensor)")
-	virtual bool IsBroadcastableToTensor(const TScriptInterface<IAtumTensor>& Tensor) const noexcept;
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor", DisplayName = "Broadcast To")
+	virtual bool BroadcastTo(const TScriptInterface<IAtumTensor>& BroadcastTensor) noexcept;
 	
-	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor", DisplayName = "Broadcast To (Array)")
-	virtual bool BroadcastToArray(const TArray<int64>& BroadcastSizes) noexcept;
-	
-	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor", DisplayName = "Broadcast To (Tensor)")
-	virtual bool BroadcastToTensor(const TScriptInterface<IAtumTensor>& Tensor) noexcept;
+	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
+	virtual void Detach(TScriptInterface<IAtumTensor>& OutDetachedTensor) const noexcept;
 	
 	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
 	virtual void GetGradient(TScriptInterface<IAtumTensor>& OutGradient) const noexcept;
@@ -103,7 +99,7 @@ public:
 	UE_NODISCARD
 	TScriptInterface<IAtumTensor> Add(
 		const TScriptInterface<IAtumTensor>& Other,
-		const UClass* Class = nullptr
+		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) const UClass* Class = nullptr
 	) const noexcept;
 	
 	UE_NODISCARD

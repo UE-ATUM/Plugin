@@ -74,15 +74,15 @@ UObject* UAtumLibraryTensors::RandN(const UClass* const Class, const TArray<int6
 }
 
 TScriptInterface<IAtumTensor> UAtumLibraryTensors::BinaryCrossEntropy(
-	const TScriptInterface<const IAtumTensor>& Output,
-	const TScriptInterface<const IAtumTensor>& Label,
+	const TScriptInterface<IAtumTensor>& Output,
+	const TScriptInterface<IAtumTensor>& Label,
 	const UClass* const Class
 ) noexcept
 {
 	check(Class && Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
 	auto* const Tensor = NewObject<UObject>(GetTransientPackage(), Class);
-	if (Output->IsBroadcastableToTensor(Label.GetObject()) || Label->IsBroadcastableToTensor(Output.GetObject()))
+	if (Output && Output->IsBroadcastableWith(Label))
 	{
 		CastChecked<IAtumTensor>(Tensor)->SetData(
 			binary_cross_entropy(Output->GetDataChecked(), Label->GetDataChecked())
@@ -209,52 +209,6 @@ void UAtumLibraryTensors::execConv_TensorToString(
 	
 	P_NATIVE_BEGIN
 	*static_cast<FString*>(Z_Param__Result) = Conv_TensorToString(Tensor);
-	P_NATIVE_END
-}
-
-void UAtumLibraryTensors::execAdd_TensorTensor(
-	[[maybe_unused]] UObject* const Context,
-	FFrame& Stack,
-	void* const Z_Param__Result
-) noexcept
-{
-	TScriptInterface<const IAtumTensor> LeftTemp;
-	const TScriptInterface<const IAtumTensor>& Left = Stack
-	.StepCompiledInRef<FInterfaceProperty, TScriptInterface<const IAtumTensor>>(&LeftTemp);
-	
-	TScriptInterface<IAtumTensor> RightTemp;
-	const TScriptInterface<IAtumTensor>& Right = Stack
-	.StepCompiledInRef<FInterfaceProperty, TScriptInterface<IAtumTensor>>(&RightTemp);
-	
-	P_GET_OBJECT(UClass, Class)
-	
-	P_FINISH
-	
-	P_NATIVE_BEGIN
-	*static_cast<TScriptInterface<IAtumTensor>*>(Z_Param__Result) = Add_TensorTensor(Left, Right, Class);
-	P_NATIVE_END
-}
-
-void UAtumLibraryTensors::execBinaryCrossEntropy(
-	[[maybe_unused]] UObject* const Context,
-	FFrame& Stack,
-	void* const Z_Param__Result
-) noexcept
-{
-	TScriptInterface<const IAtumTensor> OutputTemp;
-	const TScriptInterface<const IAtumTensor>& Output = Stack
-	.StepCompiledInRef<FInterfaceProperty, TScriptInterface<const IAtumTensor>>(&OutputTemp);
-	
-	TScriptInterface<const IAtumTensor> LabelTemp;
-	const TScriptInterface<const IAtumTensor>& Label = Stack
-	.StepCompiledInRef<FInterfaceProperty, TScriptInterface<const IAtumTensor>>(&LabelTemp);
-	
-	P_GET_OBJECT(UClass, Class)
-	
-	P_FINISH
-	
-	P_NATIVE_BEGIN
-	*static_cast<TScriptInterface<IAtumTensor>*>(Z_Param__Result) = BinaryCrossEntropy(Output, Label, Class);
 	P_NATIVE_END
 }
 // ReSharper restore CppUE4CodingStandardNamingViolationWarning

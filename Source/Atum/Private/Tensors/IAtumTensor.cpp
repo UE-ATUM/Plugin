@@ -20,70 +20,59 @@ bool IAtumTensor::IsDefined() const noexcept
 	return Data && Data->defined();
 }
 
-bool IAtumTensor::IsBroadcastableToArray(const TArray<int64>& BroadcastSizes) const noexcept
+bool IAtumTensor::IsBroadcastableWith(const TScriptInterface<IAtumTensor>& BroadcastTensor) const noexcept
 {
-	if (BroadcastSizes.IsEmpty() || BroadcastSizes.Contains(0LL) || !IsDefined())
+	if (!IsDefined() || BroadcastTensor == nullptr || !BroadcastTensor->IsDefined())
 		return false;
 	
 	TArray<int64> Sizes;
 	GetSizes(Sizes);
-	if (Sizes.IsEmpty() || Sizes.Contains(0LL))
-		return false;
+	const int32 SizeCount = Sizes.Num();
 	
-	const int32 BroadcastSizeCount = BroadcastSizes.Num();
-	const auto [MinSizeCount, MaxSizeCount] = std::minmax(Sizes.Num(), BroadcastSizeCount);
-	if (MinSizeCount == 0 || MaxSizeCount == 0)
-		return false;
+	TArray<int64> BroadcastSizes;
+	BroadcastTensor->GetSizes(BroadcastSizes);
+	int32 BroadcastSizeCount = BroadcastSizes.Num();
 	
-	const int64* SmallSizeArray = Sizes.GetData();
-	const int64* BigSizeArray = nullptr;
-	if (MaxSizeCount != BroadcastSizeCount)
+	if (SizeCount < BroadcastSizeCount)
+		return BroadcastTensor->IsBroadcastableWith(_getUObject());
+	
+	while (SizeCount != BroadcastSizeCount)
 	{
-		BigSizeArray = SmallSizeArray;
-		SmallSizeArray = BroadcastSizes.GetData();
+		BroadcastSizes.Insert(1LL, 0);
+		++BroadcastSizeCount;
 	}
 	
-	const int32 SizeDifference = MaxSizeCount - MinSizeCount;
-	for (int32 Index = 0; Index < MinSizeCount; ++Index)
+	for (int32 Index = SizeCount - 1; Index >= 0; --Index)
 	{
-		const int64 BigSize = *(BigSizeArray + Index + SizeDifference);
+		const int32 BroadcastSize = BroadcastSizes[Index];
 		if (
-			const int64 SmallSize = *(SmallSizeArray + Index);
-			SmallSize != BigSize && SmallSize != 1LL && BigSize != 1LL
+			const int32 Size = Sizes[Index];
+			Size == 0LL || BroadcastSize == 0LL || (Size != BroadcastSize && Size != 1LL && BroadcastSize != 1LL)
 		)
 			return false;
 	}
 	return true;
 }
 
-bool IAtumTensor::IsBroadcastableToTensor(const TScriptInterface<IAtumTensor>& Tensor) const noexcept
+bool IAtumTensor::BroadcastTo(const TScriptInterface<IAtumTensor>& BroadcastTensor) noexcept
 {
-	if (Tensor == nullptr || !Tensor->IsDefined())
+	if (!IsBroadcastableWith(BroadcastTensor))
 		return false;
 	
-	TArray<int64> TensorSizes;
-	Tensor->GetSizes(TensorSizes);
-	return IsBroadcastableToArray(TensorSizes);
-}
-
-bool IAtumTensor::BroadcastToArray(const TArray<int64>& BroadcastSizes) noexcept
-{
-	if (!IsBroadcastableToArray(BroadcastSizes))
-		return false;
+	TArray<int64> BroadcastSizes;
+	BroadcastTensor->GetSizes(BroadcastSizes);
 	
 	const int64* const SizeData = BroadcastSizes.GetData();
 	*Data = broadcast_to(*Data, at::IntArrayRef(SizeData, SizeData + BroadcastSizes.Num()));
 	return true;
 }
 
-bool IAtumTensor::BroadcastToTensor(const TScriptInterface<IAtumTensor>& Tensor) noexcept
+void IAtumTensor::Detach(TScriptInterface<IAtumTensor>& OutDetachedTensor) const noexcept
 {
-	if (Tensor == nullptr || !Tensor->IsDefined())
-		return false;
-	
-	TArray<int64> TensorSizes;
-	Tensor->GetSizes(TensorSizes);
-	return BroadcastToArray(TensorSizes);
+	if (OutDetachedTensor = IsDefined() ? DuplicateObject(_getUObject(), nullptr) : nullptr; OutDetachedTensor)
+	{
+		OutDetachedTensor->SetData(Data->detach());
+	}
 }
 
 void IAtumTensor::GetGradient(TScriptInterface<IAtumTensor>& OutGradient) const noexcept
@@ -175,7 +164,7 @@ bool IAtumTensor::Backward(
 	const bool bCreateGraph
 ) const noexcept
 {
-	if (!IsDefined() || !DoesRequireGradient())
+	if (!DoesRequireGradient())
 		return false;
 	
 	at::Tensor GradientTensor = Gradient && Gradient->IsDefined() ?
@@ -193,13 +182,20 @@ bool IAtumTensor::Backward(
 		}
 	}
 	
-	const bool bRetainGraph = RetainGraphMode == EAtumTensorRetainGraphMode::Always;
-	Data->backward(
-		MoveTemp(GradientTensor),
-		RetainGraphMode == EAtumTensorRetainGraphMode::IfCreated ? c10::nullopt : c10::optional<bool>(bRetainGraph),
-		bCreateGraph,
-		TensorList.empty() ? c10::nullopt : c10::optional<at::TensorList>(MoveTemp(TensorList))
-	);
+	try
+	{
+		const bool bRetainGraph = RetainGraphMode == EAtumTensorRetainGraphMode::Always;
+		Data->backward(
+			MoveTemp(GradientTensor),
+			RetainGraphMode == EAtumTensorRetainGraphMode::IfCreated ? c10::nullopt : c10::optional<bool>(bRetainGraph),
+			bCreateGraph,
+			TensorList.empty() ? c10::nullopt : c10::optional<at::TensorList>(MoveTemp(TensorList))
+		);
+	}
+	catch (const std::exception& Exception)
+	{
+		UE_LOG(LogTemp, Error, TEXT("%hs"), Exception.what())
+	}
 	return true;
 }
 
@@ -212,7 +208,7 @@ TScriptInterface<IAtumTensor> IAtumTensor::Add(
 		GetTransientPackage(),
 		Class && Class->ImplementsInterface(UAtumTensor::StaticClass()) ? Class : _getUObject()->GetClass()
 	);
-	if (IsBroadcastableToTensor(Other))
+	if (IsBroadcastableWith(Other))
 	{
 		CastChecked<IAtumTensor>(Result)->SetData(Data->add(*Other->Data));
 	}
