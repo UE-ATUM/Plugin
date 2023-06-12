@@ -18,7 +18,7 @@ public class LibTorch : ModuleRules
 		bUsePrecompiled = false;
 		bEnableExceptions = true;
 
-		if (target.Platform != UnrealTargetPlatform.Win64)
+		if (target!.Platform != UnrealTargetPlatform.Win64)
 		{
 			EpicGames.Core.Log.TraceError("Cannot load LibTorch on {0}!", target.Platform.ToString());
 			return;
@@ -40,13 +40,13 @@ public class LibTorch : ModuleRules
 		PublicIncludePaths.AddRange(new[]
 		{
 			includePath,
-			Path.Combine(includePath, "torch/csrc/api/include")
+			Path.Combine(includePath!, "torch/csrc/api/include")
 		});
 	}
 
 	private void LinkLibraryFiles(string libraryPath)
 	{
-		var filePaths = Directory.GetFiles(libraryPath, "*", SearchOption.AllDirectories);
+		var filePaths = Directory.GetFiles(libraryPath!, "*", SearchOption.AllDirectories);
 		foreach (var filePath in filePaths)
 		{
 			var fileName = Path.GetFileName(filePath);
