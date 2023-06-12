@@ -34,45 +34,45 @@ public:
 	IAtumTensor() noexcept;
 	
 	UE_NODISCARD
-	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
 	virtual bool IsDefined() const noexcept;
 	
 	UE_NODISCARD
-	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor", DisplayName = "Is Broadcastable With")
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor", DisplayName = "Is Broadcastable With")
 	virtual bool IsBroadcastableWith(const TScriptInterface<IAtumTensor>& BroadcastTensor) const noexcept;
 	
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor", DisplayName = "Broadcast To")
 	virtual bool BroadcastTo(const TScriptInterface<IAtumTensor>& BroadcastTensor) noexcept;
 	
-	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
 	virtual void Detach(TScriptInterface<IAtumTensor>& OutDetachedTensor) const noexcept;
 	
-	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
 	virtual void GetGradient(TScriptInterface<IAtumTensor>& OutGradient) const noexcept;
 	
 	UE_NODISCARD
-	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
 	virtual bool DoesRequireGradient() const noexcept;
 	
 	virtual IAtumTensor* SetRequireGradient(bool bValue) noexcept;
 	
 	UE_NODISCARD
-	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
 	virtual void GetSizes(TArray<int64>& OutSizes) const noexcept;
 	
 	UE_NODISCARD
-	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
 	virtual EAtumTensorScalarType GetScalarType() const noexcept;
 	
 	UE_NODISCARD
-	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
 	virtual int64 GetElementCount() const noexcept;
 	
 	UE_NODISCARD
-	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
 	virtual int64 GetElementSize() const noexcept;
 	
-	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor")
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
 	virtual void GetSerializedValues(TArray<uint8>& OutValues, TArray<int64>& OutSizes) const noexcept;
 	
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")

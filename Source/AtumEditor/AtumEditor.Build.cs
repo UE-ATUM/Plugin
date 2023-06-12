@@ -9,11 +9,11 @@ public class AtumEditor : ModuleRules
 	{
 		Type = ModuleType.CPlusPlus;
 		PCHUsage = PCHUsageMode.NoPCHs;
+		IWYUSupport = IWYUSupport.Full;
 		CppStandard = CppStandardVersion.Cpp20;
 		
 		bUseRTTI = true;
 		bUseUnity = false;
-		bEnforceIWYU = true;
 		bUsePrecompiled = false;
 		bEnableExceptions = true;
 		

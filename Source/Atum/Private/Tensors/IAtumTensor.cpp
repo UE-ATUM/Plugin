@@ -3,6 +3,7 @@
 #include "Tensors/IAtumTensor.h"
 
 #include "IAtumModule.h"
+#include "UObject/Package.h"
 
 TORCH_INCLUDES_START
 #include <torch/serialize.h>

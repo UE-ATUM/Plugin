@@ -6,6 +6,7 @@
 #include "Macros/AtumMacrosLog.h"
 #include "Optimizers/AtumOptimizerBaseOptions.h"
 #include "Tensors/IAtumTensor.h"
+#include "UObject/Package.h"
 
 TORCH_INCLUDES_START
 #include <torch/optim/optimizer.h>

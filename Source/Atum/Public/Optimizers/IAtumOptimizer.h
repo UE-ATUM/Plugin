@@ -51,7 +51,7 @@ public:
 	))
 	bool InitializeData(bool bRetry = true);
 	
-	UFUNCTION(BlueprintNativeEvent, BlueprintPure, Category = "ATUM|Optimizer")
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Optimizer")
 	void GetParameters(TArray<TScriptInterface<IAtumTensor>>& OutParameters) const;
 	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Optimizer")

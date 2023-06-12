@@ -3,6 +3,7 @@
 #include "FunctionLibraries/AtumLibraryTensors.h"
 
 #include "Macros/AtumMacrosLog.h"
+#include "UObject/Package.h"
 
 
 #define LOCTEXT_NAMESPACE "AtumLibraryTensors"

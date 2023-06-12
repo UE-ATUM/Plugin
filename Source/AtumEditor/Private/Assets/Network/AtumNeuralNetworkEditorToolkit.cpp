@@ -2,8 +2,10 @@
 
 #include "Assets/Network/AtumNeuralNetworkEditorToolkit.h"
 
+#include "DetailsViewArgs.h"
 #include "Layers/Network/AtumNeuralNetwork.h"
 #include "Modules/ModuleManager.h"
+#include "PropertyEditorModule.h"
 #include "Widgets/Docking/SDockTab.h"
 
 

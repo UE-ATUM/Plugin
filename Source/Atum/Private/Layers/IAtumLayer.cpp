@@ -5,6 +5,7 @@
 #include "FunctionLibraries/AtumLibraryUtilities.h"
 #include "Macros/AtumMacrosLog.h"
 #include "Tensors/IAtumTensor.h"
+#include "UObject/Package.h"
 
 TORCH_INCLUDES_START
 #include <torch/nn/module.h>

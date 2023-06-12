@@ -5,6 +5,7 @@
 #include "Layers/Network/AtumNeuralNetworkLayers.h"
 #include "Macros/AtumMacrosLog.h"
 #include "Misc/Paths.h"
+#include "UObject/Package.h"
 
 
 #define LOCTEXT_NAMESPACE "AtumNeuralNetwork"
