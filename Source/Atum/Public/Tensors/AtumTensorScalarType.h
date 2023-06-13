@@ -47,7 +47,7 @@ namespace AtumEnums
 	UE_NODISCARD
 	static FORCEINLINE CONSTEXPR c10::ScalarType Cast(const EAtumTensorScalarType ScalarType) noexcept
 	{ return static_cast<c10::ScalarType>(ScalarType); }
-
+	
 	UE_NODISCARD
 	static FORCEINLINE CONSTEXPR EAtumTensorScalarType Cast(const c10::ScalarType ScalarType) noexcept
 	{ return static_cast<EAtumTensorScalarType>(ScalarType); }
