@@ -10,7 +10,7 @@
 
 #define CAFFE2_VERSION_MAJOR 2
 #define CAFFE2_VERSION_MINOR 0
-#define CAFFE2_VERSION_PATCH 0
+#define CAFFE2_VERSION_PATCH 1
 
 static_assert(
     CAFFE2_VERSION_MINOR < 100,
@@ -34,7 +34,7 @@ static_assert(
 /* #undef CAFFE2_THREADPOOL_STATS */
 #define CAFFE2_USE_EXCEPTION_PTR
 /* #undef CAFFE2_USE_ACCELERATE */
-/* #undef CAFFE2_USE_CUDNN */
+#define CAFFE2_USE_CUDNN
 /* #undef CAFFE2_USE_EIGEN_FOR_BLAS */
 /* #undef CAFFE2_USE_FBCODE */
 /* #undef CAFFE2_USE_GOOGLE_GLOG */
@@ -52,18 +52,18 @@ static_assert(
 
 // Useful build settings that are recorded in the compiled binary
 #define CAFFE2_BUILD_STRINGS { \
-  {"TORCH_VERSION", "2.0.0"}, \
+  {"TORCH_VERSION", "2.0.1"}, \
   {"CXX_COMPILER", "C:/actions-runner/_work/pytorch/pytorch/builder/windows/tmp_bin/sccache-cl.exe"}, \
   {"CXX_FLAGS", "/DWIN32 /D_WINDOWS /GR /EHsc /w /bigobj /FS -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOCUPTI -DLIBKINETO_NOROCTRACER -DUSE_FBGEMM -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE"}, \
   {"BUILD_TYPE", "Release"}, \
   {"BLAS_INFO", "mkl"}, \
   {"LAPACK_INFO", "mkl"}, \
-  {"USE_CUDA", "0"}, \
+  {"USE_CUDA", "ON"}, \
   {"USE_ROCM", "OFF"}, \
-  {"CUDA_VERSION", ""}, \
+  {"CUDA_VERSION", "11.8"}, \
   {"ROCM_VERSION", ""}, \
-  {"USE_CUDNN", "OFF"}, \
-  {"CUDNN_VERSION", ""}, \
+  {"USE_CUDNN", "ON"}, \
+  {"CUDNN_VERSION", "8.7.0"}, \
   {"USE_NCCL", "OFF"}, \
   {"USE_MPI", "OFF"}, \
   {"USE_GFLAGS", "OFF"}, \

@@ -52,7 +52,7 @@ void FAtumModule::StartupModule()
 #endif
 	
 	torch::init();
-	UE_LOG(LogAtum, Warning, TEXT("Loaded ATUM plugin with LibTorch version %ls!"), TEXT(TORCH_VERSION));
+	UE_LOG(LogAtum, Warning, TEXT("Loaded ATUM plugin with LibTorch version %ls!"), TEXT(TORCH_VERSION))
 }
 
 void FAtumModule::ShutdownModule()

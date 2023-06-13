@@ -7,8 +7,8 @@
 #define TORCH_VERSION_MINOR 0
 
 /// Indicates the patch version of LibTorch.
-#define TORCH_VERSION_PATCH 0
+#define TORCH_VERSION_PATCH 1
 
 /// Indicates the version of LibTorch.
 #define TORCH_VERSION \
-  "2.0.0"
+  "2.0.1"
