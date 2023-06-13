@@ -61,6 +61,18 @@ public:
 	);
 	
 	UE_NODISCARD
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make Zeros Tensor", meta = (
+		AutoCreateRefTerm = "Sizes",
+		DeterminesOutputType = "Class",
+		CompactNodeTitle = "Zeros Tensor",
+		Keywords = "ATUM Constructor Make Zeros Tensor Class Sizes"
+	))
+	static UObject* Zeros(
+		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) const UClass* Class,
+		const TArray<int64>& Sizes
+	);
+	
+	UE_NODISCARD
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor|Constructor", DisplayName = "Make Ones Tensor", meta = (
 		AutoCreateRefTerm = "Sizes",
 		DeterminesOutputType = "Class",
