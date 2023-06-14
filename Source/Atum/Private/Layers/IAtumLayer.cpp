@@ -137,6 +137,14 @@ void IAtumLayer::GetParameters_Implementation(
 	}
 }
 
+void IAtumLayer::SetDeviceType_Implementation(const EAtumTensorDeviceType Value) noexcept
+{
+	if (torch::nn::Module* const BaseModule = GetBaseModule())
+	{
+		BaseModule->to(AtumEnums::Cast(Value));
+	}
+}
+
 void IAtumLayer::SetBaseModule([[maybe_unused]] const torch::nn::Module* const Value) noexcept
 {
 }
@@ -169,7 +177,7 @@ bool IAtumLayer::InitializeData_Implementation(const bool bRetry) noexcept
 {
 	if (bInitialized && !bRetry)
 		return true;
-
+	
 	UObject* const LayerObject = _getUObject();
 	try
 	{
@@ -187,7 +195,19 @@ bool IAtumLayer::InitializeData_Implementation(const bool bRetry) noexcept
 			TCHAR_TO_UTF8(*GetNameSafe(LayerObject->GetClass()))
 		)
 	}
+	if (!bInitialized)
+		return false;
 	
+	torch::nn::Module* const BaseModule = GetBaseModule();
+	if (UNLIKELY(BaseModule == nullptr))
+	{
+		bInitialized = false;
+		ATUM_LOG(Error, TEXT("Pointer in ATUM Layer `%hs` is null!"), TCHAR_TO_UTF8(*GetNameSafe(LayerObject)))
+		return bInitialized;
+	}
+	
+	BaseModule->to(AtumEnums::Cast(IAtumTensor::GetDefaultDeviceType()));
+	bInitialized = true;
 	return bInitialized;
 }
 

@@ -9,6 +9,7 @@
 #include "IAtumLayer.generated.h"
 
 class IAtumTensor;
+enum class EAtumTensorDeviceType : uint8;
 struct FAtumLayerBaseOptions;
 
 // ReSharper disable CppUE4CodingStandardNamingViolationWarning
@@ -57,6 +58,9 @@ public:
 		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) const UClass* Class,
 		TMap<FString, TScriptInterface<IAtumTensor>>& OutValues
 	) const;
+	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
+	void SetDeviceType(EAtumTensorDeviceType Value);
 	
 	UE_NODISCARD
 	virtual const torch::nn::Module* GetBaseModule() const noexcept;
@@ -108,6 +112,8 @@ protected:
 		const UClass* Class,
 		TMap<FString, TScriptInterface<IAtumTensor>>& OutValues
 	) const noexcept;
+	
+	virtual void SetDeviceType_Implementation(EAtumTensorDeviceType Value) noexcept;
 	
 	virtual void SetBaseModule(const torch::nn::Module* Value) noexcept;
 	

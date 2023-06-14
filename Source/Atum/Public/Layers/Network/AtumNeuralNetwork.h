@@ -83,6 +83,8 @@ protected:
 		TMap<FString, TScriptInterface<IAtumTensor>>& OutValues
 	) const noexcept override;
 	
+	virtual void SetDeviceType_Implementation(EAtumTensorDeviceType Value) noexcept override;
+	
 	virtual bool SaveToFile_Implementation(const FString& RelativePath) const override;
 	
 #if WITH_EDITOR

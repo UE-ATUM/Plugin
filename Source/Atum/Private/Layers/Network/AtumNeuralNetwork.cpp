@@ -137,6 +137,15 @@ void UAtumNeuralNetwork::GetParameters_Implementation(
 	}
 }
 
+void UAtumNeuralNetwork::SetDeviceType_Implementation(const EAtumTensorDeviceType Value) noexcept
+{
+	IAtumLayer::SetDeviceType_Implementation(Value);
+	for (const TObjectPtr<UObject> RegisteredLayer : RegisteredLayers)
+	{
+		Execute_SetDeviceType(RegisteredLayer.Get(), Value);
+	}
+}
+
 bool UAtumNeuralNetwork::SaveToFile_Implementation(const FString& RelativePath) const
 {
 	if (!IAtumLayer::SaveToFile_Implementation(RelativePath))
