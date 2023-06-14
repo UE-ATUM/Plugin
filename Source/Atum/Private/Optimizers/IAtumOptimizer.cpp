@@ -124,11 +124,9 @@ bool IAtumOptimizer::InitializeData_Implementation(const bool bRetry) noexcept
 		return true;
 	
 	UObject* const OptimizerObject = _getUObject();
-	const ANSICHAR* const OptimizerClassName = TCHAR_TO_UTF8(*GetNameSafe(OptimizerObject->GetClass()));
-	
 	FAtumOptimizerBaseOptions* const BaseOptions = GetBaseOptimizerOptions();
-	check(BaseOptions)
 	
+	check(BaseOptions)
 	try
 	{
 		bInitialized = Execute_OnInitializeData(OptimizerObject, bRetry);
@@ -142,7 +140,7 @@ bool IAtumOptimizer::InitializeData_Implementation(const bool bRetry) noexcept
 			Error,
 			TEXT("Unhandled exception - %hs\nFailed to initialize ATUM Optimizer of type `%hs`!"),
 			ExceptionString.substr(0, ExceptionString.find("\n")).c_str(),
-			OptimizerClassName
+			TCHAR_TO_UTF8(*GetNameSafe(OptimizerObject->GetClass()))
 		)
 	}
 	if (!bInitialized)
