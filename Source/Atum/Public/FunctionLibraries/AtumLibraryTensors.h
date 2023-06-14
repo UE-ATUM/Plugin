@@ -22,7 +22,7 @@ class ATUM_API UAtumLibraryTensors : public UBlueprintFunctionLibrary
 		CompactNodeTitle = "Serialize",
 		Keywords = "ATUM Cast Serialise Serialize Target Any Wildcard Array Out Bytes"
 	))
-	static void K2_SerializeArray(const TArray<UProperty*>& Target, TArray<uint8>& OutBytes) noexcept;
+	static void K2_SerializeArray(const TArray<UProperty*>& Target, TArray<uint8>& OutBytes);
 	
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Cast", DisplayName = "Deserialize Array", CustomThunk, meta = (
 		ArrayParm = "TargetTypeProvider",
@@ -34,7 +34,27 @@ class ATUM_API UAtumLibraryTensors : public UBlueprintFunctionLibrary
 		const TArray<uint8>& Bytes,
 		const TArray<UProperty*>& TargetTypeProvider,
 		TArray<UProperty*>& OutTarget
-	) noexcept;
+	);
+	
+	UE_NODISCARD
+	UFUNCTION(BlueprintPure, Category = "ATUM|Tensor", DisplayName = "Get Default Device Type", meta = (
+		Keywords = "ATUM Tensor Get Default Device Type"
+	))
+	static FORCEINLINE EAtumTensorDeviceType K2_GetDefaultDeviceType() noexcept
+	{ return IAtumTensor::GetDefaultDeviceType(); }
+	
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor", DisplayName = "Set Default Device Type", meta = (
+		Keywords = "ATUM Tensor Set Default Device Type Value"
+	))
+	static FORCEINLINE void K2_SetDefaultDeviceType(const EAtumTensorDeviceType Value) noexcept
+	{ IAtumTensor::SetDefaultDeviceType(Value); }
+	
+	UE_NODISCARD
+	static FORCEINLINE c10::DeviceType GetDefaultTorchDeviceType() noexcept
+	{ return AtumEnums::Cast(K2_GetDefaultDeviceType()); }
+	
+	static FORCEINLINE void SetDefaultTorchDeviceType(const c10::DeviceType Value) noexcept
+	{ K2_SetDefaultDeviceType(AtumEnums::Cast(Value)); }
 	
 public:
 	UE_NODISCARD
@@ -101,11 +121,12 @@ public:
 		AutoCreateRefTerm = "Sizes",
 		DeterminesOutputType = "Class",
 		CompactNodeTitle = "RandN Tensor",
-		Keywords = "ATUM Constructor Make Normally Distributed Random Tensor Class Sizes"
+		Keywords = "ATUM Constructor Make Normally Distributed Random Tensor Class Sizes Device Type"
 	))
 	static UObject* RandN(
 		UPARAM(meta = (MustImplement = "/Script/Atum.AtumTensor")) const UClass* Class,
-		const TArray<int64>& Sizes
+		const TArray<int64>& Sizes,
+		EAtumTensorDeviceType DeviceType = EAtumTensorDeviceType::Cpu
 	);
 	
 	UE_NODISCARD

@@ -12,6 +12,9 @@ TORCH_INCLUDES_END
 
 #define LOCTEXT_NAMESPACE "IAtumTensor"
 
+EAtumTensorDeviceType IAtumTensor::DefaultDeviceType = EAtumTensorDeviceType::Cpu;
+
+
 IAtumTensor::IAtumTensor() noexcept : Data(nullptr), ScalarType(EAtumTensorScalarType::Undefined)
 {
 }
@@ -104,6 +107,19 @@ void IAtumTensor::GetSizes(TArray<int64>& OutSizes) const noexcept
 	OutSizes = TArray(DataSizes.data(), DataSizes.size());
 }
 
+EAtumTensorDeviceType IAtumTensor::GetDeviceType() const noexcept
+{
+	return Data ? AtumEnums::Cast(Data->device().type()) : DefaultDeviceType;
+}
+
+void IAtumTensor::SetDeviceType(const EAtumTensorDeviceType Value) noexcept
+{
+	if (Data)
+	{
+		Data->to(AtumEnums::Cast(Value));
+	}
+}
+
 EAtumTensorScalarType IAtumTensor::GetScalarType() const noexcept
 {
 	return ScalarType == EAtumTensorScalarType::Undefined ? AtumEnums::Cast(Data->scalar_type()) : ScalarType;
@@ -183,20 +199,13 @@ bool IAtumTensor::Backward(
 		}
 	}
 	
-	try
-	{
-		const bool bRetainGraph = RetainGraphMode == EAtumTensorRetainGraphMode::Always;
-		Data->backward(
-			MoveTemp(GradientTensor),
-			RetainGraphMode == EAtumTensorRetainGraphMode::IfCreated ? c10::nullopt : c10::optional<bool>(bRetainGraph),
-			bCreateGraph,
-			TensorList.empty() ? c10::nullopt : c10::optional<at::TensorList>(MoveTemp(TensorList))
-		);
-	}
-	catch (const std::exception& Exception)
-	{
-		UE_LOG(LogTemp, Error, TEXT("%hs"), Exception.what())
-	}
+	const bool bRetainGraph = RetainGraphMode == EAtumTensorRetainGraphMode::Always;
+	Data->backward(
+		MoveTemp(GradientTensor),
+		RetainGraphMode == EAtumTensorRetainGraphMode::IfCreated ? c10::nullopt : c10::optional<bool>(bRetainGraph),
+		bCreateGraph,
+		TensorList.empty() ? c10::nullopt : c10::optional<at::TensorList>(MoveTemp(TensorList))
+	);
 	return true;
 }
 

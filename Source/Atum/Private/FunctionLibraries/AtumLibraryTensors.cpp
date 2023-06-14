@@ -11,78 +11,94 @@
 void UAtumLibraryTensors::K2_SerializeArray(
 	[[maybe_unused]] const TArray<UProperty*>& Target,
 	[[maybe_unused]] TArray<uint8>& OutBytes
-) noexcept
+)
 {
-	ATUM_LOG(Warning, TEXT("Called UAtumLibraryTensors::K2_SerializeArray from native code!"))
+	throw std::logic_error("Called UAtumLibraryTensors::K2_SerializeArray from native code!");
 }
 
 void UAtumLibraryTensors::K2_DeserializeArray(
 	[[maybe_unused]] const TArray<uint8>& Bytes,
 	[[maybe_unused]] const TArray<UProperty*>& TargetTypeProvider,
 	[[maybe_unused]] TArray<UProperty*>& OutTarget
-) noexcept
+)
 {
-	ATUM_LOG(Warning, TEXT("Called UAtumLibraryTensors::K2_DeserializeArray from native code!"))
+	throw std::logic_error("Called UAtumLibraryTensors::K2_DeserializeArray from native code!");
 }
 
 UObject* UAtumLibraryTensors::Empty(const UClass* const Class, const TArray<int64>& Sizes)
 {
 	check(Class && Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
-	auto* const Tensor = NewObject<UObject>(GetTransientPackage(), Class);
-	CastChecked<IAtumTensor>(Tensor)->SetData(
-		torch::empty(at::IntArrayRef(Sizes.GetData(), Sizes.Num()))
-	);
-	return Tensor;
+	auto* const TensorObject = NewObject<UObject>(GetTransientPackage(), Class);
+	auto* const Tensor = CastChecked<IAtumTensor>(TensorObject);
+	
+	Tensor->SetDeviceType(K2_GetDefaultDeviceType());
+	Tensor->SetData(torch::empty(at::IntArrayRef(Sizes.GetData(), Sizes.Num())));
+	return TensorObject;
 }
 
 UObject* UAtumLibraryTensors::Eye(const UClass* const Class, const int64 Size)
 {
 	check(Class && Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
-	auto* const Tensor = NewObject<UObject>(GetTransientPackage(), Class);
-	CastChecked<IAtumTensor>(Tensor)->SetData(torch::eye(Size));
-	return Tensor;
+	auto* const TensorObject = NewObject<UObject>(GetTransientPackage(), Class);
+	auto* const Tensor = CastChecked<IAtumTensor>(TensorObject);
+	
+	Tensor->SetDeviceType(K2_GetDefaultDeviceType());
+	Tensor->SetData(torch::eye(Size));
+	return TensorObject;
 }
 
 UObject* UAtumLibraryTensors::Zeros(const UClass* const Class, const TArray<int64>& Sizes)
 {
 	check(Class && Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
-	auto* const Tensor = NewObject<UObject>(GetTransientPackage(), Class);
-	CastChecked<IAtumTensor>(Tensor)->SetData(
-		torch::zeros(at::IntArrayRef(Sizes.GetData(), Sizes.Num()))
-	);
-	return Tensor;
+	auto* const TensorObject = NewObject<UObject>(GetTransientPackage(), Class);
+	auto* const Tensor = CastChecked<IAtumTensor>(TensorObject);
+	
+	Tensor->SetDeviceType(K2_GetDefaultDeviceType());
+	Tensor->SetData(torch::zeros(at::IntArrayRef(Sizes.GetData(), Sizes.Num())));
+	return TensorObject;
 }
 
 UObject* UAtumLibraryTensors::Ones(const UClass* const Class, const TArray<int64>& Sizes)
 {
 	check(Class && Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
-	auto* const Tensor = NewObject<UObject>(GetTransientPackage(), Class);
-	CastChecked<IAtumTensor>(Tensor)->SetData(torch::ones(at::IntArrayRef(Sizes.GetData(), Sizes.Num())));
-	return Tensor;
+	auto* const TensorObject = NewObject<UObject>(GetTransientPackage(), Class);
+	auto* const Tensor = CastChecked<IAtumTensor>(TensorObject);
+	
+	Tensor->SetDeviceType(K2_GetDefaultDeviceType());
+	Tensor->SetData(torch::ones(at::IntArrayRef(Sizes.GetData(), Sizes.Num())));
+	return TensorObject;
 }
 
 UObject* UAtumLibraryTensors::Random(const UClass* const Class, const TArray<int64>& Sizes)
 {
 	check(Class && Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
-	auto* const Tensor = NewObject<UObject>(GetTransientPackage(), Class);
-	CastChecked<IAtumTensor>(Tensor)->SetData(torch::rand(at::IntArrayRef(Sizes.GetData(), Sizes.Num())));
-	return Tensor;
+	auto* const TensorObject = NewObject<UObject>(GetTransientPackage(), Class);
+	auto* const Tensor = CastChecked<IAtumTensor>(TensorObject);
+	
+	Tensor->SetDeviceType(K2_GetDefaultDeviceType());
+	Tensor->SetData(torch::rand(at::IntArrayRef(Sizes.GetData(), Sizes.Num())));
+	return TensorObject;
 }
 
-UObject* UAtumLibraryTensors::RandN(const UClass* const Class, const TArray<int64>& Sizes)
+UObject* UAtumLibraryTensors::RandN(
+	const UClass* const Class,
+	const TArray<int64>& Sizes,
+	const EAtumTensorDeviceType DeviceType
+)
 {
 	check(Class && Class->ImplementsInterface(UAtumTensor::StaticClass()))
 	
-	auto* const Tensor = NewObject<UObject>(GetTransientPackage(), Class);
-	CastChecked<IAtumTensor>(Tensor)->SetData(
-		torch::randn(at::IntArrayRef(Sizes.GetData(), Sizes.Num()))
-	);
-	return Tensor;
+	auto* const TensorObject = NewObject<UObject>(GetTransientPackage(), Class);
+	auto* const Tensor = CastChecked<IAtumTensor>(TensorObject);
+	
+	Tensor->SetDeviceType(DeviceType);
+	Tensor->SetData(torch::randn(at::IntArrayRef(Sizes.GetData(), Sizes.Num())));
+	return TensorObject;
 }
 
 TScriptInterface<IAtumTensor> UAtumLibraryTensors::BinaryCrossEntropy(

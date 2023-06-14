@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "AtumTensorDeviceType.h"
 #include "AtumTensorRetainGraphMode.h"
 #include "AtumTensorScalarType.h"
 #include "Serializable/IAtumSerializable.h"
@@ -26,6 +27,7 @@ class ATUM_API IAtumTensor : public IAtumSerializable
 	GENERATED_BODY()
 	
 protected:
+	static EAtumTensorDeviceType DefaultDeviceType;
 	TUniquePtr<at::Tensor> Data;
 	EAtumTensorScalarType ScalarType;
 	
@@ -62,6 +64,13 @@ public:
 	
 	UE_NODISCARD
 	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
+	virtual EAtumTensorDeviceType GetDeviceType() const noexcept;
+	
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
+	virtual void SetDeviceType(EAtumTensorDeviceType Value) noexcept;
+	
+	UE_NODISCARD
+	UFUNCTION(BlueprintCallable, Category = "ATUM|Tensor")
 	virtual EAtumTensorScalarType GetScalarType() const noexcept;
 	
 	UE_NODISCARD
@@ -93,8 +102,11 @@ public:
 	) const noexcept;
 	
 	UE_NODISCARD
+	FORCEINLINE c10::DeviceType GetTorchDeviceType() const noexcept { return AtumEnums::Cast(GetDeviceType()); }
+	
+	UE_NODISCARD
 	FORCEINLINE c10::ScalarType GetTorchScalarType() const noexcept
-	{ return IsDefined() ? Data->scalar_type() : AtumEnums::Cast(GetScalarType()); }
+	{ return Data ? Data->scalar_type() : AtumEnums::Cast(GetScalarType()); }
 	
 	UE_NODISCARD
 	TScriptInterface<IAtumTensor> Add(
@@ -130,11 +142,18 @@ public:
 	template <typename T>
 	FORCEINLINE void SetValues(T* const Values, const TArray<int64>& Sizes) noexcept
 	{
-		SetData(torch::from_blob(
-			Values,
-			c10::IntArrayRef(Sizes.GetData(), Sizes.Num()),
-			GetTorchScalarType()
-		));
+		try
+		{
+			SetData(torch::from_blob(
+				Values,
+				c10::IntArrayRef(Sizes.GetData(), Sizes.Num()),
+				GetTorchScalarType()
+			).to(GetTorchDeviceType()));
+		}
+		catch (const std::exception& Exception)
+		{
+			UE_LOG(LogTemp, Fatal, TEXT("%hs"), Exception.what())
+		}
 	}
 	
 protected:
@@ -159,13 +178,24 @@ private:
 
 public:
 	UE_NODISCARD
+	static FORCEINLINE EAtumTensorDeviceType GetDefaultDeviceType() noexcept { return DefaultDeviceType; }
+	
+	static FORCEINLINE void SetDefaultDeviceType(const EAtumTensorDeviceType Value) noexcept
+	{ DefaultDeviceType = Value; }
+	
+	UE_NODISCARD
 	FORCEINLINE const at::Tensor* GetData() const noexcept { return Data.Get(); }
 	
 	UE_NODISCARD
 	FORCEINLINE const at::Tensor& GetDataChecked() const { return *GetData(); }
 	
 	FORCEINLINE void SetData(const at::Tensor& Value) noexcept
-	{ Data.Reset(Value.defined() ? new at::Tensor(Value.to(GetTorchScalarType())) : nullptr); }
+	{
+		Data.Reset(Value.defined() ?
+			new at::Tensor(Value.to(GetTorchDeviceType()).to(GetTorchScalarType())) :
+			nullptr
+		);
+	}
 };
 
 
@@ -192,7 +222,7 @@ void IAtumTensor::GetValues(TArray<T>& OutValues, TArray<int64>& OutSizes) const
 		return;
 	
 	OutValues.Append(static_cast<T*>(GetUncastedValues(GetScalarType())), Data->numel());
-
+	
 	const c10::IntArrayRef DataSizes = Data->sizes();
 	OutSizes = TArray(DataSizes.data(), DataSizes.size());
 }
