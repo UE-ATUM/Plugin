@@ -3,9 +3,10 @@
 using UnrealBuildTool;
 
 
+// ReSharper disable once InconsistentNaming
 public class AtumEditor : ModuleRules
 {
-	public AtumEditor(ReadOnlyTargetRules target) : base(target)
+	public AtumEditor(ReadOnlyTargetRules Target) : base(Target)
 	{
 		Type = ModuleType.CPlusPlus;
 		PCHUsage = PCHUsageMode.NoPCHs;
