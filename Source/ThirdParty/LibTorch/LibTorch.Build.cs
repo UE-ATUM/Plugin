@@ -31,39 +31,39 @@ public class LibTorch : ModuleRules
 			"WITH_LIBTORCH"
 		});
 		
-		var PlatformPath = Path.Combine(ModuleDirectory, Target.Platform.ToString());
-		AddIncludeFolders(Path.Combine(PlatformPath, "include"));
-		LinkLibraryFiles(Path.Combine(PlatformPath, "lib"));
+		var platformPath = Path.Combine(ModuleDirectory, Target.Platform.ToString());
+		AddIncludeFolders(Path.Combine(platformPath, "include"));
+		LinkLibraryFiles(Path.Combine(platformPath, "lib"));
 	}
 
-	private void AddIncludeFolders(string IncludePath)
+	private void AddIncludeFolders(string includePath)
 	{
 		PublicIncludePaths.AddRange(new[]
 		{
-			IncludePath,
-			Path.Combine(IncludePath!, "torch/csrc/api/include")
+			includePath,
+			Path.Combine(includePath!, "torch/csrc/api/include")
 		});
 	}
 
-	private void LinkLibraryFiles(string LibraryPath)
+	private void LinkLibraryFiles(string libraryPath)
 	{
-		var FilePaths = Directory.GetFiles(LibraryPath!, "*", SearchOption.AllDirectories);
-		foreach (var FilePath in FilePaths)
+		var filePaths = Directory.GetFiles(libraryPath!, "*", SearchOption.AllDirectories);
+		foreach (var filePath in filePaths)
 		{
-			var FileName = Path.GetFileName(FilePath);
+			var fileName = Path.GetFileName(filePath);
 
-			if (FileName.EndsWith(".lib"))
+			if (fileName.EndsWith(".lib"))
 			{
-				PublicAdditionalLibraries.Add(FilePath);
+				PublicAdditionalLibraries.Add(filePath);
 			}
-			else if (FileName.EndsWith(".dll"))
+			else if (fileName.EndsWith(".dll"))
 			{
-				RuntimeDependencies.Add(FilePath);
-				PublicDelayLoadDLLs.Add(FileName);
+				RuntimeDependencies.Add(filePath);
+				PublicDelayLoadDLLs.Add(fileName);
 			}
 			else
 			{
-				EpicGames.Core.Log.TraceInformation("Ignored file {0}", FilePath);
+				EpicGames.Core.Log.TraceInformation("Ignored file {0}", filePath);
 			}
 		}
 	}
