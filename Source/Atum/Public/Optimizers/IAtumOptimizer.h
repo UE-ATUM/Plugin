@@ -51,6 +51,9 @@ public:
 	))
 	bool InitializeData(bool bRetry = true);
 	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
+	bool SetGradientToZero(bool bSetToNone = true);
+	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Optimizer")
 	void GetParameters(TArray<TScriptInterface<IAtumTensor>>& OutParameters) const;
 	
@@ -87,6 +90,8 @@ protected:
 	);
 	
 	virtual bool OnInitializeData_Implementation(bool bRetry = true);
+	
+	virtual bool SetGradientToZero_Implementation(bool bSetToNone = true) noexcept;
 	
 	virtual void K2_Step_Implementation(
 		const UClass* Class,

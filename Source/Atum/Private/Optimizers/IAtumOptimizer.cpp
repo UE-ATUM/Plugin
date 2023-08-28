@@ -48,6 +48,15 @@ bool IAtumOptimizer::OnInitializeData_Implementation([[maybe_unused]] const bool
 	)));
 }
 
+bool IAtumOptimizer::SetGradientToZero_Implementation(const bool bSetToNone) noexcept
+{
+	if (Optimizer == nullptr)
+		return false;
+	
+	Optimizer->zero_grad(bSetToNone);
+	return true;
+}
+
 void IAtumOptimizer::K2_Step_Implementation(
 	const UClass* const Class,
 	TScriptInterface<IAtumTensor>& OutLoss,
