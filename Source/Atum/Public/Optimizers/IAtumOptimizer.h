@@ -60,6 +60,8 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Optimizer")
 	void SetParameters(const TArray<TScriptInterface<IAtumTensor>>& Parameters);
 	
+	void Step(const UClass* Class) noexcept;
+	
 	FORCEINLINE void Step(
 		const UClass* Class,
 		TScriptInterface<IAtumTensor>& OutLoss,

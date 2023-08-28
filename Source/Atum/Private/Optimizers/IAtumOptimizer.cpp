@@ -57,6 +57,12 @@ bool IAtumOptimizer::SetGradientToZero_Implementation(const bool bSetToNone) noe
 	return true;
 }
 
+void IAtumOptimizer::Step(const UClass* const Class) noexcept
+{
+	TScriptInterface<IAtumTensor> OutLoss;
+	Step(Class, OutLoss);
+}
+
 void IAtumOptimizer::K2_Step_Implementation(
 	const UClass* const Class,
 	TScriptInterface<IAtumTensor>& OutLoss,
