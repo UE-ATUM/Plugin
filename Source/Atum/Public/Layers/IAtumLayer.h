@@ -51,7 +51,7 @@ public:
 	void CloneData(TScriptInterface<IAtumLayer>& OutClone, UObject* Outer = nullptr) const;
 	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
-	bool SetGradientToZero(bool bSetToNone = false);
+	bool SetGradientToZero(bool bSetToNone = true);
 	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ATUM|Layer")
 	void GetParameters(
@@ -106,7 +106,7 @@ protected:
 		UObject* Outer = nullptr
 	) const noexcept;
 	
-	virtual bool SetGradientToZero_Implementation(bool bSetToNone = false) noexcept;
+	virtual bool SetGradientToZero_Implementation(bool bSetToNone = true) noexcept;
 	
 	virtual void GetParameters_Implementation(
 		const UClass* Class,
