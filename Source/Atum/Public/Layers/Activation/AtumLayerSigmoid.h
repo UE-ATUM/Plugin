@@ -16,6 +16,9 @@ TORCH_INCLUDES_END
 
 #define LOCTEXT_NAMESPACE "AtumLayerSigmoid"
 
+/**
+ * Sigmoid layer implementation
+ */
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Sigmoid Layer")
 class ATUM_API UAtumLayerSigmoid : public UObject, public IAtumLayerBaseActivation
 {
@@ -23,6 +26,9 @@ class ATUM_API UAtumLayerSigmoid : public UObject, public IAtumLayerBaseActivati
 	GENERATED_ATUM_LAYER(FAtumLayerSigmoidOptions, torch::nn::Sigmoid)
 	
 protected:
+	/**
+	 * Structure containing this instance's options
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties, ExposeOnSpawn))
 	FAtumLayerSigmoidOptions Options;
 };

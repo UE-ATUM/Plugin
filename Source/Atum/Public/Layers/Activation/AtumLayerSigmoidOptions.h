@@ -9,6 +9,9 @@
 
 #define LOCTEXT_NAMESPACE "AtumLayerSigmoidOptions"
 
+/**
+ * Options structure for the Sigmoid layer
+ */
 USTRUCT(BlueprintType, DisplayName = "ATUM Sigmoid Layer Options")
 struct ATUM_API FAtumLayerSigmoidOptions : public FAtumLayerBaseOptions
 {

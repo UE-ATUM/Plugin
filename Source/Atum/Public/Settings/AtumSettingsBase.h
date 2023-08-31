@@ -10,7 +10,7 @@
 #define LOCTEXT_NAMESPACE "AtumSettingsBase"
 
 /**
- * @brief Base class for ATUM settings
+ * Base class for ATUM settings
  */
 UCLASS(Abstract, MinimalAPI, Config = "Atum", Blueprintable, BlueprintType, DisplayName = "ATUM Base Settings")
 class UAtumSettingsBase : public UDeveloperSettingsBackedByCVars
@@ -18,6 +18,9 @@ class UAtumSettingsBase : public UDeveloperSettingsBackedByCVars
 	GENERATED_BODY()
 	
 public:
+	/**
+	 * Constructor
+	 */
 	UE_NODISCARD_CTOR
 	UAtumSettingsBase() noexcept;
 };

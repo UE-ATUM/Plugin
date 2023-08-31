@@ -7,7 +7,9 @@
 
 #define LOCTEXT_NAMESPACE "AtumTensorRetainGraphMode"
 
-// Represents what to do with the graph from the IAtumTensor::Backward method
+/**
+ * Represents what to do with the graph from the IAtumTensor::Backward method
+ */
 UENUM(BlueprintType, Category = "ATUM|Tensor", DisplayName = "ATUM Tensor Retain Graph Mode", meta = (
 	Keywords = "ATUM Tensor Retain Graph Mode"
 ))

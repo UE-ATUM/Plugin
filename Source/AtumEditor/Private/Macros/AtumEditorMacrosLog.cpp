@@ -11,6 +11,11 @@ DEFINE_LOG_CATEGORY(LogAtumEditor)
 
 namespace
 {
+	/**
+	 * Checks if the editor module is allowed to log messages
+	 * 
+	 * @return Can messages be logged?
+	 */
 	UE_NODISCARD
 	FORCEINLINE bool AreLogsEnabled() noexcept { return GetDefault<UAtumSettingsEditor>()->IsLogAtumEditorEnabled(); }
 }

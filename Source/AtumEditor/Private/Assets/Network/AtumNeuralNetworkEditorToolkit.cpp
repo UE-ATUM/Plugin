@@ -102,7 +102,7 @@ void FAtumNeuralNetworkEditorToolkit::UnregisterTabSpawners(const TSharedRef<FTa
 
 FName FAtumNeuralNetworkEditorToolkit::GetToolkitFName() const
 {
-	return TEXT("AtumNeuralNetworkEditor");
+	return AtumNeuralNetworkAppIdentifier;
 }
 
 FText FAtumNeuralNetworkEditorToolkit::GetBaseToolkitName() const

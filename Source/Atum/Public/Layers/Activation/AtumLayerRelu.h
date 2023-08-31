@@ -15,6 +15,9 @@ TORCH_INCLUDES_END
 
 #define LOCTEXT_NAMESPACE "AtumLayerRelu"
 
+/**
+ * ReLU layer implementation
+ */
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM ReLU Layer")
 class ATUM_API UAtumLayerRelu : public UObject, public IAtumLayerBaseActivation
 {
@@ -22,6 +25,9 @@ class ATUM_API UAtumLayerRelu : public UObject, public IAtumLayerBaseActivation
 	GENERATED_ATUM_LAYER(FAtumLayerReluOptions, torch::nn::ReLU)
 	
 protected:
+	/**
+	 * Structure containing this instance's options
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties, ExposeOnSpawn))
 	FAtumLayerReluOptions Options;
 };

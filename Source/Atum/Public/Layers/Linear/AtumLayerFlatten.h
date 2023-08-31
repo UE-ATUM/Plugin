@@ -15,6 +15,9 @@ TORCH_INCLUDES_END
 
 #define LOCTEXT_NAMESPACE "AtumLayerFlatten"
 
+/**
+ * Flatten layer implementation
+ */
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Flatten Layer")
 class ATUM_API UAtumLayerFlatten : public UObject, public IAtumLayer
 {
@@ -22,6 +25,9 @@ class ATUM_API UAtumLayerFlatten : public UObject, public IAtumLayer
 	GENERATED_ATUM_LAYER(FAtumLayerFlattenOptions, torch::nn::Flatten)
 	
 protected:
+	/**
+	 * Structure containing this instance's options
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties, ExposeOnSpawn))
 	FAtumLayerFlattenOptions Options;
 };

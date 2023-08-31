@@ -15,6 +15,9 @@ TORCH_INCLUDES_END
 
 #define LOCTEXT_NAMESPACE "AtumLayerLinear"
 
+/**
+ * Linear layer implementation
+ */
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Linear Layer")
 class ATUM_API UAtumLayerLinear : public UObject, public IAtumLayer
 {
@@ -22,6 +25,9 @@ class ATUM_API UAtumLayerLinear : public UObject, public IAtumLayer
 	GENERATED_ATUM_LAYER(FAtumLayerLinearOptions, torch::nn::Linear)
 	
 protected:
+	/**
+	 * Structure containing this instance's options
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties, ExposeOnSpawn))
 	FAtumLayerLinearOptions Options;
 };

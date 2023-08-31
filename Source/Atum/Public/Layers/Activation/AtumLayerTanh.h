@@ -16,6 +16,9 @@ TORCH_INCLUDES_END
 
 #define LOCTEXT_NAMESPACE "AtumLayerTanh"
 
+/**
+ * Tanh layer implementation
+ */
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Tanh Layer")
 class ATUM_API UAtumLayerTanh : public UObject, public IAtumLayerBaseActivation
 {
@@ -23,6 +26,9 @@ class ATUM_API UAtumLayerTanh : public UObject, public IAtumLayerBaseActivation
 	GENERATED_ATUM_LAYER(FAtumLayerTanhOptions, torch::nn::Tanh)
 	
 protected:
+	/**
+	 * Structure containing this instance's options
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties, ExposeOnSpawn))
 	FAtumLayerTanhOptions Options;
 };

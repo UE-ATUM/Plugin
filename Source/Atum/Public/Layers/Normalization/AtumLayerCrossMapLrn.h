@@ -15,6 +15,9 @@ TORCH_INCLUDES_END
 
 #define LOCTEXT_NAMESPACE "AtumLayerCrossMapLrn"
 
+/**
+ * Cross Map LRN 2D layer implementation
+ */
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Cross Map LRN 2D Layer")
 class ATUM_API UAtumLayerCrossMapLrn2D : public UObject, public IAtumLayerBaseNormalization
 {
@@ -22,10 +25,16 @@ class ATUM_API UAtumLayerCrossMapLrn2D : public UObject, public IAtumLayerBaseNo
 	GENERATED_ATUM_LAYER(FAtumLayerCrossMapLrnOptions, torch::nn::CrossMapLRN2d)
 	
 protected:
+	/**
+	 * Structure containing this instance's options
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties, ExposeOnSpawn))
 	FAtumLayerCrossMapLrnOptions Options;
 	
 public:
+	/**
+	 * Constructor
+	 */
 	UE_NODISCARD_CTOR
 	UAtumLayerCrossMapLrn2D() noexcept;
 };

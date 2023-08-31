@@ -14,30 +14,56 @@ TORCH_INCLUDES_END
 
 #define LOCTEXT_NAMESPACE "AtumLayerGroupNormOptions"
 
+/**
+ * Options structure for the Group Normalisation layer
+ */
 USTRUCT(BlueprintType, DisplayName = "ATUM Group Norm Layer Options")
 struct ATUM_API FAtumLayerGroupNormOptions : public FAtumLayerBaseOptions
 {
 	GENERATED_BODY()
 	
+	/**
+	 * Number of groups
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess))
 	int64 NumGroups;
 	
+	/**
+	 * Number of input channels
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess))
 	int64 NumChannels;
 	
+	/**
+	 * Smoothing term for stability
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess))
 	double Eps;
 	
+	/**
+	 * Determines if the layer has learnable affine parameters
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess))
 	bool bAffine;
 	
+	/**
+	 * Constructor
+	 */
 	UE_NODISCARD_CTOR
 	FAtumLayerGroupNormOptions() noexcept;
 	
+	/**
+	 * Returns the layer as the LibTorch object variant by overloading the relevant cast operator
+	 */
 	UE_NODISCARD
 	FORCEINLINE explicit operator torch::nn::GroupNormOptions() const noexcept
 	{ return torch::nn::GroupNormOptions(NumGroups, NumChannels).eps(Eps).affine(bAffine); }
 	
+	/**
+	 * Copies the data from a LibTorch structure
+	 * 
+	 * @param Options LibTorch-equivalent options instance
+	 */
 	void SetFrom(const torch::nn::GroupNormOptions& Options) noexcept;
 };
 

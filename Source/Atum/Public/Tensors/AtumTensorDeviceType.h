@@ -13,7 +13,9 @@ TORCH_INCLUDES_END
 
 #define LOCTEXT_NAMESPACE "AtumTensorDeviceType"
 
-// Represents every type of device that a tensor can be used in
+/**
+ * Represents every type of device that a tensor can be used in
+ */
 UENUM(BlueprintType, Category = "ATUM|Tensor", DisplayName = "ATUM Tensor Device Type", meta = (
 	Keywords = "ATUM Tensor Device Type"
 ))
@@ -68,10 +70,22 @@ enum class EAtumTensorDeviceType : uint8
 
 namespace AtumEnums
 {
+	/**
+	 * Transforms an ATUM enum value into a LibTorch enum value
+	 * 
+	 * @param DeviceType ATUM-equivalent device
+	 * @return LibTorch-equivalent device
+	 */
 	UE_NODISCARD
 	static FORCEINLINE CONSTEXPR c10::DeviceType Cast(const EAtumTensorDeviceType DeviceType) noexcept
 	{ return static_cast<c10::DeviceType>(DeviceType); }
-	
+
+	/**
+	 * Transforms a LibTorch enum value into an ATUM enum value
+	 * 
+	 * @param DeviceType LibTorch-equivalent device
+	 * @return ATUM-equivalent device
+	 */
 	UE_NODISCARD
 	static FORCEINLINE CONSTEXPR EAtumTensorDeviceType Cast(const c10::DeviceType DeviceType) noexcept
 	{ return static_cast<EAtumTensorDeviceType>(DeviceType); }

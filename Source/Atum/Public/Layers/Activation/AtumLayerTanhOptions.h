@@ -9,6 +9,9 @@
 
 #define LOCTEXT_NAMESPACE "AtumLayerTanhOptions"
 
+/**
+ * Options structure for the Tanh layer
+ */
 USTRUCT(BlueprintType, DisplayName = "ATUM Tanh Layer Options")
 struct ATUM_API FAtumLayerTanhOptions : public FAtumLayerBaseOptions
 {

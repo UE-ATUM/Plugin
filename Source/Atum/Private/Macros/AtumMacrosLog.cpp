@@ -11,6 +11,11 @@ DEFINE_LOG_CATEGORY(LogAtum)
 
 namespace
 {
+	/**
+	 * Checks if the runtime module is allowed to log messages
+	 * 
+	 * @return Can messages be logged?
+	 */
 	UE_NODISCARD
 	FORCEINLINE bool AreLogsEnabled() noexcept { return GetDefault<UAtumSettingsDev>()->IsLogAtumEnabled(); }
 }

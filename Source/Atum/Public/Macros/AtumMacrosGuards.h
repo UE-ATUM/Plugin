@@ -8,6 +8,9 @@
 #define LOCTEXT_NAMESPACE "AtumMacrosGuards"
 
 #ifndef TORCH_INCLUDES_START
+/**
+ * Macro for disabling warnings before including LibTorch headers
+ */
 #define TORCH_INCLUDES_START \
 __pragma(warning(push)) \
 \
@@ -76,6 +79,9 @@ THIRD_PARTY_INCLUDES_START
 #endif
 
 #ifndef TORCH_INCLUDES_END
+/**
+ * Macro for enabling warnings after including LibTorch headers
+ */
 #define TORCH_INCLUDES_END \
 THIRD_PARTY_INCLUDES_END \
 __pragma(warning(pop))

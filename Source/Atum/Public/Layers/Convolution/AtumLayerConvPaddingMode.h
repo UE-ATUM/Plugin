@@ -14,6 +14,9 @@ TORCH_INCLUDES_END
 
 #define LOCTEXT_NAMESPACE "AtumLayerConvPaddingMode"
 
+/**
+ * Represents the padding modes available in convolutional layers
+ */
 UENUM(BlueprintType, Category = "ATUM|Conv", DisplayName = "ATUM Conv Padding Mode", meta = (
 	Keywords = "ATUM Conv Padding Mode"
 ))
@@ -28,6 +31,13 @@ enum class EAtumConvPaddingMode : uint8
 
 namespace AtumEnums
 {
+	/**
+	 * Transforms an ATUM enum value into a LibTorch enum value
+	 * 
+	 * @tparam Dimensions Layer's dimensionality variant
+	 * @param ConvPaddingMode ATUM-equivalent padding mode
+	 * @return LibTorch-equivalent padding mode
+	 */
 	template <uint64 Dimensions = 1ULL>
 	requires (1ULL <= Dimensions && Dimensions <= 3ULL)
 	UE_NODISCARD
@@ -54,7 +64,14 @@ namespace AtumEnums
 			return torch::kZeros;
 		}
 	}
-
+	
+	/**
+	 * Transforms a LibTorch enum value into an ATUM enum value
+	 * 
+	 * @tparam Dimensions Layer's dimensionality variant
+	 * @param ConvPaddingMode LibTorch-equivalent padding mode
+	 * @return ATUM-equivalent padding mode
+	 */
 	template <uint64 Dimensions = 1ULL>
 	requires (1ULL <= Dimensions && Dimensions <= 3ULL)
 	UE_NODISCARD

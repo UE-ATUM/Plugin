@@ -14,46 +14,90 @@ TORCH_INCLUDES_END
 
 #define LOCTEXT_NAMESPACE "AtumLayerConvTransposeOptions"
 
+/**
+ * Options structure for the Convolutional Transpose layer
+ */
 USTRUCT(BlueprintType, DisplayName = "ATUM Conv Transpose Layer Options")
 struct ATUM_API FAtumLayerConvTransposeOptions : public FAtumLayerBaseOptions
 {
 	GENERATED_BODY()
 	
+	/**
+	 * Number of channels in the input image
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess))
 	int64 InChannels;
 	
+	/**
+	 * Number of channels in the output image
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess))
 	int64 OutChannels;
 	
+	/**
+	 * Size of convolving kernel
+	 */
 	UPROPERTY(EditFixedSize, EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess))
 	TArray<int64> KernelSize;
 	
+	/**
+	 * Convolution stride
+	 */
 	UPROPERTY(EditFixedSize, EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess))
 	TArray<int64> Stride;
 	
+	/**
+	 * Padding added to all four sides of the image
+	 */
 	UPROPERTY(EditFixedSize, EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess))
 	TArray<int64> Padding;
 	
+	/**
+	 * Padding added to one side of the output image
+	 */
 	UPROPERTY(EditFixedSize, EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess))
 	TArray<int64> OutputPadding;
 	
+	/**
+	 * Number of blocked connections from the input to the output
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess))
 	int64 Groups;
 	
+	/**
+	 * Determines if the output should have a learnable bias added to it
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess))
 	bool bBias;
 	
+	/**
+	 * Spacing between kernels
+	 */
 	UPROPERTY(EditFixedSize, EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess))
 	TArray<int64> Dilation;
 	
+	/**
+	 * Constructor
+	 */
 	UE_NODISCARD_CTOR
 	explicit FAtumLayerConvTransposeOptions(uint64 Dimensions = 0ULL) noexcept;
 	
+	/**
+	 * Returns the layer as the LibTorch object variant by overloading the relevant cast operator
+	 * 
+	 * @tparam Dimensions Layer's dimensionality variant
+	 */
 	template <uint64 Dimensions>
 	requires (1ULL <= Dimensions && Dimensions <= 3ULL)
 	UE_NODISCARD
 	explicit operator torch::nn::ConvTransposeOptions<Dimensions>() const noexcept;
 	
+	/**
+	 * Copies the data from a LibTorch structure
+	 * 
+	 * @tparam Dimensions Layer's dimensionality variant
+	 * @param Options LibTorch-equivalent options instance
+	 */
 	template <uint64 Dimensions>
 	requires (1ULL <= Dimensions && Dimensions <= 3ULL)
 	void SetFrom(const torch::nn::detail::ConvNdOptions<Dimensions>& Options) noexcept;

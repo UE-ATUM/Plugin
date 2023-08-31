@@ -15,6 +15,9 @@ TORCH_INCLUDES_END
 
 #define LOCTEXT_NAMESPACE "AtumLayerLocalResponseNorm"
 
+/**
+ * Local Response Normalisation layer implementation
+ */
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Local Response Norm Layer")
 class ATUM_API UAtumLayerLocalResponseNorm : public UObject, public IAtumLayerBaseNormalization
 {
@@ -22,6 +25,9 @@ class ATUM_API UAtumLayerLocalResponseNorm : public UObject, public IAtumLayerBa
 	GENERATED_ATUM_LAYER(FAtumLayerLocalResponseNormOptions, torch::nn::LocalResponseNorm)
 	
 protected:
+	/**
+	 * Structure containing this instance's options
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties, ExposeOnSpawn))
 	FAtumLayerLocalResponseNormOptions Options;
 };

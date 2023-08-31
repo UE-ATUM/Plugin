@@ -14,16 +14,29 @@ TORCH_INCLUDES_END
 
 #define LOCTEXT_NAMESPACE "AtumLibraryCuda"
 
+/**
+ * Collection of Blueprint functions related to CUDA
+ */
 UCLASS(Abstract, Blueprintable, BlueprintType, DisplayName = "ATUM CUDA Library")
 class ATUM_API UAtumLibraryCuda : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 	
 public:
+	/**
+	 * Checks if CUDA can be used
+	 * 
+	 * @return Is CUDA available?
+	 */
 	UE_NODISCARD
 	UFUNCTION(BlueprintPure, Category = "ATUM|CUDA")
 	static FORCEINLINE bool IsCudaAvailable() noexcept { return torch::cuda::is_available(); }
 	
+	/**
+	 * Checks if cuDNN can be used
+	 * 
+	 * @return Is cuDNN available?
+	 */
 	UE_NODISCARD
 	UFUNCTION(BlueprintPure, Category = "ATUM|CUDA")
 	static FORCEINLINE bool IsCudnnAvailable() noexcept { return torch::cuda::cudnn_is_available(); }

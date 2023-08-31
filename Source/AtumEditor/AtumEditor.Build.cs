@@ -3,9 +3,15 @@
 using UnrealBuildTool;
 
 
-// ReSharper disable once InconsistentNaming
+/**
+ * Module which implements editor functionality of ATUM
+ */
 public class AtumEditor : ModuleRules
 {
+	// ReSharper disable once InconsistentNaming
+	/**
+	 * Constructor
+	 */
 	public AtumEditor(ReadOnlyTargetRules Target) : base(Target)
 	{
 		Type = ModuleType.CPlusPlus;

@@ -15,6 +15,9 @@ TORCH_INCLUDES_END
 
 #define LOCTEXT_NAMESPACE "AtumLayerGroupNorm"
 
+/**
+ * Group Normalisation layer implementation
+ */
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Group Norm Layer")
 class ATUM_API UAtumLayerGroupNorm : public UObject, public IAtumLayerBaseNormalization
 {
@@ -22,6 +25,9 @@ class ATUM_API UAtumLayerGroupNorm : public UObject, public IAtumLayerBaseNormal
 	GENERATED_ATUM_LAYER(FAtumLayerGroupNormOptions, torch::nn::GroupNorm)
 	
 protected:
+	/**
+	 * Structure containing this instance's options
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties, ExposeOnSpawn))
 	FAtumLayerGroupNormOptions Options;
 };

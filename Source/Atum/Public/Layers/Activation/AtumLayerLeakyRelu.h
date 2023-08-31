@@ -15,6 +15,9 @@ TORCH_INCLUDES_END
 
 #define LOCTEXT_NAMESPACE "AtumLayerLeakyRelu"
 
+/**
+ * Leaky ReLU layer implementation
+ */
 UCLASS(Blueprintable, BlueprintType, DisplayName = "ATUM Leaky ReLU Layer")
 class ATUM_API UAtumLayerLeakyRelu : public UObject, public IAtumLayerBaseActivation
 {
@@ -22,6 +25,9 @@ class ATUM_API UAtumLayerLeakyRelu : public UObject, public IAtumLayerBaseActiva
 	GENERATED_ATUM_LAYER(FAtumLayerLeakyReluOptions, torch::nn::LeakyReLU)
 	
 protected:
+	/**
+	 * Structure containing this instance's options
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess, ShowOnlyInnerProperties, ExposeOnSpawn))
 	FAtumLayerLeakyReluOptions Options;
 };
