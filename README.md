@@ -102,7 +102,7 @@ _Those files can be accessed from the official [PyTorch website](https://pytorch
 
 ## Usage
 
-TODO: show examples ![(if i had one)](https://img-9gag-fun.9cache.com/photo/aZr6oAW_700bwp.webp)
+Check out the project at https://github.com/bUsernameIsUnavailable/CartPole
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
